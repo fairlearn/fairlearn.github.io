@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Binary Classification on COMPAS dataset &#8212; fairlearn 0.4.5 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Examples Gallery" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-binary-classification-compas-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="binary-classification-on-compas-dataset">
+<span id="sphx-glr-auto-examples-plot-binary-classification-compas-py"></span><h1>Binary Classification on COMPAS dataset<a class="headerlink" href="#binary-classification-on-compas-dataset" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="getting-and-preparing-the-data">
+<h2>Getting and preparing the data<a class="headerlink" href="#getting-and-preparing-the-data" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate the post processing algorithm we use the “COMPAS” dataset from
+<a class="reference external" href="https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv">ProPublica</a>.
+The labels represent the two-year recidivism ID, i.e. whether a person got
+rearrested within two years (label 1) or not (label 0). The features include
+sex, age, as well as information on prior incidents.</p>
+<p>To start, let’s download the dataset using <cite>tempeh</cite></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tempeh.configurations</span> <span class="kn">import</span> <span class="n">datasets</span>
+
+<span class="n">compas_dataset</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="s2">&quot;compas&quot;</span><span class="p">]()</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a> <span class="o">=</span> <span class="n">compas_dataset</span><span class="o">.</span><span class="n">get_X</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a> <span class="o">=</span> <span class="n">compas_dataset</span><span class="o">.</span><span class="n">get_y</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">)</span>
+<span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_train</span></a><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_test</span></a><span class="p">,</span>
+<span class="p">)</span> <span class="o">=</span> <span class="n">compas_dataset</span><span class="o">.</span><span class="n">get_sensitive_features</span><span class="p">(</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html#pandas.DataFrame.loc" title="pandas.DataFrame.loc" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_train</span><span class="o">.</span><span class="n">loc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(age                        25.000000
+juv_fel_count               0.000000
+juv_misd_count             -2.340451
+juv_other_count             1.000000
+priors_count              -15.010999
+age_cat_25 - 45             1.000000
+age_cat_Greater than 45     0.000000
+age_cat_Less than 25        0.000000
+c_charge_degree_F           0.000000
+c_charge_degree_M           1.000000
+Name: 0, dtype: float64, 1.0)
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-fairness-unaware-model">
+<h2>Create a fairness-unaware model<a class="headerlink" href="#create-a-fairness-unaware-model" title="Permalink to this headline">¶</a></h2>
+<p>First we set up a helper function that will help in analyzing the dataset as
+well as predictions from our models. Feel free to skip to the next cell for
+the actual logic.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+
+
+<span class="c1"># show_proportions is only a helper function for plotting</span>
+<span class="k">def</span> <span class="nf">show_proportions</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_row_index</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">description</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">plot_row_index</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P[recidivism predicted | conditions]&quot;</span><span class="p">)</span>
+
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">positive_indices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">negative_indices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">recidivism_count</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">recidivism_pct</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">n_groups</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+    <span class="n">max_group_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">])</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">rainbow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">))</span>
+    <span class="n">x_tick_labels_basic</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">x_tick_labels_by_label</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">groups</span><span class="p">):</span>
+        <span class="n">indices</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensitive_features</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">sensitive_features</span> <span class="o">==</span> <span class="n">group</span><span class="p">]</span>
+        <span class="n">recidivism_count</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">group</span><span class="p">]])</span>
+        <span class="n">recidivism_pct</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">recidivism_count</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;P[recidivism predicted | </span><span class="si">{}</span><span class="s2">]                </span><span class="si">{}</span><span class="s2">= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">group</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_group_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)),</span> <span class="n">recidivism_pct</span><span class="p">[</span><span class="n">group</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">recidivism_pct</span><span class="p">[</span><span class="n">group</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">x_tick_labels_basic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">positive_indices</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensitive_features</span><span class="o">.</span><span class="n">index</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">sensitive_features</span> <span class="o">==</span> <span class="n">group</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">negative_indices</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensitive_features</span><span class="o">.</span><span class="n">index</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">sensitive_features</span> <span class="o">==</span> <span class="n">group</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">prob_1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">positive_indices</span><span class="p">[</span><span class="n">group</span><span class="p">]])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">positive_indices</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
+            <span class="n">prob_0</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">negative_indices</span><span class="p">[</span><span class="n">group</span><span class="p">]])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">negative_indices</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;P[recidivism predicted | </span><span class="si">{}</span><span class="s2">, recidivism]    </span><span class="si">{}</span><span class="s2">= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">group</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_group_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)),</span> <span class="n">prob_1</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;P[recidivism predicted | </span><span class="si">{}</span><span class="s2">, no recidivism] </span><span class="si">{}</span><span class="s2">= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">group</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_group_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)),</span> <span class="n">prob_0</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">n_groups</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">index</span><span class="p">,</span> <span class="n">prob_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">n_groups</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">index</span><span class="p">,</span> <span class="n">prob_0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="n">x_tick_labels_by_label</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> recidivism&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> no recidivism&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">)]</span>
+            <span class="p">)</span>
+
+    <span class="n">x_tick_labels</span> <span class="o">=</span> <span class="n">x_tick_labels_basic</span> <span class="o">+</span> <span class="n">x_tick_labels_by_label</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_tick_labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">x_tick_labels</span><span class="p">,</span>
+        <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+        <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>To get started we look at a very basic Logistic Regression model. We fit it
+to the training data and plot some characteristics of training and test data
+as well as the predictions of the model on those datasets.</p>
+<p>We notice a stark contrast in the predictions with African-Americans being a
+lot more likely to be predicted to reoffend, similar to the original training
+data. However, there’s even a disparity between the subgroup of
+African-Americans and Caucasians with recidivism. When considering only the
+samples labeled with “no recidivism” African-Americans are much more likely
+to be predicted to reoffend than Caucasians. The test data shows a similar
+disparity.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
+
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.fit" title="sklearn.linear_model.LogisticRegression.fit" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class=&#39;auto&#39;, n_jobs=None, penalty=&#39;l2&#39;,
+                   random_state=None, solver=&#39;liblinear&#39;, tol=0.0001, verbose=0,
+                   warm_start=False)
+</pre></div>
+</div>
+<p>print and plot data from training and test set as well as predictions with
+fairness-unaware classifier on both sets show only test data related plots by
+default - uncomment the next two lines to see training data plots as well</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># show_proportions(X_train, sensitive_features_train, y_train,</span>
+<span class="c1">#                  description=&quot;original training data:&quot;, plot_row_index=1)</span>
+<span class="c1"># show_proportions(X_train, sensitive_features_train,</span>
+<span class="c1">#                  estimator.predict(X_train), y_train,</span>
+<span class="c1">#                  description=&quot;fairness-unaware prediction on training data:&quot;,</span>
+<span class="c1">#                  plot_row_index=2)</span>
+<span class="n">show_proportions</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_test</span></a><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;original test data:&quot;</span><span class="p">,</span>
+    <span class="n">plot_row_index</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">show_proportions</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_test</span></a><span class="p">,</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">estimator</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">),</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;fairness-unaware prediction on test data:&quot;</span><span class="p">,</span>
+    <span class="n">plot_row_index</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="../_images/sphx_glr_plot_binary_classification_COMPAS_001.png" class="sphx-glr-multi-img" src="../_images/sphx_glr_plot_binary_classification_COMPAS_001.png" />
+</li>
+<li><img alt="../_images/sphx_glr_plot_binary_classification_COMPAS_002.png" class="sphx-glr-multi-img" src="../_images/sphx_glr_plot_binary_classification_COMPAS_002.png" />
+</li>
+</ul>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>original test data:
+P[recidivism predicted | African-American]                = 0.5457198443579766
+P[recidivism predicted | Caucasian]                       = 0.3795518207282913
+
+fairness-unaware prediction on test data:
+P[recidivism predicted | African-American]                = 0.5155642023346303
+P[recidivism predicted | African-American, recidivism]    = 0.661319073083779
+P[recidivism predicted | African-American, no recidivism] = 0.3404710920770878
+P[recidivism predicted | Caucasian]                       = 0.2857142857142857
+P[recidivism predicted | Caucasian, recidivism]           = 0.42435424354243545
+P[recidivism predicted | Caucasian, no recidivism]        = 0.20090293453724606
+</pre></div>
+</div>
+</div>
+<div class="section" id="postprocessing-the-model-to-get-a-fair-model">
+<h2>Postprocessing the model to get a fair model<a class="headerlink" href="#postprocessing-the-model-to-get-a-fair-model" title="Permalink to this headline">¶</a></h2>
+<p>The idea behind postprocessing is to alter the output of the fairness-unaware
+model to achieve fairness. The postprocessing algorithm requires three input
+arguments:
+- the matrix of samples X
+- the vector of predictions y from the fairness-unaware model
+- the vector of group attribute values A (in the code we refer to it as <cite>sensitive_features</cite>)</p>
+<p>The goal is to make the output fair with respect to constraints. The
+postprocessing algorithm uses one of</p>
+<ul class="simple">
+<li><p>Demographic Parity (DP):
+<span class="math notranslate nohighlight">\(P\ [\ h(X)=\hat{y}\ |\ A=a] = P\ [\ h(X)=\hat{y}\ ] \qquad \forall a, \hat{y}\)</span></p></li>
+<li><p>Equalized Odds (EO):
+<span class="math notranslate nohighlight">\(P\ [\ h(X)=\hat{y}\ |\ A=a, Y=y] = P\ [\ h(X)=\hat{y}\ |\ Y=y\ ] \qquad \forall a, \hat{y}\)</span></p></li>
+</ul>
+<p>where <span class="math notranslate nohighlight">\(h(X)\)</span> is the prediction based on the input <span class="math notranslate nohighlight">\(X\)</span>,
+<span class="math notranslate nohighlight">\(\hat{y}\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are labels, and <span class="math notranslate nohighlight">\(a\)</span> is a sensitive feature
+value. In this example, we’d expect the postprocessed model with DP to be
+balanced between races. In this particular scenario it makes more sense to
+aim at fairness through accuracy like EO. EO does not make the same
+guarantees. Instead, it ensures parity between the subgroups of each race
+with label 1 in the training set, and parity between the subgroups of each
+race with label 0 in the training set. Applied to this scenario, this means
+that the subgroups of each race who reoffended in the past are equally likely
+to be predicted to reoffend (and therefore also equally likely not to).
+Similarly, there is parity between subgroups of each race without recidivism,
+but we have no parity between the groups with different training labels. In
+mathematical terms at the example of African-American and Caucasian:</p>
+<div class="math notranslate nohighlight">
+\[P\ [\ \text{recidivism predicted}\ |\ \text{African-American, recidivism}\ ] = P\ [\ \text{recidivism predicted}\ |\ \text{Caucasian, recidivism}\ ], \text{e.g. } 0.95\]</div>
+<div class="math notranslate nohighlight">
+\[P\ [\ \text{recidivism predicted}\ |\ \text{African-American, no recidivism}\ ] = P\ [\ \text{recidivism predicted}\ |\ \text{Caucasian, no recidivism}\ ], \text{e.g. } 0.15\]</div>
+<p>but that also means that African-Americans (and Caucasians) of different
+subgroup based on training labels don’t necessarily have parity:</p>
+<div class="math notranslate nohighlight">
+\[P[\text{recidivism predicted} | \text{African-American, recidivism}] = 0.95 \neq 0.15 = P[\text{recidivism predicted} | \text{African-American, no recidivism}]\]</div>
+<p>Assessing which disparity metric is indeed fair varies by application
+scenario. In this case the evaluation focuses on Equalized Odds, because the
+recidivism prediction should be accurate for each race, and for each subgroup
+within. The plot for the training data shows the intended outcome, while the
+plot for the test data exhibits slight variation which is likely due to
+randomized predictions as well as a slightly different data distribution.</p>
+<p>This wrapper around the unconstrained estimator serves the purpose of mapping
+the predict method to <code class="docutils literal notranslate"><span class="pre">predict_proba`</span></code> so that we can use real values to get
+more accurate estimates.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">BaseEstimator</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">ClassifierMixin</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.validation.check_is_fitted.html#sklearn.utils.validation.check_is_fitted" title="sklearn.utils.validation.check_is_fitted" class="sphx-glr-backref-module-sklearn-utils-validation sphx-glr-backref-type-py-function"><span class="n">check_is_fitted</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.exceptions.NotFittedError.html#sklearn.exceptions.NotFittedError" title="sklearn.exceptions.NotFittedError" class="sphx-glr-backref-module-sklearn-exceptions sphx-glr-backref-type-py-class"><span class="n">NotFittedError</span></a>
+
+
+<span class="k">class</span> <span class="nc">LogisticRegressionAsRegression</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">BaseEstimator</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">ClassifierMixin</span></a><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logistic_regression_estimator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator</span> <span class="o">=</span> <span class="n">logistic_regression_estimator</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.validation.check_is_fitted.html#sklearn.utils.validation.check_is_fitted" title="sklearn.utils.validation.check_is_fitted" class="sphx-glr-backref-module-sklearn-utils-validation sphx-glr-backref-type-py-function"><span class="n">check_is_fitted</span></a><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator</span>
+        <span class="k">except</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.exceptions.NotFittedError.html#sklearn.exceptions.NotFittedError" title="sklearn.exceptions.NotFittedError" class="sphx-glr-backref-module-sklearn-exceptions sphx-glr-backref-type-py-class"><span class="n">NotFittedError</span></a><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># use predict_proba to get real values instead of 0/1, select only prob for 1</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logistic_regression_estimator_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">scores</span>
+
+
+<span class="kn">from</span> <span class="nn">fairlearn.postprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">ThresholdOptimizer</span></a>
+
+<span class="n">estimator_wrapper</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">LogisticRegressionAsRegression</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">)</span>
+<span class="n">postprocessed_predictor_EO</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">ThresholdOptimizer</span></a><span class="p">(</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a><span class="o">=</span><span class="n">estimator_wrapper</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;equalized_odds&quot;</span><span class="p">,</span> <span class="n">prefit</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_train</span></a>
+<span class="p">)</span>
+
+<span class="n">fairness_aware_predictions_EO_train</span> <span class="o">=</span> <span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_train</span></a>
+<span class="p">)</span>
+<span class="n">fairness_aware_predictions_EO_test</span> <span class="o">=</span> <span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_test</span></a>
+<span class="p">)</span>
+
+<span class="c1"># show only test data related plot by default - uncomment the next line to see</span>
+<span class="c1"># training data plot as well</span>
+
+<span class="c1"># show_proportions(</span>
+<span class="c1">#     X_train, sensitive_features_train, fairness_aware_predictions_EO_train,</span>
+<span class="c1">#     y_train,</span>
+<span class="c1">#     description=&quot;equalized odds with postprocessed model on training data:&quot;,</span>
+<span class="c1">#     plot_row_index=1)</span>
+<span class="n">show_proportions</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_test</span></a><span class="p">,</span>
+    <span class="n">fairness_aware_predictions_EO_test</span><span class="p">,</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;equalized odds with postprocessed model on test data:&quot;</span><span class="p">,</span>
+    <span class="n">plot_row_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_binary_classification_COMPAS_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_binary_classification_COMPAS_003.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>equalized odds with postprocessed model on test data:
+P[recidivism predicted | African-American]                = 0.46108949416342415
+P[recidivism predicted | African-American, recidivism]    = 0.5686274509803921
+P[recidivism predicted | African-American, no recidivism] = 0.33190578158458245
+P[recidivism predicted | Caucasian]                       = 0.4677871148459384
+P[recidivism predicted | Caucasian, recidivism]           = 0.6236162361623616
+P[recidivism predicted | Caucasian, no recidivism]        = 0.3724604966139955
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-processing-in-detail">
+<h2>Post Processing in Detail<a class="headerlink" href="#post-processing-in-detail" title="Permalink to this headline">¶</a></h2>
+<p>While this worked as the numbers show, it’s not entirely obvious how it found
+its solution. The following section will provide a deep dive on post
+processing for Equalized Odds (EO).</p>
+<p>The post processing method (based on work by <a class="reference external" href="https://arxiv.org/pdf/1610.02413.pdf">Hardt, Price,
+Srebro</a>) takes a fairness-unaware model
+and disparity constraints (such as EO) in the constructor and features (X),
+labels (y), and a sensitive feature (sensitive_features) in the fit method.
+It subsequently uses the model to make predictions for all samples in X. Note
+that these predictions could be 0/1 (as in this example), or more categories,
+or even real valued scores. In this case, this looks as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">estimator_wrapper</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">)</span>
+<span class="n">scores</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([0.08323404, 0.43451484, 0.54980294, ..., 0.56740062, 0.22122327,
+       0.37423461])
+</pre></div>
+</div>
+<div class="section" id="finding-threshold-rules">
+<h3>Finding threshold rules<a class="headerlink" href="#finding-threshold-rules" title="Permalink to this headline">¶</a></h3>
+<p>The algorithm then tries to find all thresholding rules with which it could
+divide the data. Any score for which the thresholding rule evaluates to true
+is predicted to be 1. It does that for each group, so in this case for each
+race. Depending on the unconstrained predictor’s scores you could have lots
+of thresholding rules, between each set of such values. For each rule we just
+evaluate the following two probabilities empirically:</p>
+<div class="math notranslate nohighlight">
+\[P[\hat{Y} = 1 | Y = 0] \text{ which is labeled x below to indicate that it'll be plotted on the x-axis}\]</div>
+<div class="math notranslate nohighlight">
+\[P[\hat{Y} = 1 | Y = 1] \text{ which is labeled y below to indicate that it'll be plotted on the y-axis}\]</div>
+<p>The former is the false negative rate (of that group), while the latter is
+the true positive rate (of that group). In this example, the threshold rules
+would be the ones shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.postprocessing._threshold_optimizer</span> <span class="kn">import</span> <span class="n">_reformat_and_group_data</span>
+
+<span class="n">data_grouped_by_sensitive_feature</span> <span class="o">=</span> <span class="n">_reformat_and_group_data</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.astype.html#pandas.Series.astype" title="pandas.Series.astype" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">y_train</span><span class="o">.</span><span class="n">astype</span></a><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">scores</span>
+<span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.DataFrameGroupBy.describe.html#pandas.core.groupby.DataFrameGroupBy.describe" title="pandas.core.groupby.DataFrameGroupBy.describe" class="sphx-glr-backref-module-pandas-core-groupby sphx-glr-backref-type-py-method"><span class="n">data_grouped_by_sensitive_feature</span><span class="o">.</span><span class="n">describe</span></a><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">fairlearn.postprocessing._roc_curve_utilities</span> <span class="kn">import</span> <span class="n">_calculate_roc_points</span>
+
+<span class="n">roc_points</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data_grouped_by_sensitive_feature</span><span class="p">:</span>
+    <span class="n">roc_points</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_calculate_roc_points</span><span class="p">(</span>
+        <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.GroupBy.get_group.html#pandas.core.groupby.GroupBy.get_group" title="pandas.core.groupby.GroupBy.get_group" class="sphx-glr-backref-module-pandas-core-groupby sphx-glr-backref-type-py-method"><span class="n">data_grouped_by_sensitive_feature</span><span class="o">.</span><span class="n">get_group</span></a><span class="p">(</span><span class="n">group_name</span><span class="p">),</span> <span class="mi">0</span>
+    <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thresholding rules:&quot;</span><span class="p">)</span>
+<span class="n">roc_points</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Thresholding rules:
+
+{&#39;African-American&#39;:              x  ...               operation
+0     0.000000  ...                  [&gt;inf]
+1     0.000000  ...   [&gt;0.9894717395978474]
+2     0.000000  ...   [&gt;0.9832299702680278]
+3     0.000000  ...   [&gt;0.9767016738850934]
+4     0.000000  ...   [&gt;0.9755579558991025]
+...        ...  ...                     ...
+1339  0.997135  ...  [&gt;0.07794734423504954]
+1340  0.998090  ...  [&gt;0.06980843567768341]
+1342  0.999045  ...  [&gt;0.06410481191645395]
+1343  0.999045  ...  [&gt;0.04892218445583864]
+1344  1.000000  ...                 [&gt;-inf]
+
+[1345 rows x 3 columns], &#39;Caucasian&#39;:             x  ...               operation
+0    0.000000  ...                  [&gt;inf]
+1    0.000000  ...   [&gt;0.9901698849834395]
+2    0.000000  ...   [&gt;0.9843556044263456]
+3    0.000000  ...   [&gt;0.9780210112158703]
+4    0.000000  ...   [&gt;0.9719729383415978]
+..        ...  ...                     ...
+885  0.995227  ...   [&gt;0.0680332984683496]
+886  0.996420  ...  [&gt;0.06078803669146356]
+887  0.997613  ...  [&gt;0.04566358154803128]
+888  0.998807  ...  [&gt;0.02003713764039698]
+889  1.000000  ...                 [&gt;-inf]
+
+[890 rows x 3 columns]}
+</pre></div>
+</div>
+<p>The base points with (x,y) as (0,0) and (1,1) always exist, because that
+essentially just means that we’re predicting everything as 0 or everything as
+1 regardless of the scores from the fairness-unaware model. Let’s look at
+both cases:</p>
+<ul class="simple">
+<li><p>x=0, y=0, threshold rule “&gt;inf”: more than infinity is impossible, which
+means every sample is predicted as 0. That means <span class="math notranslate nohighlight">\(P[\hat{Y} = 1 | Y =
+0] = 0\)</span> (represented as x) because the predictions <span class="math notranslate nohighlight">\(\hat{Y}\)</span> are
+never 1, and similarly <span class="math notranslate nohighlight">\(P[\hat{Y} = 1 | Y = 1] = 0\)</span> (represented as
+y).</p></li>
+<li><p>x=1, y=1, threshold rule “&gt;-inf”: more than infinity is always true, which
+means every sample is predicted as 1. That means <span class="math notranslate nohighlight">\(P[\hat{Y} = 1 | Y =
+0] = 1\)</span> (represented as x) because the predictions <span class="math notranslate nohighlight">\(\hat{Y}\)</span> are
+always 1, and similarly <span class="math notranslate nohighlight">\(P[\hat{Y} = 1 | Y = 1] = 1\)</span> (represented as
+y).</p></li>
+</ul>
+<p>The more interesting logic happens in between. The x and y values were
+calculated as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_group_0</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">n_group_1</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data_grouped_by_sensitive_feature</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_name</span><span class="p">))</span>
+    <span class="n">n_group_1</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+    <span class="n">n_group_0</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_group_1</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    number of samples with label 1: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_group_1</span><span class="p">[</span><span class="n">group_name</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    number of samples with label 0: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_group_0</span><span class="p">[</span><span class="n">group_name</span><span class="p">]))</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="k">for</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data_grouped_by_sensitive_feature</span><span class="p">:</span>
+    <span class="n">x_group_0_5</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">sum</span><span class="p">((</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">n_group_0</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">y_group_0_5</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">sum</span><span class="p">((</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">n_group_1</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_name</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    P[Ŷ = 1 | Y = 0] = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_group_0_5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    P[Ŷ = 1 | Y = 1] = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_group_0_5</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>African-American:
+    number of samples with label 1: 1100
+    number of samples with label 0: 1047
+Caucasian:
+    number of samples with label 1: 551
+    number of samples with label 0: 838
+African-American:
+    P[Ŷ = 1 | Y = 0] = 0.34001910219675263
+    P[Ŷ = 1 | Y = 1] = 0.6854545454545454
+Caucasian:
+    P[Ŷ = 1 | Y = 0] = 0.1801909307875895
+    P[Ŷ = 1 | Y = 1] = 0.4010889292196007
+</pre></div>
+</div>
+<p>Note that it never makes sense to have <span class="math notranslate nohighlight">\(x&gt;y\)</span> because in that case you’re
+better off flipping labels, i.e. completely turning around the meaning of the
+scores. The method automatically does that unless specified otherwise.</p>
+</div>
+<div class="section" id="interpolated-predictions-and-probabilistic-classifiers">
+<h3>Interpolated Predictions and Probabilistic Classifiers<a class="headerlink" href="#interpolated-predictions-and-probabilistic-classifiers" title="Permalink to this headline">¶</a></h3>
+<p>This way you end up with a set of points above the diagonal line connecting
+(0,0) and (1,1). We calculate the convex hull based on that, because we can
+reach any point in between two known thresholding points by interpolation. An
+interpolation could be <span class="math notranslate nohighlight">\(p_0 (x_0, y_0) + p_1 (x_1, y_1)\)</span>. For the post
+processing algorithm that would mean that we use the rule defined by
+<span class="math notranslate nohighlight">\((x_0, y_0, \text{operation}_0)\)</span> <span class="math notranslate nohighlight">\(\quad p_0\)</span> percent of the time,
+and the rule defined by <span class="math notranslate nohighlight">\((x_1, y_1, \text{operation}_1)\)</span> <span class="math notranslate nohighlight">\(\quad
+p_1\)</span> percent of the time, thus resulting in a probabilistic classifier.
+Depending on the data certain fairness objectives can only be accomplished
+with probabilistic classifiers. However, not every use case lends itself to
+probabilistic classifiers, since it could mean that two people with identical
+features are classified differently.</p>
+</div>
+<div class="section" id="finding-the-equalized-odds-solution">
+<h3>Finding the Equalized Odds solution<a class="headerlink" href="#finding-the-equalized-odds-solution" title="Permalink to this headline">¶</a></h3>
+<p>From all the ROC points (see below) we need to extract the convex hull for
+both groups/curves.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data_grouped_by_sensitive_feature</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">roc_points</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">roc_points</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$P [ </span><span class="se">\\</span><span class="s2">hat</span><span class="si">{Y}</span><span class="s2">=1 | Y=0 ]$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$P [ </span><span class="se">\\</span><span class="s2">hat</span><span class="si">{Y}</span><span class="s2">=1 | Y=1 ]$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_binary_classification_COMPAS_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_binary_classification_COMPAS_004.png" />
+<p>In the Equalized Odds case, we need to find a point where the presented
+probabilities (false positive rate, true positive rate, and thereby also true
+negative rate and false negative rate) for the corresponding groups match
+while minimizing the error, which is equivalent to finding the minimum error
+overlap of the convex hulls of the ROC curves. The error in the chart is
+smallest in the top left corner. This is done as part of the <cite>fit</cite> step
+above, and we’ll repeat it here for completeness. The yellow area is the
+overlap between the areas under the curve that are reachable with
+interpolation for both groups. Of course, this works for more than two groups
+as well. The result is that we have interpolated solutions for each group,
+i.e. every prediction is calculated as the weighted result of two threshold
+rules.</p>
+<p>In this particular case the Caucasian curve is always below or matching the
+African-American curve. That means that the area under the Caucasian curve is
+also identical to the overlap. That does not always happen, though, and
+overlaps can be fairly complex with multiple intersecting curves defining its
+outline.</p>
+<p>We can actually even look up the specific interpolations and interpret the
+results. Keep in mind that these interpolations come up with a floating point
+number between 0 and 1, and represent the probability of getting 0 or 1 in
+the predicted outcome.</p>
+<p>The result for African-Americans is a combination of two thresholding rules.
+The first rule checks whether the score is above 0.542, the other whether it
+is above 0.508. The first rule has a weight of 0.19, which means it
+determines 19% of the resulting probability. The second rule determines the
+remaining 81%. In the chart the Caucasian curve is below the African-American
+curve at the EO solution. This means that there is a slight adjustment
+according to the formula presented below.</p>
+<p>The Caucasian rules have somewhat lower thresholds: The first rule’s
+threshold is &gt;0.421 and it is basically the deciding factor with a weight of
+99.3%, while the second rule’s threshold is &gt;0.404.</p>
+<p>Overall, this means that the postprocessing algorithm learned to get
+probabilities consistent with Equalized Odds and minimal error by setting
+lower thresholds for Caucasians than for African-Americans. The resulting
+probability from the formula below is then the probability to get label 1
+from the probabilistic classifier.</p>
+<p>Note that this does not necessarily mean it’s fair. It simply enforced the
+constraints we asked it to enforce, as described by Equalized Odds. The
+societal context plays a crucial role in determining whether this is fair.</p>
+<p>The parameters <cite>p_ignore</cite> and <cite>prediction_constant</cite> are irrelevant for cases
+where the curves intersect in the minimum error point. When that doesn’t
+happen, and the minimum error point is only part of one curve, then the
+interpolation is adjusted as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_ignore</span> <span class="o">*</span> <span class="n">prediction_constant</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_ignore</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">p0</span> <span class="o">*</span> <span class="n">operation0</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">operation1</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The adjustment should happen to the higher one of the curves and essentially
+brings it closer to the diagonal as represented by <cite>prediction_constant</cite>. In
+this case this is not required since the curves intersect, but we are
+actually slightly inaccurate because we only determine the minimum error
+point on a grid of x values, instead of calculating the intersection point
+analytically. By choosing a large <cite>grid_size</cite> this can be alleviated.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sensitive_features_train</span></a>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span>
+    <span class="n">group</span><span class="p">,</span>
+    <span class="n">interpolation</span><span class="p">,</span>
+<span class="p">)</span> <span class="ow">in</span> <span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">_post_processed_predictor_by_sensitive_feature</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">interpolation</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>African-American:
+[p_ignore: 0.23207031263141853
+  prediction_constant: 0.337
+  p0: 0.6265294117647058
+  operation0: [&gt;0.5255937372948403]
+  p1: 0.3734705882352942
+  operation1: [&gt;0.4511577443731408]]
+-----------------------------------
+Caucasian:
+[p_ignore: 0.0
+  prediction_constant: 0.337
+  p0: 0.003735849056603747
+  operation0: [&gt;0.5172897195295328]
+  p1: 0.9962641509433963
+  operation1: [&gt;0.40323605733701584]]
+-----------------------------------
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.234 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-binary-classification-compas-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/f1baf35b8f217e0243288f072661e7be/plot_binary_classification_COMPAS.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_binary_classification_COMPAS.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/63c0f36cfd64285ca660447b7b7f6b64/plot_binary_classification_COMPAS.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_binary_classification_COMPAS.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">fairlearn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fairlearn.metrics.html">fairlearn.metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fairlearn.postprocessing.html">fairlearn.postprocessing package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fairlearn.reductions.html">fairlearn.reductions package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fairlearn.widget.html">fairlearn.widget package</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples Gallery</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Examples Gallery</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Examples Gallery</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Microsoft Corporation..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/auto_examples/plot_binary_classification_COMPAS.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
