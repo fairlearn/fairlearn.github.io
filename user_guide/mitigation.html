@@ -5,11 +5,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Mitigation &#8212; Fairlearn 0.4.7.dev0 documentation</title>
+    <title>3. Mitigation &#8212; Fairlearn 0.4.7.dev0 documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/cards.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -22,8 +23,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Postprocessing" href="postprocessing.html" />
-    <link rel="prev" title="Dashboard" href="dashboard.html" />
+    <link rel="next" title="API Reference" href="../api_reference/index.html" />
+    <link rel="prev" title="2. Assessment" href="assessment.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
   </head>
@@ -46,23 +47,23 @@
         </li>
         
         <li class="nav-item active">
-            <a class="nav-link" href="main.html">User Guide</a>
+            <a class="nav-link" href="index.html">User Guide</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../api_reference/main.html">API Reference</a>
+            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../auto_examples/index.html">Example Notebooks</a>
+            <a class="nav-link" href="../auto_examples/notebooks/index.html">Example Notebooks</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../contribution_guide.html">Contribution Guide</a>
+            <a class="nav-link" href="../contributor_guide/index.html">Contributor Guide</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../community.html">Community</a>
+            <a class="nav-link" href="../community/index.html">Community</a>
         </li>
         
         
@@ -129,20 +130,8 @@
           
         
           
-
               <li class="active">
                   <a href="">Mitigation</a>
-                  <ul>
-                  
-                      <li class="">
-                          <a href="postprocessing.html">Postprocessing</a>
-                      </li>
-                  
-                      <li class="">
-                          <a href="reductions.html">Reductions</a>
-                      </li>
-                  
-                  </ul>
               </li>
           
         
@@ -165,9 +154,30 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
               
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
     <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#postprocessing" class="nav-link">Postprocessing</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#reductions" class="nav-link">Reductions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#exponentiated-gradient" class="nav-link">Exponentiated Gradient</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#grid-search" class="nav-link">Grid Search</a>
+        </li>
+    
+            </ul>
+        </li>
     
     </ul>
 </nav>
@@ -183,17 +193,66 @@
               <div>
                 
   <div class="section" id="mitigation">
-<span id="id1"></span><h1>Mitigation<a class="headerlink" href="#mitigation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Postprocessing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reductions.html">Reductions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="exponentiated_gradient.html">Exponentiated Gradient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grid_search.html">Grid Search</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<h1><span class="section-number">3. </span>Mitigation<a class="headerlink" href="#mitigation" title="Permalink to this headline">¶</a></h1>
+<p>Fairlearn contains the following algorithms for mitigating unfairness:</p>
+<table class="colwidths-given table" id="id11">
+<caption><span class="caption-text">Unfairness mitigation algorithms</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>algorithm</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>binary classification</p></th>
+<th class="head"><p>regression</p></th>
+<th class="head"><p>supported fairness definitions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">reductions.</span></code> <code class="code docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></p></th>
+<td><p>Black-box approach to fair classification described in <em>A Reductions</em>
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id8" id="id1">4</a>.</p></td>
+<td><p>✔</p></td>
+<td><p>✘ <sup>*</sup></p></td>
+<td><p>DP, EO, TPRP, ERR</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">reductions.</span></code> <code class="code docutils literal notranslate"><span class="pre">GridSearch</span></code></p></th>
+<td><p>Black-box approach described in Section 3.4 of <em>A Reductions</em>
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id8" id="id2">4</a>. For regression it acts as a
+grid-search variant of the algorithm described in Section 5 of
+<em>Fair Regression: Quantitative Definitions and Reduction-based</em>
+<em>Algorithms</em> <a class="footnote-reference brackets" href="#id9" id="id3">5</a>.</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>DP, EO, TPRP, ERR, BGL</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">postprocessing.</span></code> <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></p></th>
+<td><p>Postprocessing algorithm based on the paper <em>Equality of Opportunity</em>
+<em>in Supervised Learning</em> <a class="footnote-reference brackets" href="#id10" id="id4">6</a>. This technique takes as input an
+existing classifier and the sensitive feature, and derives a monotone
+transformation of the classifier’s prediction to enforce the specified
+parity constraints.</p></td>
+<td><p>✔</p></td>
+<td><p>✘</p></td>
+<td><p>DP, EO</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets">*</span></dt>
+<dd><p>coming soon!</p>
+</dd>
+</dl>
+<p>DP refers to demographic parity, EO to equalized odds, TPRD to true positive
+rate difference, ERR to error rate ratio, and BGL to bounded group loss. For
+more information on the definitions refer to
+<a class="reference internal" href="fairness_in_machine_learning.html#fairness-in-machine-learning"><span class="std std-ref">Fairness in Machine Learning</span></a>. To request additional algorithms or
+fairness definitions, please open a
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">new issue</a> on GitHub.</p>
 <p>The Fairlearn package largely follows the
 <a class="reference external" href="https://scikit-learn.org/stable/developers/contributing.html#different-objects">terminology established by scikit-learn</a>,
 specifically:</p>
@@ -208,6 +267,37 @@ predictions is required to satisfy many definitions of fairness. Because of
 randomization, it is possible to get different outputs from the predictor’s
 <code class="code docutils literal notranslate"><span class="pre">predict</span></code> method on identical data. For each of our methods, we provide
 explicit access to the probability distribution used for randomization.</p>
+<div class="section" id="postprocessing">
+<span id="id6"></span><h2><span class="section-number">3.1. </span>Postprocessing<a class="headerlink" href="#postprocessing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reductions">
+<span id="id7"></span><h2><span class="section-number">3.2. </span>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exponentiated-gradient">
+<h3><span class="section-number">3.2.1. </span>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="grid-search">
+<h3><span class="section-number">3.2.2. </span>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets">4</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
+Reduction-based Algorithms”</a>,
+ICML, 2019.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id3">5</a></span></dt>
+<dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
+Approach to Fair Classification”</a>, ICML, 2018.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id4">6</a></span></dt>
+<dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
+Learning”</a>,
+NIPS, 2016.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
 </div>
 
 

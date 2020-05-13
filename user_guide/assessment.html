@@ -5,11 +5,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Assessment &#8212; Fairlearn 0.4.7.dev0 documentation</title>
+    <title>2. Assessment &#8212; Fairlearn 0.4.7.dev0 documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/cards.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -22,8 +23,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Metrics" href="metrics.html" />
-    <link rel="prev" title="Fairness in Machine Learning" href="fairness_in_machine_learning.html" />
+    <link rel="next" title="3. Mitigation" href="mitigation.html" />
+    <link rel="prev" title="1. Fairness in Machine Learning" href="fairness_in_machine_learning.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
   </head>
@@ -46,23 +47,23 @@
         </li>
         
         <li class="nav-item active">
-            <a class="nav-link" href="main.html">User Guide</a>
+            <a class="nav-link" href="index.html">User Guide</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../api_reference/main.html">API Reference</a>
+            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../auto_examples/index.html">Example Notebooks</a>
+            <a class="nav-link" href="../auto_examples/notebooks/index.html">Example Notebooks</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../contribution_guide.html">Contribution Guide</a>
+            <a class="nav-link" href="../contributor_guide/index.html">Contributor Guide</a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="../community.html">Community</a>
+            <a class="nav-link" href="../community/index.html">Community</a>
         </li>
         
         
@@ -123,20 +124,8 @@
           
         
           
-
               <li class="active">
                   <a href="">Assessment</a>
-                  <ul>
-                  
-                      <li class="">
-                          <a href="metrics.html">Metrics</a>
-                      </li>
-                  
-                      <li class="">
-                          <a href="dashboard.html">Dashboard</a>
-                      </li>
-                  
-                  </ul>
               </li>
           
         
@@ -165,9 +154,30 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
               
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
     <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#metrics" class="nav-link">Metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#fairlearn-dashboard" class="nav-link">Fairlearn dashboard</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#setup-and-a-single-model-assessment" class="nav-link">Setup and a single-model assessment</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#comparing-multiple-models" class="nav-link">Comparing multiple models</a>
+        </li>
+    
+            </ul>
+        </li>
     
     </ul>
 </nav>
@@ -183,12 +193,91 @@
               <div>
                 
   <div class="section" id="assessment">
-<span id="id1"></span><h1>Assessment<a class="headerlink" href="#assessment" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
-</ul>
+<h1><span class="section-number">2. </span>Assessment<a class="headerlink" href="#assessment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="metrics">
+<h2><span class="section-number">2.1. </span>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="fairlearn-dashboard">
+<span id="dashboard"></span><h2><span class="section-number">2.2. </span>Fairlearn dashboard<a class="headerlink" href="#fairlearn-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>The Fairlearn dashboard is a Jupyter notebook widget for assessing how a
+model’s predictions impact different groups (e.g., different ethnicities), and
+also for comparing multiple models along different fairness and performance
+metrics.</p>
+<div class="section" id="setup-and-a-single-model-assessment">
+<h3><span class="section-number">2.2.1. </span>Setup and a single-model assessment<a class="headerlink" href="#setup-and-a-single-model-assessment" title="Permalink to this headline">¶</a></h3>
+<p>To assess a single model’s fairness and performance, the dashboard widget can
+be launched within a Jupyter notebook as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
+
+<span class="c1"># A_test containts your sensitive features (e.g., age, binary gender)</span>
+<span class="c1"># sensitive_feature_names containts your sensitive feature names</span>
+<span class="c1"># y_true contains ground truth labels</span>
+<span class="c1"># y_pred contains prediction labels</span>
+
+<span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span>
+                   <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;BinaryGender&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">],</span>
+                   <span class="n">y_true</span><span class="o">=</span><span class="n">Y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                   <span class="n">y_pred</span><span class="o">=</span><span class="p">[</span><span class="n">y_pred</span><span class="o">.</span><span class="n">tolist</span><span class="p">()])</span>
+</pre></div>
+</div>
+<p>After the launch, the widget walks the user through the assessment setup,
+where the user is asked to select</p>
+<ol class="arabic simple">
+<li><p>the sensitive feature of interest (e.g., binary gender or age), and</p></li>
+<li><p>the performance metric (e.g., model precision) along which to evaluate the
+overall model performance as well as any disparities across groups. These
+selections are then used to obtain the visualization of the model’s impact
+on the subgroups (e.g., model precision for females and model precision for
+males).</p></li>
+</ol>
+<p>The following figures illustrate the setup steps, where <em>binary gender</em> is
+selected as a sensitive feature and <em>accuracy rate</em> is selected as the
+performance metric.</p>
+<img alt="../_images/fairlearn-dashboard-config.png" src="../_images/fairlearn-dashboard-config.png" />
+<p>After the setup, the dashboard presents the model assessment in two panels:</p>
+<table class="colwidths-given table">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Disparity in performance</p></th>
+<td><p>This panel shows: (1) the performance of your model with respect to
+your selected performance metric (e.g., <em>accuracy rate</em>) overall as
+well as on different subgroups based on your selected sensitive
+feature (e.g., <em>accuracy rate</em> for females, <em>accuracy rate</em> for
+males); (2) the disparity (difference) in the values of the selected
+performance metric across different subgroups; (3) the distribution of
+errors in each subgroup (e.g., female, male). For binary
+classification, the errors are further split into overprediction
+(predicting 1 when the true label is 0), and underprediction
+(predicting 0 when the true label is 1).</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Disparity in predictions</p></th>
+<td><p>This panel shows a bar chart that contains the selection rate in each
+group, meaning the fraction of data classified as 1 (in binary
+classification) or distribution of prediction values (in regression).</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/fairlearn-dashboard-results.png" src="../_images/fairlearn-dashboard-results.png" />
+</div>
+<div class="section" id="comparing-multiple-models">
+<h3><span class="section-number">2.2.2. </span>Comparing multiple models<a class="headerlink" href="#comparing-multiple-models" title="Permalink to this headline">¶</a></h3>
+<p>The dashboard also enables comparison of multiple models, such as the models
+produced by different learning algorithms and different mitigation approaches,
+including <code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.ExponentiatedGradient</span></code>, and
+<code class="code docutils literal notranslate"><span class="pre">fairlearn.postprocessing.ThresholdOptimizer</span></code>.</p>
+<p>As before, the user is first asked to select the sensitive feature and the
+performance metric. The <em>model comparison</em> view then depicts the performance
+and disparity of all the provided models in a scatter plot. This allows the
+user to examine trade-offs between performance and fairness. Each of the dots
+can be clicked to open the assessment of the corresponding model. The figure
+below shows the model comparison view with <em>binary gender</em> selected as a
+sensitive feature and <em>accuracy rate</em> selected as the performance metric.</p>
+<img alt="../_images/fairlearn-dashboard-models.png" src="../_images/fairlearn-dashboard-models.png" />
+</div>
 </div>
 </div>
 
