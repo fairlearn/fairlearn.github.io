@@ -5,7 +5,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Contribution Guide &#8212; Fairlearn 0.4.6 documentation</title>
+    <title>Contribution Guide &#8212; Fairlearn 0.4.7.dev0 documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
@@ -348,36 +348,20 @@ file.
 1. Install any pip packages required for the notebooks
 1. Check that the dashboard loads in the notebooks</p>
 <p>We have a
-<a class="reference external" href="https://dev.azure.com/responsibleai/fairlearn/_build?definitionId=48&amp;_a=summary">Azure DevOps Pipeline</a>
+<a class="reference external" href="https://dev.azure.com/responsibleai/fairlearn/_build?definitionId=60&amp;_a=summary">Azure DevOps Pipeline</a>
 which takes care of building wheels and pushing to PyPI. Validations are also
 performed prior to any deployments, and also following the uploads to Test-PyPI
 and PyPI. To use it:</p>
 <ol class="arabic simple">
-<li><p>Ensure that <cite>_base_version</cite> in <cite>fairlearn/__init__.py</cite> is set correctly for
-PyPI.</p></li>
-<li><p>Put down a tag corresponding to this <cite>_base_version</cite> but preprended with
+<li><p>Ensure that <cite>fairlearn/__init__.py</cite> has the correct version set.</p></li>
+<li><p>Put down a tag corresponding to this version but preprended with
 <cite>v</cite>. For example, version <cite>0.5.0</cite> should be tagged wtih <cite>v0.5.0</cite></p></li>
-<li><p>Queue the pipeline at this tag, with a variable <cite>DEV_VERSION</cite> set to zero.
-When the package is uploaded to Test-PyPI, this number will be appended to
-the version as a <cite>dev[n]</cite> suffix</p></li>
 </ol>
-<p>The pipeline requires sign offs immediately prior to the deployments to
-Test-PyPI and PyPI. If there is an issue found, then after applying the fix,
-update the location of the tag, and queue a new release pipeline with the value
-of <cite>DEV_VERSION</cite> increased by one.</p>
-<p>The <cite>DEV_VERSION</cite> variable is to work around the PyPI behaviour where uploads
-are immutable and published immediately. This means that each upload to PyPI
-‘uses up’ that particular version (on that particular PyPI instance). Since we
-wish to deploy exactly the same bits to both Test-PyPI and PyPI, without this
-workaround the version released to PyPI would depend on the number of issues
-discovered when uploading to Test-PyPI. If PyPI updates their release process
-to separate the ‘upload’ and ‘publish’ steps (i.e. until a package is
-published, it remains hidden and mutable) then the code associated with
-<cite>DEV_VERSION</cite> should be removed.</p>
+<p>At queue time, select Test or Production PyPI as appropriate.</p>
 <p>As part of the release process, the <cite>build_wheels.py</cite> script uses
 <cite>process_readme.py</cite> to turn all the relative links in the ReadMe file into
 absolute ones (this is the reason why the applied tag has be of the form
-<cite>v[_base_version]</cite>). The <cite>process_readme.py</cite> script is slightly fragile with
+<cite>v[__version__]</cite>). The <cite>process_readme.py</cite> script is slightly fragile with
 respect to the contents of the ReadMe, so after significant changes its output
 should be verified.</p>
 </div>
