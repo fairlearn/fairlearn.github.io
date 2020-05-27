@@ -10,7 +10,6 @@
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/cards.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -21,7 +20,6 @@
     <script src="../_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
-    <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="fairlearn.widget package" href="fairlearn.widget.html" />
     <link rel="prev" title="fairlearn.postprocessing package" href="fairlearn.postprocessing.html" />
@@ -33,6 +31,10 @@
     <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
 <div class="container-xl">
 
+    
+    <a class="navbar-brand" href="../contents.html">
+      <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo">
+    </a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -185,7 +187,7 @@ reweighting and relabelling of the input data. This <em>reduces</em> the problem
 learning training.</p>
 <dl class="py class">
 <dt id="fairlearn.reductions.ExponentiatedGradient">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ExponentiatedGradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">constraints</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">T</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">eta_mul</span><span class="o">=</span><span class="default_value">2.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ExponentiatedGradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">constraints</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">eta0</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">run_linprog_step</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
 <p>An Estimator which implements the exponentiated gradient approach to reductions.</p>
 <p>The exponentiated gradient algorithm is described in detail by
@@ -201,11 +203,13 @@ learning training.</p>
 <li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Allowed fairness constraint violation; the solution is guaranteed to have the
 error within <code class="code docutils literal notranslate"><span class="pre">2*best_gap</span></code> of the best error under constraint eps; the constraint
 violation is at most <code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code></p></li>
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Maximum number of iterations</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Maximum number of iterations</p></li>
 <li><p><strong>nu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Convergence threshold for the duality gap, corresponding to a
 conservative automatic setting based on the statistical uncertainty in measuring
 classification error</p></li>
-<li><p><strong>eta_mul</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Initial setting of the learning rate</p></li>
+<li><p><strong>eta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Initial setting of the learning rate</p></li>
+<li><p><strong>run_linprog_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – if True each step of exponentiated gradient is followed by the saddle
+point optimization over the convex hull of classifiers returned so far; default True</p></li>
 </ul>
 </dd>
 </dl>
@@ -681,7 +685,7 @@ However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
     </p>
   </div>
 </footer>
