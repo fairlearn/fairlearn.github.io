@@ -350,6 +350,12 @@ in <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal
 of <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> objects to describe the disparity constraints
 imposed on the solution. This is an abstract class for all such objects.</p>
 <dl class="py method">
+<dt id="fairlearn.reductions.Moment.bound">
+<code class="sig-name descname">bound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.Moment.bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return vector of fairness bound constraint the length of gamma.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="fairlearn.reductions.Moment.gamma">
 <code class="sig-name descname">gamma</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.Moment.gamma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the degree to which constraints are currently violated by the predictor.</p>
@@ -399,7 +405,7 @@ imposed on the solution. This is an abstract class for all such objects.</p>
 
 <dl class="py class">
 <dt id="fairlearn.reductions.ConditionalSelectionRate">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ConditionalSelectionRate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ratio</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ConditionalSelectionRate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ConditionalSelectionRate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">difference_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound_slack</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ConditionalSelectionRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.ClassificationMoment" title="fairlearn.reductions.ClassificationMoment"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ClassificationMoment</span></code></a></p>
 <p>Generic fairness moment for selection rates.</p>
 <p>This serves as the base class for both <a class="reference internal" href="#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">DemographicParity</span></code></a>
@@ -420,6 +426,20 @@ for positive and negative violations of the constraint</p></li>
 and vice versa. The value of <cite>ratio</cite> has to be in the range (0,1] with smaller values
 corresponding to weaker constraint. The <cite>ratio</cite> equal to 1 corresponds to the constraint
 where error(A = a) = total_error</p>
+<dl class="py method">
+<dt id="fairlearn.reductions.ConditionalSelectionRate.bound">
+<code class="sig-name descname">bound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ConditionalSelectionRate.bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return bound vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a vector of bound values corresponding to all constraints</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.3)">pandas.Series</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt id="fairlearn.reductions.ConditionalSelectionRate.default_objective">
 <code class="sig-name descname">default_objective</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ConditionalSelectionRate.default_objective" title="Permalink to this definition">¶</a></dt>
@@ -473,7 +493,7 @@ estimator.</p>
 
 <dl class="py class">
 <dt id="fairlearn.reductions.DemographicParity">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">DemographicParity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ratio</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.DemographicParity" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">DemographicParity</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">difference_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound_slack</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.DemographicParity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.ConditionalSelectionRate" title="fairlearn.reductions.ConditionalSelectionRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ConditionalSelectionRate</span></code></a></p>
 <p>Implementation of Demographic Parity as a moment.</p>
 <p>A classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies DemographicParity if</p>
@@ -504,7 +524,7 @@ to Example 3 of
 
 <dl class="py class">
 <dt id="fairlearn.reductions.EqualizedOdds">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">EqualizedOdds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ratio</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">EqualizedOdds</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">difference_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound_slack</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.ConditionalSelectionRate" title="fairlearn.reductions.ConditionalSelectionRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ConditionalSelectionRate</span></code></a></p>
 <p>Implementation of Equalized Odds as a moment.</p>
 <p>Adds conditioning on label compared to Demographic parity, i.e.</p>
@@ -537,7 +557,7 @@ will calculate the costs according to Example 4 of
 
 <dl class="py class">
 <dt id="fairlearn.reductions.TruePositiveRateDifference">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">TruePositiveRateDifference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ratio</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateDifference" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">TruePositiveRateDifference</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">difference_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound_slack</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateDifference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.ConditionalSelectionRate" title="fairlearn.reductions.ConditionalSelectionRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ConditionalSelectionRate</span></code></a></p>
 <p>Implementation of True Positive Rate Difference (Equal Opportunity Difference) as a moment.</p>
 <p>Adds conditioning on label <cite>y=1</cite> compared to Demographic parity, i.e.</p>
@@ -569,7 +589,7 @@ but will use the weights equal to zero for <cite>y=0</cite>.</p>
 
 <dl class="py class">
 <dt id="fairlearn.reductions.ErrorRateRatio">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ErrorRateRatio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ratio</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ErrorRateRatio" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ErrorRateRatio</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">difference_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ratio_bound_slack</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.ErrorRateRatio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.ConditionalSelectionRate" title="fairlearn.reductions.ConditionalSelectionRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ConditionalSelectionRate</span></code></a></p>
 <p>Implementation of Error Rate Ratio as a moment.</p>
 <p>Measures the ratio in errors per attribute by overall error.
@@ -636,7 +656,7 @@ However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
 
 <dl class="py class">
 <dt id="fairlearn.reductions.GroupLossMoment">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">GroupLossMoment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.GroupLossMoment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">GroupLossMoment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.reductions.GroupLossMoment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.ConditionalLossMoment</span></code></p>
 <p>Moment for Group Loss.</p>
 </dd></dl>
