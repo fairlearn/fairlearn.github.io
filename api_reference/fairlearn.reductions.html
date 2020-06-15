@@ -427,7 +427,7 @@ However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
 
 <dl class="py class">
 <dt id="fairlearn.reductions.ExponentiatedGradient">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ExponentiatedGradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">constraints</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">eta0</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">run_linprog_step</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L19-L225"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.reductions.</code><code class="sig-name descname">ExponentiatedGradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">constraints</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">max_iter</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">eta0</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">run_linprog_step</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L19-L249"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
 <p>An Estimator which implements the exponentiated gradient approach to reductions.</p>
 <p>The exponentiated gradient algorithm is described in detail by
@@ -436,32 +436,35 @@ However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>estimator</strong> (<em>estimator</em>) – An estimator implementing methods <code class="code docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y,</span> <span class="pre">sample_weight)</span></code> and
-<code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code>, where <cite>X</cite> is the matrix of features, <cite>y</cite> is the vector of labels, and
-<cite>sample_weight</cite> is a vector of weights; labels <cite>y</cite> and predictions returned by
-<code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> are either 0 or 1.</p></li>
+<code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code>, where <cite>X</cite> is the matrix of features, <cite>y</cite> is the
+vector of labels, and <cite>sample_weight</cite> is a vector of weights;
+labels <cite>y</cite> and predictions returned by <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> are either
+0 or 1.</p></li>
 <li><p><strong>constraints</strong> (<a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><em>fairlearn.reductions.Moment</em></a>) – The disparity constraints expressed as moments</p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Allowed fairness constraint violation; the solution is guaranteed to have the
-error within <code class="code docutils literal notranslate"><span class="pre">2*best_gap</span></code> of the best error under constraint eps; the constraint
-violation is at most <code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code></p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Allowed fairness constraint violation; the solution is guaranteed to
+have the error within <code class="code docutils literal notranslate"><span class="pre">2*best_gap</span></code> of the best error under
+constraint <cite>eps</cite>; the constraint violation is at most
+<code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code></p></li>
 <li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Maximum number of iterations</p></li>
 <li><p><strong>nu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Convergence threshold for the duality gap, corresponding to a
-conservative automatic setting based on the statistical uncertainty in measuring
-classification error</p></li>
-<li><p><strong>eta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Initial setting of the learning rate</p></li>
+conservative automatic setting based on the statistical uncertainty
+in measuring classification error</p></li>
+<li><p><strong>eta_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Initial setting of the learning rate</p></li>
 <li><p><strong>run_linprog_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – if True each step of exponentiated gradient is followed by the saddle
-point optimization over the convex hull of classifiers returned so far; default True</p></li>
+point optimization over the convex hull of classifiers returned so
+far; default True</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="fairlearn.reductions.ExponentiatedGradient.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L65-L191"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L64-L191"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a fair classifier under specified fairness constraints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>numpy.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a>) – The feature matrix</p></li>
-<li><p><strong>y</strong> (<em>numpy.ndarray</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.4)"><em>pandas.Series</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – The label vector</p></li>
+<li><p><strong>X</strong> (<em>numpy.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a>) – Feature data</p></li>
+<li><p><strong>y</strong> (<em>numpy.ndarray</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.0.4)"><em>pandas.Series</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Label vector</p></li>
 </ul>
 </dd>
 </dl>
@@ -469,10 +472,20 @@ point optimization over the convex hull of classifiers returned so far; default 
 
 <dl class="py method">
 <dt id="fairlearn.reductions.ExponentiatedGradient.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L193-L209"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provide a prediction for the given input data.</p>
-<p>Note that this is non-deterministic, due to the nature of the
-exponentiated gradient algorithm.</p>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L193-L225"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide predictions for the given input data.</p>
+<p>Predictions are randomized, i.e., repeatedly calling <cite>predict</cite> with
+the same feature data may yield different output. This
+non-deterministic behavior is intended and stems from the nature of
+the exponentiated gradient algorithm.</p>
+<p class="rubric">Notes</p>
+<p>A fitted ExponentiatedGradient has an attribute <cite>predictors_</cite>, an
+array of predictors, and an attribute <cite>weights_</cite>, an array of
+non-negative floats of the same length.
+The prediction on each data point in <cite>X</cite> is obtained by first picking
+a random predictor according to the probabilities in <cite>weights_</cite> and
+then applying it. Different predictors can be chosen on different data
+points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.0.4)"><em>pandas.DataFrame</em></a>) – Feature data</p>
@@ -706,7 +719,7 @@ but will use the weights equal to zero for <cite>y=0</cite>.</p>
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.0.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.1.<br/>
     </p>
   </div>
 </footer>
