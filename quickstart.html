@@ -238,12 +238,16 @@ is about binary classification, but we similarly support regression.</p>
 <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Adult">UCI adult dataset</a> where the
 objective is to predict whether a person makes more (label 1) or less (0)
 than $50,000 a year.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">shap.datasets</span> <span class="kn">import</span> <span class="n">adult</span>  <span class="c1"># shap is only used its dataset utility</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">adult</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">*</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sex</span><span class="p">:</span> <span class="s2">&quot;female&quot;</span> <span class="k">if</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;male&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="go">male      21790</span>
+<span class="go">female    10771</span>
+<span class="go">Name: Sex, dtype: int64</span>
 </pre></div>
 </div>
 <div class="figure align-center">
@@ -257,32 +261,32 @@ between groups and for the overall population. Using existing metric
 definitions from
 <a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">scikit-learn</a>
 we can evaluate metrics to get a group summary as below:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">group_summary</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">group_summary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="go">DecisionTreeClassifier(...)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_summary</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.8445686557538159, &#39;by_group&#39;: {&#39;female&#39;: 0.9256336459010306, &#39;male&#39;: 0.8044974759063791}}</span>
+<span class="go">{&#39;overall&#39;: 0.844..., &#39;by_group&#39;: {&#39;female&#39;: 0.925..., &#39;male&#39;: 0.804...}}</span>
 </pre></div>
 </div>
 <p>Additionally, Fairlearn has lots of other standard metrics built-in, such as
 selection rate, i.e., the percentage of the population with label 1:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate_group_summary</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate_group_summary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.1615429501550935, &#39;by_group&#39;: {&#39;female&#39;: 0.059418809766966854, &#39;male&#39;: 0.21202386415787058}}</span>
+<span class="go">{&#39;overall&#39;: 0.161..., &#39;by_group&#39;: {&#39;female&#39;: 0.059..., &#39;male&#39;: 0.212...}}</span>
 </pre></div>
 </div>
 <p>For a visual representation of the metrics try out the Fairlearn dashboard.
 While this page shows only screenshots, the actual dashboard is interactive.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">,</span>
-<span class="go">                       sensitive_feature_names=[&#39;sex&#39;],</span>
-<span class="go">                       y_true=y_true,</span>
-<span class="go">                       y_pred={&quot;initial model&quot;: y_pred})</span>
+<span class="gp">... </span>                   <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                   <span class="n">y_pred</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;initial model&quot;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">})</span> 
 </pre></div>
 </div>
 <img alt="_images/fairlearn-dashboard-start.png" src="_images/fairlearn-dashboard-start.png" />
@@ -313,16 +317,16 @@ a vastly reduced difference in selection rate:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred_mitigated</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_mitigated</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.15503209360891865, &#39;by_group&#39;: {&#39;female&#39;: 0.142976511001764, &#39;male&#39;: 0.160991280403855}}</span>
+<span class="go">{&#39;overall&#39;: 0.155..., &#39;by_group&#39;: {&#39;female&#39;: 0.142..., &#39;male&#39;: 0.160...}}</span>
 </pre></div>
 </div>
 <p>Similarly, we can explore the difference between the initial model and the
 mitigated model with respect to selection rate and accuracy in the dashboard
 through a multi-model comparison:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">,</span>
-<span class="go">                       sensitive_feature_names=[&#39;sex&#39;],</span>
-<span class="go">                       y_true=y_true,</span>
-<span class="go">                       y_pred={&quot;initial model&quot;: y_pred, &quot;mitigated model&quot;: y_pred_mitigated})</span>
+<span class="gp">... </span>                   <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                   <span class="n">y_pred</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;initial model&quot;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s2">&quot;mitigated model&quot;</span><span class="p">:</span> <span class="n">y_pred_mitigated</span><span class="p">})</span> 
 </pre></div>
 </div>
 <img alt="_images/fairlearn-dashboard-comparison.png" src="_images/fairlearn-dashboard-comparison.png" />
