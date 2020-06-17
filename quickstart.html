@@ -261,19 +261,19 @@ we can evaluate metrics to get a group summary as below:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_summary</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.976413500813857, &#39;by_group&#39;: {&#39;female&#39;: 0.9958221149382601, &#39;male&#39;: 0.9668196420376319}}</span>
+<span class="go">{&#39;overall&#39;: 0.8445686557538159, &#39;by_group&#39;: {&#39;female&#39;: 0.9256336459010306, &#39;male&#39;: 0.8044974759063791}}</span>
 </pre></div>
 </div>
 <p>Additionally, Fairlearn has lots of other standard metrics built-in, such as
 selection rate, i.e., the percentage of the population with label 1:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate_group_summary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.2249623783053346, &#39;by_group&#39;: {&#39;female&#39;: 0.1065824900194968, &#39;male&#39;: 0.28347865993575033}}</span>
+<span class="go">{&#39;overall&#39;: 0.1615429501550935, &#39;by_group&#39;: {&#39;female&#39;: 0.059418809766966854, &#39;male&#39;: 0.21202386415787058}}</span>
 </pre></div>
 </div>
 <p>For a visual representation of the metrics try out the Fairlearn dashboard.
@@ -307,13 +307,13 @@ a vastly reduced difference in selection rate:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># set seed for consistent results with ExponentiatedGradient</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constraint</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span> <span class="o">=</span> <span class="n">ExponentiatedGradient</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">constraint</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred_mitigated</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_mitigated</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.2674057922053991, &#39;by_group&#39;: {&#39;female&#39;: 0.2603286602915235, &#39;male&#39;: 0.27090408444240477}}</span>
+<span class="go">{&#39;overall&#39;: 0.15503209360891865, &#39;by_group&#39;: {&#39;female&#39;: 0.142976511001764, &#39;male&#39;: 0.160991280403855}}</span>
 </pre></div>
 </div>
 <p>Similarly, we can explore the difference between the initial model and the
