@@ -560,11 +560,11 @@ would be the ones shown below:</p>
 <span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.DataFrameGroupBy.describe.html#pandas.core.groupby.DataFrameGroupBy.describe" title="pandas.core.groupby.DataFrameGroupBy.describe" class="sphx-glr-backref-module-pandas-core-groupby sphx-glr-backref-type-py-method"><span class="n">data_grouped_by_sensitive_feature</span><span class="o">.</span><span class="n">describe</span></a><span class="p">()</span>
 
-<span class="kn">from</span> <span class="nn">fairlearn.postprocessing._roc_curve_utilities</span> <span class="kn">import</span> <span class="n">_calculate_roc_points</span>
+<span class="kn">from</span> <span class="nn">fairlearn.postprocessing._tradeoff_curve_utilities</span> <span class="kn">import</span> <span class="n">_calculate_tradeoff_points</span>
 
 <span class="n">roc_points</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data_grouped_by_sensitive_feature</span><span class="p">:</span>
-    <span class="n">roc_points</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_calculate_roc_points</span><span class="p">(</span>
+    <span class="n">roc_points</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_calculate_tradeoff_points</span><span class="p">(</span>
         <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.GroupBy.get_group.html#pandas.core.groupby.GroupBy.get_group" title="pandas.core.groupby.GroupBy.get_group" class="sphx-glr-backref-module-pandas-core-groupby sphx-glr-backref-type-py-method"><span class="n">data_grouped_by_sensitive_feature</span><span class="o">.</span><span class="n">get_group</span></a><span class="p">(</span><span class="n">group_name</span><span class="p">),</span> <span class="mi">0</span>
     <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thresholding rules:&quot;</span><span class="p">)</span>
@@ -581,8 +581,8 @@ would be the ones shown below:</p>
 3     0.000000  ...   [&gt;0.9767016738850934]
 4     0.000000  ...   [&gt;0.9755579558991025]
 ...        ...  ...                     ...
-1339  0.997135  ...  [&gt;0.07794734423504954]
 1340  0.998090  ...  [&gt;0.06980843567768341]
+1341  0.999045  ...  [&gt;0.06634147465651785]
 1342  0.999045  ...  [&gt;0.06410481191645395]
 1343  0.999045  ...  [&gt;0.04892218445583864]
 1344  1.000000  ...                 [&gt;-inf]
@@ -751,33 +751,33 @@ analytically. By choosing a large <cite>grid_size</cite> this can be alleviated.
 
 <span class="k">for</span> <span class="p">(</span>
     <span class="n">group</span><span class="p">,</span>
-    <span class="n">interpolation</span><span class="p">,</span>
-<span class="p">)</span> <span class="ow">in</span> <span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">_post_processed_predictor_by_sensitive_feature</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">interpolation</span></a><span class="p">,</span>
+<span class="p">)</span> <span class="ow">in</span> <span class="n">postprocessed_predictor_EO</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">interpolation</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">interpolation</span></a><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>African-American:
-[p_ignore: 0.23207031263141853
-  prediction_constant: 0.337
-  p0: 0.6265294117647058
-  operation0: [&gt;0.5255937372948403]
-  p1: 0.3734705882352942
-  operation1: [&gt;0.4511577443731408]]
+{&#39;p_ignore&#39;: 0.23207031263141853
+  &#39;prediction_constant&#39;: 0.337
+  &#39;p0&#39;: 0.6265294117647058
+  &#39;operation0&#39;: [&gt;0.5255937372948403]
+  &#39;p1&#39;: 0.3734705882352942
+  &#39;operation1&#39;: [&gt;0.4511577443731408]}
 -----------------------------------
 Caucasian:
-[p_ignore: 0.0
-  prediction_constant: 0.337
-  p0: 0.003735849056603747
-  operation0: [&gt;0.5172897195295328]
-  p1: 0.9962641509433963
-  operation1: [&gt;0.40323605733701584]]
+{&#39;p_ignore&#39;: 0.0
+  &#39;prediction_constant&#39;: 0.337
+  &#39;p0&#39;: 0.003735849056603747
+  &#39;operation0&#39;: [&gt;0.5172897195295328]
+  &#39;p1&#39;: 0.9962641509433963
+  &#39;operation1&#39;: [&gt;0.40323605733701584]}
 -----------------------------------
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.402 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.985 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-notebooks-plot-binary-classification-compas-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9490325ce2dc23c75f410edcd31a1397/plot_binary_classification_COMPAS.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_binary_classification_COMPAS.py</span></code></a></p>

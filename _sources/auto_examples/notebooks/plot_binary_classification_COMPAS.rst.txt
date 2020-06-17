@@ -497,11 +497,11 @@ would be the ones shown below:
     )
     data_grouped_by_sensitive_feature.describe()
 
-    from fairlearn.postprocessing._roc_curve_utilities import _calculate_roc_points
+    from fairlearn.postprocessing._tradeoff_curve_utilities import _calculate_tradeoff_points
 
     roc_points = {}
     for group_name, group in data_grouped_by_sensitive_feature:
-        roc_points[group_name] = _calculate_roc_points(
+        roc_points[group_name] = _calculate_tradeoff_points(
             data_grouped_by_sensitive_feature.get_group(group_name), 0
         )
     print("Thresholding rules:")
@@ -526,8 +526,8 @@ would be the ones shown below:
     3     0.000000  ...   [>0.9767016738850934]
     4     0.000000  ...   [>0.9755579558991025]
     ...        ...  ...                     ...
-    1339  0.997135  ...  [>0.07794734423504954]
     1340  0.998090  ...  [>0.06980843567768341]
+    1341  0.999045  ...  [>0.06634147465651785]
     1342  0.999045  ...  [>0.06410481191645395]
     1343  0.999045  ...  [>0.04892218445583864]
     1344  1.000000  ...                 [>-inf]
@@ -741,7 +741,7 @@ analytically. By choosing a large `grid_size` this can be alleviated.
     for (
         group,
         interpolation,
-    ) in postprocessed_predictor_EO._post_processed_predictor_by_sensitive_feature.items():
+    ) in postprocessed_predictor_EO.interpolated_thresholder_.interpolation_dict.items():
         print("{}:".format(group))
         print("\n ".join(interpolation.__repr__().split(",")))
         print("-----------------------------------")
@@ -756,20 +756,20 @@ analytically. By choosing a large `grid_size` this can be alleviated.
  .. code-block:: none
 
     African-American:
-    [p_ignore: 0.23207031263141853
-      prediction_constant: 0.337
-      p0: 0.6265294117647058
-      operation0: [>0.5255937372948403]
-      p1: 0.3734705882352942
-      operation1: [>0.4511577443731408]]
+    {'p_ignore': 0.23207031263141853
+      'prediction_constant': 0.337
+      'p0': 0.6265294117647058
+      'operation0': [>0.5255937372948403]
+      'p1': 0.3734705882352942
+      'operation1': [>0.4511577443731408]}
     -----------------------------------
     Caucasian:
-    [p_ignore: 0.0
-      prediction_constant: 0.337
-      p0: 0.003735849056603747
-      operation0: [>0.5172897195295328]
-      p1: 0.9962641509433963
-      operation1: [>0.40323605733701584]]
+    {'p_ignore': 0.0
+      'prediction_constant': 0.337
+      'p0': 0.003735849056603747
+      'operation0': [>0.5172897195295328]
+      'p1': 0.9962641509433963
+      'operation1': [>0.40323605733701584]}
     -----------------------------------
 
 
@@ -778,7 +778,7 @@ analytically. By choosing a large `grid_size` this can be alleviated.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.402 seconds)
+   **Total running time of the script:** ( 0 minutes  2.985 seconds)
 
 
 .. _sphx_glr_download_auto_examples_notebooks_plot_binary_classification_COMPAS.py:

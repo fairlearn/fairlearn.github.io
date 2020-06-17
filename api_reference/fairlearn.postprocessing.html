@@ -187,32 +187,59 @@
 learn how to adjust the predictor’s output from the training data.</p>
 <dl class="py class">
 <dt id="fairlearn.postprocessing.ThresholdOptimizer">
-<em class="property">class </em><code class="sig-prename descclassname">fairlearn.postprocessing.</code><code class="sig-name descname">ThresholdOptimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">estimator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constraints</span><span class="o">=</span><span class="default_value">'demographic_parity'</span></em>, <em class="sig-param"><span class="n">grid_size</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">flip</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">prefit</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L46-L383"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClassifierMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
-<p>An Estimator based on the threshold optimization approach.</p>
-<p>The procedure followed is described in detail in
-<a class="reference external" href="https://arxiv.org/abs/1610.02413">Hardt et al. (2016)</a>.</p>
+<em class="property">class </em><code class="sig-prename descclassname">fairlearn.postprocessing.</code><code class="sig-name descname">ThresholdOptimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">estimator</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">constraints</span><span class="o">=</span><span class="default_value">'demographic_parity'</span></em>, <em class="sig-param"><span class="n">objective</span><span class="o">=</span><span class="default_value">'accuracy_score'</span></em>, <em class="sig-param"><span class="n">grid_size</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">flip</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">prefit</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L93-L441"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
+<p>A classifier based on the threshold optimization approach.</p>
+<p>The classifier is obtained by applying group-specific thresholds to
+the provided estimator. The thresholds are chosen to optimize the
+provided performance objective subject to the provided fairness constraints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>estimator</strong> (<em>An estimator</em>) – An estimator whose output will be post processed</p></li>
-<li><p><strong>grid_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of ticks on the grid over which we evaluate the curves.
-A large grid_size means that we approximate the actual curve, so it increases the chance
-of being very close to the actual best solution.</p></li>
-<li><p><strong>flip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Allow flipping to negative weights if it improves accuracy.</p></li>
-<li><p><strong>prefit</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, avoid re-fitting the given estimator if it’s
-already trained. Note that when used with <code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code>,
-<code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> and similar utilities that clone the estimator,
-the effective behavior is <code class="docutils literal notranslate"><span class="pre">prefit=False</span></code>.</p></li>
-</ul>
+<li><p><strong>estimator</strong> (<em>estimator object implementing 'predict' and possibly 'fit'</em>) – An estimator whose output is postprocessed.</p></li>
+<li><p><strong>constraints</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>default='demographic_parity'</em>) – <p>Fairness constraints under which threshold optimization is performed.
+Possible inputs are:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>’demographic_parity’, ‘selection_rate_parity’ (synonymous)</dt><dd><p>match the selection rate across groups</p>
 </dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a>, default=False</p>
+<dt>’{false,true}_{positive,negative}_rate_parity’</dt><dd><p>match the named metric across groups</p>
+</dd>
+<dt>’equalized_odds’</dt><dd><p>match true positive and false positive rates across groups</p>
 </dd>
 </dl>
+</div></blockquote>
+</p></li>
+<li><p><strong>objective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>default='accuracy_score'</em>) – <p>Performance objective under which threshold optimization is performed.
+Not all objectives are allowed for all types of constraints.
+Possible inputs are:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>’accuracy_score’, ‘balanced_accuracy_score’</dt><dd><p>allowed for all constraint types</p>
+</dd>
+<dt>’selection_rate’, ‘true_positive_rate’, ‘true_negative_rate’,</dt><dd><p>allowed for all constraint types except ‘equalized_odds’</p>
+</dd>
+</dl>
+</div></blockquote>
+</p></li>
+<li><p><strong>grid_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default=1000</em>) – The values of the constraint metric are discretized according to the grid
+of the specified size over the interval [0,1] and the optimization is
+performed with respect to the constraints achieving those values. In case
+of ‘equalized_odds’ the constraint metric is the false positive rate.</p></li>
+<li><p><strong>flip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, then allow flipping the decision if it improves the resulting</p></li>
+<li><p><strong>prefit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, avoid refitting the given estimator. Note that when used
+with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.model_selection.cross_val_score()</span></code></a>,
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.model_selection.GridSearchCV</span></code></a>, this will result in an error.
+In that case, please use <code class="docutils literal notranslate"><span class="pre">prefit=False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The procedure is based on the algorithm of
+<a class="reference external" href="https://arxiv.org/abs/1610.02413">Hardt et al. (2016)</a>.</p>
 <dl class="py method">
 <dt id="fairlearn.postprocessing.ThresholdOptimizer.fit">
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L77-L129"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L160-L221"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit the model.</p>
 <p>The fit is based on training features and labels, sensitive features,
 as well as the fairness-unaware predictor or estimator. If an estimator was passed
@@ -232,7 +259,7 @@ only a single column</p></li>
 
 <dl class="py method">
 <dt id="fairlearn.postprocessing.ThresholdOptimizer.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L131-L157"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_threshold_optimizer.py#L223-L238"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.ThresholdOptimizer.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Predict label for each sample in X while taking into account sensitive features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,7 +281,7 @@ only a single column</p></li>
 
 <dl class="py function">
 <dt id="fairlearn.postprocessing.plot_threshold_optimizer">
-<code class="sig-prename descclassname">fairlearn.postprocessing.</code><code class="sig-name descname">plot_threshold_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshold_optimizer</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_plotting.py#L59-L108"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.plot_threshold_optimizer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fairlearn.postprocessing.</code><code class="sig-name descname">plot_threshold_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshold_optimizer</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">show_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/postprocessing/_plotting.py#L64-L106"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.postprocessing.plot_threshold_optimizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the chosen solution of the threshold optimizer.</p>
 <p>For <cite>fairlearn.postprocessing.ThresholdOptimizer</cite> objects that have their
 constraint set to <cite>‘demographic_parity’</cite> this will result in a
