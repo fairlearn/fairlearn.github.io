@@ -165,7 +165,25 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#metrics" class="nav-link">Metrics</a>
+            <a href="#metrics" class="nav-link">Metrics</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#ungrouped-metrics" class="nav-link">Ungrouped Metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#metrics-with-grouping" class="nav-link">Metrics with Grouping</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#supported-ungrouped-metrics" class="nav-link">Supported Ungrouped Metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#convenience-wrapper" class="nav-link">Convenience Wrapper</a>
+        </li>
+    
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -199,6 +217,122 @@
 <h1><span class="section-number">2. </span>Assessment<a class="headerlink" href="#assessment" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="metrics">
 <h2><span class="section-number">2.1. </span>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a> module provides the means to assess fairness-related
+metrics for models. This applies for any kind of model that users may already
+use, but also for models created with mitigation techniques from the
+<a class="reference internal" href="mitigation.html#mitigation"><span class="std std-ref">Mitigation</span></a> section. The <a class="reference internal" href="#dashboard"><span class="std std-ref">Fairlearn dashboard</span></a> provides a visual way to
+compare metrics between models as well as compare metrics for different groups
+on a single model.</p>
+<div class="section" id="ungrouped-metrics">
+<h3><span class="section-number">2.1.1. </span>Ungrouped Metrics<a class="headerlink" href="#ungrouped-metrics" title="Permalink to this headline">¶</a></h3>
+<p>At their simplest, metrics take a set of ‘true’ values <span class="math notranslate nohighlight">\(Y_{true}\)</span> (from
+the input data) and predicted values <span class="math notranslate nohighlight">\(Y_{pred}\)</span> (by applying the model
+to the input data), and use these to compute a measure. For example, the
+<em>recall</em> or <em>true positive rate</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[P( Y_{pred}=1 \given Y_{true}=1 )\]</div>
+<p>That is, a measure of whether the model finds all the positive cases in the
+input data. The <cite>scikit-learn</cite> package implements this in
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>.</p>
+<p>Suppose we have the following data we can see that the prediction is <cite>1</cite> in five
+of the ten cases where the true value is <cite>1</cite>, so we expect the recall to be 0.5:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">)</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="metrics-with-grouping">
+<h3><span class="section-number">2.1.2. </span>Metrics with Grouping<a class="headerlink" href="#metrics-with-grouping" title="Permalink to this headline">¶</a></h3>
+<p>When considering fairness, each row of input data will have an associated
+group label <span class="math notranslate nohighlight">\(g \in G\)</span>, and we will want to know how the metric behaves
+for each <span class="math notranslate nohighlight">\(g\)</span>. To help with this, Fairlearn provides wrappers, which take
+an existing (ungrouped) metric function, and apply it to each group within a
+set of data.</p>
+<p>Suppose in addition to the <span class="math notranslate nohighlight">\(Y_{true}\)</span> and <span class="math notranslate nohighlight">\(Y_{pred}\)</span> above, we had
+the following set of labels:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_membership_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="s1">&#39;Y_true&#39;</span><span class="p">:</span> <span class="n">Y_true</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="s1">&#39;Y_pred&#39;</span><span class="p">:</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="s1">&#39;group_membership_data&#39;</span><span class="p">:</span> <span class="n">group_membership_data</span><span class="p">})</span>
+<span class="go">    Y_true  Y_pred group_membership_data</span>
+<span class="go">0        0       0                     d</span>
+<span class="go">1        1       0                     a</span>
+<span class="go">2        1       1                     c</span>
+<span class="go">3        1       0                     b</span>
+<span class="go">4        1       1                     b</span>
+<span class="go">5        0       1                     c</span>
+<span class="go">6        1       1                     c</span>
+<span class="go">7        0       0                     c</span>
+<span class="go">8        1       0                     b</span>
+<span class="go">9        0       1                     d</span>
+<span class="go">10       0       1                     c</span>
+<span class="go">11       0       1                     a</span>
+<span class="go">12       1       1                     b</span>
+<span class="go">13       1       0                     d</span>
+<span class="go">14       1       0                     c</span>
+<span class="go">15       1       1                     c</span>
+</pre></div>
+</div>
+<p>We then calculate a group metric:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fairlearn.metrics</span> <span class="k">as</span> <span class="nn">flm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_metrics</span> <span class="o">=</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_summary</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall recall = &quot;</span><span class="p">,</span> <span class="n">group_metrics</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+<span class="go">Overall recall =  0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall by groups = &quot;</span><span class="p">,</span> <span class="n">group_metrics</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
+<span class="go">recall by groups =  {&#39;a&#39;: 0.0, &#39;b&#39;: 0.5, &#39;c&#39;: 0.75, &#39;d&#39;: 0.0}</span>
+</pre></div>
+</div>
+<p>Note that the overall recall is the same as that calculated above in the
+Ungrouped Metric section, while the <cite>by_group</cite> dictionary matches the values
+we calculated by inspection from the table above.</p>
+<p>In addition to these basic scores, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics()</span></code></a> also provides
+convenience functions to recover the maximum and minimum values of the metric
+across groups and also the difference and ratio between the maximum and minimum:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min recall over groups = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_min_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="go">min recall over groups =  0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max recall over groups = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_max_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="go">max recall over groups =  0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;difference in recall = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">difference_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="go">difference in recall =  0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ratio in recall = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">ratio_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="go">ratio in recall =  0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="supported-ungrouped-metrics">
+<h3><span class="section-number">2.1.3. </span>Supported Ungrouped Metrics<a class="headerlink" href="#supported-ungrouped-metrics" title="Permalink to this headline">¶</a></h3>
+<p>To be used by <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.group_summary" title="fairlearn.metrics.group_summary"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.group_summary()</span></code></a>, the supplied Python
+function must take arguments <code class="code docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code>:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">my_metric_func(y_true,</span> <span class="pre">y_pred)</span></code></p>
+<p>An additional argument of <cite>sample_weight</cite> is also supported:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">my_metric_with_weight(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">sample_weight=None)</span></code></p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument is always invoked by name, and <em>only</em> if
+the user supplies a <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.</p>
+</div>
+<div class="section" id="convenience-wrapper">
+<h3><span class="section-number">2.1.4. </span>Convenience Wrapper<a class="headerlink" href="#convenience-wrapper" title="Permalink to this headline">¶</a></h3>
+<p>Rather than require a call to <code class="code docutils literal notranslate"><span class="pre">group_summary</span></code> each time, Fairlearn also
+provides a function which turns an ungrouped metric into a grouped one. This
+is called <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_metric_group_summary" title="fairlearn.metrics.make_metric_group_summary"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.make_metric_group_summary()</span></code></a>:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">recall_score_group_summary</span> <span class="o">=</span> <span class="n">flm</span><span class="o">.</span><span class="n">make_metric_group_summary</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">recall_score_group_summary</span><span class="p">(</span><span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall recall = &quot;</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+<span class="go">Overall recall =  0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall by groups = &quot;</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
+<span class="go">recall by groups =  {&#39;a&#39;: 0.0, &#39;b&#39;: 0.5, &#39;c&#39;: 0.75, &#39;d&#39;: 0.0}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="fairlearn-dashboard">
 <span id="dashboard"></span><h2><span class="section-number">2.2. </span>Fairlearn dashboard<a class="headerlink" href="#fairlearn-dashboard" title="Permalink to this headline">¶</a></h2>

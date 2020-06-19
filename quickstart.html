@@ -307,7 +307,7 @@ applications we need to be mindful of the sociotechnical context when making
 such decisions. The Exponentiated Gradient mitigation technique used fits the
 provided classifier using Demographic Parity as the objective, leading to
 a vastly reduced difference in selection rate:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ExponentiatedGradient</span><span class="p">,</span> <span class="n">DemographicParity</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ExponentiatedGradient</span><span class="p">,</span> <span class="n">DemographicParity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># set seed for consistent results with ExponentiatedGradient</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constraint</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">()</span>
@@ -323,7 +323,7 @@ a vastly reduced difference in selection rate:</p>
 <p>Similarly, we can explore the difference between the initial model and the
 mitigated model with respect to selection rate and accuracy in the dashboard
 through a multi-model comparison:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">,</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">,</span>
 <span class="gp">... </span>                   <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">],</span>
 <span class="gp">... </span>                   <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                   <span class="n">y_pred</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;initial model&quot;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s2">&quot;mitigated model&quot;</span><span class="p">:</span> <span class="n">y_pred_mitigated</span><span class="p">})</span> 
