@@ -239,15 +239,17 @@ is about binary classification, but we similarly support regression.</p>
 objective is to predict whether a person makes more (label 1) or less (0)
 than $50,000 a year.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">shap.datasets</span> <span class="kn">import</span> <span class="n">adult</span>  <span class="c1"># shap is only used its dataset utility</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">adult</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">*</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sex</span><span class="p">:</span> <span class="s2">&quot;female&quot;</span> <span class="k">if</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;male&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_adult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;&gt;50K&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="go">male      21790</span>
-<span class="go">female    10771</span>
-<span class="go">Name: Sex, dtype: int64</span>
+<span class="go">Male      32650</span>
+<span class="go">Female    16192</span>
+<span class="go">Name: sex, dtype: int64</span>
 </pre></div>
 </div>
 <div class="figure align-center">
@@ -270,14 +272,14 @@ we can evaluate metrics to get a group summary as below:</p>
 <span class="go">DecisionTreeClassifier(...)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_summary</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.844..., &#39;by_group&#39;: {&#39;female&#39;: 0.925..., &#39;male&#39;: 0.804...}}</span>
+<span class="go">{&#39;overall&#39;: 0.844..., &#39;by_group&#39;: {&#39;Female&#39;: 0.925..., &#39;Male&#39;: 0.804...}}</span>
 </pre></div>
 </div>
 <p>Additionally, Fairlearn has lots of other standard metrics built-in, such as
 selection rate, i.e., the percentage of the population with label 1:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate_group_summary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.161..., &#39;by_group&#39;: {&#39;female&#39;: 0.059..., &#39;male&#39;: 0.212...}}</span>
+<span class="go">{&#39;overall&#39;: 0.163..., &#39;by_group&#39;: {&#39;Female&#39;: 0.063..., &#39;Male&#39;: 0.213...}}</span>
 </pre></div>
 </div>
 <p>For a visual representation of the metrics try out the Fairlearn dashboard.
@@ -317,7 +319,7 @@ a vastly reduced difference in selection rate:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred_mitigated</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_group_summary</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_mitigated</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
-<span class="go">{&#39;overall&#39;: 0.155..., &#39;by_group&#39;: {&#39;female&#39;: 0.142..., &#39;male&#39;: 0.160...}}</span>
+<span class="go">{&#39;overall&#39;: 0.166..., &#39;by_group&#39;: {&#39;Female&#39;: 0.155..., &#39;Male&#39;: 0.171...}}</span>
 </pre></div>
 </div>
 <p>Similarly, we can explore the difference between the initial model and the
@@ -356,7 +358,7 @@ all parts of the toolkit. For concrete examples check out the
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.2.<br/>
     </p>
   </div>
 </footer>
