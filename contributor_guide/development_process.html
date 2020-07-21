@@ -195,7 +195,17 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#developer-certificate-of-origin" class="nav-link">Developer certificate of origin</a>
+            <a href="#developer-certificate-of-origin" class="nav-link">Developer certificate of origin</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#manually" class="nav-link">Manually</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#automatically" class="nav-link">Automatically</a>
+        </li>
+    
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -246,21 +256,56 @@ release, since that’s where your change will be included.
 If you’re a new contributor please also add yourself to AUTHORS.md.</p>
 <p>Docstrings should follow
 <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc format</a>.
-This is a
-<a class="reference external" href="https://github.com/fairlearn/fairlearn/issues/314">recent decision by the community</a>.
+This is a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues/314">recent decision by the community</a>.
 The new policy is to update docstrings that a PR touches, as opposed to
 changing all the docstrings in one PR.</p>
 <div class="section" id="developer-certificate-of-origin">
 <h2>Developer certificate of origin<a class="headerlink" href="#developer-certificate-of-origin" title="Permalink to this headline">¶</a></h2>
-<p>Contributions require you to sign a <em>developer certificate of origin</em> (DCO)
-declaring that you have the right to, and actually do, grant us the rights to
-use your contribution. For details, visit <a class="reference external" href="https://developercertificate.org/">https://developercertificate.org/</a>.</p>
+<p>All contributions require you to sign the <em>developer certificate of origin
+(DCO)</em>. This is a developer’s certification in which you declare that you have
+the right to, and actually do, grant us the rights to use your contribution.
+We use the exact same one created and used by the Linux kernel developers. You
+can read it at <a class="reference external" href="https://developercertificate.org">https://developercertificate.org</a>.</p>
+<p>You sign the DCO by <em>signing off</em> every commit comment with your name and email
+address: <em>Signed-off-by: Your Name &lt;your.email&#64;example.com&gt;</em></p>
 <p>When you submit a pull request, a DCO-bot will automatically determine whether
-you need to provide a DCO and decorate the PR appropriately (e.g., label,
-comment).</p>
-<p>Signing off means you need to have your name and email address attached as a
-commit comment, which you can automate using git hooks as shown
-<a class="reference external" href="https://stackoverflow.com/questions/15015894/git-add-signed-off-by-line-using-format-signoff-not-working/46536244#46536244">here</a>.</p>
+you need to provide a DCO and indicate how you can decorate the PR
+appropriately (e.g., label, comment).</p>
+<div class="section" id="manually">
+<h3>Manually<a class="headerlink" href="#manually" title="Permalink to this headline">¶</a></h3>
+<p>You can manually sign-off by adding a separate paragraph to your commit
+message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git commit -m “Your message
+Signed-off-by: Your Name &lt;your.email@example.com&gt;
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git commit -m “Your message&quot; -m “Signed-off-by: Your Name &lt;your.email@example.com&gt;”
+</pre></div>
+</div>
+<p>If this feels like a lot of typing, you can configure your name and e-mail in
+git to sign-off:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git config --global user.name “Your Name”
+git config --global user.email “your.email@example.com”
+</pre></div>
+</div>
+<p>Now, you can sign off using <code class="code docutils literal notranslate"><span class="pre">-s</span></code> or <code class="code docutils literal notranslate"><span class="pre">--signoff</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Your message&quot;</span>
+</pre></div>
+</div>
+<p>If you find <code class="code docutils literal notranslate"><span class="pre">-s</span></code> too much typing as well, you can also add an alias:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">alias</span><span class="o">.</span><span class="n">c</span> <span class="s2">&quot;commit --signoff&quot;</span>
+</pre></div>
+</div>
+<p>Which allows you to commit including a signoff as <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">c</span> <span class="pre">-m</span> <span class="pre">&quot;Your</span>
+<span class="pre">Message&quot;</span></code>.</p>
+<p>These instructions were adapted from <a class="reference external" href="https://kauri.io/dco-signoff-commiting-code-to-hyperledger-besu/f58190e5e3bc4b1a9ed902bfccfe58b9/a">this blog post</a>.</p>
+</div>
+<div class="section" id="automatically">
+<h3>Automatically<a class="headerlink" href="#automatically" title="Permalink to this headline">¶</a></h3>
+<p>You can also fully automate signing off using git hooks, by following the
+instructions of <a class="reference external" href="https://stackoverflow.com/questions/15015894/git-add-signed-off-by-line-using-format-signoff-not-working/46536244#46536244">this stack overflow post</a>.</p>
+</div>
 </div>
 <div class="section" id="advanced-installation-instructions">
 <span id="advanced-install"></span><h2>Advanced installation instructions<a class="headerlink" href="#advanced-installation-instructions" title="Permalink to this headline">¶</a></h2>
