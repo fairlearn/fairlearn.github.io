@@ -209,7 +209,13 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#advanced-installation-instructions" class="nav-link">Advanced installation instructions</a>
+            <a href="#advanced-installation-instructions" class="nav-link">Advanced installation instructions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#the-requirements-files" class="nav-link">The Requirements Files</a>
+        </li>
+    
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -321,7 +327,7 @@ locally via</p>
 </div>
 <p>from the repository root path.</p>
 <p>To verify that the code works as expected run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">install_requirements</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">pinned</span> <span class="kc">False</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">s</span> <span class="o">./</span><span class="n">test</span><span class="o">/</span><span class="n">unit</span>
 </pre></div>
 </div>
@@ -337,6 +343,30 @@ command</p>
 additional steps. To build the Fairlearn dashboard after making changes to it,
 <a class="reference external" href="https://yarnpkg.com/lang/en/docs/install">install Yarn</a>, and then run the
 <a class="reference external" href="https://github.com/fairlearn/fairlearn/tree/master/scripts/build_widget.py">widget build script</a>.</p>
+<div class="section" id="the-requirements-files">
+<h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Permalink to this headline">¶</a></h3>
+<p>The prerequisites for Fairlearn are split between three separate files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/requirements.txt">requirements.txt</a>
+contains the prerequisites for the core Fairlearn package</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/requirements-customplots.txt">requirements-customplots.txt</a>
+contains additional prerequisites for the <code class="code docutils literal notranslate"><span class="pre">[customplots]</span></code> extension for Fairlearn</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/requirements-dev.txt">requirements-dev.txt</a> contains
+the prerequisites for Fairlearn development (such as flake8 and pytest)</p></li>
+</ul>
+</div></blockquote>
+<p>The <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/requirements.txt">requirements.txt</a>
+and
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/requirements-customplots.txt">requirements-customplots.txt</a>
+files are consumed
+by <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/setup.py">setup.py</a> to specify the dependencies to be
+documented in the wheel files.
+To help simplify installation of the prerequisites, we have the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/master/scripts/install_requirements.py">install_requirements.py</a>
+script which runs <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> on all three of the above files.
+This script will also optionally pin the requirements to any lower bound specified (by changing any
+occurrences of <code class="code docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="code docutils literal notranslate"><span class="pre">==</span></code> in each file).</p>
 <details id="onboarding-guide">
 <summary>
 <strong>
@@ -370,6 +400,7 @@ exponentiated gradient was invoked via</p>
 <p>Please open a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">new issue</a> if
 you encounter any problems.</p>
 </details></div>
+</div>
 <div class="section" id="investigating-automated-test-failures">
 <h2>Investigating automated test failures<a class="headerlink" href="#investigating-automated-test-failures" title="Permalink to this headline">¶</a></h2>
 <p>For every pull request to <code class="code docutils literal notranslate"><span class="pre">master</span></code> with automated tests, you can check
@@ -400,7 +431,7 @@ contains a <code class="code docutils literal notranslate"><span class="pre">.wh
 <li><p>In this new environment, install this wheel by running
 <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dist/&lt;FILENAME&gt;.whl</span></code></p></li>
 <li><p>Install any pip packages required for the notebooks using
-<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">./scripts/install_requirements.py</span> <span class="pre">--pinned</span> <span class="pre">false</span></code></p></li>
 <li><p>Check that the dashboard loads in the notebooks</p></li>
 </ol>
 <p>We have an
