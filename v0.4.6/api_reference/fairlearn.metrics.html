@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fairlearn.metrics package &#8212; Fairlearn 0.4.6 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fairlearn.postprocessing package" href="fairlearn.postprocessing.html" />
+    <link rel="prev" title="API Reference" href="main.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../user_guide/main.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="main.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../auto_examples/index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../contribution_guide.html">Contribution Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../community.html">Community</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="">fairlearn.metrics package</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="fairlearn.postprocessing.html">fairlearn.postprocessing package</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="fairlearn.reductions.html">fairlearn.reductions package</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="fairlearn.widget.html">fairlearn.widget package</a>
+              </li>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-fairlearn.metrics">
+<span id="fairlearn-metrics-package"></span><h1>fairlearn.metrics package<a class="headerlink" href="#module-fairlearn.metrics" title="Permalink to this headline">¶</a></h1>
+<p>Functionality for computing metrics, with a particular focus on group metrics.</p>
+<p>For our purpose, a metric is a function with signature
+<code class="docutils literal notranslate"><span class="pre">f(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">....)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">y_true</span></code> are the set of true values and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> are
+values predicted by a machine learning algorithm. Other
+arguments may be present (most often sample weights), which will
+affect how the metric is calculated.</p>
+<p>The group metrics in this module have signatures
+<code class="docutils literal notranslate"><span class="pre">g(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">group_membership,</span> <span class="pre">...)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">group_membership</span></code> is an array of values indicating
+a group to which each pair of true and predicted values belong.
+The metric is evaluated for the entire set of data, and also
+for each subgroup identified in <code class="docutils literal notranslate"><span class="pre">group_membership</span></code>.</p>
+<dl class="py function">
+<dt id="fairlearn.metrics.demographic_parity_difference">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">demographic_parity_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.demographic_parity_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the demographic parity difference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>1D-array</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>1D-array</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> (<em>1D-array</em>) – Sensitive features.</p></li>
+<li><p><strong>sample_weight</strong> (<em>1D-array</em>) – Sample weights.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The difference between the largest and the smallest group-level selection rate,
+<span class="math notranslate nohighlight">\(E[h(X) | A=a]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span> of the sensitive feature.
+The demographic parity difference of 0 means that all groups have the same selection rate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.demographic_parity_ratio">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">demographic_parity_ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.demographic_parity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the demographic parity ratio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>1D-array</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>1D-array</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> (<em>1D-array</em>) – Sensitive features.</p></li>
+<li><p><strong>sample_weight</strong> (<em>1D-array</em>) – Sample weights.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The ratio between the smallest and the largest group-level selection rate,
+<span class="math notranslate nohighlight">\(E[h(X) | A=a]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span> of the sensitive feature.
+The demographic parity ratio of 1 means that all groups have the same selection rate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.difference_from_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">difference_from_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.difference_from_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the difference between the maximum and minimum metric value across groups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>summary</strong> – A group metric summary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The difference between the maximum and the minimum group-level
+metrics described in <code class="docutils literal notranslate"><span class="pre">summary</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.equalized_odds_difference">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">equalized_odds_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.equalized_odds_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the equalized odds difference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>1D-array</em>) – Ground truth (correct) labels <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><strong>y_pred</strong> (<em>1D-array</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> (<em>1D-array</em>) – Sensitive features.</p></li>
+<li><p><strong>sample_weight</strong> (<em>1D-array</em>) – Sample weights.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The greater of two metrics: <cite>true_positive_rate_difference</cite> and
+<cite>false_negative_rate_difference</cite>. The former is the difference between the
+largest and smallest of <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span>
+of the sensitive feature. The latter is defined similarly, but for
+<span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=0]\)</span>.
+The equalized odds difference of 0 means that all groups have the same
+true positive, true negative, false positive, and false negative rates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.equalized_odds_ratio">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">equalized_odds_ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.equalized_odds_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the equalized odds ratio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>1D-array</em>) – Ground truth (correct) labels <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><strong>y_pred</strong> (<em>1D-array</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> (<em>1D-array</em>) – Sensitive features.</p></li>
+<li><p><strong>sample_weight</strong> (<em>1D-array</em>) – Sample weights.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The smaller of two metrics: <cite>true_positive_rate_ratio</cite> and
+<cite>false_negative_rate_ratio</cite>. The former is the ratio between the
+smallest and largest of <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span>
+of the sensitive feature. The latter is defined similarly, but for
+<span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=0]\)</span>.
+The equalized odds ratio of 1 means that all groups have the same
+true positive, true negative, false positive, and false negative rates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.false_negative_rate">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">false_negative_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.false_negative_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the false negative rate (also called miss rate).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.false_positive_rate">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">false_positive_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.false_positive_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the false positive rate (also called fall-out).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.group_max_from_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">group_max_from_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.group_max_from_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the minimum group-level metric value from group summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>summary</strong> – A group metric summary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The maximum group-level metric value across all groups in <code class="docutils literal notranslate"><span class="pre">summary</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.group_min_from_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">group_min_from_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.group_min_from_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the minimum group-level metric value from group summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>summary</strong> – A group metric summary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The minimum group-level metric value across all groups in <code class="docutils literal notranslate"><span class="pre">summary</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.group_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">group_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metric_function</span></em>, <em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">sensitive_features</span></em>, <em class="sig-param"><span class="n">indexed_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">metric_params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.group_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a metric to each subgroup of a set of data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_function</strong> – Function with signature
+<code class="docutils literal notranslate"><span class="pre">metric_function(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">\*\*metric_params)</span></code></p></li>
+<li><p><strong>y_true</strong> – Array of ground-truth values</p></li>
+<li><p><strong>y_pred</strong> – Array of predicted values</p></li>
+<li><p><strong>sensitive_features</strong> – Array indicating the group to which each input value belongs</p></li>
+<li><p><strong>indexed_params</strong> – Names of <code class="docutils literal notranslate"><span class="pre">metric_function</span></code> parameters that
+should be split according to <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">y_true</span></code>
+and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> corresponding to <code class="docutils literal notranslate"><span class="pre">{&quot;sample_weight&quot;}</span></code>.</p></li>
+<li><p><strong>**metric_params</strong> – Optional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">metric_function</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Object containing the result of applying <code class="docutils literal notranslate"><span class="pre">metric_function</span></code> to the entire dataset
+and to each group identified in <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.utils.Bunch</span></code> with the fields <code class="docutils literal notranslate"><span class="pre">overall</span></code> and <code class="docutils literal notranslate"><span class="pre">by_group</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.make_derived_metric">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">make_derived_metric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation_function</span></em>, <em class="sig-param"><span class="n">summary_function</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.make_derived_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a callable that calculates a derived metric from the group summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transformation_function</strong> (<em>func</em>) – A transformation function with the signature
+<code class="docutils literal notranslate"><span class="pre">transformation_function(summary)</span></code></p></li>
+<li><p><strong>summary_function</strong> (<em>func</em>) – A metric group summary function with the signature
+<code class="docutils literal notranslate"><span class="pre">summary_function(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">*,</span> <span class="pre">sensitive_features,</span> <span class="pre">**metric_params)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A callable object with the signature
+<code class="docutils literal notranslate"><span class="pre">derived_metric(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">*,</span> <span class="pre">sensitive_features,</span> <span class="pre">**metric_params)</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>func</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.make_metric_group_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">make_metric_group_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metric_function</span></em>, <em class="sig-param"><span class="n">indexed_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.make_metric_group_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a callable that calculates the group summary of a metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_function</strong> (<em>func</em>) – A metric function with the signature
+<code class="docutils literal notranslate"><span class="pre">metric_function(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">**metric_params)</span></code></p></li>
+<li><p><strong>indexed_params</strong> – The names of parameters of <code class="docutils literal notranslate"><span class="pre">metric_function</span></code> that
+should be split according to <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">y_true</span></code>
+and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> corresponding to <code class="docutils literal notranslate"><span class="pre">['sample_weight']</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A callable object with the signature
+<code class="docutils literal notranslate"><span class="pre">metric_group_summary(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">*,</span> <span class="pre">sensitive_features,</span> <span class="pre">**metric_params)</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>func</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.mean_prediction">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">mean_prediction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.mean_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the (weighted) mean prediction.</p>
+<p>The true values are ignored, but required as an argument in order
+to maintain a consistent interface</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.ratio_from_summary">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">ratio_from_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.ratio_from_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the ratio between the maximum and minimum metric value across groups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>summary</strong> – A group metric summary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The ratio between the maximum and the minimum group-level
+metrics described in <code class="docutils literal notranslate"><span class="pre">summary</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.selection_rate">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">selection_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">pos_label</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.selection_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the fraction of predicted labels matching the ‘good’ outcome.</p>
+<p>The argument <cite>pos_label</cite> specifies the ‘good’ outcome.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.true_negative_rate">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">true_negative_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.true_negative_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the true negative rate (also called specificity or selectivity).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fairlearn.metrics.true_positive_rate">
+<code class="sig-prename descclassname">fairlearn.metrics.</code><code class="sig-name descname">true_positive_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y_true</span></em>, <em class="sig-param"><span class="n">y_pred</span></em>, <em class="sig-param"><span class="n">sample_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fairlearn.metrics.true_positive_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the true positive rate (also called sensitivity, recall, or hit rate).</p>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
