@@ -202,14 +202,6 @@
             <a href="#metrics-with-grouping" class="nav-link">Metrics with Grouping</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#supported-ungrouped-metrics" class="nav-link">Supported Ungrouped Metrics</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#convenience-wrapper" class="nav-link">Convenience Wrapper</a>
-        </li>
-    
             </ul>
         </li>
     
@@ -275,12 +267,13 @@ of the ten cases where the true value is <cite>1</cite>, so we expect the recall
 <h3><span class="section-number">2.1.2. </span>Metrics with Grouping<a class="headerlink" href="#metrics-with-grouping" title="Permalink to this headline">¶</a></h3>
 <p>When considering fairness, each row of input data will have an associated
 group label <span class="math notranslate nohighlight">\(g \in G\)</span>, and we will want to know how the metric behaves
-for each <span class="math notranslate nohighlight">\(g\)</span>. To help with this, Fairlearn provides wrappers, which take
-an existing (ungrouped) metric function, and apply it to each group within a
+for each <span class="math notranslate nohighlight">\(g\)</span>. To help with this, Fairlearn provides a class, which takes
+an existing (ungrouped) metric function, and applies it to each group within a
 set of data.</p>
 <p>Suppose in addition to the <span class="math notranslate nohighlight">\(Y_{true}\)</span> and <span class="math notranslate nohighlight">\(Y_{pred}\)</span> above, we had
 the following set of labels:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group_membership_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
 <span class="gp">... </span>                         <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
@@ -307,58 +300,119 @@ the following set of labels:</p>
 <span class="go">15       1       1                     c</span>
 </pre></div>
 </div>
-<p>We then calculate a group metric:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fairlearn.metrics</span> <span class="k">as</span> <span class="nn">flm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">group_metrics</span> <span class="o">=</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_summary</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
-<span class="gp">... </span>                                  <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
-<span class="gp">... </span>                                  <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">,</span>
-<span class="gp">... </span>                                  <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall recall = &quot;</span><span class="p">,</span> <span class="n">group_metrics</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+<p>We then calculate a metric which shows the subgroups:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped_metric</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall recall = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
 <span class="go">Overall recall =  0.5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall by groups = &quot;</span><span class="p">,</span> <span class="n">group_metrics</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall by groups = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
 <span class="go">recall by groups =  {&#39;a&#39;: 0.0, &#39;b&#39;: 0.5, &#39;c&#39;: 0.75, &#39;d&#39;: 0.0}</span>
 </pre></div>
 </div>
 <p>Note that the overall recall is the same as that calculated above in the
-Ungrouped Metric section, while the <cite>by_group</cite> dictionary matches the values
-we calculated by inspection from the table above.</p>
-<p>In addition to these basic scores, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics()</span></code></a> also provides
+Ungrouped Metric section, while the ‘by group’ dictionary can be checked
+against the table above.</p>
+<p>In addition to these basic scores, Fairlearn also provides
 convenience functions to recover the maximum and minimum values of the metric
 across groups and also the difference and ratio between the maximum and minimum:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min recall over groups = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_min_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min recall over groups = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">group_min</span><span class="p">())</span>
 <span class="go">min recall over groups =  0.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max recall over groups = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">group_max_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max recall over groups = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">group_max</span><span class="p">())</span>
 <span class="go">max recall over groups =  0.75</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;difference in recall = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">difference_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;difference in recall = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">))</span>
 <span class="go">difference in recall =  0.75</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ratio in recall = &quot;</span><span class="p">,</span> <span class="n">flm</span><span class="o">.</span><span class="n">ratio_from_summary</span><span class="p">(</span><span class="n">group_metrics</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ratio in recall = &quot;</span><span class="p">,</span> <span class="n">grouped_metric</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">))</span>
 <span class="go">ratio in recall =  0.0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="supported-ungrouped-metrics">
-<h3><span class="section-number">2.1.3. </span>Supported Ungrouped Metrics<a class="headerlink" href="#supported-ungrouped-metrics" title="Permalink to this headline">¶</a></h3>
-<p>To be used by <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.group_summary" title="fairlearn.metrics.group_summary"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.group_summary()</span></code></a>, the supplied Python
-function must take arguments <code class="code docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code>:</p>
-<p><code class="code docutils literal notranslate"><span class="pre">my_metric_func(y_true,</span> <span class="pre">y_pred)</span></code></p>
-<p>An additional argument of <cite>sample_weight</cite> is also supported:</p>
-<p><code class="code docutils literal notranslate"><span class="pre">my_metric_with_weight(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">sample_weight=None)</span></code></p>
-<p>The <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument is always invoked by name, and <em>only</em> if
-the user supplies a <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.</p>
-</div>
-<div class="section" id="convenience-wrapper">
-<h3><span class="section-number">2.1.4. </span>Convenience Wrapper<a class="headerlink" href="#convenience-wrapper" title="Permalink to this headline">¶</a></h3>
-<p>Rather than require a call to <code class="code docutils literal notranslate"><span class="pre">group_summary</span></code> each time, Fairlearn also
-provides a function which turns an ungrouped metric into a grouped one. This
-is called <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_metric_group_summary" title="fairlearn.metrics.make_metric_group_summary"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.make_metric_group_summary()</span></code></a>:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">recall_score_group_summary</span> <span class="o">=</span> <span class="n">flm</span><span class="o">.</span><span class="n">make_metric_group_summary</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">recall_score_group_summary</span><span class="p">(</span><span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall recall = &quot;</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
-<span class="go">Overall recall =  0.5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall by groups = &quot;</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
-<span class="go">recall by groups =  {&#39;a&#39;: 0.0, &#39;b&#39;: 0.5, &#39;c&#39;: 0.75, &#39;d&#39;: 0.0}</span>
+<p>A single instance of <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> can evaluate multiple
+metrics simultaneously:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">({</span><span class="s1">&#39;precision&#39;</span><span class="p">:</span><span class="n">skm</span><span class="o">.</span><span class="n">precision_score</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">},</span>
+<span class="gp">... </span>                            <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">precision    0.555556</span>
+<span class="go">recall            0.5</span>
+<span class="go">dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">     precision recall</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">a            0      0</span>
+<span class="go">b            1    0.5</span>
+<span class="go">c          0.6   0.75</span>
+<span class="go">d            0      0</span>
 </pre></div>
 </div>
+<p>If there are per-sample arguments (such as sample weights), these can also be provided
+in a dictionary via the <code class="docutils literal notranslate"><span class="pre">sample_params</span></code> argument.:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_p</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;sample_weight&#39;</span><span class="p">:</span><span class="n">s_w</span> <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>                       <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                       <span class="n">sensitive_features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">group_membership_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SF 0&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                       <span class="n">sample_params</span><span class="o">=</span><span class="n">s_p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.45</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0</span>
+<span class="go">a               0</span>
+<span class="go">b             0.5</span>
+<span class="go">c        0.714286</span>
+<span class="go">d               0</span>
+<span class="go">Name: recall_score, dtype: object</span>
+</pre></div>
+</div>
+<p>If mutiple metrics are being evaluated, then <code class="docutils literal notranslate"><span class="pre">sample_params</span></code> becomes a dictionary of
+dictionaries, with the first key corresponding matching that in the dictionary holding
+the desired underlying metric functions.</p>
+<p>We do not support non-sample parameters at the current time. If these are required, then
+use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> to prebind the required arguments to the metric
+function:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta_06</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_beta</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">fbeta_06</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_beta</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.5396825396825397</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_beta</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">a            0</span>
+<span class="go">b     0.790698</span>
+<span class="go">c      0.63354</span>
+<span class="go">d            0</span>
+<span class="go">Name: metric, dtype: object</span>
+</pre></div>
+</div>
+<p>Finally, multiple sensitive features can be specified. The <code class="docutils literal notranslate"><span class="pre">by_groups</span></code> property then
+holds the intersections of these groups:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g_2</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_f_frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">group_membership_data</span><span class="p">,</span> <span class="n">g_2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>                         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SF 0&#39;</span><span class="p">,</span> <span class="s1">&#39;SF 1&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_2sf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">sensitive_features</span><span class="o">=</span><span class="n">s_f_frame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_2sf</span><span class="o">.</span><span class="n">overall</span>  <span class="c1"># Same as before</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_2sf</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0  SF 1</span>
+<span class="go">a     6         0</span>
+<span class="go">      8       NaN</span>
+<span class="go">b     6       0.5</span>
+<span class="go">      8       0.5</span>
+<span class="go">c     6         1</span>
+<span class="go">      8       0.5</span>
+<span class="go">d     6         0</span>
+<span class="go">      8         0</span>
+<span class="go">Name: recall_score, dtype: object</span>
+</pre></div>
+</div>
+<p>With such a small number of samples, we are obviously running into cases where
+there are no members in a particular combination of sensitive features. In this
+case we see that the subgroup <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">8)</span></code> has a result of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, indicating
+that there were no samples in it.</p>
 </div>
 </div>
 <div class="section" id="fairlearn-dashboard">
@@ -374,7 +428,7 @@ be launched within a Jupyter notebook as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
 
 <span class="c1"># A_test containts your sensitive features (e.g., age, binary gender)</span>
-<span class="c1"># sensitive_feature_names containts your sensitive feature names</span>
+<span class="c1"># sensitive_feature_names contains your sensitive feature names</span>
 <span class="c1"># y_true contains ground truth labels</span>
 <span class="c1"># y_pred contains prediction labels</span>
 
