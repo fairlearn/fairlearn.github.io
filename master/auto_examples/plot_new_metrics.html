@@ -1,0 +1,1736 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metrics with Multiple Features &#8212; Fairlearn 0.4.7.dev0 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributor Guide" href="../contributor_guide/index.html" />
+    <link rel="prev" title="GridSearch with Census Data" href="plot_grid_search_census.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../contents.html">
+    
+      <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../about/index.html">About</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../user_guide/index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../contributor_guide/index.html">Contributor Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../faq.html">FAQ</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><strong><a href="plot_new_metrics.html">master</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="plot_grid_search_census.html">GridSearch with Census Data</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Metrics with Multiple Features</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="plot_grid_search_census.html">GridSearch with Census Data</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Metrics with Multiple Features</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#getting-the-data" class="nav-link">Getting the Data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#analysing-the-model-with-metrics" class="nav-link">Analysing the Model with Metrics</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#sample-weights-and-other-arrays" class="nav-link">Sample weights and other arrays</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#quantifying-disparities" class="nav-link">Quantifying Disparities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#intersections-of-features" class="nav-link">Intersections of Features</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#control-features" class="nav-link">Control Features</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-new-metrics-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="metrics-with-multiple-features">
+<span id="sphx-glr-auto-examples-plot-new-metrics-py"></span><h1>Metrics with Multiple Features<a class="headerlink" href="#metrics-with-multiple-features" title="Permalink to this headline">¶</a></h1>
+<p>This notebook demonstrates the new API for metrics, which supports
+multiple sensitive and conditional features. This example does not
+contain a proper discussion of how fairness relates to the dataset
+used, although it does highlight issues which users may want to
+consider when analysing their datasets.</p>
+<p>We are going to consider a lending scenario, supposing that we have
+a model which predicts whether or not a particular customer will
+repay a loan. This could be used as the basis of deciding whether
+or not to offer that customer a loan. With traditional metrics,
+we would assess the model using:</p>
+<ul class="simple">
+<li><p>The ‘true’ values from the test set</p></li>
+<li><p>The model predictions from the test set</p></li>
+</ul>
+<p>Our fairness metrics compute group-based fairness statistics.
+To use these, we also need categorical columns from the test
+set. For this example, we will include:</p>
+<ul class="simple">
+<li><p>The sex of each individual (two unique values)</p></li>
+<li><p>The race of each individual (three unique values)</p></li>
+<li><p>The credit score band of each individual (three unique values)</p></li>
+<li><p>Whether the loan is considered ‘large’ or ‘small’</p></li>
+</ul>
+<p>An individual’s sex and race should not affect a lending decision,
+but it would be legitimate to consider an individual’s credit score
+and the relative size of the loan which they desired.</p>
+<p>A real scenario will be more complicated, but this will serve to
+illustrate the use of the new metrics.</p>
+<div class="section" id="getting-the-data">
+<h2>Getting the Data<a class="headerlink" href="#getting-the-data" title="Permalink to this headline">¶</a></h2>
+<p><em>This section may be skipped. It simply creates a dataset for
+illustrative purposes</em></p>
+<p>We will use the well-known UCI ‘Adult’ dataset as the basis of this
+demonstration. This is not for a lending scenario, but we will regard
+it as one for the purposes of this example. We will use the existing
+‘race’ and ‘sex’ columns (trimming the former to three unique values),
+and manufacture credit score bands and loan sizes from other columns.
+We start with some uncontroversial <cite>import</cite> statements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
+</pre></div>
+</div>
+<p>Next, we import the data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">data</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">1590</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">data</span></a>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a> <span class="o">=</span> <span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">target</span></a> <span class="o">==</span> <span class="s1">&#39;&gt;50K&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>For purposes of clarity, we consolidate the ‘race’ column to have
+three unique values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">race_transform</span><span class="p">(</span><span class="n">input_str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reduce values to White, Black and Other.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Other&#39;</span>
+    <span class="k">if</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s1">&#39;White&#39;</span> <span class="ow">or</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s1">&#39;Black&#39;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">input_str</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">race_transform</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Other&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpcrft_k0j/efbb09f581bc8e8dc776cc3af04f69ae2ddad49e/examples/plot_new_metrics.py:87: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  X_raw[&#39;race&#39;] = X_raw[&#39;race&#39;].map(race_transform).fillna(&#39;Other&#39;)
+[&#39;Black&#39; &#39;Other&#39; &#39;White&#39;]
+</pre></div>
+</div>
+<p>Now, we manufacture the columns for the credit score band and
+requested loan size. These are wholly constructed, and not
+part of the actual dataset in any way. They are simply for
+illustrative purposes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">marriage_transform</span><span class="p">(</span><span class="n">m_s_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform some simple manipulations.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Low&#39;</span>
+    <span class="k">if</span> <span class="n">m_s_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Married&quot;</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Medium&#39;</span>
+    <span class="k">elif</span> <span class="n">m_s_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Widowed&quot;</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;High&#39;</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">occupation_transform</span><span class="p">(</span><span class="n">occ_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform some simple manipulations.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Small&#39;</span>
+    <span class="k">if</span> <span class="n">occ_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Machine&quot;</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Large&#39;</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_credit</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s1">&#39;marital-status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">marriage_transform</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Low&#39;</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.name.html#pandas.Series.name" title="pandas.Series.name" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">col_credit</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <span class="s2">&quot;Credit Score&quot;</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_loan_size</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s1">&#39;occupation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">occupation_transform</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Small&#39;</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.name.html#pandas.Series.name" title="pandas.Series.name" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">col_loan_size</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <span class="s2">&quot;Loan Size&quot;</span>
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]]</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">[</span><span class="s1">&#39;Credit Score&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_credit</span></a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">[</span><span class="s1">&#39;Loan Size&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_loan_size</span></a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpcrft_k0j/efbb09f581bc8e8dc776cc3af04f69ae2ddad49e/examples/plot_new_metrics.py:121: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  A[&#39;Credit Score&#39;] = col_credit
+/tmp/tmpcrft_k0j/efbb09f581bc8e8dc776cc3af04f69ae2ddad49e/examples/plot_new_metrics.py:122: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  A[&#39;Loan Size&#39;] = col_loan_size
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>race</th>
+      <th>sex</th>
+      <th>Credit Score</th>
+      <th>Loan Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Black</td>
+      <td>Male</td>
+      <td>Low</td>
+      <td>Large</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>White</td>
+      <td>Male</td>
+      <td>Medium</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>White</td>
+      <td>Male</td>
+      <td>Medium</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Black</td>
+      <td>Male</td>
+      <td>Medium</td>
+      <td>Large</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>White</td>
+      <td>Female</td>
+      <td>Low</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>48837</th>
+      <td>White</td>
+      <td>Female</td>
+      <td>Medium</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>48838</th>
+      <td>White</td>
+      <td>Male</td>
+      <td>Medium</td>
+      <td>Large</td>
+    </tr>
+    <tr>
+      <th>48839</th>
+      <td>White</td>
+      <td>Female</td>
+      <td>High</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>48840</th>
+      <td>White</td>
+      <td>Male</td>
+      <td>Low</td>
+      <td>Small</td>
+    </tr>
+    <tr>
+      <th>48841</th>
+      <td>White</td>
+      <td>Female</td>
+      <td>Medium</td>
+      <td>Small</td>
+    </tr>
+  </tbody>
+</table>
+<p>48842 rows × 4 columns</p>
+</div>
+<br />
+<br /><p>With the data imported, we perform some standard processing, and a test/train split:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">le</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">()</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder.fit_transform" title="sklearn.preprocessing.LabelEncoder.fit_transform" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-method"><span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a><span class="p">)</span>
+
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">le</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">()</span>
+
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sc</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">()</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dummies</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.get_dummies.html#pandas.get_dummies" title="pandas.get_dummies" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler.fit_transform" title="sklearn.preprocessing.StandardScaler.fit_transform" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-method"><span class="n">sc</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dummies</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Index.html#pandas.Index" title="pandas.Index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_dummies</span><span class="o">.</span><span class="n">columns</span></a><span class="p">)</span>
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">,</span>
+                                                                     <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                                                                     <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>
+                                                                     <span class="n">stratify</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a><span class="p">)</span>
+
+<span class="c1"># Ensure indices are aligned</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_train</span><span class="o">.</span><span class="n">reset_index</span></a><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_test</span><span class="o">.</span><span class="n">reset_index</span></a><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">A_train</span><span class="o">.</span><span class="n">reset_index</span></a><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span></a><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we train a simple model on the data, and generate
+some predictions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">unmitigated_predictor</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;liblinear&#39;</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.fit" title="sklearn.linear_model.LogisticRegression.fit" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">unmitigated_predictor</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">)</span>
+
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">unmitigated_predictor</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="analysing-the-model-with-metrics">
+<h2>Analysing the Model with Metrics<a class="headerlink" href="#analysing-the-model-with-metrics" title="Permalink to this headline">¶</a></h2>
+<p>After our data manipulations and model training, we have the following
+from our test set:</p>
+<ul class="simple">
+<li><p>A vector of true values called <code class="docutils literal notranslate"><span class="pre">Y_test</span></code></p></li>
+<li><p>A vector of model predictions called <code class="docutils literal notranslate"><span class="pre">Y_pred</span></code></p></li>
+<li><p>A DataFrame of categorical features relevant to fairness called <code class="docutils literal notranslate"><span class="pre">A_test</span></code></p></li>
+</ul>
+<p>In a traditional model analysis, we would now look at some metrics
+evaluated on the entire dataset. Suppose in this case, the relevant
+metrics are <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.selection_rate()</span></code></a> and
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a> (with
+<code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code>).
+We can evaluate these metrics directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selection Rate:&quot;</span><span class="p">,</span> <span class="n">selection_rate</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fbeta:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Selection Rate: 0.20050501603767146
+fbeta: 0.6819168793569769
+</pre></div>
+</div>
+<p>We know that there are sensitive features in our data, and we want to
+ensure that we’re not harming individuals due to membership in any of
+these groups. For this purpose, Fairlearn provides the
+<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
+class. Let us construct an instance of this class, and then look at
+its capabilities:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fbeta_06</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">metric_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;selection_rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span> <span class="s1">&#39;fbeta_06&#39;</span><span class="p">:</span> <span class="n">fbeta_06</span><span class="p">}</span>
+
+<span class="n">grouped_on_sex</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                             <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                             <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object requires a
+minimum of four arguments:</p>
+<ol class="arabic simple">
+<li><p>The underlying metric function(s) to be evaluated</p></li>
+<li><p>The true values</p></li>
+<li><p>The predicted values</p></li>
+<li><p>The sensitive feature values</p></li>
+</ol>
+<p>These are all passed as arguments to the constructor. If more than
+one underlying metric is required (as in this case), then we must
+provide them in a dictionary.</p>
+<p>The underlying metrics must have a signature <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code>,
+so we have to use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> to
+furnish <code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code> (we will show how to pass in extra array
+arguments such as sample weights shortly).</p>
+<p>We will now take a closer look at the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
+object. First, there is the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property, which contains
+the metrics evaluated on the entire dataset. We see that this contains the
+same values calculated above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s1">&#39;selection_rate&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">selection_rate</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">)</span>
+<span class="k">assert</span> <span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s1">&#39;fbeta_06&#39;</span><span class="p">]</span> <span class="o">==</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.200505
+fbeta_06          0.681917
+dtype: object
+</pre></div>
+</div>
+<p>The other property in the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object
+is <code class="docutils literal notranslate"><span class="pre">by_group</span></code>. This contains the metrics evaluated on each subgroup defined
+by the categories in the <code class="docutils literal notranslate"><span class="pre">sensitive_features=</span></code> argument. In this case, we
+have results for males and females:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Female</th>
+      <td>0.0730349</td>
+      <td>0.639174</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.263512</td>
+      <td>0.6882</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>We can immediately see a substantial disparity in the selection rate between
+males and females.</p>
+<p>We can also create another <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object
+using race as the sensitive feature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                              <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                              <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">overall</span></code> property is unchanged:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span> <span class="o">==</span> <span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">by_group</span></code> property now contains the metrics evaluated based on the ‘race’
+column:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>race</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Black</th>
+      <td>0.0766017</td>
+      <td>0.60886</td>
+    </tr>
+    <tr>
+      <th>Other</th>
+      <td>0.189607</td>
+      <td>0.648637</td>
+    </tr>
+    <tr>
+      <th>White</th>
+      <td>0.215354</td>
+      <td>0.686801</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>We see that there is also a significant disparity in selection rates when
+grouping by race.</p>
+<div class="section" id="sample-weights-and-other-arrays">
+<h3>Sample weights and other arrays<a class="headerlink" href="#sample-weights-and-other-arrays" title="Permalink to this headline">¶</a></h3>
+<p>We noted above that the underlying metric functions passed to the
+<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> constructor need to be of
+the form <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code> - we do not support scalar arguments
+such as <code class="docutils literal notranslate"><span class="pre">pos_label=</span></code> or <code class="docutils literal notranslate"><span class="pre">beta=</span></code> in the constructor. Such
+arguments should be bound into a new function using
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>, and the result passed in. However, we do
+support arguments which have one entry for each sample, with an array
+of sample weights being the most common example. These are divided
+into subgroups along with <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>, and passed along
+to the underlying metric.</p>
+<p>To use these arguments, we pass in a dictionary as the <code class="docutils literal notranslate"><span class="pre">sample_params=</span></code>
+argument of the constructor. Let us generate some random weights, and
+pass these along:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">))</span>
+
+<span class="n">example_sample_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;selection_rate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;sample_weight&#39;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">},</span>
+    <span class="s1">&#39;fbeta_06&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;sample_weight&#39;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">},</span>
+<span class="p">}</span>
+
+
+<span class="n">grouped_with_weights</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                                   <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                                   <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">],</span>
+                                   <span class="n">sample_params</span><span class="o">=</span><span class="n">example_sample_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can inspect the overall values, and check they are as expected:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s1">&#39;selection_rate&#39;</span><span class="p">]</span> <span class="o">==</span> \
+    <span class="n">selection_rate</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">)</span>
+<span class="k">assert</span> <span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s1">&#39;fbeta_06&#39;</span><span class="p">]</span> <span class="o">==</span> \
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.201373
+fbeta_06          0.681661
+dtype: object
+</pre></div>
+</div>
+<p>We can also see the effect on the metric being evaluated on the subgroups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Female</th>
+      <td>0.0722124</td>
+      <td>0.644176</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.265053</td>
+      <td>0.68713</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /></div>
+</div>
+<div class="section" id="quantifying-disparities">
+<h2>Quantifying Disparities<a class="headerlink" href="#quantifying-disparities" title="Permalink to this headline">¶</a></h2>
+<p>We now know that our model is selecting individuals who are female far less
+often than individuals who are male. There is a similar effect when
+examining the results by race, with blacks being selected far less often than
+whites (and those classified as ‘other’). However, there are many cases where
+presenting all these numbers at once will not be useful (for example, a high
+level dashboard which is monitoring model performance). Fairlearn provides
+several means of aggregating metrics across the subgroups, so that disparities
+can be readily quantified.</p>
+<p>The simplest of these aggregations is <code class="docutils literal notranslate"><span class="pre">group_min()</span></code>, which reports the
+minimum value seen for a subgroup for each underlying metric (we also provide
+<code class="docutils literal notranslate"><span class="pre">group_max()</span></code>). This is
+useful if there is a mandate that “no subgroup should have an <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code>
+of less than 0.6.” We can evaluate the minimum values easily:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.0766017
+fbeta_06            0.60886
+dtype: object
+</pre></div>
+</div>
+<p>As noted above, the selection rates varies greatly by race and by sex.
+This can be quantified in terms of a difference between the subgroup with
+the highest value of the metric, and the subgroup with the lowest value.
+For this, we provide the method <code class="docutils literal notranslate"><span class="pre">difference(method='between_groups)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.138752
+fbeta_06          0.077941
+dtype: float64
+</pre></div>
+</div>
+<p>We can also evaluate the difference relative to the corresponding overall
+value of the metric. In this case we take the absolute value, so that the
+result is always positive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;to_overall&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.123903
+fbeta_06          0.073057
+dtype: float64
+</pre></div>
+</div>
+<p>There are situations where knowing the ratios of the metrics evaluated on
+the subgroups is more useful. For this we have the <code class="docutils literal notranslate"><span class="pre">ratio()</span></code> method.
+We can take the ratios between the minimum and maximum values of each metric:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.355701
+fbeta_06          0.886516
+dtype: object
+</pre></div>
+</div>
+<p>We can also compute the ratios relative to the overall value for each
+metric. Analogous to the differences, the ratios are always in the range
+<span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;to_overall&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.382044
+fbeta_06          0.892865
+dtype: float64
+</pre></div>
+</div>
+</div>
+<div class="section" id="intersections-of-features">
+<h2>Intersections of Features<a class="headerlink" href="#intersections-of-features" title="Permalink to this headline">¶</a></h2>
+<p>So far we have only considered a single sensitive feature at a time,
+and we have already found some serious issues in our example data.
+However, sometimes serious issues can be hiding in intersections of
+features. For example, the
+<a class="reference external" href="https://www.media.mit.edu/projects/gender-shades/overview/">Gender Shades project</a>
+found that facial recognition algorithms performed worse for blacks
+than whites, and also worse for women than men (despite overall high
+accuracy score). Moreover, performance on black females was <em>terrible</em>.
+We can examine the intersections of sensitive features by passing
+multiple columns to the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
+constructor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                                      <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                                      <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>The overall values are unchanged, but the <code class="docutils literal notranslate"><span class="pre">by_group</span></code> table now
+shows the intersections between subgroups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">overall</span> <span class="o">==</span> <span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>race</th>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0.0235784</td>
+      <td>0.6206</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.13007</td>
+      <td>0.60627</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0.0711462</td>
+      <td>0.539683</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.254902</td>
+      <td>0.667157</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.0823651</td>
+      <td>0.646108</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.275023</td>
+      <td>0.692614</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>The aggregations are still performed across all subgroups for each metric,
+so each continues to reduce to a single value. If we look at the
+<code class="docutils literal notranslate"><span class="pre">group_min()</span></code>, we see that we violate the mandate we specified for the
+<code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> suggested above (for females with a race of ‘Other’ in
+fact):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.0235784
+fbeta_06           0.539683
+dtype: object
+</pre></div>
+</div>
+<p>Looking at the <code class="docutils literal notranslate"><span class="pre">ratio()</span></code> method, we see that the disparity is worse
+(specifically between white males and black females, if we check in
+the <code class="docutils literal notranslate"><span class="pre">by_group</span></code> table):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.0857323
+fbeta_06           0.779197
+dtype: object
+</pre></div>
+</div>
+</div>
+<div class="section" id="control-features">
+<h2>Control Features<a class="headerlink" href="#control-features" title="Permalink to this headline">¶</a></h2>
+<p>There is a further way we can slice up our data. We have (<em>completely
+made up</em>) features for the individuals’ credit scores (in three bands)
+and also the size of the loan requested (large or small). In our loan
+scenario, it is acceptable that individuals with high credit scores
+are selected more often than individuals with low credit scores.
+However, within each credit score band, we do not want a disparity
+between (say) black females and white males. To example these cases,
+we have the concept of <em>control features</em>.</p>
+<p>Control features are introduced by the <code class="docutils literal notranslate"><span class="pre">control_features=</span></code>
+argument to the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                                <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                                <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]],</span>
+                                <span class="n">control_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s1">&#39;Credit Score&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This has an immediate effect on the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property. Instead
+of having one value for each metric, we now have a value for each
+unique value of the control feature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">overall</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Credit Score</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>High</th>
+      <td>0.0367965</td>
+      <td>0.556675</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>0.0195585</td>
+      <td>0.515224</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>0.395422</td>
+      <td>0.695178</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>The <code class="docutils literal notranslate"><span class="pre">by_group</span></code> property is similarly expanded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Credit Score</th>
+      <th>race</th>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="6" valign="top">High</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.012945</td>
+      <td>0.418033</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.151899</td>
+      <td>0.625767</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Low</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0.00176367</td>
+      <td>0.274194</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0179028</td>
+      <td>0.480565</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.011236</td>
+      <td>0.60177</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.0136555</td>
+      <td>0.450228</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0303738</td>
+      <td>0.562242</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Medium</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0.153846</td>
+      <td>0.697161</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.266458</td>
+      <td>0.613291</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0.268657</td>
+      <td>0.602254</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.413669</td>
+      <td>0.670544</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.389831</td>
+      <td>0.69678</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.408674</td>
+      <td>0.700198</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>The aggregates are also evaluated once for each group identified
+by the control feature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Credit Score</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>High</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>0.153846</td>
+      <td>0.602254</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>And:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Credit Score</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>High</th>
+      <td>0.000000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>0.000000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>0.371906</td>
+      <td>0.86012</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>In our data, we see that we have a dearth of positive results
+for high income non-whites, which significantly affects the
+aggregates.</p>
+<p>We can continue adding more control features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
+                        <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                        <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]],</span>
+                        <span class="n">control_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;Loan Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Credit Score&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Found 36 subgroups. Evaluation may be slow
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">overall</span></code> property now splits into more values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span><span class="o">.</span><span class="n">overall</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Loan Size</th>
+      <th>Credit Score</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">Large</th>
+      <th>High</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>0.00697674</td>
+      <td>0.790698</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>0.0669643</td>
+      <td>0.406143</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Small</th>
+      <th>High</th>
+      <td>0.0397196</td>
+      <td>0.563057</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>0.0203627</td>
+      <td>0.510146</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>0.417768</td>
+      <td>0.700509</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>As does the <code class="docutils literal notranslate"><span class="pre">by_groups</span></code> property, where <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values
+indicate that there were no samples in the cell:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>selection_rate</th>
+      <th>fbeta_06</th>
+    </tr>
+    <tr>
+      <th>Loan Size</th>
+      <th>Credit Score</th>
+      <th>race</th>
+      <th>sex</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="18" valign="top">Large</th>
+      <th rowspan="6" valign="top">High</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Low</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0148515</td>
+      <td>0.790698</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Medium</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0322581</td>
+      <td>0.350515</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.0909091</td>
+      <td>0.492754</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0710227</td>
+      <td>0.426481</td>
+    </tr>
+    <tr>
+      <th rowspan="18" valign="top">Small</th>
+      <th rowspan="6" valign="top">High</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.013986</td>
+      <td>0.418033</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.157895</td>
+      <td>0.6375</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Low</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0.0019685</td>
+      <td>0.274194</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.019337</td>
+      <td>0.480565</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0123457</td>
+      <td>0.60177</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.0142492</td>
+      <td>0.450228</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.0314961</td>
+      <td>0.555266</td>
+    </tr>
+    <tr>
+      <th rowspan="6" valign="top">Medium</th>
+      <th rowspan="2" valign="top">Black</th>
+      <th>Female</th>
+      <td>0.16</td>
+      <td>0.7072</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.291667</td>
+      <td>0.621613</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Other</th>
+      <th>Female</th>
+      <td>0.274194</td>
+      <td>0.627517</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.45098</td>
+      <td>0.679826</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">White</th>
+      <th>Female</th>
+      <td>0.404444</td>
+      <td>0.699767</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>0.431508</td>
+      <td>0.705253</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br />
+<br /><p>The aggregates behave similarly. By this point, we are having significant issues
+with under-populated intersections. Consider:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">member_counts</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+
+<span class="n">counts</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">member_counts</span><span class="p">,</span>
+                     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_pred</span></a><span class="p">,</span>
+                     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">]],</span>
+                     <span class="n">control_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s1">&#39;Loan Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Credit Score&#39;</span><span class="p">]])</span>
+
+<span class="n">counts</span><span class="o">.</span><span class="n">by_group</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Found 36 subgroups. Evaluation may be slow
+
+Loan Size  Credit Score  race   sex
+Large      High          Black  Female       8
+                                Male       NaN
+                         Other  Female     NaN
+                                Male       NaN
+                         White  Female      23
+                                Male         3
+           Low           Black  Female      59
+                                Male        29
+                         Other  Female       5
+                                Male        16
+                         White  Female     119
+                                Male       202
+           Medium        Black  Female       4
+                                Male        31
+                         Other  Female       5
+                                Male        23
+                         White  Female      33
+                                Male       352
+Small      High          Black  Female      42
+                                Male         5
+                         Other  Female      16
+                                Male         3
+                         White  Female     286
+                                Male        76
+           Low           Black  Female     508
+                                Male       362
+                         Other  Female     165
+                                Male       162
+                         White  Female    2737
+                                Male      2794
+           Medium        Black  Female     100
+                                Male       288
+                         Other  Female      62
+                                Male       255
+                         White  Female     675
+                                Male      5205
+Name: member_counts, dtype: object
+</pre></div>
+</div>
+<p>Recall that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> indicates that there were no individuals
+in a cell - <code class="docutils literal notranslate"><span class="pre">member_counts()</span></code> will not even have been called.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.424 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/b355a6ca8d918912b67fb280e7d7bbce/plot_new_metrics.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_new_metrics.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

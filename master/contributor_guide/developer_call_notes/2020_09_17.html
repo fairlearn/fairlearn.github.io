@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer Call September 17, 2020 &#8212; Fairlearn 0.4.7.dev0 documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../contents.html">
+    
+      <img src="../../_static/fairlearn_full_color.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../about/index.html">About</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../user_guide/index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../api_reference/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../auto_examples/index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../index.html">Contributor Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../faq.html">FAQ</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><strong><a href="2020_09_17.html">master</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="developer-call-september-17-2020">
+<h1>Developer Call September 17, 2020<a class="headerlink" href="#developer-call-september-17-2020" title="Permalink to this headline">¶</a></h1>
+<p>These are collaborative notes.</p>
+<p>Attendees:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/MiroDudik">Miro Dudik</a></p></li>
+<li><p><a class="reference external" href="https://github.com/riedgar-ms">Richard Edgar</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adrinjalali">Adrin Jalali</a></p></li>
+<li><p><a class="reference external" href="https://github.com/romanlutz">Roman Lutz</a></p></li>
+<li><p><a class="reference external" href="https://github.com/amueller">Andreas Mueller</a></p></li>
+<li><p><a class="reference external" href="https://github.com/kevinrobinson">Kevin Robinson</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mesameki">Mehrnoosh Sameki</a></p></li>
+<li><p><a class="reference external" href="https://github.com/hildeweerts">Hilde Weerts</a></p></li>
+</ul>
+<p>Agenda:</p>
+<ul>
+<li><p>Datasets module: keep or remove?</p>
+<blockquote>
+<div><ul>
+<li><p>not part of a release yet (so removing would be easy)</p></li>
+<li><p>reasons for including are technical:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>show how to use a function (create “minimal examples”)</p></li>
+<li><p>benchmark algorithms, e.g., how well they optimize
+fairness/performance trade-off under specific quantitative
+definitions of fairness and performance</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>but including datasets means we should address sociotechnical aspects</p></li>
+<li><p>we don’t add real functionality, just use functionality from
+<cite>sklearn.datasets</cite>, namely <cite>fetch_openml</cite></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>potential value prop: we can return sensitive features in addition
+to X, y</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>e.g., <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/519">https://github.com/fairlearn/fairlearn/pull/519</a></p></li>
+<li><p>other options (other than keep/remove):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>don’t spend more time on it</p></li>
+<li><p>remove module, but move content into examples</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roman to summarize this info in an issue and get Vincent’s feedback</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Should we restructure our weekly sessions?</p>
+<blockquote>
+<div><ul>
+<li><p>current situation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>developer call once a month (2nd Thursday of each month, today being
+an exception)</p></li>
+<li><p>sociotechnical deep dive on all other Thursdays</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>changes to this schedule are possible</p></li>
+<li><p>Feedback: get agenda out at least a couple of days before the call!</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Metrics API progress</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Proposal: <a class="reference external" href="https://github.com/fairlearn/fairlearn-proposals/pull/15">https://github.com/fairlearn/fairlearn-proposals/pull/15</a>
+–&gt; Richard started
+<a class="reference external" href="https://github.com/riedgar-ms/fairlearn/blob/riedgar-ms/return-of-the-GMR/test/unit/metrics/experimental/sample_code.py">implementation</a></p></li>
+<li><p><a class="reference external" href="https://hackmd.io/zMSG-_oWSxOs-AVbLwNywQ">https://hackmd.io/zMSG-_oWSxOs-AVbLwNywQ</a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>UI recap</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Proposal for existing widget:
+<a class="reference external" href="https://github.com/fairlearn/fairlearn-proposals/pull/14">https://github.com/fairlearn/fairlearn-proposals/pull/14</a></p></li>
+<li><p>PR to add matplotlib plots to Fairlearn:
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/561">https://github.com/fairlearn/fairlearn/pull/561</a></p></li>
+<li><p>if there’s a need for other kinds of visualizations beyond matplotlib
+we can add other repos within the Fairlearn org</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

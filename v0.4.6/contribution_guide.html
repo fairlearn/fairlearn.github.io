@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contribution Guide &#8212; Fairlearn 0.4.6 documentation</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Community" href="community.html" />
+    <link rel="prev" title="Binary Classification on COMPAS dataset" href="auto_examples/plot_binary_classification_COMPAS.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="index.html">
+    
+      <img src="_static/fairlearn_full_color.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="user_guide/main.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="api_reference/main.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="auto_examples/index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="">Contribution Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="community.html">Community</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        
+          <li><strong><a href="contribution_guide.html">v0.4.6</a></strong></li>
+        
+      
+      
+        <li>master: Documentation page not present</li>
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#developer-certificate-of-origin" class="nav-link">Developer certificate of origin</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#code-of-conduct" class="nav-link">Code of conduct</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#development-process" class="nav-link">Development process</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#investigating-automated-test-failures" class="nav-link">Investigating automated test failures</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#real-time-communication" class="nav-link">Real-time communication</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#meetings" class="nav-link">Meetings</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#api-design" class="nav-link">API Design</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#api-conventions" class="nav-link">API conventions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#unfairness-mitigation-algorithms" class="nav-link">Unfairness mitigation algorithms</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#reductions" class="nav-link">Reductions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#post-processing-algorithms" class="nav-link">Post-processing algorithms</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#creating-new-releases" class="nav-link">Creating new releases</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="contribution-guide">
+<span id="id1"></span><h1>Contribution Guide<a class="headerlink" href="#contribution-guide" title="Permalink to this headline">¶</a></h1>
+<p>This project welcomes contributions and suggestions.</p>
+<div class="section" id="developer-certificate-of-origin">
+<h2>Developer certificate of origin<a class="headerlink" href="#developer-certificate-of-origin" title="Permalink to this headline">¶</a></h2>
+<p>Contributions require you to sign a <em>developer certificate of origin</em> (DCO)
+declaring that you have the right to, and actually do, grant us the rights to
+use your contribution. For details, visit <a class="reference external" href="https://developercertificate.org/">https://developercertificate.org/</a>.</p>
+<p>When you submit a pull request, a DCO-bot will automatically determine whether
+you need to provide a DCO and decorate the PR appropriately (e.g., label,
+comment).</p>
+<p>Signing off means you need to have your name and email address attached as a
+commit comment, which you can automate using git hooks as shown
+<a class="reference external" href="https://stackoverflow.com/questions/15015894/git-add-signed-off-by-line-using-format-signoff-not-working/46536244#46536244">here</a>.</p>
+</div>
+<div class="section" id="code-of-conduct">
+<h2>Code of conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h2>
+<p>This project has adopted the <a class="reference external" href="https://help.github.com/en/github/site-policy/github-community-guidelines">GitHub community guidelines</a>.</p>
+</div>
+<div class="section" id="development-process">
+<h2>Development process<a class="headerlink" href="#development-process" title="Permalink to this headline">¶</a></h2>
+<p>Development happens against the <cite>master</cite> branch following the
+<a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub flow model</a>.
+Contributors should use their own forks of the repository. In their fork, they
+create feature branches off of <cite>master</cite>, and their pull requests should target
+the <cite>master</cite> branch. Maintainers are responsible for prompt review of pull
+requests.</p>
+<p>Pull requests against <cite>master</cite> trigger automated tests that are run through
+Azure DevOps or GitHub Actions. Additional test suites are run periodically.
+When adding new code paths or features, tests are a requirement to complete a
+pull request. They should be added in the <cite>test</cite> directory.</p>
+<p>To build the fairlearn dashboard after making changes to it,
+<a class="reference external" href="https://yarnpkg.com/lang/en/docs/install">install Yarn</a>, and then run the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/tree/master/scripts/build_widget.py">widget build script</a>.</p>
+<div class="section" id="investigating-automated-test-failures">
+<h3>Investigating automated test failures<a class="headerlink" href="#investigating-automated-test-failures" title="Permalink to this headline">¶</a></h3>
+<p>For every pull request to <cite>master</cite> with automated tests, you can check the logs
+of the tests to find the root cause of failures. Our tests currently run
+through Azure Pipelines with steps for setup, testing, and teardown. The
+<cite>Checks</cite> tab of a pull request contains a link to the [Azure Pipelines
+page](dev.azure.com/responsibleai/fairlearn/_build/results), where you can
+review the logs by clicking on a specific step in the automated test sequence.
+If you encounter problems with this workflow, please reach out through
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">GitHub issues</a>.</p>
+<p>To run the same tests locally, find the corresponding pipeline definition (a
+<cite>yml</cite> file) in the <cite>devops</cite> directory. It either directly contains the command
+to execute the tests (usually starting with <cite>python -m pytest</cite>) or it refers to
+a template file with the command.</p>
+</div>
+</div>
+<div class="section" id="real-time-communication">
+<h2>Real-time communication<a class="headerlink" href="#real-time-communication" title="Permalink to this headline">¶</a></h2>
+<p>For real time communication please join us on
+<a class="reference external" href="https://gitter.im/fairlearn/community">Gitter</a>.
+All are welcome!</p>
+</div>
+<div class="section" id="meetings">
+<h2>Meetings<a class="headerlink" href="#meetings" title="Permalink to this headline">¶</a></h2>
+<p>We are in the process of setting up regular contributor meetings. Stay tuned!
+&lt;!– We have a TBD development meeting every TBD at TBD US Pacific Time and all are welcome.
+We keep notes from each meeting in a TBD repository. –&gt;</p>
+</div>
+<div class="section" id="api-design">
+<h2>API Design<a class="headerlink" href="#api-design" title="Permalink to this headline">¶</a></h2>
+<p>Design proposals for larger changes go into the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn-proposals">fairlearn-proposals repository</a>.
+If you want to submit a proposal, just create a pull request there and
+maintainers will review it.</p>
+</div>
+<div class="section" id="api-conventions">
+<h2>API conventions<a class="headerlink" href="#api-conventions" title="Permalink to this headline">¶</a></h2>
+<p>This section relies on the definitions from our <a class="reference internal" href="user_guide/fairness_in_machine_learning.html#terminology"><span class="std std-ref">Fairness in Machine Learning</span></a> guide,
+including the definitions of “estimator”, “reduction”, “sensitive features”,
+“moment”, and “parity”.</p>
+<div class="section" id="unfairness-mitigation-algorithms">
+<h3>Unfairness mitigation algorithms<a class="headerlink" href="#unfairness-mitigation-algorithms" title="Permalink to this headline">¶</a></h3>
+<p>Unfairness mitigation algorithms take form of scikit-learn-style estimators.
+Any algorithm-specific parameters are passed to the constructor. The resulting
+instance of the algorithm should support methods <cite>fit</cite> and <cite>predict</cite> with APIs
+resembling those of scikit-learn as much as possible. Any deviations are noted
+below.</p>
+<div class="section" id="reductions">
+<h4>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h4>
+<p>Reduction constructors require a parameter corresponding to an estimator that
+implements the <cite>fit</cite> method with the <cite>sample_weight</cite> argument. Parity
+constraints for reductions are expressed via instances of various subclasses of
+the class <cite>fairlearn.reductions.Moment</cite>. Formally, instances of the class
+<cite>Moment</cite> implement vector-valued random variables whose sample averages over
+the data are required to be bounded (above and/or below).</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">constraints</span> <span class="pre">=</span> <span class="pre">Moment()</span>
+<span class="pre">reduction</span> <span class="pre">=</span> <span class="pre">Reduction(estimator,</span> <span class="pre">constraints)</span>
+<span class="pre">`</span></code></p>
+<p>Reductions provide <cite>fit</cite> and <cite>predict</cite> methods with the following signatures:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">reduction.fit(X,</span> <span class="pre">y,</span> <span class="pre">**kwargs)</span>
+<span class="pre">reduction.predict(X)</span>
+<span class="pre">`</span></code></p>
+<p>All of the currently supported parity constraints (subclasses of <cite>Moment</cite>) are
+based on sensitive features that need to be provided to <cite>fit</cite> as a keyword
+argument <cite>sensitive_features</cite>. In the future, it will also be possible to
+provide sensitive features as columns of <cite>X</cite>.</p>
+</div>
+<div class="section" id="post-processing-algorithms">
+<h4>Post-processing algorithms<a class="headerlink" href="#post-processing-algorithms" title="Permalink to this headline">¶</a></h4>
+<p>The constructors of post-processing algorithms require either an already
+trained predictor or an estimator (which is trained on the data when executing
+<cite>fit</cite>). For post-processing algorithms, the <cite>constraints</cite> argument is provided
+as a string.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">postprocessor</span> <span class="pre">=</span> <span class="pre">PostProcessing(estimator=estimator,</span> <span class="pre">constraints=constraints)</span>
+<span class="pre">`</span></code></p>
+<p>Post-processing algorithms (such as the ones under <cite>fairlearn.postprocessing</cite>)
+provide the same functions as the reductions above albeit with
+<cite>sensitive_features</cite> as a required argument for <cite>predict</cite>. In the future, we
+will make <cite>sensitive_features</cite> optional if the sensitive features are already
+provided through <cite>X</cite>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">postprocessor.fit(X,</span> <span class="pre">y,</span> <span class="pre">sensitive_features=sensitive_features)</span>
+<span class="pre">postprocessor.predict(X,</span> <span class="pre">sensitive_features=sensitive_features)</span>
+<span class="pre">`</span></code></p>
+</div>
+</div>
+</div>
+<div class="section" id="creating-new-releases">
+<h2>Creating new releases<a class="headerlink" href="#creating-new-releases" title="Permalink to this headline">¶</a></h2>
+<p>First add a description of the changes introduced in the package version you
+want to release to <a class="reference external" href="https://github.com/fairlearn/fairlearn/CHANGES.md">CHANGES.md</a>.</p>
+<p>It is also best to verify that the Dashboard loads correctly. This is slightly
+involved:
+1. Create a wheel by running <cite>python setup.py sdist bdist_wheel</cite> from the
+repository root. This will create a <cite>dist</cite> directory which contains a <cite>.whl</cite>
+file.
+1. Create a new Conda environment for the test
+1. In this new environment, install this wheel by running
+<cite>pip install dist/&lt;FILENAME&gt;.whl</cite>
+1. Install any pip packages required for the notebooks
+1. Check that the dashboard loads in the notebooks</p>
+<p>We have a
+<a class="reference external" href="https://dev.azure.com/responsibleai/fairlearn/_build?definitionId=48&amp;_a=summary">Azure DevOps Pipeline</a>
+which takes care of building wheels and pushing to PyPI. Validations are also
+performed prior to any deployments, and also following the uploads to Test-PyPI
+and PyPI. To use it:</p>
+<ol class="arabic simple">
+<li><p>Ensure that <cite>_base_version</cite> in <cite>fairlearn/__init__.py</cite> is set correctly for
+PyPI.</p></li>
+<li><p>Put down a tag corresponding to this <cite>_base_version</cite> but preprended with
+<cite>v</cite>. For example, version <cite>0.5.0</cite> should be tagged wtih <cite>v0.5.0</cite></p></li>
+<li><p>Queue the pipeline at this tag, with a variable <cite>DEV_VERSION</cite> set to zero.
+When the package is uploaded to Test-PyPI, this number will be appended to
+the version as a <cite>dev[n]</cite> suffix</p></li>
+</ol>
+<p>The pipeline requires sign offs immediately prior to the deployments to
+Test-PyPI and PyPI. If there is an issue found, then after applying the fix,
+update the location of the tag, and queue a new release pipeline with the value
+of <cite>DEV_VERSION</cite> increased by one.</p>
+<p>The <cite>DEV_VERSION</cite> variable is to work around the PyPI behaviour where uploads
+are immutable and published immediately. This means that each upload to PyPI
+‘uses up’ that particular version (on that particular PyPI instance). Since we
+wish to deploy exactly the same bits to both Test-PyPI and PyPI, without this
+workaround the version released to PyPI would depend on the number of issues
+discovered when uploading to Test-PyPI. If PyPI updates their release process
+to separate the ‘upload’ and ‘publish’ steps (i.e. until a package is
+published, it remains hidden and mutable) then the code associated with
+<cite>DEV_VERSION</cite> should be removed.</p>
+<p>As part of the release process, the <cite>build_wheels.py</cite> script uses
+<cite>process_readme.py</cite> to turn all the relative links in the ReadMe file into
+absolute ones (this is the reason why the applied tag has be of the form
+<cite>v[_base_version]</cite>). The <cite>process_readme.py</cite> script is slightly fragile with
+respect to the contents of the ReadMe, so after significant changes its output
+should be verified.</p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
