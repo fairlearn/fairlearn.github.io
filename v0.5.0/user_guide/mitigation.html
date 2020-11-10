@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Mitigation &#8212; Fairlearn 0.5.0 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Migrating from prior versions" href="migrating_versions/index.html" />
+    <link rel="prev" title="2. Assessment" href="assessment.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../about/index.html">About</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../auto_examples/index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../contributor_guide/index.html">Contributor Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../faq.html">FAQ</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        
+          <li><a href="../../v0.4.6/user_guide/mitigation.html">v0.4.6</a></li>
+        
+      
+      
+        
+          <li><strong><a href="mitigation.html">v0.5.0</a></strong></li>
+        
+      
+      
+        
+          <li><a href="../../master/user_guide/mitigation.html">master</a></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="fairness_in_machine_learning.html">Fairness in Machine Learning</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="assessment.html">Assessment</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Mitigation</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="migrating_versions/index.html">Migrating from prior versions</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="further_resources.html">Further Resources</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#postprocessing" class="nav-link">Postprocessing</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#reductions" class="nav-link">Reductions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#fairness-constraints-for-binary-classification" class="nav-link">Fairness constraints for binary classification</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#demographic-parity" class="nav-link">Demographic Parity</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#true-positive-rate-parity-and-false-positive-rate-parity" class="nav-link">True Positive Rate Parity and False Positive Rate Parity</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#equalized-odds" class="nav-link">Equalized Odds</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#error-rate-parity" class="nav-link">Error Rate Parity</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#fairness-constraints-for-multi-class-classification" class="nav-link">Fairness constraints for multi-class classification</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#fairness-constraints-for-regression" class="nav-link">Fairness constraints for regression</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#bounded-group-loss" class="nav-link">Bounded Group Loss</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#exponentiated-gradient" class="nav-link">Exponentiated Gradient</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#grid-search" class="nav-link">Grid Search</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="mitigation">
+<span id="id1"></span><h1><span class="section-number">3. </span>Mitigation<a class="headerlink" href="#mitigation" title="Permalink to this headline">¶</a></h1>
+<p>Fairlearn contains the following algorithms for mitigating unfairness:</p>
+<table class="colwidths-given table">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>algorithm</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>binary classification</p></th>
+<th class="head"><p>regression</p></th>
+<th class="head"><p>supported fairness definitions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">reductions.</span></code> <code class="code docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></p></th>
+<td><p>A wrapper (reduction) approach to fair classification described in <em>A Reductions</em>
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id17" id="id2">5</a>.</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>DP, EO, TPRP, FPRP, ERP, BGL</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">reductions.</span></code> <code class="code docutils literal notranslate"><span class="pre">GridSearch</span></code></p></th>
+<td><p>A wrapper (reduction) approach described in Section 3.4 of <em>A Reductions</em>
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id17" id="id3">5</a>. For regression it acts as a
+grid-search variant of the algorithm described in Section 5 of
+<em>Fair Regression: Quantitative Definitions and Reduction-based</em>
+<em>Algorithms</em> <a class="footnote-reference brackets" href="#id16" id="id4">4</a>.</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>DP, EO, TPRP, FPRP, ERP, BGL</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">fairlearn.</span></code> <code class="code docutils literal notranslate"><span class="pre">postprocessing.</span></code> <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></p></th>
+<td><p>Postprocessing algorithm based on the paper <em>Equality of Opportunity</em>
+<em>in Supervised Learning</em> <a class="footnote-reference brackets" href="#id18" id="id5">6</a>. This technique takes as input an
+existing classifier and the sensitive feature, and derives a monotone
+transformation of the classifier’s prediction to enforce the specified
+parity constraints.</p></td>
+<td><p>✔</p></td>
+<td><p>✘</p></td>
+<td><p>DP, EO, TPRP, FPRP</p></td>
+</tr>
+</tbody>
+</table>
+<p>DP refers to <em>demographic parity</em>, EO to <em>equalized odds</em>, TPRP to <em>true positive
+rate parity</em>, FPRP to <em>false positive rate parity</em>, ERP to <em>error rate parity</em>, and
+BGL to <em>bounded group loss</em>. For
+more information on the definitions refer to
+<a class="reference internal" href="fairness_in_machine_learning.html#fairness-in-machine-learning"><span class="std std-ref">Fairness in Machine Learning</span></a>. To request additional algorithms or
+fairness definitions, please open a
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">new issue</a> on GitHub.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fairlearn mitigation algorithms largely follow the
+<a class="reference external" href="https://scikit-learn.org/stable/developers/contributing.html#different-objects">conventions of scikit-learn</a>,
+meaning that they implement the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method to train a model and the <code class="code docutils literal notranslate"><span class="pre">predict</span></code> method
+to make predictions. However, in contrast with
+<a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-estimator">scikit-learn</a>,
+Fairlearn algorithms can produce randomized predictors. Randomization of
+predictions is required to satisfy many definitions of fairness. Because of
+randomization, it is possible to get different outputs from the predictor’s
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> method on identical data. For each of our algorithms, we provide
+explicit access to the probability distribution used for randomization.</p>
+</div>
+<div class="section" id="postprocessing">
+<span id="id6"></span><h2><span class="section-number">3.1. </span>Postprocessing<a class="headerlink" href="#postprocessing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reductions">
+<span id="id7"></span><h2><span class="section-number">3.2. </span>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
+<p>On a high level, the reduction algorithms within Fairlearn
+enable unfairness mitigation for an arbitrary machine learning model with
+respect to user-provided fairness constraints. All of the constraints currently supported
+by reduction algorithms are group-fairness constraints. For more information on the
+supported fairness constraints refer to <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>
+and <a class="reference internal" href="#constraints-regression"><span class="std std-ref">Fairness constraints for regression</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The choice of a fairness metric and fairness constraints is a crucial
+step in the AI development and deployment, and
+choosing an unsuitable constraint can lead to more harms.
+For a broader discussion of fairness as a
+sociotechnical challenge and how to view Fairlearn in this context refer to
+<a class="reference internal" href="fairness_in_machine_learning.html#fairness-in-machine-learning"><span class="std std-ref">Fairness in Machine Learning</span></a>.</p>
+</div>
+<p>The reductions approach for classification seeks to reduce binary
+classification subject to fairness constraints to a sequence of weighted
+classification problems (see <a class="footnote-reference brackets" href="#id17" id="id8">5</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#id16" id="id9">4</a>).
+As a result, the reduction algorithms
+in Fairlearn only require a wrapper access to any “base” learning algorithm.
+By this we mean that the “base” algorithm only needs to implement <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> methods, as any standard scikit-learn estimator, but it
+does not need to have any knowledge of the desired fairness constraints or sensitive features.</p>
+<p>From an API perspective this looks as follows in all situations</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reduction</span> <span class="o">=</span> <span class="n">Reduction</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduction</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduction</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>Fairlearn doesn’t impose restrictions on the referenced <code class="code docutils literal notranslate"><span class="pre">base_estimator</span></code>
+other than the existence of <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and <code class="code docutils literal notranslate"><span class="pre">predict</span></code> methods.
+At the moment, the <code class="code docutils literal notranslate"><span class="pre">base_estimator</span></code>’s <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method also needs to
+provide a <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument which the reductions techniques use
+to reweight samples.
+In the future Fairlearn will provide functionality to handle this even
+without a <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.</p>
+<p>Before looking more into reduction algorithms, this section
+reviews the supported fairness constraints. All of them
+are expressed as objects inheriting from the base class <code class="code docutils literal notranslate"><span class="pre">Moment</span></code>.
+<code class="code docutils literal notranslate"><span class="pre">Moment</span></code>’s main purpose is to calculate the constraint violation of a
+current set of predictions through its <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> function as well as to
+provide <code class="code docutils literal notranslate"><span class="pre">signed_weights</span></code> that are used to relabel and reweight samples.</p>
+<div class="section" id="fairness-constraints-for-binary-classification">
+<span id="constraints-binary-classification"></span><h3><span class="section-number">3.2.1. </span>Fairness constraints for binary classification<a class="headerlink" href="#fairness-constraints-for-binary-classification" title="Permalink to this headline">¶</a></h3>
+<p>All supported fairness constraints for binary classification inherit from
+<code class="code docutils literal notranslate"><span class="pre">UtilityParity</span></code>. They are based on some underlying metric called
+<em>utility</em>, which can be evaluated on individual data points and is averaged
+over various groups of data points to form the <em>utility parity</em> constraint
+of the form</p>
+<div class="math notranslate nohighlight">
+\[\text{utility}_{a,e} = \text{utility}_e \quad \forall a, e\]</div>
+<p>where <span class="math notranslate nohighlight">\(a\)</span> is a sensitive feature value and <span class="math notranslate nohighlight">\(e\)</span> is an <em>event</em>
+identifier. Each data point has only one value of a sensitive feature,
+and belongs to at most one event. In many examples, there is only
+a single event <span class="math notranslate nohighlight">\(*\)</span>, which includes all the data points. Other
+examples of events include <span class="math notranslate nohighlight">\(Y=0\)</span> and <span class="math notranslate nohighlight">\(Y=1\)</span>. The utility
+parity requires that the mean utility within each event equals
+the mean utility of each group whose sensitive feature is <span class="math notranslate nohighlight">\(a\)</span>
+within that event.</p>
+<p>The class <code class="code docutils literal notranslate"><span class="pre">UtilityParity</span></code> implements constraints that allow
+some amount of violation of the utility parity constraints, where
+the maximum allowed violation is specified either as a difference
+or a ratio.</p>
+<p>The <em>difference-based relaxation</em> starts out by representing
+the utility parity constraints as pairs of
+inequalities</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{utility}_{a,e} - \text{utility}_{e} \leq 0 \quad \forall a, e\\
+-\text{utility}_{a,e} + \text{utility}_{e} \leq 0 \quad \forall a, e\end{split}\]</div>
+<p>and then replaces zero on the right-hand side
+with a value specified as <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>. The resulting
+constraints are instantiated as</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UtilityParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>Note that satisfying these constraints does not mean
+that the difference between the groups with the highest and
+smallest utility in each event is bounded by <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>.
+The value of <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code> instead bounds
+the difference between the utility of each group and the overall mean
+utility within each event. This, however,
+implies that the difference between groups in each event is
+at most twice the value of <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>.</p>
+<p>The <em>ratio-based relaxation</em> relaxes the parity
+constraint as</p>
+<div class="math notranslate nohighlight">
+\[r \leq \dfrac{\text{utility}_{a,e}}{\text{utility}_e} \leq \dfrac{1}{r} \quad \forall a, e\]</div>
+<p>for some value of <span class="math notranslate nohighlight">\(r\)</span> in (0,1]. For example, if <span class="math notranslate nohighlight">\(r=0.9\)</span>, this means
+that within each event
+<span class="math notranslate nohighlight">\(0.9 \cdot \text{utility}_{a,e} \leq \text{utility}_e\)</span>, i.e., the utility for
+each group needs to be at least 90% of the overall utility for the event, and
+<span class="math notranslate nohighlight">\(0.9 \cdot \text{utility}_e \leq \text{utility}_{a,e}\)</span>, i.e., the overall utility
+for the event needs to be at least 90% of each group’s utility.</p>
+<p>The two ratio constraints can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}- \text{utility}_{a,e} + r \cdot \text{utility}_e \leq 0 \quad \forall a, e \\
+r \cdot \text{utility}_{a,e} - \text{utility}_e \leq 0 \quad \forall a, e\end{split}\]</div>
+<p>When instantiating the ratio constraints, we use <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> for <span class="math notranslate nohighlight">\(r\)</span>,
+and also allow further relaxation by replacing the zeros on the right hand side
+by some non-negative <code class="code docutils literal notranslate"><span class="pre">ratio_bound_slack</span></code>. The resulting instantiation
+looks as</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UtilityParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>Similarly to the difference constraints, the ratio constraints do not directly
+bound the ratio between the pairs of groups, but such a bound is implied.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not possible to specify both <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code> <em>and</em>
+<code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> for the same constraint object.</p>
+</div>
+<div class="section" id="demographic-parity">
+<span id="id10"></span><h4><span class="section-number">3.2.1.1. </span>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h4>
+<p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>demographic parity</em> if</p>
+<div class="math notranslate nohighlight">
+\[\P[h(X) = 1 \given A = a] = \P[h(X) = 1] \quad \forall a\]</div>
+<p>In other words, the selection rate or percentage of samples with label 1
+should be equal across all groups. Implicitly this means the percentage
+with label 0 is equal as well. In this case, the utility function
+is equal to <span class="math notranslate nohighlight">\(h(X)\)</span> and there is only a single event <span class="math notranslate nohighlight">\(*\)</span>.</p>
+<p>In the example below group <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> has a selection rate of 60%,
+<code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> has a selection rate of 20%. The overall selection rate is 40%,
+so <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> is <cite>0.2</cite> above the overall selection rate, and <code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> is
+<cite>0.2</cite> below. Invoking the method <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> shows the values
+of the left-hand sides of the constraints described
+in <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>, which is independent
+of the provided <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>. Note that the left-hand sides
+corresponding to different values of <code class="code docutils literal notranslate"><span class="pre">sign</span></code> are just negatives
+of each other.
+The value of <code class="code docutils literal notranslate"><span class="pre">y_true</span></code> is in this example irrelevant to the calculations,
+because the underlying utility in demographic parity, selection rate, does not
+consider performance relative to the true labels, but rather proportions in
+the predicted labels.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When providing <code class="code docutils literal notranslate"><span class="pre">DemographicParity</span></code> to mitigation algorithms, only use
+the constructor and the mitigation algorithm itself then invokes <code class="code docutils literal notranslate"><span class="pre">load_data</span></code>.
+The example below uses <code class="code docutils literal notranslate"><span class="pre">load_data</span></code> to illustrate how <code class="code docutils literal notranslate"><span class="pre">DemographicParity</span></code>
+instantiates inequalities from <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>.</p>
+</div>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">DemographicParity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">selection_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>                  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_summary</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">selection_rate</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">sensitive_features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sensitive_features</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;SF 0&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_summary</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">    0.4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection_rate_summary</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0</span>
+<span class="go">a    0.6</span>
+<span class="go">b    0.2</span>
+<span class="go">Name: selection_rate, dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event  group_id</span>
+<span class="go">+     all    a           0.2</span>
+<span class="go">             b          -0.2</span>
+<span class="go">-     all    a          -0.2</span>
+<span class="go">             b           0.2</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>The ratio constraints for the demographic parity with <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code>
+<span class="math notranslate nohighlight">\(r\)</span> (and <code class="code docutils literal notranslate"><span class="pre">ratio_bound_slack=0</span></code>) take form</p>
+<div class="math notranslate nohighlight">
+\[r \leq \dfrac{\P[h(X) = 1 \given A = a]}{\P[h(X) = 1]} \leq \dfrac{1}{r} \quad \forall a\]</div>
+<p>Revisiting the same example as above we get</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event  group_id</span>
+<span class="go">+     all    a           0.14</span>
+<span class="go">             b          -0.22</span>
+<span class="go">-     all    a          -0.24</span>
+<span class="go">             b           0.16</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>Following the expressions for the left-hand sides
+of the constraints, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}r \cdot \text{utility}_{a,*} - \text{utility}_* = 0.9 \times 0.6 - 0.4 = 0.14 \\
+r \cdot \text{utility}_{b,*} - \text{utility}_* = 0.9 \times 0.2 - 0.4 = -0.22 \\
+- \text{utility}_{a,*} + r \cdot \text{utility}_* = - 0.6 + 0.9 \times 0.4 = -0.24 \\
+- \text{utility}_{b,*} + r \cdot \text{utility}_* = - 0.2 + 0.9 \times 0.4 = 0.16 \\\end{split}\]</div>
+</div>
+<div class="section" id="true-positive-rate-parity-and-false-positive-rate-parity">
+<span id="false-positive-rate-parity"></span><span id="true-positive-rate-parity"></span><h4><span class="section-number">3.2.1.2. </span>True Positive Rate Parity and False Positive Rate Parity<a class="headerlink" href="#true-positive-rate-parity-and-false-positive-rate-parity" title="Permalink to this headline">¶</a></h4>
+<p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>true positive rate parity</em> if</p>
+<div class="math notranslate nohighlight">
+\[\P[h(X) = 1 \given A = a, Y = 1] = \P[h(X) = 1 \given Y = 1] \quad \forall a\]</div>
+<p>and <em>false positive rate parity</em> if</p>
+<div class="math notranslate nohighlight">
+\[\P[h(X) = 1 \given A = a, Y = 0] = \P[h(X) = 1 \given Y = 0] \quad \forall a\]</div>
+<p>In first case, we only have one event <span class="math notranslate nohighlight">\(Y=1\)</span> and
+ignore the samples with <span class="math notranslate nohighlight">\(Y=0\)</span>, and in the second case vice versa.
+Refer to <a class="reference internal" href="#equalized-odds"><span class="std std-ref">Equalized Odds</span></a> for the fairness constraint type that simultaneously
+enforce both true positive rate parity and false positive rate parity
+by considering both events <span class="math notranslate nohighlight">\(Y=0\)</span> and <span class="math notranslate nohighlight">\(Y=1\)</span>.</p>
+<p>In practice this can be used in a difference-based relaxation as follows:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">TruePositiveRateParity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">true_positive_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span> <span class="o">=</span> <span class="n">TruePositiveRateParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>                  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>   <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">1</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">,</span>  <span class="mi">0</span> <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tpr_summary</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">true_positive_rate</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tpr_summary</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.5714285714285714</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tpr_summary</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">a        0.75</span>
+<span class="go">b    0.333333</span>
+<span class="go">Name: true_positive_rate, dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event    group_id</span>
+<span class="go">+     label=1  a           0.178571</span>
+<span class="go">               b          -0.238095</span>
+<span class="go">-     label=1  a          -0.178571</span>
+<span class="go">               b           0.238095</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When providing <code class="code docutils literal notranslate"><span class="pre">TruePositiveRateParity</span></code> or <code class="code docutils literal notranslate"><span class="pre">FalsePositiveRateParity</span></code>
+to mitigation algorithms, only use
+the constructor. The mitigation algorithm itself then invokes <code class="code docutils literal notranslate"><span class="pre">load_data</span></code>.
+The example uses <code class="code docutils literal notranslate"><span class="pre">load_data</span></code> to illustrate how <code class="code docutils literal notranslate"><span class="pre">TruePositiveRateParity</span></code>
+instantiates inequalities from <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>.</p>
+</div>
+<p>Alternatively, a ratio-based relaxation is also available:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span> <span class="o">=</span> <span class="n">TruePositiveRateParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event    group_id</span>
+<span class="go">+     label=1  a           0.103571</span>
+<span class="go">               b          -0.271429</span>
+<span class="go">-     label=1  a          -0.235714</span>
+<span class="go">               b           0.180952</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="equalized-odds">
+<span id="id11"></span><h4><span class="section-number">3.2.1.3. </span>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h4>
+<p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>equalized odds</em> if it satisfies both
+<em>true positive rate parity</em> and <em>false positive rate parity</em>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\P[h(X) = 1 \given A = a, Y = y] = \P[h(X) = 1 \given Y = y] \quad \forall a, y\]</div>
+<p>The constraints represent the union of constraints for true positive rate
+and false positive rate.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">EqualizedOdds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span> <span class="o">=</span> <span class="n">EqualizedOdds</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event    group_id</span>
+<span class="go">+     label=0  a          -0.333333</span>
+<span class="go">               b           0.166667</span>
+<span class="go">      label=1  a           0.178571</span>
+<span class="go">               b          -0.238095</span>
+<span class="go">-     label=0  a           0.333333</span>
+<span class="go">               b          -0.166667</span>
+<span class="go">      label=1  a          -0.178571</span>
+<span class="go">               b           0.238095</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="error-rate-parity">
+<span id="id12"></span><h4><span class="section-number">3.2.1.4. </span>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Permalink to this headline">¶</a></h4>
+<p>The <em>error rate parity</em> requires that the error rates should be
+the same across all groups. For a classifier <span class="math notranslate nohighlight">\(h(X)\)</span>
+this means that</p>
+<div class="math notranslate nohighlight">
+\[\P[h(X) \ne Y \given A = a] = \P[h(X) \ne Y] \quad \forall a\]</div>
+<p>In this case, the utility is equal to 1 if <span class="math notranslate nohighlight">\(h(X)\ne Y\)</span> and equal to
+0 if <span class="math notranslate nohighlight">\(h(X)=Y\)</span>, and so large value of utility here actually correspond
+to poor outcomes. The difference-based relaxation specifies that
+the error rate of any given group should not deviate from
+the overall error rate by more than the value of <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_summary</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_summary</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_summary</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">a    0.8</span>
+<span class="go">b    0.4</span>
+<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span> <span class="o">=</span> <span class="n">ErrorRateParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event  group_id</span>
+<span class="go">+     all    a          -0.2</span>
+<span class="go">             b           0.2</span>
+<span class="go">-     all    a           0.2</span>
+<span class="go">             b          -0.2</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When providing <code class="code docutils literal notranslate"><span class="pre">ErrorRateParity</span></code> to mitigation algorithms, only use
+the constructor. The mitigation algorithm itself then invokes <code class="code docutils literal notranslate"><span class="pre">load_data</span></code>.
+The example uses <code class="code docutils literal notranslate"><span class="pre">load_data</span></code> to illustrate how <code class="code docutils literal notranslate"><span class="pre">ErrorRateParity</span></code>
+instantiates inequalities from <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>.</p>
+</div>
+<p>Alternatively, error rate parity can be relaxed via ratio constraints as</p>
+<div class="math notranslate nohighlight">
+\[r \leq \dfrac{\P[h(X) \ne Y \given A = a]}{\P[h(X) \ne Y]} \leq \dfrac{1}{r} \quad \forall a\]</div>
+<p>with a <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> <span class="math notranslate nohighlight">\(r\)</span>. The usage is identical with other
+constraints:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span> <span class="o">=</span> <span class="n">ErrorRateParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">sign  event  group_id</span>
+<span class="go">+     all    a          -0.22</span>
+<span class="go">             b           0.14</span>
+<span class="go">-     all    a           0.16</span>
+<span class="go">             b          -0.24</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="fairness-constraints-for-multi-class-classification">
+<span id="constraints-multi-class-classification"></span><h3><span class="section-number">3.2.2. </span>Fairness constraints for multi-class classification<a class="headerlink" href="#fairness-constraints-for-multi-class-classification" title="Permalink to this headline">¶</a></h3>
+<p>Reductions approaches do not support multi-class classification yet at this
+point. If this is an important scenario for you please let us know!</p>
+</div>
+<div class="section" id="fairness-constraints-for-regression">
+<span id="constraints-regression"></span><h3><span class="section-number">3.2.3. </span>Fairness constraints for regression<a class="headerlink" href="#fairness-constraints-for-regression" title="Permalink to this headline">¶</a></h3>
+<p>The performance objective in the regression scenario is to minimize the
+loss of our regressor <span class="math notranslate nohighlight">\(h\)</span>. The loss can be expressed as
+<a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.SquareLoss" title="fairlearn.reductions.SquareLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">SquareLoss</span></code></a> or <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.AbsoluteLoss" title="fairlearn.reductions.AbsoluteLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbsoluteLoss</span></code></a>. Both take constructor arguments
+<code class="code docutils literal notranslate"><span class="pre">min_val</span></code> and <code class="code docutils literal notranslate"><span class="pre">max_val</span></code> that define the value range within which
+the loss is evaluated. Values outside of the value range get clipped.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">SquareLoss</span><span class="p">,</span> <span class="n">AbsoluteLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>   <span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>   <span class="mf">0.9</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SquareLoss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">array([0.01, 0.01, 0.01, 0.16])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># clipping at 1 reduces the error for the fourth entry</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SquareLoss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">array([0.01, 0.01, 0.01, 0.01])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AbsoluteLoss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">array([0.1, 0.1, 0.1, 0.4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AbsoluteLoss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">array([0.1, 0.1, 0.1, 0.1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># ZeroOneLoss is identical to AbsoluteLoss(0, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ZeroOneLoss</span><span class="p">()</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">array([0.1, 0.1, 0.1, 0.1])</span>
+</pre></div>
+</div>
+<p>When using Fairlearn’s reduction techniques for regression it’s required to
+specify the type of loss by passing the corresponding loss object when
+instantiating the object that represents our fairness constraint. The only
+supported type of constraint at this point is <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a>.</p>
+<div class="section" id="bounded-group-loss">
+<span id="id13"></span><h4><span class="section-number">3.2.3.1. </span>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Permalink to this headline">¶</a></h4>
+<p><em>Bounded group loss</em> requires the loss of each group to be below a
+user-specified amount <span class="math notranslate nohighlight">\(\zeta\)</span>. If <span class="math notranslate nohighlight">\(\zeta\)</span> is chosen reasonably
+small the losses of all groups are very similar.
+Formally, a predictor <span class="math notranslate nohighlight">\(h\)</span> satisfies bounded group loss at level
+<span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if</p>
+<div class="math notranslate nohighlight">
+\[\E[loss(Y, h(X)) \given A=a] \leq \zeta \quad \forall a\]</div>
+<p>In the example below we use <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a> with
+<a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.ZeroOneLoss" title="fairlearn.reductions.ZeroOneLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">ZeroOneLoss</span></code></a> on two groups <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> and <code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>.
+Group <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> has an average loss of <span class="math notranslate nohighlight">\(0.05\)</span>, while group
+<code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>’s average loss is <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">BoundedGroupLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span> <span class="o">=</span> <span class="n">BoundedGroupLoss</span><span class="p">(</span><span class="n">ZeroOneLoss</span><span class="p">(),</span> <span class="n">upper_bound</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>                  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span>             <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mae_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">sensitive_features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sensitive_features</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;SF 0&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mae_frame</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.275</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mae_frame</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0</span>
+<span class="go">a    0.05</span>
+<span class="go">b     0.5</span>
+<span class="go">Name: mean_absolute_error, dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">group_id</span>
+<span class="go">a    0.05</span>
+<span class="go">b    0.50</span>
+<span class="go">Name: loss, dtype: float64</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example above the <code class="code docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code> object does not use the
+<code class="code docutils literal notranslate"><span class="pre">upper_bound</span></code> argument. It is only used by reductions techniques
+during the unfairness mitigation. As a result the constraint violation
+detected by <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> is identical to the mean absolute error.</p>
+</div>
+</div>
+</div>
+<div class="section" id="exponentiated-gradient">
+<span id="id14"></span><h3><span class="section-number">3.2.4. </span>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="grid-search">
+<span id="id15"></span><h3><span class="section-number">3.2.5. </span>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id16"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id9">2</a>)</span></dt>
+<dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
+Reduction-based Algorithms”</a>,
+ICML, 2019.</p>
+</dd>
+<dt class="label" id="id17"><span class="brackets">5</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id8">3</a>)</span></dt>
+<dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
+Approach to Fair Classification”</a>, ICML, 2018.</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id5">6</a></span></dt>
+<dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
+Learning”</a>,
+NeurIPS, 2016.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

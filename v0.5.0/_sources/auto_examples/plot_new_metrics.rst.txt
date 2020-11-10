@@ -1,0 +1,1943 @@
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_new_metrics.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_new_metrics.py:
+
+
+==============================
+Metrics with Multiple Features
+==============================
+
+This notebook demonstrates the new API for metrics, which supports
+multiple sensitive and conditional features. This example does not
+contain a proper discussion of how fairness relates to the dataset
+used, although it does highlight issues which users may want to
+consider when analysing their datasets.
+
+We are going to consider a lending scenario, supposing that we have
+a model which predicts whether or not a particular customer will
+repay a loan. This could be used as the basis of deciding whether
+or not to offer that customer a loan. With traditional metrics,
+we would assess the model using:
+
+- The 'true' values from the test set
+- The model predictions from the test set
+
+Our fairness metrics compute group-based fairness statistics.
+To use these, we also need categorical columns from the test
+set. For this example, we will include:
+
+- The sex of each individual (two unique values)
+- The race of each individual (three unique values)
+- The credit score band of each individual (three unique values)
+- Whether the loan is considered 'large' or 'small'
+
+An individual's sex and race should not affect a lending decision,
+but it would be legitimate to consider an individual's credit score
+and the relative size of the loan which they desired.
+
+A real scenario will be more complicated, but this will serve to
+illustrate the use of the new metrics.
+
+Getting the Data
+================
+
+*This section may be skipped. It simply creates a dataset for
+illustrative purposes*
+
+We will use the well-known UCI 'Adult' dataset as the basis of this
+demonstration. This is not for a lending scenario, but we will regard
+it as one for the purposes of this example. We will use the existing
+'race' and 'sex' columns (trimming the former to three unique values),
+and manufacture credit score bands and loan sizes from other columns.
+We start with some uncontroversial `import` statements:
+
+
+.. code-block:: default
+
+
+    from fairlearn.metrics import MetricFrame
+    from fairlearn.metrics import selection_rate
+    import functools
+    import sklearn.metrics as skm
+    import numpy as np
+    import pandas as pd
+
+    from sklearn.datasets import fetch_openml
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+
+
+
+
+
+
+
+
+Next, we import the data:
+
+
+.. code-block:: default
+
+
+    data = fetch_openml(data_id=1590, as_frame=True)
+    X_raw = data.data
+    Y = (data.target == '>50K') * 1
+
+
+
+
+
+
+
+
+For purposes of clarity, we consolidate the 'race' column to have
+three unique values:
+
+
+.. code-block:: default
+
+
+
+    def race_transform(input_str):
+        """Reduce values to White, Black and Other."""
+        result = 'Other'
+        if input_str == 'White' or input_str == 'Black':
+            result = input_str
+        return result
+
+
+    X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other')
+    print(np.unique(X_raw['race']))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /tmp/tmptmbm20a3/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:87: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+
+    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+      X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other')
+    ['Black' 'Other' 'White']
+
+
+
+
+Now, we manufacture the columns for the credit score band and
+requested loan size. These are wholly constructed, and not
+part of the actual dataset in any way. They are simply for
+illustrative purposes.
+
+
+.. code-block:: default
+
+
+
+    def marriage_transform(m_s_string):
+        """Perform some simple manipulations."""
+        result = 'Low'
+        if m_s_string.startswith("Married"):
+            result = 'Medium'
+        elif m_s_string.startswith("Widowed"):
+            result = 'High'
+        return result
+
+
+    def occupation_transform(occ_string):
+        """Perform some simple manipulations."""
+        result = 'Small'
+        if occ_string.startswith("Machine"):
+            result = 'Large'
+        return result
+
+
+    col_credit = X_raw['marital-status'].map(marriage_transform).fillna('Low')
+    col_credit.name = "Credit Score"
+    col_loan_size = X_raw['occupation'].map(occupation_transform).fillna('Small')
+    col_loan_size.name = "Loan Size"
+
+    A = X_raw[['race', 'sex']]
+    A['Credit Score'] = col_credit
+    A['Loan Size'] = col_loan_size
+    A
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /tmp/tmptmbm20a3/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:121: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+
+    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+      A['Credit Score'] = col_credit
+    /tmp/tmptmbm20a3/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:122: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+
+    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+      A['Loan Size'] = col_loan_size
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>race</th>
+          <th>sex</th>
+          <th>Credit Score</th>
+          <th>Loan Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td>Black</td>
+          <td>Male</td>
+          <td>Low</td>
+          <td>Large</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>White</td>
+          <td>Male</td>
+          <td>Medium</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>White</td>
+          <td>Male</td>
+          <td>Medium</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>Black</td>
+          <td>Male</td>
+          <td>Medium</td>
+          <td>Large</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>White</td>
+          <td>Female</td>
+          <td>Low</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>...</th>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+        <tr>
+          <th>48837</th>
+          <td>White</td>
+          <td>Female</td>
+          <td>Medium</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>48838</th>
+          <td>White</td>
+          <td>Male</td>
+          <td>Medium</td>
+          <td>Large</td>
+        </tr>
+        <tr>
+          <th>48839</th>
+          <td>White</td>
+          <td>Female</td>
+          <td>High</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>48840</th>
+          <td>White</td>
+          <td>Male</td>
+          <td>Low</td>
+          <td>Small</td>
+        </tr>
+        <tr>
+          <th>48841</th>
+          <td>White</td>
+          <td>Female</td>
+          <td>Medium</td>
+          <td>Small</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>48842 rows × 4 columns</p>
+    </div>
+    <br />
+    <br />
+
+With the data imported, we perform some standard processing, and a test/train split:
+
+
+.. code-block:: default
+
+    le = LabelEncoder()
+    Y = le.fit_transform(Y)
+
+    le = LabelEncoder()
+
+    sc = StandardScaler()
+    X_dummies = pd.get_dummies(X_raw)
+    X_scaled = sc.fit_transform(X_dummies)
+    X_scaled = pd.DataFrame(X_scaled, columns=X_dummies.columns)
+
+    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(X_scaled, Y, A,
+                                                                         test_size=0.3,
+                                                                         random_state=12345,
+                                                                         stratify=Y)
+
+    # Ensure indices are aligned
+    X_train = X_train.reset_index(drop=True)
+    X_test = X_test.reset_index(drop=True)
+    A_train = A_train.reset_index(drop=True)
+    A_test = A_test.reset_index(drop=True)
+
+
+
+
+
+
+
+
+Finally, we train a simple model on the data, and generate
+some predictions:
+
+
+.. code-block:: default
+
+
+
+    unmitigated_predictor = LogisticRegression(solver='liblinear', fit_intercept=True)
+    unmitigated_predictor.fit(X_train, Y_train)
+
+    Y_pred = unmitigated_predictor.predict(X_test)
+
+
+
+
+
+
+
+
+Analysing the Model with Metrics
+================================
+
+After our data manipulations and model training, we have the following
+from our test set:
+
+- A vector of true values called ``Y_test``
+- A vector of model predictions called ``Y_pred``
+- A DataFrame of categorical features relevant to fairness called ``A_test``
+
+In a traditional model analysis, we would now look at some metrics
+evaluated on the entire dataset. Suppose in this case, the relevant
+metrics are :func:`fairlearn.metrics.selection_rate` and
+:func:`sklearn.metrics.fbeta_score` (with
+``beta=0.6``).
+We can evaluate these metrics directly:
+
+
+.. code-block:: default
+
+
+    print("Selection Rate:", selection_rate(Y_test, Y_pred))
+    print("fbeta:", skm.fbeta_score(Y_test, Y_pred, beta=0.6))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Selection Rate: 0.20050501603767146
+    fbeta: 0.6819168793569769
+
+
+
+
+We know that there are sensitive features in our data, and we want to
+ensure that we're not harming individuals due to membership in any of
+these groups. For this purpose, Fairlearn provides the
+:class:`fairlearn.metrics.MetricFrame`
+class. Let us construct an instance of this class, and then look at
+its capabilities:
+
+
+.. code-block:: default
+
+
+    fbeta_06 = functools.partial(skm.fbeta_score, beta=0.6)
+
+    metric_fns = {'selection_rate': selection_rate, 'fbeta_06': fbeta_06}
+
+    grouped_on_sex = MetricFrame(metric_fns,
+                                 Y_test, Y_pred,
+                                 sensitive_features=A_test['sex'])
+
+
+
+
+
+
+
+
+The :class:`fairlearn.metrics.MetricFrame` object requires a
+minimum of four arguments:
+
+1. The underlying metric function(s) to be evaluated
+2. The true values
+3. The predicted values
+4. The sensitive feature values
+
+These are all passed as arguments to the constructor. If more than
+one underlying metric is required (as in this case), then we must
+provide them in a dictionary.
+
+The underlying metrics must have a signature ``fn(y_true, y_pred)``,
+so we have to use :func:`functools.partial` on ``fbeta_score()`` to
+furnish ``beta=0.6`` (we will show how to pass in extra array
+arguments such as sample weights shortly).
+
+We will now take a closer look at the :class:`fairlearn.metrics.MetricFrame`
+object. First, there is the ``overall`` property, which contains
+the metrics evaluated on the entire dataset. We see that this contains the
+same values calculated above:
+
+
+.. code-block:: default
+
+
+    assert grouped_on_sex.overall['selection_rate'] == selection_rate(Y_test, Y_pred)
+    assert grouped_on_sex.overall['fbeta_06'] == skm.fbeta_score(Y_test, Y_pred, beta=0.6)
+    print(grouped_on_sex.overall)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    selection_rate    0.200505
+    fbeta_06          0.681917
+    dtype: object
+
+
+
+
+The other property in the :class:`fairlearn.metrics.MetricFrame` object
+is ``by_group``. This contains the metrics evaluated on each subgroup defined
+by the categories in the ``sensitive_features=`` argument. In this case, we
+have results for males and females:
+
+
+.. code-block:: default
+
+
+    grouped_on_sex.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>sex</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Female</th>
+          <td>0.0730349</td>
+          <td>0.639174</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.263512</td>
+          <td>0.6882</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+We can immediately see a substantial disparity in the selection rate between
+males and females.
+
+We can also create another :class:`fairlearn.metrics.MetricFrame` object
+using race as the sensitive feature:
+
+
+.. code-block:: default
+
+
+    grouped_on_race = MetricFrame(metric_fns,
+                                  Y_test, Y_pred,
+                                  sensitive_features=A_test['race'])
+
+
+
+
+
+
+
+
+The ``overall`` property is unchanged:
+
+
+.. code-block:: default
+
+    assert (grouped_on_sex.overall == grouped_on_race.overall).all()
+
+
+
+
+
+
+
+
+The ``by_group`` property now contains the metrics evaluated based on the 'race'
+column:
+
+
+.. code-block:: default
+
+    grouped_on_race.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>race</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Black</th>
+          <td>0.0766017</td>
+          <td>0.60886</td>
+        </tr>
+        <tr>
+          <th>Other</th>
+          <td>0.189607</td>
+          <td>0.648637</td>
+        </tr>
+        <tr>
+          <th>White</th>
+          <td>0.215354</td>
+          <td>0.686801</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+We see that there is also a significant disparity in selection rates when
+grouping by race.
+
+Sample weights and other arrays
+-------------------------------
+
+We noted above that the underlying metric functions passed to the
+:class:`fairlearn.metrics.MetricFrame` constructor need to be of
+the form ``fn(y_true, y_pred)`` - we do not support scalar arguments
+such as ``pos_label=`` or ``beta=`` in the constructor. Such
+arguments should be bound into a new function using
+:func:`functools.partial`, and the result passed in. However, we do
+support arguments which have one entry for each sample, with an array
+of sample weights being the most common example. These are divided
+into subgroups along with ``y_true`` and ``y_pred``, and passed along
+to the underlying metric.
+
+To use these arguments, we pass in a dictionary as the ``sample_params=``
+argument of the constructor. Let us generate some random weights, and
+pass these along:
+
+
+.. code-block:: default
+
+
+    random_weights = np.random.rand(len(Y_test))
+
+    example_sample_params = {
+        'selection_rate': {'sample_weight': random_weights},
+        'fbeta_06': {'sample_weight': random_weights},
+    }
+
+
+    grouped_with_weights = MetricFrame(metric_fns,
+                                       Y_test, Y_pred,
+                                       sensitive_features=A_test['sex'],
+                                       sample_params=example_sample_params)
+
+
+
+
+
+
+
+
+We can inspect the overall values, and check they are as expected:
+
+
+.. code-block:: default
+
+    assert grouped_with_weights.overall['selection_rate'] == \
+        selection_rate(Y_test, Y_pred, sample_weight=random_weights)
+    assert grouped_with_weights.overall['fbeta_06'] == \
+        skm.fbeta_score(Y_test, Y_pred, beta=0.6, sample_weight=random_weights)
+    print(grouped_with_weights.overall)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    selection_rate    0.200768
+    fbeta_06          0.679574
+    dtype: object
+
+
+
+
+We can also see the effect on the metric being evaluated on the subgroups:
+
+
+.. code-block:: default
+
+    grouped_with_weights.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>sex</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Female</th>
+          <td>0.0730062</td>
+          <td>0.625121</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.264907</td>
+          <td>0.687608</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+Quantifying Disparities
+=======================
+
+We now know that our model is selecting individuals who are female far less
+often than individuals who are male. There is a similar effect when
+examining the results by race, with blacks being selected far less often than
+whites (and those classified as 'other'). However, there are many cases where
+presenting all these numbers at once will not be useful (for example, a high
+level dashboard which is monitoring model performance). Fairlearn provides
+several means of aggregating metrics across the subgroups, so that disparities
+can be readily quantified.
+
+The simplest of these aggregations is ``group_min()``, which reports the
+minimum value seen for a subgroup for each underlying metric (we also provide
+``group_max()``). This is
+useful if there is a mandate that "no subgroup should have an ``fbeta_score()``
+of less than 0.6." We can evaluate the minimum values easily:
+
+
+.. code-block:: default
+
+    grouped_on_race.group_min()
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.0766017
+    fbeta_06            0.60886
+    dtype: object
+
+
+
+As noted above, the selection rates varies greatly by race and by sex.
+This can be quantified in terms of a difference between the subgroup with
+the highest value of the metric, and the subgroup with the lowest value.
+For this, we provide the method ``difference(method='between_groups)``:
+
+
+.. code-block:: default
+
+    grouped_on_race.difference(method='between_groups')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.138752
+    fbeta_06          0.077941
+    dtype: float64
+
+
+
+We can also evaluate the difference relative to the corresponding overall
+value of the metric. In this case we take the absolute value, so that the
+result is always positive:
+
+
+.. code-block:: default
+
+    grouped_on_race.difference(method='to_overall')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.123903
+    fbeta_06          0.073057
+    dtype: float64
+
+
+
+There are situations where knowing the ratios of the metrics evaluated on
+the subgroups is more useful. For this we have the ``ratio()`` method.
+We can take the ratios between the minimum and maximum values of each metric:
+
+
+.. code-block:: default
+
+    grouped_on_race.ratio(method='between_groups')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.355701
+    fbeta_06          0.886516
+    dtype: object
+
+
+
+We can also compute the ratios relative to the overall value for each
+metric. Analogous to the differences, the ratios are always in the range
+:math:`[0,1]`:
+
+
+.. code-block:: default
+
+    grouped_on_race.ratio(method='to_overall')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.382044
+    fbeta_06          0.892865
+    dtype: float64
+
+
+
+Intersections of Features
+=========================
+
+So far we have only considered a single sensitive feature at a time,
+and we have already found some serious issues in our example data.
+However, sometimes serious issues can be hiding in intersections of
+features. For example, the
+`Gender Shades project <https://www.media.mit.edu/projects/gender-shades/overview/>`_
+found that facial recognition algorithms performed worse for blacks
+than whites, and also worse for women than men (despite overall high
+accuracy score). Moreover, performance on black females was *terrible*.
+We can examine the intersections of sensitive features by passing
+multiple columns to the :class:`fairlearn.metrics.MetricFrame`
+constructor:
+
+
+.. code-block:: default
+
+
+    grouped_on_race_and_sex = MetricFrame(metric_fns,
+                                          Y_test, Y_pred,
+                                          sensitive_features=A_test[['race', 'sex']])
+
+
+
+
+
+
+
+
+The overall values are unchanged, but the ``by_group`` table now
+shows the intersections between subgroups:
+
+
+.. code-block:: default
+
+    assert (grouped_on_race_and_sex.overall == grouped_on_race.overall).all()
+    grouped_on_race_and_sex.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>race</th>
+          <th>sex</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.0235784</td>
+          <td>0.6206</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.13007</td>
+          <td>0.60627</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.0711462</td>
+          <td>0.539683</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.254902</td>
+          <td>0.667157</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0823651</td>
+          <td>0.646108</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.275023</td>
+          <td>0.692614</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+The aggregations are still performed across all subgroups for each metric,
+so each continues to reduce to a single value. If we look at the
+``group_min()``, we see that we violate the mandate we specified for the
+``fbeta_score()`` suggested above (for females with a race of 'Other' in
+fact):
+
+
+.. code-block:: default
+
+    grouped_on_race_and_sex.group_min()
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.0235784
+    fbeta_06           0.539683
+    dtype: object
+
+
+
+Looking at the ``ratio()`` method, we see that the disparity is worse
+(specifically between white males and black females, if we check in
+the ``by_group`` table):
+
+
+.. code-block:: default
+
+    grouped_on_race_and_sex.ratio(method='between_groups')
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+    selection_rate    0.0857323
+    fbeta_06           0.779197
+    dtype: object
+
+
+
+Control Features
+================
+
+There is a further way we can slice up our data. We have (*completely
+made up*) features for the individuals' credit scores (in three bands)
+and also the size of the loan requested (large or small). In our loan
+scenario, it is acceptable that individuals with high credit scores
+are selected more often than individuals with low credit scores.
+However, within each credit score band, we do not want a disparity
+between (say) black females and white males. To example these cases,
+we have the concept of *control features*.
+
+Control features are introduced by the ``control_features=``
+argument to the :class:`fairlearn.metrics.MetricFrame` object:
+
+
+.. code-block:: default
+
+    cond_credit_score = MetricFrame(metric_fns,
+                                    Y_test, Y_pred,
+                                    sensitive_features=A_test[['race', 'sex']],
+                                    control_features=A_test['Credit Score'])
+
+
+
+
+
+
+
+
+This has an immediate effect on the ``overall`` property. Instead
+of having one value for each metric, we now have a value for each
+unique value of the control feature:
+
+
+.. code-block:: default
+
+    cond_credit_score.overall
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Credit Score</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>High</th>
+          <td>0.0367965</td>
+          <td>0.556675</td>
+        </tr>
+        <tr>
+          <th>Low</th>
+          <td>0.0195585</td>
+          <td>0.515224</td>
+        </tr>
+        <tr>
+          <th>Medium</th>
+          <td>0.395422</td>
+          <td>0.695178</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+The ``by_group`` property is similarly expanded:
+
+
+.. code-block:: default
+
+    cond_credit_score.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Credit Score</th>
+          <th>race</th>
+          <th>sex</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th rowspan="6" valign="top">High</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.2</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.012945</td>
+          <td>0.418033</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.151899</td>
+          <td>0.625767</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Low</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.00176367</td>
+          <td>0.274194</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0179028</td>
+          <td>0.480565</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.011236</td>
+          <td>0.60177</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0136555</td>
+          <td>0.450228</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0303738</td>
+          <td>0.562242</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Medium</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.153846</td>
+          <td>0.697161</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.266458</td>
+          <td>0.613291</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.268657</td>
+          <td>0.602254</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.413669</td>
+          <td>0.670544</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.389831</td>
+          <td>0.69678</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.408674</td>
+          <td>0.700198</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+The aggregates are also evaluated once for each group identified
+by the control feature:
+
+
+.. code-block:: default
+
+    cond_credit_score.group_min()
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Credit Score</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>High</th>
+          <td>0.000000</td>
+          <td>0.000000</td>
+        </tr>
+        <tr>
+          <th>Low</th>
+          <td>0.000000</td>
+          <td>0.000000</td>
+        </tr>
+        <tr>
+          <th>Medium</th>
+          <td>0.153846</td>
+          <td>0.602254</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+And:
+
+
+.. code-block:: default
+
+    cond_credit_score.ratio(method='between_groups')
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Credit Score</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>High</th>
+          <td>0.000000</td>
+          <td>0.00000</td>
+        </tr>
+        <tr>
+          <th>Low</th>
+          <td>0.000000</td>
+          <td>0.00000</td>
+        </tr>
+        <tr>
+          <th>Medium</th>
+          <td>0.371906</td>
+          <td>0.86012</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+In our data, we see that we have a dearth of positive results
+for high income non-whites, which significantly affects the
+aggregates.
+
+We can continue adding more control features:
+
+
+.. code-block:: default
+
+    cond_both = MetricFrame(metric_fns,
+                            Y_test, Y_pred,
+                            sensitive_features=A_test[['race', 'sex']],
+                            control_features=A_test[['Loan Size', 'Credit Score']])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Found 36 subgroups. Evaluation may be slow
+    /usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+      average, "true nor predicted", 'F-score is', len(true_sum)
+
+
+
+
+The ``overall`` property now splits into more values:
+
+
+.. code-block:: default
+
+    cond_both.overall
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Loan Size</th>
+          <th>Credit Score</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th rowspan="3" valign="top">Large</th>
+          <th>High</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Low</th>
+          <td>0.00697674</td>
+          <td>0.790698</td>
+        </tr>
+        <tr>
+          <th>Medium</th>
+          <td>0.0669643</td>
+          <td>0.406143</td>
+        </tr>
+        <tr>
+          <th rowspan="3" valign="top">Small</th>
+          <th>High</th>
+          <td>0.0397196</td>
+          <td>0.563057</td>
+        </tr>
+        <tr>
+          <th>Low</th>
+          <td>0.0203627</td>
+          <td>0.510146</td>
+        </tr>
+        <tr>
+          <th>Medium</th>
+          <td>0.417768</td>
+          <td>0.700509</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+As does the ``by_groups`` property, where ``NaN`` values
+indicate that there were no samples in the cell:
+
+
+.. code-block:: default
+
+    cond_both.by_group
+
+
+
+
+
+
+.. raw:: html
+
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>selection_rate</th>
+          <th>fbeta_06</th>
+        </tr>
+        <tr>
+          <th>Loan Size</th>
+          <th>Credit Score</th>
+          <th>race</th>
+          <th>sex</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th rowspan="18" valign="top">Large</th>
+          <th rowspan="6" valign="top">High</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>NaN</td>
+          <td>NaN</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>NaN</td>
+          <td>NaN</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>NaN</td>
+          <td>NaN</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Low</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0148515</td>
+          <td>0.790698</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Medium</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0322581</td>
+          <td>0.350515</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0909091</td>
+          <td>0.492754</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0710227</td>
+          <td>0.426481</td>
+        </tr>
+        <tr>
+          <th rowspan="18" valign="top">Small</th>
+          <th rowspan="6" valign="top">High</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.2</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.013986</td>
+          <td>0.418033</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.157895</td>
+          <td>0.6375</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Low</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.0019685</td>
+          <td>0.274194</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.019337</td>
+          <td>0.480565</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0123457</td>
+          <td>0.60177</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0142492</td>
+          <td>0.450228</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0314961</td>
+          <td>0.555266</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Medium</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.16</td>
+          <td>0.7072</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.291667</td>
+          <td>0.621613</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.274194</td>
+          <td>0.627517</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.45098</td>
+          <td>0.679826</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.404444</td>
+          <td>0.699767</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.431508</td>
+          <td>0.705253</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br />
+    <br />
+
+The aggregates behave similarly. By this point, we are having significant issues
+with under-populated intersections. Consider:
+
+
+.. code-block:: default
+
+
+
+    def member_counts(y_true, y_pred):
+        assert len(y_true) == len(y_pred)
+        return len(y_true)
+
+
+    counts = MetricFrame(member_counts,
+                         Y_test, Y_pred,
+                         sensitive_features=A_test[['race', 'sex']],
+                         control_features=A_test[['Loan Size', 'Credit Score']])
+
+    counts.by_group
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Found 36 subgroups. Evaluation may be slow
+
+    Loan Size  Credit Score  race   sex   
+    Large      High          Black  Female       8
+                                    Male       NaN
+                             Other  Female     NaN
+                                    Male       NaN
+                             White  Female      23
+                                    Male         3
+               Low           Black  Female      59
+                                    Male        29
+                             Other  Female       5
+                                    Male        16
+                             White  Female     119
+                                    Male       202
+               Medium        Black  Female       4
+                                    Male        31
+                             Other  Female       5
+                                    Male        23
+                             White  Female      33
+                                    Male       352
+    Small      High          Black  Female      42
+                                    Male         5
+                             Other  Female      16
+                                    Male         3
+                             White  Female     286
+                                    Male        76
+               Low           Black  Female     508
+                                    Male       362
+                             Other  Female     165
+                                    Male       162
+                             White  Female    2737
+                                    Male      2794
+               Medium        Black  Female     100
+                                    Male       288
+                             Other  Female      62
+                                    Male       255
+                             White  Female     675
+                                    Male      5205
+    Name: member_counts, dtype: object
+
+
+
+Recall that ``NaN`` indicates that there were no individuals
+in a cell - ``member_counts()`` will not even have been called.
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  10.539 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_new_metrics.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_new_metrics.py <plot_new_metrics.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_new_metrics.ipynb <plot_new_metrics.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
