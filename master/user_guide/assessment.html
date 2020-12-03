@@ -229,6 +229,10 @@
             <a href="#metrics-with-grouping" class="nav-link">Metrics with Grouping</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#scalar-results-from-metricframe" class="nav-link">Scalar Results from MetricFrame</a>
+        </li>
+    
             </ul>
         </li>
     
@@ -440,6 +444,157 @@ holds the intersections of these groups:</p>
 there are no members in a particular combination of sensitive features. In this
 case we see that the subgroup <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">8)</span></code> has a result of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, indicating
 that there were no samples in it.</p>
+</div>
+<div class="section" id="scalar-results-from-metricframe">
+<span id="scalar-metric-results"></span><h3><span class="section-number">2.1.3. </span>Scalar Results from <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code><a class="headerlink" href="#scalar-results-from-metricframe" title="Permalink to this headline">¶</a></h3>
+<p>Higher level machine learning algorithms (such as hyperparameter tuners) often
+make use of metric functions to guide their optimisations.
+Such algorithms generally work with scalar results, so if we want the tuning
+to be done on the basis of our fairness metrics, we need to perform aggregations
+over the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.</p>
+<p>We provide a convenience function, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_derived_metric" title="fairlearn.metrics.make_derived_metric"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.make_derived_metric()</span></code></a>
+to generate scalar-producing metric functions based on the aggregation methods
+mentioned above (<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a>, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a>,
+<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a>, and <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>).
+This takes an underlying metric function, the name of the desired transformation, and
+optionally a list of parameter names which should be treated as sample aligned parameters
+(such as <cite>sample_weight</cite>).
+The result is a function which builds the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> internally and performs
+the requested aggregation. For example:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">make_derived_metric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta_difference</span> <span class="o">=</span> <span class="n">make_derived_metric</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span><span class="p">,</span>
+<span class="gp">... </span>                                       <span class="n">transform</span><span class="o">=</span><span class="s1">&#39;difference&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta_difference</span><span class="p">(</span><span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
+<span class="go">0.752525...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fbeta_07</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MetricFrame</span><span class="p">(</span><span class="n">fbeta_07</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">Y_true</span><span class="p">,</span> <span class="n">Y_pred</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">()</span>
+<span class="go">0.752525...</span>
+</pre></div>
+</div>
+<p>We use <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_derived_metric" title="fairlearn.metrics.make_derived_metric"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.make_derived_metric()</span></code></a> to manufacture a number
+of such functions which will be commonly used:</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Base metric</p></th>
+<th class="head"><p><code class="code docutils literal notranslate"><span class="pre">group_min</span></code></p></th>
+<th class="head"><p><code class="code docutils literal notranslate"><span class="pre">group_max</span></code></p></th>
+<th class="head"><p><code class="code docutils literal notranslate"><span class="pre">difference</span></code></p></th>
+<th class="head"><p><code class="code docutils literal notranslate"><span class="pre">ratio</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.false_negative_rate" title="fairlearn.metrics.false_negative_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_negative_rate()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_positive_rate()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">selection_rate()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.true_negative_rate" title="fairlearn.metrics.true_negative_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">true_negative_rate()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.true_positive_rate" title="fairlearn.metrics.true_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">true_positive_rate()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.balanced_accuracy_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.f1_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_absolute_error()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_squared_error()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.precision_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.r2_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a></p></td>
+<td><p>Y</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+<td><p>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.zero_one_loss.html#sklearn.metrics.zero_one_loss" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.zero_one_loss()</span></code></a></p></td>
+<td><p>.</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+</tbody>
+</table>
+<p>The names of the generated functions are of the form
+<code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.&lt;base_metric&gt;_&lt;transformation&gt;</span></code>.
+For example <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.accuracy_score_difference</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.precision_score_group_min</span></code>.</p>
 </div>
 </div>
 <div class="section" id="fairlearn-dashboard">
