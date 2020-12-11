@@ -61,17 +61,21 @@ We start with some uncontroversial `import` statements:
 .. code-block:: default
 
 
-    from fairlearn.metrics import MetricFrame
-    from fairlearn.metrics import selection_rate
     import functools
-    import sklearn.metrics as skm
     import numpy as np
-    import pandas as pd
 
+    import sklearn.metrics as skm
+    from sklearn.compose import ColumnTransformer
     from sklearn.datasets import fetch_openml
+    from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.model_selection import train_test_split
-    from sklearn.preprocessing import LabelEncoder, StandardScaler
+    from sklearn.preprocessing import StandardScaler, OneHotEncoder
+    from sklearn.compose import make_column_selector as selector
+    from sklearn.pipeline import Pipeline
+
+    from fairlearn.metrics import MetricFrame
+    from fairlearn.metrics import selection_rate
 
 
 
@@ -89,7 +93,7 @@ Next, we import the data:
 
     data = fetch_openml(data_id=1590, as_frame=True)
     X_raw = data.data
-    Y = (data.target == '>50K') * 1
+    y = (data.target == '>50K') * 1
 
 
 
@@ -114,7 +118,7 @@ three unique values:
         return result
 
 
-    X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other')
+    X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other').astype('category')
     print(np.unique(X_raw['race']))
 
 
@@ -127,12 +131,12 @@ three unique values:
 
  .. code-block:: none
 
-    /tmp/tmpyffem840/f6824fda53623019c6bd88ea1c74ce05a85afaad/examples/plot_new_metrics.py:87: SettingWithCopyWarning: 
+    /tmp/tmpburdsw3g/e61cfc9d1703485f337c7de96c1dcb079b80d305/examples/plot_new_metrics.py:91: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other')
+      X_raw['race'] = X_raw['race'].map(race_transform).fillna('Other').astype('category')
     ['Black' 'Other' 'White']
 
 
@@ -186,13 +190,13 @@ illustrative purposes.
 
  .. code-block:: none
 
-    /tmp/tmpyffem840/f6824fda53623019c6bd88ea1c74ce05a85afaad/examples/plot_new_metrics.py:121: SettingWithCopyWarning: 
+    /tmp/tmpburdsw3g/e61cfc9d1703485f337c7de96c1dcb079b80d305/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
       A['Credit Score'] = col_credit
-    /tmp/tmpyffem840/f6824fda53623019c6bd88ea1c74ce05a85afaad/examples/plot_new_metrics.py:122: SettingWithCopyWarning: 
+    /tmp/tmpburdsw3g/e61cfc9d1703485f337c7de96c1dcb079b80d305/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -311,29 +315,29 @@ illustrative purposes.
     <br />
     <br />
 
-With the data imported, we perform some standard processing, and a test/train split:
+Now that we have imported our dataset and manufactured a few features, we
+can perform some more conventional processing. To avoid the problem of
+`data leakage <https://en.wikipedia.org/wiki/Leakage_(machine_learning)>`_,
+we need to split the data into training and test sets before applying
+any transforms or scaling:
 
 
 .. code-block:: default
 
-    le = LabelEncoder()
-    Y = le.fit_transform(Y)
 
-    le = LabelEncoder()
 
-    sc = StandardScaler()
-    X_dummies = pd.get_dummies(X_raw)
-    X_scaled = sc.fit_transform(X_dummies)
-    X_scaled = pd.DataFrame(X_scaled, columns=X_dummies.columns)
+    (X_train, X_test, y_train, y_test, A_train, A_test) = train_test_split(
+        X_raw, y, A, test_size=0.3, random_state=54321, stratify=y
+    )
 
-    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(X_scaled, Y, A,
-                                                                         test_size=0.3,
-                                                                         random_state=12345,
-                                                                         stratify=Y)
+    # Ensure indices are aligned between X, y and A,
+    # after all the slicing and splitting of DataFrames
+    # and Series
 
-    # Ensure indices are aligned
     X_train = X_train.reset_index(drop=True)
     X_test = X_test.reset_index(drop=True)
+    y_train = y_train.reset_index(drop=True)
+    y_test = y_test.reset_index(drop=True)
     A_train = A_train.reset_index(drop=True)
     A_test = A_test.reset_index(drop=True)
 
@@ -344,18 +348,81 @@ With the data imported, we perform some standard processing, and a test/train sp
 
 
 
-Finally, we train a simple model on the data, and generate
-some predictions:
+Next, we build two :class:`~sklearn.pipeline.Pipeline` objects
+to process the columns, one for numeric data, and the other
+for categorical data. Both impute missing values; the difference
+is whether the data are scaled (numeric columns) or
+one-hot encoded (categorical columns). Imputation of missing
+values should generally be done with care, since it could
+potentially introduce biases. Of course, removing rows with
+missing data could also cause trouble, if particular subgroups
+have poorer data quality.
 
 
 .. code-block:: default
 
 
+    numeric_transformer = Pipeline(
+        steps=[
+            ("impute", SimpleImputer()),
+            ("scaler", StandardScaler()),
+        ]
+    )
+    categorical_transformer = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="most_frequent")),
+            ("ohe", OneHotEncoder(handle_unknown="ignore")),
+        ]
+    )
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", numeric_transformer, selector(dtype_exclude="category")),
+            ("cat", categorical_transformer, selector(dtype_include="category")),
+        ]
+    )
 
-    unmitigated_predictor = LogisticRegression(solver='liblinear', fit_intercept=True)
-    unmitigated_predictor.fit(X_train, Y_train)
 
-    Y_pred = unmitigated_predictor.predict(X_test)
+
+
+
+
+
+
+With our preprocessor defined, we can now build a
+new pipeline which includes an Estimator:
+
+
+.. code-block:: default
+
+
+    unmitigated_predictor = Pipeline(
+        steps=[
+            ("preprocessor", preprocessor),
+            (
+                "classifier",
+                LogisticRegression(solver="liblinear", fit_intercept=True),
+            ),
+        ]
+    )
+
+
+
+
+
+
+
+
+With the pipeline fully defined, we can first train it
+with the training data, and then generate predictions
+from the test data.
+
+
+.. code-block:: default
+
+
+    unmitigated_predictor.fit(X_train, y_train)
+    y_pred = unmitigated_predictor.predict(X_test)
+
 
 
 
@@ -370,8 +437,8 @@ Analysing the Model with Metrics
 After our data manipulations and model training, we have the following
 from our test set:
 
-- A vector of true values called ``Y_test``
-- A vector of model predictions called ``Y_pred``
+- A vector of true values called ``y_test``
+- A vector of model predictions called ``y_pred``
 - A DataFrame of categorical features relevant to fairness called ``A_test``
 
 In a traditional model analysis, we would now look at some metrics
@@ -385,8 +452,8 @@ We can evaluate these metrics directly:
 .. code-block:: default
 
 
-    print("Selection Rate:", selection_rate(Y_test, Y_pred))
-    print("fbeta:", skm.fbeta_score(Y_test, Y_pred, beta=0.6))
+    print("Selection Rate:", selection_rate(y_test, y_pred))
+    print("fbeta:", skm.fbeta_score(y_test, y_pred, beta=0.6))
 
 
 
@@ -398,8 +465,8 @@ We can evaluate these metrics directly:
 
  .. code-block:: none
 
-    Selection Rate: 0.20050501603767146
-    fbeta: 0.6819168793569769
+    Selection Rate: 0.1947041561454992
+    fbeta: 0.6827826864569057
 
 
 
@@ -420,7 +487,7 @@ its capabilities:
     metric_fns = {'selection_rate': selection_rate, 'fbeta_06': fbeta_06}
 
     grouped_on_sex = MetricFrame(metric_fns,
-                                 Y_test, Y_pred,
+                                 y_test, y_pred,
                                  sensitive_features=A_test['sex'])
 
 
@@ -456,8 +523,8 @@ same values calculated above:
 .. code-block:: default
 
 
-    assert grouped_on_sex.overall['selection_rate'] == selection_rate(Y_test, Y_pred)
-    assert grouped_on_sex.overall['fbeta_06'] == skm.fbeta_score(Y_test, Y_pred, beta=0.6)
+    assert grouped_on_sex.overall['selection_rate'] == selection_rate(y_test, y_pred)
+    assert grouped_on_sex.overall['fbeta_06'] == skm.fbeta_score(y_test, y_pred, beta=0.6)
     print(grouped_on_sex.overall)
 
 
@@ -470,8 +537,8 @@ same values calculated above:
 
  .. code-block:: none
 
-    selection_rate    0.200505
-    fbeta_06          0.681917
+    selection_rate    0.194704
+    fbeta_06          0.682783
     dtype: object
 
 
@@ -525,13 +592,13 @@ have results for males and females:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.0730349</td>
-          <td>0.639174</td>
+          <td>0.0688301</td>
+          <td>0.634014</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.263512</td>
-          <td>0.6882</td>
+          <td>0.25675</td>
+          <td>0.689789</td>
         </tr>
       </tbody>
     </table>
@@ -550,7 +617,7 @@ using race as the sensitive feature:
 
 
     grouped_on_race = MetricFrame(metric_fns,
-                                  Y_test, Y_pred,
+                                  y_test, y_pred,
                                   sensitive_features=A_test['race'])
 
 
@@ -619,18 +686,18 @@ column:
       <tbody>
         <tr>
           <th>Black</th>
-          <td>0.0766017</td>
-          <td>0.60886</td>
+          <td>0.0681976</td>
+          <td>0.592125</td>
         </tr>
         <tr>
           <th>Other</th>
-          <td>0.189607</td>
-          <td>0.648637</td>
+          <td>0.16763</td>
+          <td>0.693717</td>
         </tr>
         <tr>
           <th>White</th>
-          <td>0.215354</td>
-          <td>0.686801</td>
+          <td>0.210715</td>
+          <td>0.686081</td>
         </tr>
       </tbody>
     </table>
@@ -663,7 +730,7 @@ pass these along:
 .. code-block:: default
 
 
-    random_weights = np.random.rand(len(Y_test))
+    random_weights = np.random.rand(len(y_test))
 
     example_sample_params = {
         'selection_rate': {'sample_weight': random_weights},
@@ -672,7 +739,7 @@ pass these along:
 
 
     grouped_with_weights = MetricFrame(metric_fns,
-                                       Y_test, Y_pred,
+                                       y_test, y_pred,
                                        sensitive_features=A_test['sex'],
                                        sample_params=example_sample_params)
 
@@ -689,9 +756,9 @@ We can inspect the overall values, and check they are as expected:
 .. code-block:: default
 
     assert grouped_with_weights.overall['selection_rate'] == \
-        selection_rate(Y_test, Y_pred, sample_weight=random_weights)
+        selection_rate(y_test, y_pred, sample_weight=random_weights)
     assert grouped_with_weights.overall['fbeta_06'] == \
-        skm.fbeta_score(Y_test, Y_pred, beta=0.6, sample_weight=random_weights)
+        skm.fbeta_score(y_test, y_pred, beta=0.6, sample_weight=random_weights)
     print(grouped_with_weights.overall)
 
 
@@ -704,8 +771,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate    0.199323
-    fbeta_06          0.684596
+    selection_rate    0.196387
+    fbeta_06          0.681955
     dtype: object
 
 
@@ -755,13 +822,13 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.070334</td>
-          <td>0.633222</td>
+          <td>0.0694377</td>
+          <td>0.639379</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.262609</td>
-          <td>0.691792</td>
+          <td>0.25915</td>
+          <td>0.68816</td>
         </tr>
       </tbody>
     </table>
@@ -803,8 +870,8 @@ of less than 0.6." We can evaluate the minimum values easily:
  .. code-block:: none
 
 
-    selection_rate    0.0766017
-    fbeta_06            0.60886
+    selection_rate    0.0681976
+    fbeta_06           0.592125
     dtype: object
 
 
@@ -830,8 +897,8 @@ For this, we provide the method ``difference(method='between_groups)``:
  .. code-block:: none
 
 
-    selection_rate    0.138752
-    fbeta_06          0.077941
+    selection_rate    0.142518
+    fbeta_06          0.101591
     dtype: float64
 
 
@@ -856,8 +923,8 @@ result is always positive:
  .. code-block:: none
 
 
-    selection_rate    0.123903
-    fbeta_06          0.073057
+    selection_rate    0.126507
+    fbeta_06          0.090657
     dtype: float64
 
 
@@ -882,8 +949,8 @@ We can take the ratios between the minimum and maximum values of each metric:
  .. code-block:: none
 
 
-    selection_rate    0.355701
-    fbeta_06          0.886516
+    selection_rate    0.323648
+    fbeta_06          0.853555
     dtype: object
 
 
@@ -908,8 +975,8 @@ metric. Analogous to the differences, the ratios are always in the range
  .. code-block:: none
 
 
-    selection_rate    0.382044
-    fbeta_06          0.892865
+    selection_rate    0.350263
+    fbeta_06          0.867223
     dtype: float64
 
 
@@ -934,7 +1001,7 @@ constructor:
 
 
     grouped_on_race_and_sex = MetricFrame(metric_fns,
-                                          Y_test, Y_pred,
+                                          y_test, y_pred,
                                           sensitive_features=A_test[['race', 'sex']])
 
 
@@ -993,35 +1060,35 @@ shows the intersections between subgroups:
         <tr>
           <th rowspan="2" valign="top">Black</th>
           <th>Female</th>
-          <td>0.0235784</td>
-          <td>0.6206</td>
+          <td>0.0322581</td>
+          <td>0.630316</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.13007</td>
-          <td>0.60627</td>
+          <td>0.103591</td>
+          <td>0.580624</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.0711462</td>
-          <td>0.539683</td>
+          <td>0.0708661</td>
+          <td>0.503704</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.254902</td>
-          <td>0.667157</td>
+          <td>0.223744</td>
+          <td>0.728972</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.0823651</td>
-          <td>0.646108</td>
+          <td>0.0754327</td>
+          <td>0.642076</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.275023</td>
-          <td>0.692614</td>
+          <td>0.271235</td>
+          <td>0.692069</td>
         </tr>
       </tbody>
     </table>
@@ -1051,8 +1118,8 @@ fact):
  .. code-block:: none
 
 
-    selection_rate    0.0235784
-    fbeta_06           0.539683
+    selection_rate    0.0322581
+    fbeta_06           0.503704
     dtype: object
 
 
@@ -1077,8 +1144,8 @@ the ``by_group`` table):
  .. code-block:: none
 
 
-    selection_rate    0.0857323
-    fbeta_06           0.779197
+    selection_rate     0.11893
+    fbeta_06          0.690978
     dtype: object
 
 
@@ -1102,13 +1169,22 @@ argument to the :class:`fairlearn.metrics.MetricFrame` object:
 .. code-block:: default
 
     cond_credit_score = MetricFrame(metric_fns,
-                                    Y_test, Y_pred,
+                                    y_test, y_pred,
                                     sensitive_features=A_test[['race', 'sex']],
                                     control_features=A_test['Credit Score'])
 
 
 
 
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+      average, "true nor predicted", 'F-score is', len(true_sum)
 
 
 
@@ -1159,18 +1235,18 @@ unique value of the control feature:
       <tbody>
         <tr>
           <th>High</th>
-          <td>0.0367965</td>
-          <td>0.556675</td>
+          <td>0.0361702</td>
+          <td>0.664928</td>
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.0195585</td>
-          <td>0.515224</td>
+          <td>0.0229238</td>
+          <td>0.549994</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.395422</td>
-          <td>0.695178</td>
+          <td>0.386924</td>
+          <td>0.695034</td>
         </tr>
       </tbody>
     </table>
@@ -1233,7 +1309,7 @@ The ``by_group`` property is similarly expanded:
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.2</td>
+          <td>0.0666667</td>
           <td>1</td>
         </tr>
         <tr>
@@ -1250,81 +1326,81 @@ The ``by_group`` property is similarly expanded:
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.012945</td>
-          <td>0.418033</td>
+          <td>0.0196078</td>
+          <td>0.529595</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.151899</td>
-          <td>0.625767</td>
+          <td>0.142857</td>
+          <td>0.759305</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Low</th>
           <th rowspan="2" valign="top">Black</th>
           <th>Female</th>
-          <td>0.00176367</td>
-          <td>0.274194</td>
+          <td>0.00702988</td>
+          <td>0.626728</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.0179028</td>
-          <td>0.480565</td>
+          <td>0.0205128</td>
+          <td>0.563536</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0</td>
-          <td>0</td>
+          <td>0.0120482</td>
+          <td>0.519084</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.011236</td>
-          <td>0.60177</td>
+          <td>0.0372671</td>
+          <td>0.693878</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.0136555</td>
-          <td>0.450228</td>
+          <td>0.015084</td>
+          <td>0.525773</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.0303738</td>
-          <td>0.562242</td>
+          <td>0.0334199</td>
+          <td>0.55025</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Medium</th>
           <th rowspan="2" valign="top">Black</th>
           <th>Female</th>
-          <td>0.153846</td>
-          <td>0.697161</td>
+          <td>0.211111</td>
+          <td>0.639653</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.266458</td>
-          <td>0.613291</td>
+          <td>0.206897</td>
+          <td>0.577576</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.268657</td>
-          <td>0.602254</td>
+          <td>0.238806</td>
+          <td>0.5</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.413669</td>
-          <td>0.670544</td>
+          <td>0.336996</td>
+          <td>0.732057</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.389831</td>
-          <td>0.69678</td>
+          <td>0.373457</td>
+          <td>0.680881</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.408674</td>
-          <td>0.700198</td>
+          <td>0.406108</td>
+          <td>0.700837</td>
         </tr>
       </tbody>
     </table>
@@ -1382,13 +1458,13 @@ by the control feature:
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.000000</td>
-          <td>0.000000</td>
+          <td>0.007030</td>
+          <td>0.519084</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.153846</td>
-          <td>0.602254</td>
+          <td>0.206897</td>
+          <td>0.500000</td>
         </tr>
       </tbody>
     </table>
@@ -1441,17 +1517,17 @@ And:
         <tr>
           <th>High</th>
           <td>0.000000</td>
-          <td>0.00000</td>
+          <td>0.000000</td>
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.000000</td>
-          <td>0.00000</td>
+          <td>0.188635</td>
+          <td>0.748092</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.371906</td>
-          <td>0.86012</td>
+          <td>0.509462</td>
+          <td>0.683007</td>
         </tr>
       </tbody>
     </table>
@@ -1469,7 +1545,7 @@ We can continue adding more control features:
 .. code-block:: default
 
     cond_both = MetricFrame(metric_fns,
-                            Y_test, Y_pred,
+                            y_test, y_pred,
                             sensitive_features=A_test[['race', 'sex']],
                             control_features=A_test[['Loan Size', 'Credit Score']])
 
@@ -1483,9 +1559,9 @@ We can continue adding more control features:
 
  .. code-block:: none
 
-    Found 36 subgroups. Evaluation may be slow
     /usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
       average, "true nor predicted", 'F-score is', len(true_sum)
+    Found 36 subgroups. Evaluation may be slow
 
 
 
@@ -1542,29 +1618,29 @@ The ``overall`` property now splits into more values:
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.00697674</td>
-          <td>0.790698</td>
+          <td>0.00434783</td>
+          <td>0.60177</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.0669643</td>
-          <td>0.406143</td>
+          <td>0.0714286</td>
+          <td>0.388325</td>
         </tr>
         <tr>
           <th rowspan="3" valign="top">Small</th>
           <th>High</th>
-          <td>0.0397196</td>
-          <td>0.563057</td>
+          <td>0.0380313</td>
+          <td>0.664928</td>
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.0203627</td>
-          <td>0.510146</td>
+          <td>0.0241758</td>
+          <td>0.549299</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.417768</td>
-          <td>0.700509</td>
+          <td>0.408106</td>
+          <td>0.700288</td>
         </tr>
       </tbody>
     </table>
@@ -1631,14 +1707,14 @@ indicate that there were no samples in the cell:
         </tr>
         <tr>
           <th>Male</th>
-          <td>NaN</td>
-          <td>NaN</td>
+          <td>0</td>
+          <td>0</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>NaN</td>
-          <td>NaN</td>
+          <td>0</td>
+          <td>0</td>
         </tr>
         <tr>
           <th>Male</th>
@@ -1665,76 +1741,7 @@ indicate that there were no samples in the cell:
         </tr>
         <tr>
           <th>Male</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">Other</th>
-          <th>Female</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">White</th>
-          <th>Female</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.0148515</td>
-          <td>0.790698</td>
-        </tr>
-        <tr>
-          <th rowspan="6" valign="top">Medium</th>
-          <th rowspan="2" valign="top">Black</th>
-          <th>Female</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.0322581</td>
-          <td>0.350515</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">Other</th>
-          <th>Female</th>
-          <td>0.2</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">White</th>
-          <th>Female</th>
-          <td>0.0909091</td>
-          <td>0.492754</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.0710227</td>
-          <td>0.426481</td>
-        </tr>
-        <tr>
-          <th rowspan="18" valign="top">Small</th>
-          <th rowspan="6" valign="top">High</th>
-          <th rowspan="2" valign="top">Black</th>
-          <th>Female</th>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.2</td>
+          <td>0.030303</td>
           <td>1</td>
         </tr>
         <tr>
@@ -1751,81 +1758,150 @@ indicate that there were no samples in the cell:
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.013986</td>
-          <td>0.418033</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.157895</td>
-          <td>0.6375</td>
-        </tr>
-        <tr>
-          <th rowspan="6" valign="top">Low</th>
-          <th rowspan="2" valign="top">Black</th>
-          <th>Female</th>
-          <td>0.0019685</td>
-          <td>0.274194</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.019337</td>
-          <td>0.480565</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">Other</th>
-          <th>Female</th>
           <td>0</td>
           <td>0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.0123457</td>
-          <td>0.60177</td>
-        </tr>
-        <tr>
-          <th rowspan="2" valign="top">White</th>
-          <th>Female</th>
-          <td>0.0142492</td>
-          <td>0.450228</td>
-        </tr>
-        <tr>
-          <th>Male</th>
-          <td>0.0314961</td>
-          <td>0.555266</td>
+          <td>0.00444444</td>
+          <td>0.557377</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Medium</th>
           <th rowspan="2" valign="top">Black</th>
           <th>Female</th>
-          <td>0.16</td>
-          <td>0.7072</td>
+          <td>0</td>
+          <td>0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.291667</td>
-          <td>0.621613</td>
+          <td>0.0263158</td>
+          <td>0.295652</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.274194</td>
-          <td>0.627517</td>
+          <td>0.111111</td>
+          <td>0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.45098</td>
-          <td>0.679826</td>
+          <td>0</td>
+          <td>0</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
-          <td>0.404444</td>
-          <td>0.699767</td>
+          <td>0</td>
+          <td>0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.431508</td>
-          <td>0.705253</td>
+          <td>0.0870871</td>
+          <td>0.420976</td>
+        </tr>
+        <tr>
+          <th rowspan="18" valign="top">Small</th>
+          <th rowspan="6" valign="top">High</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0714286</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0204778</td>
+          <td>0.529595</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.144928</td>
+          <td>0.759305</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Low</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.00773694</td>
+          <td>0.626728</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0196078</td>
+          <td>0.518293</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.0122699</td>
+          <td>0.519084</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0408163</td>
+          <td>0.715789</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.0158046</td>
+          <td>0.527656</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.0357018</td>
+          <td>0.550162</td>
+        </tr>
+        <tr>
+          <th rowspan="6" valign="top">Medium</th>
+          <th rowspan="2" valign="top">Black</th>
+          <th>Female</th>
+          <td>0.228916</td>
+          <td>0.648094</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.231317</td>
+          <td>0.590371</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">Other</th>
+          <th>Female</th>
+          <td>0.258621</td>
+          <td>0.524085</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.362205</td>
+          <td>0.740024</td>
+        </tr>
+        <tr>
+          <th rowspan="2" valign="top">White</th>
+          <th>Female</th>
+          <td>0.390323</td>
+          <td>0.682328</td>
+        </tr>
+        <tr>
+          <th>Male</th>
+          <td>0.426664</td>
+          <td>0.705861</td>
         </tr>
       </tbody>
     </table>
@@ -1847,7 +1923,7 @@ with under-populated intersections. Consider:
 
 
     counts = MetricFrame(member_counts,
-                         Y_test, Y_pred,
+                         y_test, y_pred,
                          sensitive_features=A_test[['race', 'sex']],
                          control_features=A_test[['Loan Size', 'Credit Score']])
 
@@ -1866,42 +1942,42 @@ with under-populated intersections. Consider:
     Found 36 subgroups. Evaluation may be slow
 
     Loan Size  Credit Score  race   sex   
-    Large      High          Black  Female       8
+    Large      High          Black  Female       5
+                                    Male         1
+                             Other  Female       3
                                     Male       NaN
-                             Other  Female     NaN
-                                    Male       NaN
-                             White  Female      23
-                                    Male         3
-               Low           Black  Female      59
-                                    Male        29
-                             Other  Female       5
-                                    Male        16
-                             White  Female     119
-                                    Male       202
-               Medium        Black  Female       4
-                                    Male        31
-                             Other  Female       5
-                                    Male        23
-                             White  Female      33
-                                    Male       352
-    Small      High          Black  Female      42
-                                    Male         5
-                             Other  Female      16
-                                    Male         3
-                             White  Female     286
-                                    Male        76
-               Low           Black  Female     508
-                                    Male       362
-                             Other  Female     165
-                                    Male       162
-                             White  Female    2737
-                                    Male      2794
-               Medium        Black  Female     100
-                                    Male       288
-                             Other  Female      62
-                                    Male       255
-                             White  Female     675
-                                    Male      5205
+                             White  Female      13
+                                    Male         1
+               Low           Black  Female      52
+                                    Male        33
+                             Other  Female       3
+                                    Male        14
+                             White  Female     133
+                                    Male       225
+               Medium        Black  Female       7
+                                    Male        38
+                             Other  Female       9
+                                    Male        19
+                             White  Female      28
+                                    Male       333
+    Small      High          Black  Female      49
+                                    Male        14
+                             Other  Female      18
+                                    Male         4
+                             White  Female     293
+                                    Male        69
+               Low           Black  Female     517
+                                    Male       357
+                             Other  Female     163
+                                    Male       147
+                             White  Female    2784
+                                    Male      2857
+               Medium        Black  Female      83
+                                    Male       281
+                             Other  Female      58
+                                    Male       254
+                             White  Female     620
+                                    Male      5168
     Name: member_counts, dtype: object
 
 
@@ -1912,7 +1988,7 @@ in a cell - ``member_counts()`` will not even have been called.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.558 seconds)
+   **Total running time of the script:** ( 0 minutes  10.612 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
