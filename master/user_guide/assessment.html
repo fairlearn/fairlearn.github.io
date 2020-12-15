@@ -233,6 +233,10 @@
             <a href="#scalar-results-from-metricframe" class="nav-link">Scalar Results from MetricFrame</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#control-features-for-grouped-metrics" class="nav-link">Control features for grouped metrics</a>
+        </li>
+    
             </ul>
         </li>
     
@@ -599,6 +603,104 @@ of such functions which will be commonly used:</p>
 <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.&lt;base_metric&gt;_&lt;transformation&gt;</span></code>.
 For example <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.accuracy_score_difference</span></code> and
 <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.precision_score_group_min</span></code>.</p>
+</div>
+<div class="section" id="control-features-for-grouped-metrics">
+<span id="control-features-metrics"></span><h3><span class="section-number">2.1.4. </span>Control features for grouped metrics<a class="headerlink" href="#control-features-for-grouped-metrics" title="Permalink to this headline">¶</a></h3>
+<p>Control features (sometimes called ‘conditional’ features) enable more detailed
+fairness insights by providing a further means of splitting the data into
+subgroups.
+When the data are split into subgroups, control features (if provided) act
+similarly to sensitive features.
+However, the ‘overall’ value for the metric is now computed for each subgroup
+of the control feature(s).
+Similarly, the aggregation functions (such as <code class="code docutils literal notranslate"><span class="pre">MetricFrame.group_max</span></code>) are
+performed for each subgroup in the conditional feature(s), rather than across
+them (as happens with the sensitive features).</p>
+<p>Control features are useful for cases where there is some expected variation with
+a feature, so we need to compute disparities while controlling for that feature.
+For example, in a loan scenario we would expect people of differing incomes to
+be approved at different rates, but within each income band we would still
+want to measure disparities between different sensitive features. However, it
+should be borne in mind that due to historic discrimination, the income band
+might be correlated with various sensitive features. Because of this, control
+features should be used with particular caution.</p>
+<p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> constructor allows us to specify control features in
+a manner similar to sensitive features, using a <code class="code docutils literal notranslate"><span class="pre">conditional_features=</span></code>
+parameter:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">decision</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>   <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prediction</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>   <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_feature</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>   <span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_feature</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>   <span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">decision</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">sensitive_features</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;SF&#39;</span> <span class="p">:</span> <span class="n">sensitive_feature</span><span class="p">},</span>
+<span class="gp">... </span>                         <span class="n">control_features</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;CF&#39;</span> <span class="p">:</span> <span class="n">control_feature</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;overall&#39; property is now split based on the control feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">CF</span>
+<span class="go">H    0.428571</span>
+<span class="go">L       0.375</span>
+<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;by_group&#39; property looks similar to how it would if we had two sensitive features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">CF  SF</span>
+<span class="go">H   A          0.2</span>
+<span class="go">    B          0.4</span>
+<span class="go">    C         0.75</span>
+<span class="go">L   A          0.4</span>
+<span class="go">    B     0.285714</span>
+<span class="go">    C          0.5</span>
+<span class="go">Name: accuracy_score, dtype: object</span>
+</pre></div>
+</div>
+<p>Note how the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a> property is stratified based on the
+supplied control feature. The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property allows
+us to see disparities between the groups in the sensitive feature for each
+group in the control feature.
+When displayed like this, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> looks similar to
+how it would if we had specified two sensitive features (although the
+control features will always be at the top level of the hierarchy).</p>
+<p>With the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> computed, we can perform aggregations:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># See the maximum accuracy for each value of the control feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">group_max</span><span class="p">()</span>
+<span class="go">CF</span>
+<span class="go">H    0.75</span>
+<span class="go">L    0.50</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># See the maximum difference in accuracy for each value of the control feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
+<span class="go">CF</span>
+<span class="go">H    0.550000</span>
+<span class="go">L    0.214286</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
+</pre></div>
+</div>
+<p>In each case, rather than a single scalar, we receive one result for each
+subgroup identified by the conditional feature. The call
+<code class="code docutils literal notranslate"><span class="pre">metric_c_f.group_max()</span></code> call shows the maximum value of the metric across
+the subgroups of the sensitive feature within each value of the control feature.
+Similarly, <code class="code docutils literal notranslate"><span class="pre">metric_c_f.difference(method='between_groups')</span></code> call shows the
+maximum difference between the subgroups of the sensitive feature within
+each value of the control feature.
+For more examples, please
+see the <a class="reference internal" href="../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a> notebook in the
+<a class="reference internal" href="../auto_examples/index.html#examples"><span class="std std-ref">Example Notebooks</span></a>.</p>
 </div>
 </div>
 <div class="section" id="fairlearn-dashboard">
