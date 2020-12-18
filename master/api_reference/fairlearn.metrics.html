@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
     
   <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
 
@@ -329,52 +330,6 @@ metric function name, with the values being the string-to-array-like dictionarie
 </dd>
 </dl>
 <dl class="py method">
-<dt id="fairlearn.metrics.MetricFrame.by_group">
-<em class="property">property </em><code class="sig-name descname">by_group</code><a class="headerlink" href="#fairlearn.metrics.MetricFrame.by_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the collection of metrics evaluated for each subgroup.</p>
-<p>The collection is defined by the combination of classes in the
-sensitive and control features. The exact type depends on
-the specification of the metric function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><p>When a callable is supplied to the constructor, the result is
-a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, indexed by the combinations of subgroups
-in the sensitive and control features.</p>
-<p>When the metric functions were specified with a dictionary (even
-if the dictionary only has a single entry), then the result is
-a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with columns named after the metric
-functions, and rows indexed by the combinations of subgroups
-in the sensitive and control features.</p>
-<p>If a particular combination of subgroups was not present in the dataset
-(likely to occur as more sensitive and control features
-are specified), then the corresponding entry will be NaN.</p>
-</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)">pandas.DataFrame</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fairlearn.metrics.MetricFrame.control_levels">
-<em class="property">property </em><code class="sig-name descname">control_levels</code><a class="headerlink" href="#fairlearn.metrics.MetricFrame.control_levels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of feature names which are produced by control features.</p>
-<p>If control features are present, then the rows of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
-property have a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a> index. This property
-identifies which elements of that index are control features.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>List of names, which can be used in calls to
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v1.1.5)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>] or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="fairlearn.metrics.MetricFrame.difference">
 <code class="sig-name descname">difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span> <span class="o">=</span> <span class="default_value">'between_groups'</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Any<span class="p">, </span>pandas.core.series.Series<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/metrics/_metric_frame.py#L362-L401"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum absolute difference between groups for each metric.</p>
@@ -448,6 +403,85 @@ follows the table in <a class="reference internal" href="#fairlearn.metrics.Metr
 </dd></dl>
 
 <dl class="py method">
+<dt id="fairlearn.metrics.MetricFrame.ratio">
+<code class="sig-name descname">ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span> <span class="o">=</span> <span class="default_value">'between_groups'</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Any<span class="p">, </span>pandas.core.series.Series<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/metrics/_metric_frame.py#L403-L467"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the minimum ratio between groups for each metric.</p>
+<p>This method calculates a scalar value for each underlying metric by
+finding the minimum ratio (that is, the ratio is forced to be
+less than unity) between the entries in each
+column of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
+<p>Similar to other methods, the result type varies with the
+specification of the metric functions, and whether control features
+are present or not.</p>
+<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
+value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the minimum ratio between
+any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
+<code class="docutils literal notranslate"><span class="pre">group_min()</span> <span class="pre">/</span> <span class="pre">group_max()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
+computes the ratio between each subgroup and the
+corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
+features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric),
+expressing the ratio as a number less than 1.
+The result is the minimum of these values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fairlearn.metrics.MetricFrame.by_group">
+<em class="property">property </em><code class="sig-name descname">by_group</code><a class="headerlink" href="#fairlearn.metrics.MetricFrame.by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the collection of metrics evaluated for each subgroup.</p>
+<p>The collection is defined by the combination of classes in the
+sensitive and control features. The exact type depends on
+the specification of the metric function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>When a callable is supplied to the constructor, the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>When the metric functions were specified with a dictionary (even
+if the dictionary only has a single entry), then the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with columns named after the metric
+functions, and rows indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>If a particular combination of subgroups was not present in the dataset
+(likely to occur as more sensitive and control features
+are specified), then the corresponding entry will be NaN.</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fairlearn.metrics.MetricFrame.control_levels">
+<em class="property">property </em><code class="sig-name descname">control_levels</code><a class="headerlink" href="#fairlearn.metrics.MetricFrame.control_levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of feature names which are produced by control features.</p>
+<p>If control features are present, then the rows of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property have a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v1.1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a> index. This property
+identifies which elements of that index are control features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of names, which can be used in calls to
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v1.1.5)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>] or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="fairlearn.metrics.MetricFrame.overall">
 <em class="property">property </em><code class="sig-name descname">overall</code><a class="headerlink" href="#fairlearn.metrics.MetricFrame.overall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the underlying metrics evaluated on the whole dataset.</p>
@@ -498,39 +532,6 @@ typing for those using Fairlearn interactively.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)">pandas.DataFrame</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="fairlearn.metrics.MetricFrame.ratio">
-<code class="sig-name descname">ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span> <span class="o">=</span> <span class="default_value">'between_groups'</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Any<span class="p">, </span>pandas.core.series.Series<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/master/fairlearn/metrics/_metric_frame.py#L403-L467"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the minimum ratio between groups for each metric.</p>
-<p>This method calculates a scalar value for each underlying metric by
-finding the minimum ratio (that is, the ratio is forced to be
-less than unity) between the entries in each
-column of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
-<p>Similar to other methods, the result type varies with the
-specification of the metric functions, and whether control features
-are present or not.</p>
-<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
-value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the minimum ratio between
-any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
-<code class="docutils literal notranslate"><span class="pre">group_min()</span> <span class="pre">/</span> <span class="pre">group_max()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
-computes the ratio between each subgroup and the
-corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
-features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric),
-expressing the ratio as a number less than 1.
-The result is the minimum of these values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.1.5)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.1.5)">pandas.DataFrame</a></p>
 </dd>
 </dl>
 </dd></dl>
