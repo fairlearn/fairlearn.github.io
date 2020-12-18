@@ -245,6 +245,10 @@
             <a href="#error-rate-parity" class="nav-link">Error Rate Parity</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#control-features" class="nav-link">Control features</a>
+        </li>
+    
             </ul>
         </li>
     
@@ -700,6 +704,32 @@ constraints:</p>
 <span class="go">dtype: float64</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="control-features">
+<h4><span class="section-number">3.2.1.5. </span>Control features<a class="headerlink" href="#control-features" title="Permalink to this headline">¶</a></h4>
+<p>The above <code class="xref py py-class docutils literal notranslate"><span class="pre">Moment`s</span> <span class="pre">(:ref:`demographic_parity</span></code>,
+<a class="reference internal" href="#true-positive-rate-parity"><span class="std std-ref">True and False Positive Rate Parity</span></a>,
+<a class="reference internal" href="#equalized-odds"><span class="std std-ref">Equalized Odds</span></a> and <a class="reference internal" href="#error-rate-parity"><span class="std std-ref">Error Rate Parity</span></a>) all support the concept
+of <em>control features</em> when applying their fairness constraints.
+A control feature stratifies the dataset, and applies the fairness constraint
+within each stratum, but not between strata.
+One case this might be useful is a loan scenario, where we might want
+to apply a mitigation for the sensitive features while controlling for some
+other feature(s).
+This should be done with caution, since the control features may have a
+correlation with the sensitive features due to historical biases.
+In the loan scenario, we might choose to control for income level, on the
+grounds that higher income individuals are more likely to be able to repay
+a loan.
+However, due to historical bias, there is a correlation between the income level
+of individuals and their race and gender.</p>
+<p>Control features modify the above equations.
+Consider a control feature value, drawn from a set of valid values
+(that is, <span class="math notranslate nohighlight">\(c \in \mathcal{C}\)</span>).
+The equation given above for Demographic Parity will become:</p>
+<div class="math notranslate nohighlight">
+\[P[h(X) = 1 | A = a, C = c] = P[h(X) = 1 | C = c] \; \forall a, c\]</div>
+<p>The other constraints acquire similar modifications.</p>
 </div>
 </div>
 <div class="section" id="fairness-constraints-for-multi-class-classification">
