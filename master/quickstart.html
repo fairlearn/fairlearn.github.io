@@ -38,7 +38,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="search" title="Search" href="search.html" />
@@ -307,7 +306,7 @@ than $50,000 a year.</p>
 </pre></div>
 </div>
 
-<script src="bokeh-plot-f9ba77688fa2445db77c432b8f71ac85-external-quickstart.js" id="8f0174b2-f75c-47cf-8c82-e2942733bb25"></script></div>
+<script src="bokeh-plot-9d656788717845ca926e7bded5666a22-external-quickstart.js" id="6650a89e-c341-4140-af71-5707156a1a39"></script></div>
 <div class="section" id="evaluating-fairness-related-metrics">
 <h3>Evaluating fairness-related metrics<a class="headerlink" href="#evaluating-fairness-related-metrics" title="Permalink to this headline">¶</a></h3>
 <p>Firstly, Fairlearn provides fairness-related metrics that can be compared
@@ -325,11 +324,11 @@ we can evaluate metrics for subgroups within the data as below:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">gm</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
-<span class="go">0.8443552680070431</span>
+<span class="go">0.8443...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">gm</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
 <span class="go">sex</span>
-<span class="go">Female       0.925148</span>
-<span class="go">Male         0.804288</span>
+<span class="go">Female    0.9251...</span>
+<span class="go">Male      0.8042...</span>
 <span class="go">Name: accuracy_score, dtype: object</span>
 </pre></div>
 </div>
@@ -339,11 +338,11 @@ their label:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">selection_rate</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span><span class="o">.</span><span class="n">overall</span>
-<span class="go">0.16385487899758405</span>
+<span class="go">0.1638...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">sex</span>
-<span class="go">Female      0.0635499</span>
-<span class="go">Male         0.213599</span>
+<span class="go">Female    0.0635...</span>
+<span class="go">Male      0.2135...</span>
 <span class="go">Name: selection_rate, dtype: object</span>
 </pre></div>
 </div>
@@ -392,11 +391,11 @@ a vastly reduced difference in selection rate:</p>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sr_mitigated</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">selection_rate</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred_mitigated</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sr_mitigated</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
-<span class="go">0.16614798738790384</span>
+<span class="go">0.1661...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sr_mitigated</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
 <span class="go">sex</span>
-<span class="go">Female       0.155262</span>
-<span class="go">Male         0.171547</span>
+<span class="go">Female    0.1552...</span>
+<span class="go">Male      0.1715...</span>
 <span class="go">Name: selection_rate, dtype: object</span>
 </pre></div>
 </div>
@@ -440,7 +439,7 @@ of <a class="reference internal" href="faq.html#faq"><span class="std std-ref">F
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.2.<br/>
     </p>
   </div>
 </footer>

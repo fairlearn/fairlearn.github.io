@@ -38,7 +38,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="search" title="Search" href="../search.html" />
@@ -288,7 +287,7 @@ to the input data), and use these to compute a measure. For example, the
 \[P( Y_{pred}=1 \given Y_{true}=1 )\]</div>
 <p>That is, a measure of whether the model finds all the positive cases in the
 input data. The <cite>scikit-learn</cite> package implements this in
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>.</p>
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>.</p>
 <p>Suppose we have the following data we can see that the prediction is <cite>1</cite> in five
 of the ten cases where the true value is <cite>1</cite>, so we expect the recall to be 0.5:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
@@ -369,16 +368,16 @@ metrics simultaneously:</p>
 <span class="gp">... </span>                            <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                            <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">overall</span>
-<span class="go">precision    0.555556</span>
-<span class="go">recall            0.5</span>
+<span class="go">precision    0.5555...</span>
+<span class="go">recall       0.5000...</span>
 <span class="go">dtype: object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">by_group</span>
-<span class="go">     precision recall</span>
+<span class="go">                    precision recall</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a            0      0</span>
-<span class="go">b            1    0.5</span>
-<span class="go">c          0.6   0.75</span>
-<span class="go">d            0      0</span>
+<span class="go">a                         0.0   0.00</span>
+<span class="go">b                         1.0   0.50</span>
+<span class="go">c                         0.6   0.75</span>
+<span class="go">d                         0.0   0.00</span>
 </pre></div>
 </div>
 <p>If there are per-sample arguments (such as sample weights), these can also be provided
@@ -393,10 +392,10 @@ in a dictionary via the <code class="docutils literal notranslate"><span class="
 <span class="go">0.45</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">SF 0</span>
-<span class="go">a               0</span>
-<span class="go">b             0.5</span>
-<span class="go">c        0.714286</span>
-<span class="go">d               0</span>
+<span class="go">a    0.0000...</span>
+<span class="go">b    0.5000...</span>
+<span class="go">c    0.7142...</span>
+<span class="go">d    0.0000...</span>
 <span class="go">Name: recall_score, dtype: object</span>
 </pre></div>
 </div>
@@ -415,10 +414,10 @@ function:</p>
 <span class="go">0.5396825396825397</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_beta</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a            0</span>
-<span class="go">b     0.790698</span>
-<span class="go">c      0.63354</span>
-<span class="go">d            0</span>
+<span class="go">a    0.0000...</span>
+<span class="go">b    0.7906...</span>
+<span class="go">c    0.6335...</span>
+<span class="go">d    0.0000...</span>
 <span class="go">Name: metric, dtype: object</span>
 </pre></div>
 </div>
@@ -434,14 +433,14 @@ holds the intersections of these groups:</p>
 <span class="go">0.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_2sf</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">SF 0  SF 1</span>
-<span class="go">a     6         0</span>
+<span class="go">a     6       0.0</span>
 <span class="go">      8       NaN</span>
 <span class="go">b     6       0.5</span>
 <span class="go">      8       0.5</span>
-<span class="go">c     6         1</span>
+<span class="go">c     6       1.0</span>
 <span class="go">      8       0.5</span>
-<span class="go">d     6         0</span>
-<span class="go">      8         0</span>
+<span class="go">d     6       0.0</span>
+<span class="go">      8       0.0</span>
 <span class="go">Name: recall_score, dtype: object</span>
 </pre></div>
 </div>
@@ -532,67 +531,67 @@ of such functions which will be commonly used:</p>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.balanced_accuracy_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.balanced_accuracy_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.f1_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.f1_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_absolute_error()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_absolute_error()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_squared_error()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_squared_error()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.precision_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.precision_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.r2_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.r2_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.zero_one_loss.html#sklearn.metrics.zero_one_loss" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.zero_one_loss()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.zero_one_loss.html#sklearn.metrics.zero_one_loss" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.zero_one_loss()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
@@ -655,18 +654,18 @@ parameter:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;overall&#39; property is now split based on the control feature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">overall</span>
 <span class="go">CF</span>
-<span class="go">H    0.428571</span>
-<span class="go">L       0.375</span>
+<span class="go">H    0.4285...</span>
+<span class="go">L    0.3750...</span>
 <span class="go">Name: accuracy_score, dtype: object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;by_group&#39; property looks similar to how it would if we had two sensitive features</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">CF  SF</span>
-<span class="go">H   A          0.2</span>
-<span class="go">    B          0.4</span>
-<span class="go">    C         0.75</span>
-<span class="go">L   A          0.4</span>
-<span class="go">    B     0.285714</span>
-<span class="go">    C          0.5</span>
+<span class="go">H   A     0.2000...</span>
+<span class="go">    B     0.4000...</span>
+<span class="go">    C     0.7500...</span>
+<span class="go">L   A     0.4000...</span>
+<span class="go">    B     0.2857...</span>
+<span class="go">    C     0.5000...</span>
 <span class="go">Name: accuracy_score, dtype: object</span>
 </pre></div>
 </div>
@@ -687,8 +686,8 @@ control features will always be at the top level of the hierarchy).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># See the maximum difference in accuracy for each value of the control feature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
 <span class="go">CF</span>
-<span class="go">H    0.550000</span>
-<span class="go">L    0.214286</span>
+<span class="go">H    0.5500...</span>
+<span class="go">L    0.2142...</span>
 <span class="go">Name: accuracy_score, dtype: float64</span>
 </pre></div>
 </div>
@@ -816,7 +815,7 @@ sensitive feature and <em>accuracy rate</em> selected as the performance metric.
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.2.<br/>
     </p>
   </div>
 </footer>

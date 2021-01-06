@@ -38,7 +38,6 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="search" title="Search" href="../search.html" />
@@ -343,7 +342,7 @@ three unique values:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpif4h7pc4/43532d83656b4c3cced275f5de9930761bd44f01/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpeuuwz13e/585b821ab9e79bdc454faf46668db498589558ff/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -386,13 +385,13 @@ illustrative purposes.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpif4h7pc4/43532d83656b4c3cced275f5de9930761bd44f01/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpeuuwz13e/585b821ab9e79bdc454faf46668db498589558ff/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   A[&#39;Credit Score&#39;] = col_credit
-/tmp/tmpif4h7pc4/43532d83656b4c3cced275f5de9930761bd44f01/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
+/tmp/tmpeuuwz13e/585b821ab9e79bdc454faf46668db498589558ff/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -530,7 +529,7 @@ any transforms or scaling:</p>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span></a><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Next, we build two <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v0.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> objects
+<p>Next, we build two <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v0.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> objects
 to process the columns, one for numeric data, and the other
 for categorical data. Both impute missing values; the difference
 is whether the data are scaled (numeric columns) or
@@ -592,7 +591,7 @@ from our test set:</p>
 <p>In a traditional model analysis, we would now look at some metrics
 evaluated on the entire dataset. Suppose in this case, the relevant
 metrics are <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.selection_rate()</span></code></a> and
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v0.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a> (with
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a> (with
 <code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code>).
 We can evaluate these metrics directly:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selection Rate:&quot;</span><span class="p">,</span> <span class="n">selection_rate</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">))</span>
@@ -687,7 +686,7 @@ have results for males and females:</p>
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.0688301</td>
+      <td>0.06883</td>
       <td>0.634014</td>
     </tr>
     <tr>
@@ -749,12 +748,12 @@ column:</p>
   <tbody>
     <tr>
       <th>Black</th>
-      <td>0.0681976</td>
+      <td>0.068198</td>
       <td>0.592125</td>
     </tr>
     <tr>
       <th>Other</th>
-      <td>0.16763</td>
+      <td>0.167630</td>
       <td>0.693717</td>
     </tr>
     <tr>
@@ -807,8 +806,8 @@ pass these along:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.193809
-fbeta_06          0.683864
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.196822
+fbeta_06          0.683376
 dtype: object
 </pre></div>
 </div>
@@ -847,13 +846,13 @@ dtype: object
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.0675315</td>
-      <td>0.666267</td>
+      <td>0.070777</td>
+      <td>0.643002</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.256437</td>
-      <td>0.686414</td>
+      <td>0.258612</td>
+      <td>0.689269</td>
     </tr>
   </tbody>
 </table>
@@ -881,8 +880,8 @@ of less than 0.6.” We can evaluate the minimum values easily:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.0681976
-fbeta_06           0.592125
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.068198
+fbeta_06          0.592125
 dtype: object
 </pre></div>
 </div>
@@ -896,7 +895,7 @@ For this, we provide the method <code class="docutils literal notranslate"><span
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.142518
 fbeta_06          0.101591
-dtype: float64
+dtype: object
 </pre></div>
 </div>
 <p>We can also evaluate the difference relative to the corresponding overall
@@ -908,7 +907,7 @@ result is always positive:</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.126507
 fbeta_06          0.090657
-dtype: float64
+dtype: object
 </pre></div>
 </div>
 <p>There are situations where knowing the ratios of the metrics evaluated on
@@ -994,7 +993,7 @@ shows the intersections between subgroups:</p>
     <tr>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0.0322581</td>
+      <td>0.032258</td>
       <td>0.630316</td>
     </tr>
     <tr>
@@ -1005,7 +1004,7 @@ shows the intersections between subgroups:</p>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0.0708661</td>
+      <td>0.070866</td>
       <td>0.503704</td>
     </tr>
     <tr>
@@ -1016,7 +1015,7 @@ shows the intersections between subgroups:</p>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0.0754327</td>
+      <td>0.075433</td>
       <td>0.642076</td>
     </tr>
     <tr>
@@ -1038,8 +1037,8 @@ fact):</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.0322581
-fbeta_06           0.503704
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.032258
+fbeta_06          0.503704
 dtype: object
 </pre></div>
 </div>
@@ -1050,7 +1049,7 @@ the <code class="docutils literal notranslate"><span class="pre">by_group</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate     0.11893
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.118930
 fbeta_06          0.690978
 dtype: object
 </pre></div>
@@ -1075,7 +1074,9 @@ argument to the <a class="reference internal" href="../api_reference/fairlearn.m
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
   average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
 </pre></div>
 </div>
@@ -1116,12 +1117,12 @@ unique value of the control feature:</p>
   <tbody>
     <tr>
       <th>High</th>
-      <td>0.0361702</td>
+      <td>0.036170</td>
       <td>0.664928</td>
     </tr>
     <tr>
       <th>Low</th>
-      <td>0.0229238</td>
+      <td>0.022924</td>
       <td>0.549994</td>
     </tr>
     <tr>
@@ -1175,29 +1176,29 @@ unique value of the control feature:</p>
       <th rowspan="6" valign="top">High</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0666667</td>
-      <td>1</td>
+      <td>0.066667</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0.0196078</td>
+      <td>0.019608</td>
       <td>0.529595</td>
     </tr>
     <tr>
@@ -1209,23 +1210,23 @@ unique value of the control feature:</p>
       <th rowspan="6" valign="top">Low</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0.00702988</td>
+      <td>0.007030</td>
       <td>0.626728</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0205128</td>
+      <td>0.020513</td>
       <td>0.563536</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0.0120482</td>
+      <td>0.012048</td>
       <td>0.519084</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0372671</td>
+      <td>0.037267</td>
       <td>0.693878</td>
     </tr>
     <tr>
@@ -1236,8 +1237,8 @@ unique value of the control feature:</p>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0334199</td>
-      <td>0.55025</td>
+      <td>0.033420</td>
+      <td>0.550250</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Medium</th>
@@ -1255,7 +1256,7 @@ unique value of the control feature:</p>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.238806</td>
-      <td>0.5</td>
+      <td>0.500000</td>
     </tr>
     <tr>
       <th>Male</th>
@@ -1396,9 +1397,27 @@ aggregates.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1465: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
   average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
 Found 36 subgroups. Evaluation may be slow
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
+/usr/local/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1493: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  average, &quot;true nor predicted&quot;, &#39;F-score is&#39;, len(true_sum)
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">overall</span></code> property now splits into more values:</p>
@@ -1439,28 +1458,28 @@ Found 36 subgroups. Evaluation may be slow
     <tr>
       <th rowspan="3" valign="top">Large</th>
       <th>High</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Low</th>
-      <td>0.00434783</td>
-      <td>0.60177</td>
+      <td>0.004348</td>
+      <td>0.601770</td>
     </tr>
     <tr>
       <th>Medium</th>
-      <td>0.0714286</td>
+      <td>0.071429</td>
       <td>0.388325</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">Small</th>
       <th>High</th>
-      <td>0.0380313</td>
+      <td>0.038031</td>
       <td>0.664928</td>
     </tr>
     <tr>
       <th>Low</th>
-      <td>0.0241758</td>
+      <td>0.024176</td>
       <td>0.549299</td>
     </tr>
     <tr>
@@ -1518,19 +1537,19 @@ indicate that there were no samples in the cell:</p>
       <th rowspan="6" valign="top">High</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
@@ -1540,80 +1559,80 @@ indicate that there were no samples in the cell:</p>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Low</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.030303</td>
-      <td>1</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.00444444</td>
+      <td>0.004444</td>
       <td>0.557377</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Medium</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0263158</td>
+      <td>0.026316</td>
       <td>0.295652</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.111111</td>
-      <td>0</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0870871</td>
+      <td>0.087087</td>
       <td>0.420976</td>
     </tr>
     <tr>
@@ -1621,29 +1640,29 @@ indicate that there were no samples in the cell:</p>
       <th rowspan="6" valign="top">High</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0714286</td>
-      <td>1</td>
+      <td>0.071429</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0</td>
-      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0.0204778</td>
+      <td>0.020478</td>
       <td>0.529595</td>
     </tr>
     <tr>
@@ -1655,34 +1674,34 @@ indicate that there were no samples in the cell:</p>
       <th rowspan="6" valign="top">Low</th>
       <th rowspan="2" valign="top">Black</th>
       <th>Female</th>
-      <td>0.00773694</td>
+      <td>0.007737</td>
       <td>0.626728</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0196078</td>
+      <td>0.019608</td>
       <td>0.518293</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
-      <td>0.0122699</td>
+      <td>0.012270</td>
       <td>0.519084</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0408163</td>
+      <td>0.040816</td>
       <td>0.715789</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
-      <td>0.0158046</td>
+      <td>0.015805</td>
       <td>0.527656</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.0357018</td>
+      <td>0.035702</td>
       <td>0.550162</td>
     </tr>
     <tr>
@@ -1784,7 +1803,7 @@ Name: member_counts, dtype: object
 </div>
 <p>Recall that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> indicates that there were no individuals
 in a cell - <code class="docutils literal notranslate"><span class="pre">member_counts()</span></code> will not even have been called.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.843 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.818 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
@@ -1815,7 +1834,7 @@ in a cell - <code class="docutils literal notranslate"><span class="pre">member_
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.2.<br/>
     </p>
   </div>
 </footer>
