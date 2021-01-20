@@ -242,6 +242,15 @@ exclusive. The processes for getting ‘better data’ will be different for
 each. In some of these cases, obtaining ‘better data’ may not be practical, but it
 might still be possible to use some mitigation algorithms.</p>
 </dd>
+<dt>Why am I seeing fairness issues, even though my data are reflective of the general population?</dt><dd><p>Machine learning models often perform poorly for subgroups which are poorly
+represented.
+What constitutes poor representation is context specific, and may well be affected by
+historical misrepresentation (consider the example above, of a company which had previously
+hired few women).
+For this reason, balanced sampling is generally better for ML than population sampling.
+On a related point, this is why it is important to consider multiple fairness metrics,
+and how they vary across different subgroups.</p>
+</dd>
 <dt>Won’t making a model fairer reduce its accuracy?</dt><dd><p>There are often many machine learning models that achieve similar levels of accuracy
 or other performance metrics, but that dramatically differ in how they affect
 different subgroups.
@@ -255,6 +264,22 @@ fairness metrics.
 However, to assess whether the new model is fairer, it is important to consider
 not only the fairness metrics, but also the societal and technical context in which
 the model is applied.</p>
+</dd>
+<dt>I’ve got improved data, trained and mitigated new models, checked all the metrics… am I done?</dt><dd><p>Firstly, always remember that there is more to fairness than technical details such as
+metrics - fairness is a <em>sociotechnical</em> problem.
+Even if these are all considered at training time, the ML lifecycle doesn’t end when a
+model is deployed.
+Models need to be monitored in production.
+On a technical level, this means checking for data drift within the vulnerable
+subgroups identified during the fairness analysis.
+However the societal aspects need to be considered as well, for example:</p>
+<ul class="simple">
+<li><p>Are the actual harms as expected, both in the nature of the harms and their
+distribution?</p></li>
+<li><p>Have the users of the model (who may not be the subjects of the model)
+adjusted their usage patterns? This is sometimes called ‘strategic
+behavior.’</p></li>
+</ul>
 </dd>
 <dt>What sort of fairness-related harms can the Fairlearn library address?</dt><dd><p>We currently focus on two kinds of harms:</p>
 <ul class="simple">
