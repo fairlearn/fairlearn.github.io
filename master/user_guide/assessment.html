@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2. Assessment &#8212; Fairlearn 0.5.1.dev0 documentation</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -369,15 +369,15 @@ metrics simultaneously:</p>
 <span class="gp">... </span>                            <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">overall</span>
 <span class="go">precision    0.5555...</span>
-<span class="go">recall       0.5000...</span>
+<span class="go">recall       0.5...</span>
 <span class="go">dtype: object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">                    precision recall</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a                         0.0   0.00</span>
-<span class="go">b                         1.0   0.50</span>
+<span class="go">a                         0.0   0.0</span>
+<span class="go">b                         1.0   0.5</span>
 <span class="go">c                         0.6   0.75</span>
-<span class="go">d                         0.0   0.00</span>
+<span class="go">d                         0.0   0.0</span>
 </pre></div>
 </div>
 <p>If there are per-sample arguments (such as sample weights), these can also be provided
@@ -392,10 +392,10 @@ in a dictionary via the <code class="docutils literal notranslate"><span class="
 <span class="go">0.45</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">SF 0</span>
-<span class="go">a    0.0000...</span>
-<span class="go">b    0.5000...</span>
+<span class="go">a    0...</span>
+<span class="go">b    0.5...</span>
 <span class="go">c    0.7142...</span>
-<span class="go">d    0.0000...</span>
+<span class="go">d    0...</span>
 <span class="go">Name: recall_score, dtype: object</span>
 </pre></div>
 </div>
@@ -414,10 +414,10 @@ function:</p>
 <span class="go">0.5396825396825397</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_beta</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a    0.0000...</span>
+<span class="go">a    0...</span>
 <span class="go">b    0.7906...</span>
 <span class="go">c    0.6335...</span>
-<span class="go">d    0.0000...</span>
+<span class="go">d    0...</span>
 <span class="go">Name: metric, dtype: object</span>
 </pre></div>
 </div>
@@ -655,17 +655,17 @@ parameter:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">overall</span>
 <span class="go">CF</span>
 <span class="go">H    0.4285...</span>
-<span class="go">L    0.3750...</span>
+<span class="go">L    0.375...</span>
 <span class="go">Name: accuracy_score, dtype: object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;by_group&#39; property looks similar to how it would if we had two sensitive features</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">CF  SF</span>
-<span class="go">H   A     0.2000...</span>
-<span class="go">    B     0.4000...</span>
-<span class="go">    C     0.7500...</span>
-<span class="go">L   A     0.4000...</span>
+<span class="go">H   A     0.2...</span>
+<span class="go">    B     0.4...</span>
+<span class="go">    C     0.75...</span>
+<span class="go">L   A     0.4...</span>
 <span class="go">    B     0.2857...</span>
-<span class="go">    C     0.5000...</span>
+<span class="go">    C     0.5...</span>
 <span class="go">Name: accuracy_score, dtype: object</span>
 </pre></div>
 </div>
@@ -686,7 +686,7 @@ control features will always be at the top level of the hierarchy).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># See the maximum difference in accuracy for each value of the control feature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;between_groups&#39;</span><span class="p">)</span>
 <span class="go">CF</span>
-<span class="go">H    0.5500...</span>
+<span class="go">H    0.55...</span>
 <span class="go">L    0.2142...</span>
 <span class="go">Name: accuracy_score, dtype: float64</span>
 </pre></div>
@@ -808,7 +808,7 @@ sensitive feature and <em>accuracy rate</em> selected as the performance metric.
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Making Derived Metrics &#8212; Fairlearn 0.5.1.dev0 documentation</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -412,8 +412,8 @@ operates. This corresponds to the same argument in
 <p>For the current case, we do not need the <code class="code docutils literal notranslate"><span class="pre">method=</span></code>
 argument, since we are taking the minimum value.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_acc</span> <span class="o">=</span> <span class="n">make_derived_metric</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span></a><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;group_min&quot;</span><span class="p">)</span>
-<span class="n">my_acc_min</span> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum accuracy_score: &quot;</span><span class="p">,</span> <span class="n">my_acc_min</span><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">my_acc_min</span></a> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum accuracy_score: &quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">my_acc_min</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -431,21 +431,21 @@ argument, since we are taking the minimum value.</p>
     <span class="n">sample_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">},</span>
 <span class="p">)</span>
 
-<span class="n">from_frame</span> <span class="o">=</span> <span class="n">acc_frame_sw</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
-<span class="n">from_func</span> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_frame</span></a> <span class="o">=</span> <span class="n">acc_frame_sw</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_func</span></a> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">],</span>
     <span class="n">sample_weight</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From MetricFrame:&quot;</span><span class="p">,</span> <span class="n">from_frame</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function   :&quot;</span><span class="p">,</span> <span class="n">from_func</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From MetricFrame:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_frame</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function   :&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_func</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8116723755807131
-From function   : 0.8116723755807131
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8104510420389965
+From function   : 0.8104510420389965
 </pre></div>
 </div>
 <p>The returned function can also handle parameters which are not sample
@@ -463,13 +463,13 @@ First we evaluate this with a <a class="reference internal" href="../api_referen
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">],</span>
     <span class="n">sample_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a><span class="p">},</span>
 <span class="p">)</span>
-<span class="n">beta_from_frame</span> <span class="o">=</span> <span class="n">beta_frame</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_frame</span></a> <span class="o">=</span> <span class="n">beta_frame</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From frame:&quot;</span><span class="p">,</span> <span class="n">beta_from_frame</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From frame:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_frame</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.011791720091009372
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.005225176880600091
 </pre></div>
 </div>
 <p>And next, we create a function to evaluate the same. Note that
@@ -477,7 +477,7 @@ we do not need to use <a class="reference external" href="https://docs.python.or
 <code class="code docutils literal notranslate"><span class="pre">beta=</span></code> argument:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">beta_func</span> <span class="o">=</span> <span class="n">make_derived_metric</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;difference&quot;</span><span class="p">)</span>
 
-<span class="n">beta_from_func</span> <span class="o">=</span> <span class="n">beta_func</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_func</span></a> <span class="o">=</span> <span class="n">beta_func</span><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">],</span>
@@ -486,11 +486,11 @@ we do not need to use <a class="reference external" href="https://docs.python.or
     <span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function:&quot;</span><span class="p">,</span> <span class="n">beta_from_func</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_func</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.011791720091009372
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.005225176880600091
 </pre></div>
 </div>
 </div>
@@ -500,15 +500,15 @@ we do not need to use <a class="reference external" href="https://docs.python.or
 common use cases. For example, we provide a
 <code class="code docutils literal notranslate"><span class="pre">accuracy_score_group_min()</span></code> function to
 find the minimum over the accuracy scores:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">from_myacc</span> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_myacc</span></a> <span class="o">=</span> <span class="n">my_acc</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">])</span>
 
-<span class="n">from_pregen</span> <span class="o">=</span> <span class="n">accuracy_score_group_min</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_pregen</span></a> <span class="o">=</span> <span class="n">accuracy_score_group_min</span><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From my function :&quot;</span><span class="p">,</span> <span class="n">from_myacc</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From pregenerated:&quot;</span><span class="p">,</span> <span class="n">from_pregen</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">from_myacc</span> <span class="o">==</span> <span class="n">from_pregen</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From my function :&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_myacc</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From pregenerated:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_pregen</span></a><span class="p">)</span>
+<span class="k">assert</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_myacc</span></a> <span class="o">==</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_pregen</span></a>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -516,7 +516,7 @@ find the minimum over the accuracy scores:</p>
 From pregenerated: 0.8114035087719298
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.402 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.433 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-make-derived-metric-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/4aab6a1d20b03cacad12f86d13173237/plot_make_derived_metric.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_make_derived_metric.py</span></code></a></p>
@@ -540,7 +540,7 @@ From pregenerated: 0.8114035087719298
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">
