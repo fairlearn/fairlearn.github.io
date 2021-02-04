@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contributing code &#8212; Fairlearn 0.5.1.dev0 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing example notebooks" href="contributing_example_notebooks.html" />
+    <link rel="prev" title="Development process" href="development_process.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../about/index.html">About</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../quickstart.html">Quickstart</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../user_guide/index.html">User Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../auto_examples/index.html">Example Notebooks</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Contributor Guide</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../faq.html">FAQ</a>
+        </li>
+        
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><a href="../../v0.5.0/contributor_guide/contributing_code.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><strong><a href="contributing_code.html">v0.6.0</a></strong></li>
+        
+      
+      
+        
+          <li><a href="../../master/contributor_guide/contributing_code.html">master</a></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="ways_to_contribute.html">Ways to contribute</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="how_to_talk_about_fairness.html">How to talk and write about fairness in AI</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="fairlearn_repository_overview.html">Fairlearn Repository Overview</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="development_process.html">Development process</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Contributing code</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="contributing_example_notebooks.html">Contributing example notebooks</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="fairlearn_proposals.html">API and design proposals</a>
+                </li>
+            
+          
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#api-conventions" class="nav-link">API conventions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#unfairness-mitigation-algorithms" class="nav-link">Unfairness mitigation algorithms</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#reductions" class="nav-link">Reductions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#postprocessing-algorithms" class="nav-link">Postprocessing algorithms</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="contributing-code">
+<h1>Contributing code<a class="headerlink" href="#contributing-code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="api-conventions">
+<h2>API conventions<a class="headerlink" href="#api-conventions" title="Permalink to this headline">¶</a></h2>
+<p>This section relies on the definitions from our <a class="reference internal" href="../user_guide/fairness_in_machine_learning.html#terminology"><span class="std std-ref">Fairness in Machine Learning</span></a> guide,
+including the definitions of “estimator”, “reduction”, “sensitive features”,
+“moment”, and “parity”.</p>
+<div class="section" id="unfairness-mitigation-algorithms">
+<h3>Unfairness mitigation algorithms<a class="headerlink" href="#unfairness-mitigation-algorithms" title="Permalink to this headline">¶</a></h3>
+<p>Unfairness mitigation algorithms take form of scikit-learn-style estimators.
+Any algorithm-specific parameters are passed to the constructor. The resulting
+instance of the algorithm should support methods <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> with APIs resembling those of scikit-learn as much as
+possible. Any deviations are noted below.</p>
+<div class="section" id="reductions">
+<h4>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h4>
+<p>Reduction constructors require a parameter corresponding to an estimator that
+implements the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method with the <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.
+Parity constraints for reductions are expressed via instances of various
+subclasses of the class <code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.Moment</span></code>. Formally,
+instances of the class <code class="code docutils literal notranslate"><span class="pre">Moment</span></code> implement vector-valued random variables
+whose sample averages over the data are required to be bounded (above and/or
+below).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constraints</span> <span class="o">=</span> <span class="n">Moment</span><span class="p">()</span>
+<span class="n">reduction</span> <span class="o">=</span> <span class="n">Reduction</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reductions provide <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and <code class="code docutils literal notranslate"><span class="pre">predict</span></code> methods with the following
+signatures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reduction</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="n">reduction</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All of the currently supported parity constraints (subclasses of
+<code class="code docutils literal notranslate"><span class="pre">Moment</span></code>) are based on sensitive features that need to be provided to
+<code class="code docutils literal notranslate"><span class="pre">fit</span></code> as a keyword argument <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>. In the future,
+it will also be possible to provide sensitive features as columns of
+<code class="code docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</div>
+<div class="section" id="postprocessing-algorithms">
+<h4>Postprocessing algorithms<a class="headerlink" href="#postprocessing-algorithms" title="Permalink to this headline">¶</a></h4>
+<p>The constructors of postprocessing algorithms require either an already
+trained predictor or an estimator (which is trained on the data when executing
+<code class="code docutils literal notranslate"><span class="pre">fit</span></code>). For postprocessing algorithms, the <code class="code docutils literal notranslate"><span class="pre">constraints</span></code> argument
+is provided as a string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postprocessor</span> <span class="o">=</span> <span class="n">PostProcessing</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Post-processing algorithms (such as the ones under
+<code class="code docutils literal notranslate"><span class="pre">fairlearn.postprocessing</span></code>) provide the same functions as the reductions
+above albeit with <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code> as a required argument for
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code>. In the future, we will make <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>
+optional if the sensitive features are already provided through <code class="code docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postprocessor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="n">postprocessor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
