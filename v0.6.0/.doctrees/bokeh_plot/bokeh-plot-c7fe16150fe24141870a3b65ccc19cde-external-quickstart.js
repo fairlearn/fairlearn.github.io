@@ -16,9 +16,9 @@
       
       
     
-      var element = document.getElementById("540ad409-9c08-4eb6-9cf8-87d5cef209c1");
+      var element = document.getElementById("7534917d-8d2a-4b0a-93f0-fe2034b3c851");
         if (element == null) {
-          console.warn("Bokeh: autoload.js configured with elementid '540ad409-9c08-4eb6-9cf8-87d5cef209c1' but no matching script tag was found.")
+          console.warn("Bokeh: autoload.js configured with elementid '7534917d-8d2a-4b0a-93f0-fe2034b3c851' but no matching script tag was found.")
         }
       
     
@@ -58,15 +58,15 @@
           }
         }
     
-        function on_error() {
+        function on_error(url) {
           console.error("failed to load " + url);
         }
     
-        for (var i = 0; i < css_urls.length; i++) {
-          var url = css_urls[i];
+        for (let i = 0; i < css_urls.length; i++) {
+          const url = css_urls[i];
           const element = document.createElement("link");
           element.onload = on_load;
-          element.onerror = on_error;
+          element.onerror = on_error.bind(null, url);
           element.rel = "stylesheet";
           element.type = "text/css";
           element.href = url;
@@ -74,13 +74,13 @@
           document.body.appendChild(element);
         }
     
-        const hashes = {"https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js": "T2yuo9Oe71Cz/I4X9Ac5+gpEa5a8PpJCDlqKYO0CfAuEszu1JrXLl8YugMqYe3sM", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.2.3.min.js": "98GDGJ0kOMCUMUePhksaQ/GYgB3+NH9h996V88sh3aOiUNX3N+fLXAtry6xctSZ6", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.2.3.min.js": "89bArO+nlbP3sgakeHjCo1JYxYR5wufVgA3IbUvDY+K7w4zyxJqssu7wVnfeKCq8"};
+        const hashes = {"https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js": "HjagQp6T0/7bxYTAXbLotF1MLAGWmhkY5siA1Gc/pcEgvgRPtMsRn0gQtMwGKiw1", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js": "ZEPPTjL+mdyqgIq+/pl9KTwzji8Kow2NnI3zWY8+sFinWP/SYJ80BnfeJsa45iYj", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js": "exLqv2ACDRIaV7ZK1iL8aGzGYQvKVuT3U2CT7FsQREBxRah6JrkVCoFy0koY1YqV"};
     
-        for (var i = 0; i < js_urls.length; i++) {
-          var url = js_urls[i];
-          var element = document.createElement('script');
+        for (let i = 0; i < js_urls.length; i++) {
+          const url = js_urls[i];
+          const element = document.createElement('script');
           element.onload = on_load;
-          element.onerror = on_error;
+          element.onerror = on_error.bind(null, url);
           element.async = false;
           element.src = url;
           if (url in hashes) {
@@ -99,7 +99,7 @@
       }
     
       
-      var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.2.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.2.3.min.js"];
+      var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js"];
       var css_urls = [];
       
     
@@ -115,8 +115,8 @@
                 (function(root) {
                   function embed_document(root) {
                     
-                  var docs_json = '{"ad2bf508-a457-419b-ba45-0addcef38e2e":{"roots":{"references":[{"attributes":{},"id":"1030","type":"Selection"},{"attributes":{},"id":"1016","type":"BasicTicker"},{"attributes":{},"id":"1029","type":"CategoricalTickFormatter"},{"attributes":{"data_source":{"id":"1020"},"glyph":{"id":"1021"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1022"},"selection_glyph":null,"view":{"id":"1024"}},"id":"1023","type":"GlyphRenderer"},{"attributes":{"factors":["Female","Male"]},"id":"1004","type":"FactorRange"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto"},"id":"1019","type":"Toolbar"},{"attributes":{"formatter":{"id":"1027"},"minor_tick_line_color":null,"ticker":{"id":"1016"}},"id":"1015","type":"LinearAxis"},{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"1022","type":"VBar"},{"attributes":{"below":[{"id":"1012"}],"center":[{"id":"1014"},{"id":"1018"}],"left":[{"id":"1015"}],"plot_height":480,"plot_width":640,"renderers":[{"id":"1023"}],"title":{"id":"1002"},"toolbar":{"id":"1019"},"toolbar_location":null,"x_range":{"id":"1004"},"x_scale":{"id":"1008"},"y_range":{"id":"1006"},"y_scale":{"id":"1010"}},"id":"1001","subtype":"Figure","type":"Plot"},{"attributes":{"axis":{"id":"1015"},"dimension":1,"ticker":null},"id":"1018","type":"Grid"},{"attributes":{"axis":{"id":"1012"},"grid_line_color":null,"ticker":null},"id":"1014","type":"Grid"},{"attributes":{"source":{"id":"1020"}},"id":"1024","type":"CDSView"},{"attributes":{"text":"Fraction earning over $50,0000"},"id":"1002","type":"Title"},{"attributes":{},"id":"1031","type":"UnionRenderers"},{"attributes":{},"id":"1013","type":"CategoricalTicker"},{"attributes":{"data":{"top":[0.10925148221343874,0.3037672281776417],"x":["Female","Male"]},"selected":{"id":"1030"},"selection_policy":{"id":"1031"}},"id":"1020","type":"ColumnDataSource"},{"attributes":{},"id":"1008","type":"CategoricalScale"},{"attributes":{"formatter":{"id":"1029"},"minor_tick_line_color":null,"ticker":{"id":"1013"}},"id":"1012","type":"CategoricalAxis"},{"attributes":{"start":0},"id":"1006","type":"DataRange1d"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"1021","type":"VBar"},{"attributes":{},"id":"1027","type":"BasicTickFormatter"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.2.3"}}';
-                  var render_items = [{"docid":"ad2bf508-a457-419b-ba45-0addcef38e2e","root_ids":["1001"],"roots":{"1001":"540ad409-9c08-4eb6-9cf8-87d5cef209c1"}}];
+                  var docs_json = '{"38ec753a-e21a-4c21-8915-148dc2955f56":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{},"id":"1011","type":"LinearScale"},{"attributes":{"source":{"id":"1021"}},"id":"1025","type":"CDSView"},{"attributes":{"factors":["Female","Male"]},"id":"1005","type":"FactorRange"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{},"id":"1028","type":"CategoricalTickFormatter"},{"attributes":{"formatter":{"id":"1031"},"major_label_policy":{"id":"1032"},"minor_tick_line_color":null,"ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{},"id":"1034","type":"UnionRenderers"},{"attributes":{"data_source":{"id":"1021"},"glyph":{"id":"1022"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1023"},"view":{"id":"1025"}},"id":"1024","type":"GlyphRenderer"},{"attributes":{"axis":{"id":"1013"},"grid_line_color":null,"ticker":null},"id":"1015","type":"Grid"},{"attributes":{"text":"Fraction earning over $50,0000"},"id":"1003","type":"Title"},{"attributes":{"data":{"top":[0.10925148221343874,0.3037672281776417],"x":["Female","Male"]},"selected":{"id":"1033"},"selection_policy":{"id":"1034"}},"id":"1021","type":"ColumnDataSource"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"1023","type":"VBar"},{"attributes":{"below":[{"id":"1013"}],"center":[{"id":"1015"},{"id":"1019"}],"height":480,"left":[{"id":"1016"}],"renderers":[{"id":"1024"}],"title":{"id":"1003"},"toolbar":{"id":"1020"},"toolbar_location":null,"width":640,"x_range":{"id":"1005"},"x_scale":{"id":"1009"},"y_range":{"id":"1007"},"y_scale":{"id":"1011"}},"id":"1002","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1009","type":"CategoricalScale"},{"attributes":{},"id":"1031","type":"BasicTickFormatter"},{"attributes":{"start":0},"id":"1007","type":"DataRange1d"},{"attributes":{"active_multi":null},"id":"1020","type":"Toolbar"},{"attributes":{},"id":"1029","type":"AllLabels"},{"attributes":{"axis":{"id":"1016"},"dimension":1,"ticker":null},"id":"1019","type":"Grid"},{"attributes":{},"id":"1014","type":"CategoricalTicker"},{"attributes":{},"id":"1033","type":"Selection"},{"attributes":{"formatter":{"id":"1028"},"major_label_policy":{"id":"1029"},"minor_tick_line_color":null,"ticker":{"id":"1014"}},"id":"1013","type":"CategoricalAxis"},{"attributes":{},"id":"1032","type":"AllLabels"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"top":{"field":"top"},"width":{"value":0.9},"x":{"field":"x"}},"id":"1022","type":"VBar"}],"root_ids":["1002"]},"title":"Bokeh Application","version":"2.3.0"}}';
+                  var render_items = [{"docid":"38ec753a-e21a-4c21-8915-148dc2955f56","root_ids":["1002"],"roots":{"1002":"7534917d-8d2a-4b0a-93f0-fe2034b3c851"}}];
                   root.Bokeh.embed.embed_items(docs_json, render_items);
                 
                   }
