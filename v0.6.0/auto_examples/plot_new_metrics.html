@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Metrics with Multiple Features &#8212; Fairlearn 0.6.0 documentation</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,10 +20,6 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -32,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -48,50 +45,66 @@
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
-<div class="container-xl">
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
-    <a class="navbar-brand" href="../index.html">
+
     
-      <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo" />
+      
+      <a class="navbar-brand" href="https://fairlearn.org">
+        <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo">
+      </a>
+      
     
-    </a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    
     <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
       <ul id="navbar-main-elements" class="navbar-nav mr-auto">
-        
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../about/index.html">About</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../quickstart.html">Quickstart</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../user_guide/index.html">User Guide</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../api_reference/index.html">API Reference</a>
-        </li>
-        
-        <li class="nav-item active">
-            <a class="nav-link" href="index.html">Example Notebooks</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../contributor_guide/index.html">Contributor Guide</a>
-        </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="../faq.html">FAQ</a>
-        </li>
-        
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
         
         <li class="nav-item">
             <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
@@ -103,18 +116,13 @@
         
       </ul>
 
-
-      
-
-      <ul class="navbar-nav">
-        
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/fairlearn/fairlearn" target="_blank" rel="noopener">
-              <span><i class="fab fa-github-square"></i></span>
-            </a>
-          </li>
-        
-        
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
       </ul>
     </div>
 </div>
@@ -124,7 +132,9 @@
     <div class="container-xl">
       <div class="row">
           
-          <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
   
   <h4>Versions</h4>
   <ul>
@@ -149,68 +159,43 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-
-    <div class="bd-toc-item active">
-    
-  
-    <ul class="nav bd-sidenav">
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-          
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l2">
+  <a class="reference internal" href="plot_grid_search_census.html">
+   GridSearch with Census Data
+  </a>
+ </li>
+ <li class="toctree-l2 current active">
+  <a class="current reference internal" href="#">
+   Metrics with Multiple Features
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="plot_make_derived_metric.html">
+   Making Derived Metrics
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="plot_grid_search_census.html">
+   GridSearch with Census Data
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="plot_make_derived_metric.html">
+   Making Derived Metrics
+  </a>
+ </li>
+ <li class="toctree-l2 current active">
+  <a class="current reference internal" href="#">
+   Metrics with Multiple Features
+  </a>
+ </li>
+</ul>
+  </div>
+</nav>
+            </div>
             
-                <li class="">
-                    <a href="plot_grid_search_census.html">GridSearch with Census Data</a>
-                </li>
-            
-          
-            
-                <li class="active">
-                    <a href="">Metrics with Multiple Features</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="plot_make_derived_metric.html">Making Derived Metrics</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="plot_grid_search_census.html">GridSearch with Census Data</a>
-                </li>
-            
-          
-            
-                <li class="">
-                    <a href="plot_make_derived_metric.html">Making Derived Metrics</a>
-                </li>
-            
-          
-            
-                <li class="active">
-                    <a href="">Metrics with Multiple Features</a>
-                </li>
-            
-          
-        
-        
-        
-        
-        
-        
-      </ul>
-  
-  </nav>
-          </div>
           
 
           
@@ -221,35 +206,41 @@
 </div>
 
 <nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#getting-the-data" class="nav-link">Getting the Data</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#analysing-the-model-with-metrics" class="nav-link">Analysing the Model with Metrics</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#sample-weights-and-other-arrays" class="nav-link">Sample weights and other arrays</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#quantifying-disparities" class="nav-link">Quantifying Disparities</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#intersections-of-features" class="nav-link">Intersections of Features</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#control-features" class="nav-link">Control Features</a>
-        </li>
-    
-    </ul>
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-the-data">
+   Getting the Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysing-the-model-with-metrics">
+   Analysing the Model with Metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-weights-and-other-arrays">
+     Sample weights and other arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quantifying-disparities">
+   Quantifying Disparities
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intersections-of-features">
+   Intersections of Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-features">
+   Control Features
+  </a>
+ </li>
+</ul>
+
 </nav>
 
 
@@ -257,6 +248,9 @@
           </div>
           
 
+          
+          
+            
           
           <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
@@ -345,7 +339,7 @@ three unique values:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp37d8fu5n/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp7b8zloc3/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -388,13 +382,13 @@ illustrative purposes.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp37d8fu5n/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp7b8zloc3/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   A[&#39;Credit Score&#39;] = col_credit
-/tmp/tmp37d8fu5n/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
+/tmp/tmp7b8zloc3/feda771fc67f523aa18feb14cb3abb0973a510a1/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -809,8 +803,8 @@ pass these along:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.193748
-fbeta_06          0.685342
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.195865
+fbeta_06           0.68582
 dtype: object
 </pre></div>
 </div>
@@ -849,13 +843,13 @@ dtype: object
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.070366</td>
-      <td>0.636265</td>
+      <td>0.070242</td>
+      <td>0.646353</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.255229</td>
-      <td>0.692652</td>
+      <td>0.259399</td>
+      <td>0.691721</td>
     </tr>
   </tbody>
 </table>
@@ -1806,7 +1800,7 @@ Name: member_counts, dtype: object
 </div>
 <p>Recall that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> indicates that there were no individuals
 in a cell - <code class="docutils literal notranslate"><span class="pre">member_counts()</span></code> will not even have been called.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.597 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.161 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
@@ -1830,14 +1824,14 @@ in a cell - <code class="docutils literal notranslate"><span class="pre">member_
     </div>
 
     
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="../_static/js/index.1e043a052b0af929e4d8.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
     </p>
   </div>
 </footer>
