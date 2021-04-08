@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>3. Mitigation &#8212; Fairlearn 0.6.1.dev0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -296,7 +297,7 @@
               
               <div>
                 
-  <div class="section" id="mitigation">
+  <section id="mitigation">
 <span id="id1"></span><h1><span class="section-number">3. </span>Mitigation<a class="headerlink" href="#mitigation" title="Permalink to this headline">¶</a></h1>
 <p>Fairlearn contains the following algorithms for mitigating unfairness:</p>
 <table class="colwidths-given table">
@@ -365,10 +366,10 @@ randomization, it is possible to get different outputs from the predictor’s
 <code class="code docutils literal notranslate"><span class="pre">predict</span></code> method on identical data. For each of our algorithms, we provide
 explicit access to the probability distribution used for randomization.</p>
 </div>
-<div class="section" id="postprocessing">
+<section id="postprocessing">
 <span id="id6"></span><h2><span class="section-number">3.1. </span>Postprocessing<a class="headerlink" href="#postprocessing" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="reductions">
+</section>
+<section id="reductions">
 <span id="id7"></span><h2><span class="section-number">3.2. </span>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
 <p>On a high level, the reduction algorithms within Fairlearn
 enable unfairness mitigation for an arbitrary machine learning model with
@@ -412,7 +413,7 @@ are expressed as objects inheriting from the base class <code class="code docuti
 <code class="code docutils literal notranslate"><span class="pre">Moment</span></code>’s main purpose is to calculate the constraint violation of a
 current set of predictions through its <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> function as well as to
 provide <code class="code docutils literal notranslate"><span class="pre">signed_weights</span></code> that are used to relabel and reweight samples.</p>
-<div class="section" id="fairness-constraints-for-binary-classification">
+<section id="fairness-constraints-for-binary-classification">
 <span id="constraints-binary-classification"></span><h3><span class="section-number">3.2.1. </span>Fairness constraints for binary classification<a class="headerlink" href="#fairness-constraints-for-binary-classification" title="Permalink to this headline">¶</a></h3>
 <p>All supported fairness constraints for binary classification inherit from
 <code class="code docutils literal notranslate"><span class="pre">UtilityParity</span></code>. They are based on some underlying metric called
@@ -481,7 +482,7 @@ bound the ratio between the pairs of groups, but such a bound is implied.</p>
 <p>It is not possible to specify both <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code> <em>and</em>
 <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> for the same constraint object.</p>
 </div>
-<div class="section" id="demographic-parity">
+<section id="demographic-parity">
 <span id="id10"></span><h4><span class="section-number">3.2.1.1. </span>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h4>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>demographic parity</em> if</p>
 <div class="math notranslate nohighlight">
@@ -562,8 +563,8 @@ of the constraints, we obtain</p>
 r \cdot \text{utility}_{b,*} - \text{utility}_* = 0.9 \times 0.2 - 0.4 = -0.22 \\
 - \text{utility}_{a,*} + r \cdot \text{utility}_* = - 0.6 + 0.9 \times 0.4 = -0.24 \\
 - \text{utility}_{b,*} + r \cdot \text{utility}_* = - 0.2 + 0.9 \times 0.4 = 0.16 \\\end{split}\]</div>
-</div>
-<div class="section" id="true-positive-rate-parity-and-false-positive-rate-parity">
+</section>
+<section id="true-positive-rate-parity-and-false-positive-rate-parity">
 <span id="false-positive-rate-parity"></span><span id="true-positive-rate-parity"></span><h4><span class="section-number">3.2.1.2. </span>True Positive Rate Parity and False Positive Rate Parity<a class="headerlink" href="#true-positive-rate-parity-and-false-positive-rate-parity" title="Permalink to this headline">¶</a></h4>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>true positive rate parity</em> if</p>
 <div class="math notranslate nohighlight">
@@ -625,8 +626,8 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 <span class="go">dtype: float64</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="equalized-odds">
+</section>
+<section id="equalized-odds">
 <span id="id11"></span><h4><span class="section-number">3.2.1.3. </span>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h4>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>equalized odds</em> if it satisfies both
 <em>true positive rate parity</em> and <em>false positive rate parity</em>, i.e.,</p>
@@ -650,8 +651,8 @@ and false positive rate.</p>
 <span class="go">dtype: float64</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="error-rate-parity">
+</section>
+<section id="error-rate-parity">
 <span id="id12"></span><h4><span class="section-number">3.2.1.4. </span>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Permalink to this headline">¶</a></h4>
 <p>The <em>error rate parity</em> requires that the error rates should be
 the same across all groups. For a classifier <span class="math notranslate nohighlight">\(h(X)\)</span>
@@ -710,8 +711,8 @@ constraints:</p>
 <span class="go">dtype: float64</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="control-features">
+</section>
+<section id="control-features">
 <h4><span class="section-number">3.2.1.5. </span>Control features<a class="headerlink" href="#control-features" title="Permalink to this headline">¶</a></h4>
 <p>The above examples of <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> (<a class="reference internal" href="#demographic-parity"><span class="std std-ref">Demographic Parity</span></a>,
 <a class="reference internal" href="#true-positive-rate-parity"><span class="std std-ref">True and False Positive Rate Parity</span></a>,
@@ -736,14 +737,14 @@ The equation given above for Demographic Parity will become:</p>
 <div class="math notranslate nohighlight">
 \[P[h(X) = 1 | A = a, C = c] = P[h(X) = 1 | C = c] \; \forall a, c\]</div>
 <p>The other constraints acquire similar modifications.</p>
-</div>
-</div>
-<div class="section" id="fairness-constraints-for-multi-class-classification">
+</section>
+</section>
+<section id="fairness-constraints-for-multi-class-classification">
 <span id="constraints-multi-class-classification"></span><h3><span class="section-number">3.2.2. </span>Fairness constraints for multi-class classification<a class="headerlink" href="#fairness-constraints-for-multi-class-classification" title="Permalink to this headline">¶</a></h3>
 <p>Reductions approaches do not support multi-class classification yet at this
 point. If this is an important scenario for you please let us know!</p>
-</div>
-<div class="section" id="fairness-constraints-for-regression">
+</section>
+<section id="fairness-constraints-for-regression">
 <span id="constraints-regression"></span><h3><span class="section-number">3.2.3. </span>Fairness constraints for regression<a class="headerlink" href="#fairness-constraints-for-regression" title="Permalink to this headline">¶</a></h3>
 <p>The performance objective in the regression scenario is to minimize the
 loss of our regressor <span class="math notranslate nohighlight">\(h\)</span>. The loss can be expressed as
@@ -771,7 +772,7 @@ the loss is evaluated. Values outside of the value range get clipped.</p>
 specify the type of loss by passing the corresponding loss object when
 instantiating the object that represents our fairness constraint. The only
 supported type of constraint at this point is <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a>.</p>
-<div class="section" id="bounded-group-loss">
+<section id="bounded-group-loss">
 <span id="id13"></span><h4><span class="section-number">3.2.3.1. </span>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Permalink to this headline">¶</a></h4>
 <p><em>Bounded group loss</em> requires the loss of each group to be below a
 user-specified amount <span class="math notranslate nohighlight">\(\zeta\)</span>. If <span class="math notranslate nohighlight">\(\zeta\)</span> is chosen reasonably
@@ -816,12 +817,12 @@ Group <code class="code docutils literal notranslate"><span class="pre">&quot;a&
 during the unfairness mitigation. As a result the constraint violation
 detected by <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> is identical to the mean absolute error.</p>
 </div>
-</div>
-</div>
-<div class="section" id="exponentiated-gradient">
+</section>
+</section>
+<section id="exponentiated-gradient">
 <span id="id14"></span><h3><span class="section-number">3.2.4. </span>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="grid-search">
+</section>
+<section id="grid-search">
 <span id="id15"></span><h3><span class="section-number">3.2.5. </span>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
 <div class="topic">
 <p class="topic-title">References:</p>
@@ -842,9 +843,9 @@ NeurIPS, 2016.</p>
 </dd>
 </dl>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
               </div>
