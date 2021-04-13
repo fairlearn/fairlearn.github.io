@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2. Assessment &#8212; Fairlearn 0.6.0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -156,6 +155,11 @@
       
       
         
+          <li><a href="../../v0.6.1/user_guide/assessment.html">v0.6.1</a></li>
+        
+      
+      
+        
           <li><a href="../../main/user_guide/assessment.html">main</a></li>
         
       
@@ -275,9 +279,9 @@
               
               <div>
                 
-  <section id="assessment">
+  <div class="section" id="assessment">
 <h1><span class="section-number">2. </span>Assessment<a class="headerlink" href="#assessment" title="Permalink to this headline">¶</a></h1>
-<section id="metrics">
+<div class="section" id="metrics">
 <h2><span class="section-number">2.1. </span>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a> module provides the means to assess fairness-related
 metrics for models. This applies for any kind of model that users may already
@@ -285,7 +289,7 @@ use, but also for models created with mitigation techniques from the
 <a class="reference internal" href="mitigation.html#mitigation"><span class="std std-ref">Mitigation</span></a> section. The <a class="reference internal" href="#dashboard"><span class="std std-ref">Fairlearn dashboard</span></a> provides a visual way to
 compare metrics between models as well as compare metrics for different groups
 on a single model.</p>
-<section id="ungrouped-metrics">
+<div class="section" id="ungrouped-metrics">
 <h3><span class="section-number">2.1.1. </span>Ungrouped Metrics<a class="headerlink" href="#ungrouped-metrics" title="Permalink to this headline">¶</a></h3>
 <p>At their simplest, metrics take a set of ‘true’ values <span class="math notranslate nohighlight">\(Y_{true}\)</span> (from
 the input data) and predicted values <span class="math notranslate nohighlight">\(Y_{pred}\)</span> (by applying the model
@@ -305,8 +309,8 @@ of the ten cases where the true value is <cite>1</cite>, so we expect the recall
 <span class="go">0.5</span>
 </pre></div>
 </div>
-</section>
-<section id="metrics-with-grouping">
+</div>
+<div class="section" id="metrics-with-grouping">
 <h3><span class="section-number">2.1.2. </span>Metrics with Grouping<a class="headerlink" href="#metrics-with-grouping" title="Permalink to this headline">¶</a></h3>
 <p>When considering fairness, each row of input data will have an associated
 group label <span class="math notranslate nohighlight">\(g \in G\)</span>, and we will want to know how the metric behaves
@@ -456,8 +460,8 @@ holds the intersections of these groups:</p>
 there are no members in a particular combination of sensitive features. In this
 case we see that the subgroup <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">8)</span></code> has a result of <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, indicating
 that there were no samples in it.</p>
-</section>
-<section id="scalar-results-from-metricframe">
+</div>
+<div class="section" id="scalar-results-from-metricframe">
 <span id="scalar-metric-results"></span><h3><span class="section-number">2.1.3. </span>Scalar Results from <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code><a class="headerlink" href="#scalar-results-from-metricframe" title="Permalink to this headline">¶</a></h3>
 <p>Higher level machine learning algorithms (such as hyperparameter tuners) often
 make use of metric functions to guide their optimisations.
@@ -611,8 +615,8 @@ of such functions which will be commonly used:</p>
 <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.&lt;base_metric&gt;_&lt;transformation&gt;</span></code>.
 For example <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.accuracy_score_difference</span></code> and
 <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics.precision_score_group_min</span></code>.</p>
-</section>
-<section id="control-features-for-grouped-metrics">
+</div>
+<div class="section" id="control-features-for-grouped-metrics">
 <span id="control-features-metrics"></span><h3><span class="section-number">2.1.4. </span>Control features for grouped metrics<a class="headerlink" href="#control-features-for-grouped-metrics" title="Permalink to this headline">¶</a></h3>
 <p>Control features (sometimes called ‘conditional’ features) enable more detailed
 fairness insights by providing a further means of splitting the data into
@@ -709,9 +713,9 @@ each value of the control feature.
 For more examples, please
 see the <a class="reference internal" href="../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a> notebook in the
 <a class="reference internal" href="../auto_examples/index.html#examples"><span class="std std-ref">Example Notebooks</span></a>.</p>
-</section>
-</section>
-<section id="fairlearn-dashboard">
+</div>
+</div>
+<div class="section" id="fairlearn-dashboard">
 <span id="dashboard"></span><h2><span class="section-number">2.2. </span>Fairlearn dashboard<a class="headerlink" href="#fairlearn-dashboard" title="Permalink to this headline">¶</a></h2>
 <p>The Fairlearn dashboard is a Jupyter notebook widget for assessing how a
 model’s predictions impact different groups (e.g., different ethnicities), and
@@ -726,7 +730,7 @@ The widget itself has been moved to
 Fairlearn will provide some of the existing functionality
 through <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>-based visualizations.</p>
 </div>
-<section id="setup-and-a-single-model-assessment">
+<div class="section" id="setup-and-a-single-model-assessment">
 <h3><span class="section-number">2.2.1. </span>Setup and a single-model assessment<a class="headerlink" href="#setup-and-a-single-model-assessment" title="Permalink to this headline">¶</a></h3>
 <p>To assess a single model’s fairness and performance, the dashboard widget can
 be launched within a Jupyter notebook as follows:</p>
@@ -787,8 +791,8 @@ classification) or distribution of prediction values (in regression).</p></td>
 </table>
 <img alt="../_images/fairlearn-dashboard-disparity-performance-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-disparity-performance-multiple-sensitive-features.png" />
 <img alt="../_images/fairlearn-dashboard-disparity-predictions-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-disparity-predictions-multiple-sensitive-features.png" />
-</section>
-<section id="comparing-multiple-models">
+</div>
+<div class="section" id="comparing-multiple-models">
 <h3><span class="section-number">2.2.2. </span>Comparing multiple models<a class="headerlink" href="#comparing-multiple-models" title="Permalink to this headline">¶</a></h3>
 <p>The dashboard also enables comparison of multiple models, such as the models
 produced by different learning algorithms and different mitigation approaches,
@@ -803,9 +807,9 @@ can be clicked to open the assessment of the corresponding model. The figure
 below shows the model comparison view with <em>binary gender</em> selected as a
 sensitive feature and <em>accuracy rate</em> selected as the performance metric.</p>
 <img alt="../_images/fairlearn-dashboard-models.png" src="../_images/fairlearn-dashboard-models.png" />
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
               </div>
@@ -825,7 +829,7 @@ sensitive feature and <em>accuracy rate</em> selected as the performance metric.
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

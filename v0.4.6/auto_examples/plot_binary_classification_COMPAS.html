@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binary Classification on COMPAS dataset &#8212; Fairlearn 0.4.6 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -145,6 +144,9 @@
         <li>v0.6.0: Documentation page not present</li>
       
       
+        <li>v0.6.1: Documentation page not present</li>
+      
+      
         <li>main: Documentation page not present</li>
       
   </ul>
@@ -241,12 +243,12 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-binary-classification-compas-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="binary-classification-on-compas-dataset">
+<div class="sphx-glr-example-title section" id="binary-classification-on-compas-dataset">
 <span id="sphx-glr-auto-examples-plot-binary-classification-compas-py"></span><h1>Binary Classification on COMPAS dataset<a class="headerlink" href="#binary-classification-on-compas-dataset" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="getting-and-preparing-the-data">
+<div class="section" id="getting-and-preparing-the-data">
 <h2>Getting and preparing the data<a class="headerlink" href="#getting-and-preparing-the-data" title="Permalink to this headline">¶</a></h2>
 <p>To demonstrate the post processing algorithm we use the “COMPAS” dataset from
 <a class="reference external" href="https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv">ProPublica</a>.
@@ -282,8 +284,8 @@ c_charge_degree_M           1.000000
 Name: 0, dtype: float64, 1.0)
 </pre></div>
 </div>
-</section>
-<section id="create-a-fairness-unaware-model">
+</div>
+<div class="section" id="create-a-fairness-unaware-model">
 <h2>Create a fairness-unaware model<a class="headerlink" href="#create-a-fairness-unaware-model" title="Permalink to this headline">¶</a></h2>
 <p>First we set up a helper function that will help in analyzing the dataset as
 well as predictions from our models. Feel free to skip to the next cell for
@@ -427,8 +429,8 @@ P[recidivism predicted | Caucasian, recidivism]           = 0.42435424354243545
 P[recidivism predicted | Caucasian, no recidivism]        = 0.20090293453724606
 </pre></div>
 </div>
-</section>
-<section id="postprocessing-the-model-to-get-a-fair-model">
+</div>
+<div class="section" id="postprocessing-the-model-to-get-a-fair-model">
 <h2>Postprocessing the model to get a fair model<a class="headerlink" href="#postprocessing-the-model-to-get-a-fair-model" title="Permalink to this headline">¶</a></h2>
 <p>The idea behind postprocessing is to alter the output of the fairness-unaware
 model to achieve fairness. The postprocessing algorithm requires three input
@@ -548,8 +550,8 @@ P[recidivism predicted | Caucasian, recidivism]           = 0.6236162361623616
 P[recidivism predicted | Caucasian, no recidivism]        = 0.3724604966139955
 </pre></div>
 </div>
-</section>
-<section id="post-processing-in-detail">
+</div>
+<div class="section" id="post-processing-in-detail">
 <h2>Post Processing in Detail<a class="headerlink" href="#post-processing-in-detail" title="Permalink to this headline">¶</a></h2>
 <p>While this worked as the numbers show, it’s not entirely obvious how it found
 its solution. The following section will provide a deep dive on post
@@ -570,7 +572,7 @@ or even real valued scores. In this case, this looks as follows:</p>
        0.37423461])
 </pre></div>
 </div>
-<section id="finding-threshold-rules">
+<div class="section" id="finding-threshold-rules">
 <h3>Finding threshold rules<a class="headerlink" href="#finding-threshold-rules" title="Permalink to this headline">¶</a></h3>
 <p>The algorithm then tries to find all thresholding rules with which it could
 divide the data. Any score for which the thresholding rule evaluates to true
@@ -696,8 +698,8 @@ Caucasian:
 <p>Note that it never makes sense to have <span class="math notranslate nohighlight">\(x&gt;y\)</span> because in that case you’re
 better off flipping labels, i.e. completely turning around the meaning of the
 scores. The method automatically does that unless specified otherwise.</p>
-</section>
-<section id="interpolated-predictions-and-probabilistic-classifiers">
+</div>
+<div class="section" id="interpolated-predictions-and-probabilistic-classifiers">
 <h3>Interpolated Predictions and Probabilistic Classifiers<a class="headerlink" href="#interpolated-predictions-and-probabilistic-classifiers" title="Permalink to this headline">¶</a></h3>
 <p>This way you end up with a set of points above the diagonal line connecting
 (0,0) and (1,1). We calculate the convex hull based on that, because we can
@@ -711,8 +713,8 @@ Depending on the data certain fairness objectives can only be accomplished
 with probabilistic classifiers. However, not every use case lends itself to
 probabilistic classifiers, since it could mean that two people with identical
 features are classified differently.</p>
-</section>
-<section id="finding-the-equalized-odds-solution">
+</div>
+<div class="section" id="finding-the-equalized-odds-solution">
 <h3>Finding the Equalized Odds solution<a class="headerlink" href="#finding-the-equalized-odds-solution" title="Permalink to this headline">¶</a></h3>
 <p>From all the ROC points (see below) we need to extract the convex hull for
 both groups/curves.</p>
@@ -809,7 +811,7 @@ Caucasian:
 -----------------------------------
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.616 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.737 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-binary-classification-compas-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/f1baf35b8f217e0243288f072661e7be/plot_binary_classification_COMPAS.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_binary_classification_COMPAS.py</span></code></a></p>
@@ -819,9 +821,9 @@ Caucasian:
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
               </div>
@@ -841,7 +843,7 @@ Caucasian:
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>
