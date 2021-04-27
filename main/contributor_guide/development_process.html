@@ -203,6 +203,11 @@
    API and design proposals
   </a>
  </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="release.html">
+   Release Process
+  </a>
+ </li>
 </ul>
   </div>
 </nav>
@@ -234,11 +239,6 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#investigating-automated-test-failures">
    Investigating automated test failures
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#creating-new-releases">
-   Creating new releases
   </a>
  </li>
 </ul>
@@ -386,42 +386,6 @@ through <a class="reference external" href="https://github.com/fairlearn/fairlea
 <code class="code docutils literal notranslate"><span class="pre">yml</span></code> file) in the <code class="code docutils literal notranslate"><span class="pre">devops</span></code> directory. It either directly contains
 the command to execute the tests (usually starting with
 <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>) or it refers to a template file with the command.</p>
-</div>
-<div class="section" id="creating-new-releases">
-<h2>Creating new releases<a class="headerlink" href="#creating-new-releases" title="Permalink to this headline">¶</a></h2>
-<p>First add a description of the changes introduced in the package version you
-want to release to <a class="reference external" href="https://github.com/fairlearn/fairlearn/CHANGES.md">CHANGES.md</a>.</p>
-<p>It is also best to verify that the Fairlearn dashboard loads correctly. This
-is slightly involved:</p>
-<ol class="arabic simple">
-<li><p>Install the <code class="code docutils literal notranslate"><span class="pre">wheel</span></code> package by running <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">wheel</span></code></p></li>
-<li><p>Create a wheel by running <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code> from
-the repository root. This will create a <code class="code docutils literal notranslate"><span class="pre">dist</span></code> directory which
-contains a <code class="code docutils literal notranslate"><span class="pre">.whl</span></code> file.</p></li>
-<li><p>Create a new conda environment for the test</p></li>
-<li><p>In this new environment, install this wheel by running
-<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dist/&lt;FILENAME&gt;.whl</span></code></p></li>
-<li><p>Install any pip packages required for the notebooks using
-<code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">./scripts/install_requirements.py</span> <span class="pre">--pinned</span> <span class="pre">false</span></code></p></li>
-<li><p>Check that the dashboard loads in the notebooks</p></li>
-</ol>
-<p>We have an
-<a class="reference external" href="https://dev.azure.com/responsibleai/fairlearn/_build?definitionId=60&amp;_a=summary">Azure DevOps Pipeline</a>
-which takes care of building wheels and pushing to PyPI. Validations are also
-performed prior to any deployments, and also following the uploads to Test-PyPI
-and PyPI. To use it:</p>
-<ol class="arabic simple">
-<li><p>Ensure that <cite>fairlearn/__init__.py</cite> has the correct version set.</p></li>
-<li><p>Put down a tag corresponding to this version but preprended with <code class="code docutils literal notranslate"><span class="pre">v</span></code>.
-For example, version <code class="code docutils literal notranslate"><span class="pre">0.5.0</span></code> should be tagged with <code class="code docutils literal notranslate"><span class="pre">v0.5.0</span></code>.</p></li>
-</ol>
-<p>At queue time, select Test or Production PyPI as appropriate.</p>
-<p>As part of the release process, the <code class="code docutils literal notranslate"><span class="pre">build_wheels.py</span></code> script uses
-<code class="code docutils literal notranslate"><span class="pre">process_readme.py</span></code> to turn all the relative links in the ReadMe file
-into absolute ones (this is the reason why the applied tag has be of the form
-<code class="code docutils literal notranslate"><span class="pre">v[__version__]</span></code>). The <code class="code docutils literal notranslate"><span class="pre">process_readme.py</span></code> script is slightly
-fragile with respect to the contents of the ReadMe, so after significant
-changes its output should be verified.</p>
 </div>
 </div>
 
