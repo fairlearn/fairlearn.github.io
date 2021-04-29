@@ -241,6 +241,11 @@
    Investigating automated test failures
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-website">
+   Building the website
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -386,6 +391,38 @@ through <a class="reference external" href="https://github.com/fairlearn/fairlea
 <code class="code docutils literal notranslate"><span class="pre">yml</span></code> file) in the <code class="code docutils literal notranslate"><span class="pre">devops</span></code> directory. It either directly contains
 the command to execute the tests (usually starting with
 <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>) or it refers to a template file with the command.</p>
+</div>
+<div class="section" id="building-the-website">
+<h2>Building the website<a class="headerlink" href="#building-the-website" title="Permalink to this headline">¶</a></h2>
+<p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>
+and some of its extensions. Specifically, the website is available for all our
+releases to allow users to check the documentation of the version of the
+package that they are using.</p>
+<p>To be able to build the documentation you need to install all the
+requirements using <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements-dev.txt</span></code>.</p>
+<p>When making changes to the documentation at least run the following command
+to build the website using your changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sphinx</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">j</span> <span class="n">auto</span> <span class="n">docs</span> <span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>or use the shortcut</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">doc</span>
+</pre></div>
+</div>
+<p>This will generate the website in the directory mentioned at the end of the
+command. Navigate to that directory and find the corresponding files where
+you made changes, open them in the browser and verify that your changes
+render properly and links are working as expected.</p>
+<p>To fully build the website for all versions use the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_documentation</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">documentation</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">docs</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>or the shortcut</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">doc</span><span class="o">-</span><span class="n">multiversion</span>
+</pre></div>
+</div>
+<p>The comprehensive set of commands to build the website is in our CircleCI
+configuration file in the <cite>.circleci</cite> directory of the repository.</p>
 </div>
 </div>
 
