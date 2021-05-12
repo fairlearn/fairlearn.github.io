@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>fairlearn.preprocessing package &#8212; Fairlearn 0.6.0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -22,8 +23,8 @@
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -31,11 +32,11 @@
     
   <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}})</script>
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example Notebooks" href="../auto_examples/index.html" />
@@ -156,6 +157,11 @@
       
       
         
+          <li><a href="../../v0.6.2/api_reference/fairlearn.preprocessing.html">v0.6.2</a></li>
+        
+      
+      
+        
           <li><a href="../../main/api_reference/fairlearn.preprocessing.html">main</a></li>
         
       
@@ -226,12 +232,12 @@
               
               <div>
                 
-  <div class="section" id="module-fairlearn.preprocessing">
+  <section id="module-fairlearn.preprocessing">
 <span id="fairlearn-preprocessing-package"></span><h1>fairlearn.preprocessing package<a class="headerlink" href="#module-fairlearn.preprocessing" title="Permalink to this headline">¶</a></h1>
 <p>Preprocessing tools to help deal with sensitive attributes.</p>
 <dl class="py class">
-<dt id="fairlearn.preprocessing.CorrelationRemover">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">fairlearn.preprocessing.</span></code><code class="sig-name descname"><span class="pre">CorrelationRemover</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_feature_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L11-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.preprocessing.</span></span><span class="sig-name descname"><span class="pre">CorrelationRemover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_feature_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L11-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="(in scikit-learn v0.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></a></p>
 <p>A component that filters out sensitive correlations in a dataset.</p>
 <p>CorrelationRemover applies a linear transformation to the non-sensitive feature columns
@@ -268,20 +274,20 @@ does allow you to tweak the amount of filtering that gets applied.</p>
 Therefore, we expect this to be most appropriate as a preprocessing step for
 (generalized) linear models.</p>
 <dl class="py method">
-<dt id="fairlearn.preprocessing.CorrelationRemover.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L77-L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L77-L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Learn the projection required to make the dataset uncorrelated with sensitive columns.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fairlearn.preprocessing.CorrelationRemover.transform">
-<code class="sig-name descname"><span class="pre">transform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L88-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.transform" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.6.0/fairlearn/preprocessing/_correlation_remover.py#L88-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform X by applying the correlation remover.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
               </div>
@@ -301,7 +307,7 @@ Therefore, we expect this to be most appropriate as a preprocessing step for
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>

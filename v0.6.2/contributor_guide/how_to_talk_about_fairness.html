@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to talk and write about fairness in AI &#8212; Fairlearn 0.6.2 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Fairlearn Repository Overview" href="fairlearn_repository_overview.html" />
+    <link rel="prev" title="Ways to contribute" href="ways_to_contribute.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="https://fairlearn.org">
+        <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><a href="../../v0.5.0/contributor_guide/how_to_talk_about_fairness.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.0/contributor_guide/how_to_talk_about_fairness.html">v0.6.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.1/contributor_guide/how_to_talk_about_fairness.html">v0.6.1</a></li>
+        
+      
+      
+        
+          <li><strong><a href="how_to_talk_about_fairness.html">v0.6.2</a></strong></li>
+        
+      
+      
+        
+          <li><a href="../../main/contributor_guide/how_to_talk_about_fairness.html">main</a></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l2">
+  <a class="reference internal" href="ways_to_contribute.html">
+   Ways to contribute
+  </a>
+ </li>
+ <li class="toctree-l2 current active">
+  <a class="current reference internal" href="#">
+   How to talk and write about fairness in AI
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="fairlearn_repository_overview.html">
+   Fairlearn Repository Overview
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="development_process.html">
+   Development process
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="contributing_code.html">
+   Contributing code
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="contributing_example_notebooks.html">
+   Contributing example notebooks
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="fairlearn_proposals.html">
+   API and design proposals
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="release.html">
+   Release Process
+  </a>
+ </li>
+</ul>
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="how-to-talk-and-write-about-fairness-in-ai">
+<span id="how-to-talk-about-fairness"></span><h1>How to talk and write about fairness in AI<a class="headerlink" href="#how-to-talk-and-write-about-fairness-in-ai" title="Permalink to this headline">¶</a></h1>
+<p>The following style guide builds on work from various sources including the
+Fairlearn contributors and
+<a class="reference external" href="https://www.microsoft.com/en-us/ai/responsible-ai">Microsoft’s Aether Fairness Working Group</a>.
+It is meant to provide a clear and easy to follow guide for contributors.
+Every pull request is expected to abide by the guide. If you want to add to
+the list feel free to send a pull request.</p>
+<ul class="simple">
+<li><p>Be clear that there is no single definition of fairness that will apply
+equally well to all AI systems.</p></li>
+<li><p>Be clear that any quantitative definition of fairness will omit aspects of
+fairness (as a societal concept) that cannot be quantified (e.g., justice,
+due process, remedying historical societal injustices).</p></li>
+<li><p>Be clear that given the many complex sources of unfairness, it is not
+possible to fully <em>debias</em> a system or to guarantee fairness. The goal is to
+assess and mitigate fairness-related harms as much as possible.
+For this reason, don’t usewords like <em>debias</em>, <em>unbiased</em>, <em>solve</em> – they
+set up unrealistic expectations. Use words like <em>mitigate</em>, <em>address</em>,
+<em>prioritize</em>, <em>assess</em> instead.</p></li>
+<li><p>Be clear that AI systems (and technology in general) are never <em>neutral</em> –
+all AI systems necessarily reflect the assumptions, priorities, and values
+of the people involved in their development and deployment.</p></li>
+<li><p>Be clear that prioritizing fairness in AI systems often means making
+tradeoffs based on competing priorities. There are seldom clear-cut answers.
+This is why using the word <em>solve</em> is seldom appropriate.</p></li>
+<li><p>Be clear that prioritizing fairness in AI systems is a sociotechnical
+challenge. It is not something that can be accomplished via purely technical
+methods (or purely social methods, for that matter).</p></li>
+<li><p>Be clear that there is no software tool that will <em>solve</em> fairness in all AI
+systems. This is not to say that software tools don’t have a role to play,
+but they will be precise, targeted, and only part of the picture.</p></li>
+<li><p>Be clear that even with precise, targeted tools, it’s easy to overlook
+things, especially things that are difficult to quantify – software tools
+must be supplemented with other resources and processes.</p></li>
+<li><p>There are many reasons why AI systems can behave unfairly, not just societal
+biases. Also <em>bias</em> is ambiguous and means different things to different
+communities – e.g., statistical bias vs. societal biases. For this reason,
+talk about <em>fairness issues</em> or <em>fairness-related harms</em> rather than
+<em>bias</em>, unless you are very specifically referring to societal biases
+(or statistical bias or some other definition of bias). Better yet, be
+specific about the type of fairness-related harm – is this a harm of
+allocation, quality of service, stereotyping, denigration, or over- or
+under-representation? Be clear that different types of fairness-related
+harm are not mutually exclusive. A single AI system can exhibit more than
+one type.</p></li>
+<li><p>Be clear that fairness-related harms can have varying severities, but that
+the cumulative impact of even <em>non-severe</em> harms can be extremely burdensome
+or make people feel singled out or undervalued.</p></li>
+<li><p>Be clear that fairness-related harms can affect both the people who will use
+an AI system and the people who will be directly or indirectly affected by
+the system, either by choice or not. For this reason, when talking about the
+people who might be harmed by a system, talk about <em>stakeholders</em> not
+<em>users</em>.</p></li>
+<li><p>When talking about who might be harmed, don’t just focus on demographic
+groups (e.g., groups defined in terms of race, gender, age, disability
+status, skin tone, and their intersections) or groups that are protected by
+anti-discrimination laws. The most relevant groups may be context specific.</p></li>
+<li><p>Be clear that stakeholders can belong to overlapping or intersectional
+groups – e.g., different combinations of race, gender, and age – and
+considering each group separately may obscure harms.</p></li>
+<li><p>Be clear that fairness-related harms can be (re-)introduced at every stage
+of the AI development and deployment lifecycle and can arise due to any
+component of an AI system, not just datasets or models – e.g., task
+definitions, user experiences, evaluation metrics, or deployment contexts.</p></li>
+</ul>
+</section>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.1e043a052b0af929e4d8.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

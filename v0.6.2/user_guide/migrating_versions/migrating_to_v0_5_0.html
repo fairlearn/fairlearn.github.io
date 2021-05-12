@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>4.1. Migrating to v0.5.0 from v0.4.6 &#8212; Fairlearn 0.6.2 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1e043a052b0af929e4d8.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. Further Resources" href="../further_resources.html" />
+    <link rel="prev" title="4. Migrating from prior versions" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="https://fairlearn.org">
+        <img src="../../_static/fairlearn_full_color.png" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../about/index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../faq.html">
+  FAQ
+ </a>
+</li>
+
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><a href="../../../v0.5.0/user_guide/migrating_versions/migrating_to_v0_5_0.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../../v0.6.0/user_guide/migrating_versions/migrating_to_v0_5_0.html">v0.6.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../../v0.6.1/user_guide/migrating_versions/migrating_to_v0_5_0.html">v0.6.1</a></li>
+        
+      
+      
+        
+          <li><strong><a href="migrating_to_v0_5_0.html">v0.6.2</a></strong></li>
+        
+      
+      
+        
+          <li><a href="../../../main/user_guide/migrating_versions/migrating_to_v0_5_0.html">main</a></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l2">
+  <a class="reference internal" href="../fairness_in_machine_learning.html">
+   1. Fairness in Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="../assessment.html">
+   2. Assessment
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="../mitigation.html">
+   3. Mitigation
+  </a>
+ </li>
+ <li class="toctree-l2 current active">
+  <a class="reference internal" href="index.html">
+   4. Migrating from prior versions
+  </a>
+  <ul class="current">
+   <li class="toctree-l3 current active">
+    <a class="current reference internal" href="#">
+     4.1. Migrating to v0.5.0 from v0.4.6
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="../further_resources.html">
+   5. Further Resources
+  </a>
+ </li>
+</ul>
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metrics">
+   4.1.1. Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#renamed-object-attributes">
+   4.1.2. Renamed object attributes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exponentiated-gradient-and-moments">
+   4.1.3. Exponentiated Gradient and Moments
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="migrating-to-v0-5-0-from-v0-4-6">
+<span id="migrating-to-v0-5-0"></span><h1><span class="section-number">4.1. </span>Migrating to v0.5.0 from v0.4.6<a class="headerlink" href="#migrating-to-v0-5-0-from-v0-4-6" title="Permalink to this headline">¶</a></h1>
+<p>The update from v0.4.6 to v0.5.0 of Fairlearn has brought some major changes. This
+document goes through the adjustments required.</p>
+<section id="metrics">
+<h2><span class="section-number">4.1.1. </span>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<p>We have substantially altered the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a> module.
+In place of calling <code class="docutils literal notranslate"><span class="pre">group_summary()</span></code> to produce a <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.utils.Bunch</span></code>
+containing the disaggregated metrics, we have a new class, <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.
+The key advantages of the new API are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Support for evalulating multiple metric functions at once</p></li>
+<li><p>Support for multiple sensitive features</p></li>
+<li><p>Support for control features</p></li>
+</ul>
+</div></blockquote>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code> class has a constructor similar to <code class="docutils literal notranslate"><span class="pre">group_summary()</span></code>.
+In v0.4.6, one would write</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gs</span> <span class="o">=</span> <span class="n">group_summary</span><span class="p">(</span><span class="n">metric_func</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_col</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With the new API, this becomes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_func</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_col</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The new object has <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a> and <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a>
+properties, to access the metric evaluated on the entire dataset, and the metric
+evaluated on the subgroups of <code class="docutils literal notranslate"><span class="pre">A_col</span></code>.</p>
+<p>In v0.4.6, we provided the following aggregator functions to compute a single scalar
+from the result of <code class="docutils literal notranslate"><span class="pre">group_summary()</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">group_min_from_summary()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_max_from_summary()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">difference_from_summary()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ratio_from_summary()</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>With <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> these become methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>Before, one might write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">min_by_group</span> <span class="o">=</span> <span class="n">group_min_from_summary</span><span class="p">(</span><span class="n">gs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, one can write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">min_by_group</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">make_derived_metric()</span></code> function has been removed, but will be reintroduced
+in a future release. The predefined convenience functions such as <code class="docutils literal notranslate"><span class="pre">accuracy_score_group_min()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">precision_score_difference()</span></code> remain.</p>
+<p>For an introduction to all the new features, see the
+<a class="reference internal" href="../../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a> example in
+<a class="reference internal" href="../../auto_examples/index.html#sphx-glr-auto-examples"><span class="std std-ref">Example Notebooks</span></a>.</p>
+</section>
+<section id="renamed-object-attributes">
+<h2><span class="section-number">4.1.2. </span>Renamed object attributes<a class="headerlink" href="#renamed-object-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Some of the object attributes have been renamed from <code class="docutils literal notranslate"><span class="pre">_&lt;name&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_</span></code>.
+For example in both <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> and <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearch</span></code></a>,
+the <code class="docutils literal notranslate"><span class="pre">_predictors</span></code> attribute is now called <code class="docutils literal notranslate"><span class="pre">predictors_</span></code>.</p>
+</section>
+<section id="exponentiated-gradient-and-moments">
+<h2><span class="section-number">4.1.3. </span>Exponentiated Gradient and Moments<a class="headerlink" href="#exponentiated-gradient-and-moments" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the trailing underscore change mentioned above, several
+adjustments have been made to the constructor arguments of
+<a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a>.
+The <code class="docutils literal notranslate"><span class="pre">T</span></code> argument has been renamed to <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>, and the <code class="docutils literal notranslate"><span class="pre">eta_mul</span></code>
+argument to <code class="docutils literal notranslate"><span class="pre">eta0</span></code>.</p>
+<p>Furthermore, the <code class="docutils literal notranslate"><span class="pre">eps</span></code> argument was previously used for two
+different purposes, and these two uses have now been separated.
+The use of <code class="docutils literal notranslate"><span class="pre">eps</span></code> as the righthand side of the constraints
+has now been moved to the <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> classes.
+The only remaining use of the <code class="docutils literal notranslate"><span class="pre">eps</span></code> argument
+is to control the optimality requirements for the optimization
+algorithm in <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a>.</p>
+<p>For classification moments, <code class="docutils literal notranslate"><span class="pre">ConditionalSelectionRate</span></code> has been
+renamed to <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">UtilityParity</span></code></a>, and there are three new
+constructor arguments: <code class="docutils literal notranslate"><span class="pre">difference_bound</span></code>, <code class="docutils literal notranslate"><span class="pre">ratio_bound</span></code> (which
+replaces <code class="docutils literal notranslate"><span class="pre">ratio</span></code>) and <code class="docutils literal notranslate"><span class="pre">ratio_bound_slack</span></code>.</p>
+<p>For regression moments, <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a> and its
+subclasses have gained a new argument <code class="docutils literal notranslate"><span class="pre">upper_bound</span></code> to serve as
+the righthand side of the constraints.</p>
+<p>Several <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> objects have also been renamed in an effort
+to improve consistency:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ErrorRateRatio</span></code> has become <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.ErrorRateParity" title="fairlearn.reductions.ErrorRateParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorRateParity</span></code></a> (when used
+with the <code class="docutils literal notranslate"><span class="pre">ratio_bound</span></code> and <code class="docutils literal notranslate"><span class="pre">ratio_bound_slack</span></code> arguments)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TruePositiveRateDifference</span></code> has become <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.TruePositiveRateParity" title="fairlearn.reductions.TruePositiveRateParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">TruePositiveRateParity</span></code></a>
+(when used with the <code class="docutils literal notranslate"><span class="pre">difference_bound</span></code> argument)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConditionalSelectionRate</span></code> has become <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">UtilityParity</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GroupLossMoment</span></code> has become <a class="reference internal" href="../../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.1e043a052b0af929e4d8.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

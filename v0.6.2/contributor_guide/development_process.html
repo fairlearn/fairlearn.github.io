@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Development process &#8212; Fairlearn 0.6.2 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.f6b7ca918bee2f46fd9abac01cfb07d5.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing code" href="contributing_code.html" />
+    <link rel="prev" title="Fairlearn Repository Overview" href="fairlearn_repository_overview.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+
+    
+      
+      <a class="navbar-brand" href="https://fairlearn.org">
+        <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo">
+      </a>
+      
+    
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://gitter.im/fairlearn/community">Gitter<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link nav-external" href="https://stackoverflow.com/questions/tagged/fairlearn">StackOverflow<i class="fas fa-external-link-alt"></i></a>
+        </li>
+        
+      </ul>
+
+      <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><a href="../../v0.5.0/contributor_guide/development_process.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.0/contributor_guide/development_process.html">v0.6.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.1/contributor_guide/development_process.html">v0.6.1</a></li>
+        
+      
+      
+        
+          <li><strong><a href="development_process.html">v0.6.2</a></strong></li>
+        
+      
+      
+        
+          <li><a href="../../main/contributor_guide/development_process.html">main</a></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l2">
+  <a class="reference internal" href="ways_to_contribute.html">
+   Ways to contribute
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="how_to_talk_about_fairness.html">
+   How to talk and write about fairness in AI
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="fairlearn_repository_overview.html">
+   Fairlearn Repository Overview
+  </a>
+ </li>
+ <li class="toctree-l2 current active">
+  <a class="current reference internal" href="#">
+   Development process
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="contributing_code.html">
+   Contributing code
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="contributing_example_notebooks.html">
+   Contributing example notebooks
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="fairlearn_proposals.html">
+   API and design proposals
+  </a>
+ </li>
+ <li class="toctree-l2">
+  <a class="reference internal" href="release.html">
+   Release Process
+  </a>
+ </li>
+</ul>
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-installation-instructions">
+   Advanced installation instructions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-requirements-files">
+     The Requirements Files
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#investigating-automated-test-failures">
+   Investigating automated test failures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-website">
+   Building the website
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="development-process">
+<h1>Development process<a class="headerlink" href="#development-process" title="Permalink to this headline">¶</a></h1>
+<p>Development happens against the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch following the
+<a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub flow model</a>.
+Contributors should use their own forks of the repository. In their fork, they
+create feature branches off of <code class="code docutils literal notranslate"><span class="pre">main</span></code>, and their pull requests should
+target the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch. Maintainers are responsible for prompt
+review of pull requests.</p>
+<p>Pull requests against <code class="code docutils literal notranslate"><span class="pre">main</span></code> trigger automated tests that are run
+through Azure DevOps, GitHub Actions, and CircleCI. Additional test suites are
+run periodically. When adding new code paths or features, tests are a
+requirement to complete a pull request. They should be added in the
+<code class="code docutils literal notranslate"><span class="pre">test</span></code> directory.</p>
+<p>Documentation should be provided with pull requests that add or change
+functionality. This includes comments in the code itself, docstrings, and user
+guides. For exceptions to this rule the pull request author should coordinate
+with a maintainer. For changes that fix bugs, add new features, change APIs,
+etc., i.e., for changes that are relevant to developers and/or users please
+also add an entry in CHANGES.md in the section corresponding to the <em>next</em>
+release, since that’s where your change will be included.
+If you’re a new contributor please also add yourself to AUTHORS.md.</p>
+<p>Docstrings should follow
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc format</a>.
+This is a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues/314">recent decision by the community</a>.
+The new policy is to update docstrings that a PR touches, as opposed to
+changing all the docstrings in one PR.</p>
+<section id="advanced-installation-instructions">
+<h2>Advanced installation instructions<a class="headerlink" href="#advanced-installation-instructions" title="Permalink to this headline">¶</a></h2>
+<p>While working on Fairlearn itself you may want to install it in editable mode.
+This allows you to test the changed functionality. First, clone the repository
+locally via</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">fairlearn</span><span class="o">/</span><span class="n">fairlearn</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>To install in editable mode using <code class="code docutils literal notranslate"><span class="pre">pip</span></code> run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>from the repository root path.</p>
+<p>To verify that the code works as expected run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">install_requirements</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">pinned</span> <span class="kc">False</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">s</span> <span class="o">./</span><span class="n">test</span><span class="o">/</span><span class="n">unit</span>
+</pre></div>
+</div>
+<p>Fairlearn currently includes plotting functionality that requires the
+<code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code> package to be installed. Since this is for a niche use case
+Fairlearn comes without <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code> by default. To install Fairlearn
+with its full feature set simply append <code class="code docutils literal notranslate"><span class="pre">customplots</span></code> to the install
+command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">customplots</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that the Fairlearn dashboard is built using nodejs and requires
+additional steps. To build the Fairlearn dashboard after making changes to it,
+<a class="reference external" href="https://yarnpkg.com/lang/en/docs/install">install Yarn</a>, and then run the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/tree/main/scripts/build_widget.py">widget build script</a>.</p>
+<section id="the-requirements-files">
+<h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Permalink to this headline">¶</a></h3>
+<p>The prerequisites for Fairlearn are split between three separate files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
+contains the prerequisites for the core Fairlearn package</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-customplots.txt">requirements-customplots.txt</a>
+contains additional prerequisites for the <code class="code docutils literal notranslate"><span class="pre">[customplots]</span></code> extension for Fairlearn</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a> contains
+the prerequisites for Fairlearn development (such as flake8 and pytest)</p></li>
+</ul>
+</div></blockquote>
+<p>The <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
+and
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-customplots.txt">requirements-customplots.txt</a>
+files are consumed
+by <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/setup.py">setup.py</a> to specify the dependencies to be
+documented in the wheel files.
+To help simplify installation of the prerequisites, we have the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/scripts/install_requirements.py">install_requirements.py</a>
+script which runs <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> on all three of the above files.
+This script will also optionally pin the requirements to any lower bound specified (by changing any
+occurrences of <code class="code docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="code docutils literal notranslate"><span class="pre">==</span></code> in each file).</p>
+<details id="onboarding-guide">
+<summary>
+<strong>
+<em><p>Onboarding guide for users of version 0.2 or earlier</p>
+</em>
+</strong>
+</summary><p>Up to version 0.2, Fairlearn contained only the exponentiated gradient method.
+The Fairlearn repository now has a more comprehensive scope and aims to
+incorporate other methods. The same exponentiated gradient technique is now
+the class <code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.ExponentiatedGradient</span></code>. While in the past
+exponentiated gradient was invoked via</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">fairlearn.classred</span> <span class="kn">import</span> <span class="n">expgrad</span>
+<span class="kn">from</span> <span class="nn">fairlearn.moments</span> <span class="kn">import</span> <span class="n">DP</span>
+
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  <span class="c1"># or any other estimator</span>
+<span class="n">exponentiated_gradient_result</span> <span class="o">=</span> <span class="n">expgrad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">DP</span><span class="p">())</span>
+<span class="n">positive_probabilities</span> <span class="o">=</span> <span class="n">exponentiated_gradient_result</span><span class="o">.</span><span class="n">best_classifier</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">randomized_predictions</span> <span class="o">=</span> <span class="p">(</span><span class="n">positive_probabilities</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">positive_probabilities</span><span class="p">)))</span> <span class="o">*</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>the equivalent operation is now</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ExponentiatedGradient</span><span class="p">,</span> <span class="n">DemographicParity</span>
+
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  <span class="c1"># or any other estimator</span>
+<span class="n">exponentiated_gradient</span> <span class="o">=</span> <span class="n">ExponentiatedGradient</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">DemographicParity</span><span class="p">())</span>
+<span class="n">exponentiated_gradient</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="n">randomized_predictions</span> <span class="o">=</span> <span class="n">exponentiated_gradient</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please open a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">new issue</a> if
+you encounter any problems.</p>
+</details></section>
+</section>
+<section id="investigating-automated-test-failures">
+<h2>Investigating automated test failures<a class="headerlink" href="#investigating-automated-test-failures" title="Permalink to this headline">¶</a></h2>
+<p>For every pull request to <code class="code docutils literal notranslate"><span class="pre">main</span></code> with automated tests, you can check
+the logs of the tests to find the root cause of failures. Our tests currently
+run through Azure Pipelines with steps for setup, testing, and teardown. The
+<code class="code docutils literal notranslate"><span class="pre">Checks</span></code> tab of a pull request contains a link to the
+<a class="reference external" href="dev.azure.com/responsibleai/fairlearn/_build/results">Azure Pipelines page</a>),
+where you can review the logs by clicking on a specific step in the automated
+test sequence. If you encounter problems with this workflow, please reach out
+through <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">GitHub issues</a>.</p>
+<p>To run the same tests locally, find the corresponding pipeline definition (a
+<code class="code docutils literal notranslate"><span class="pre">yml</span></code> file) in the <code class="code docutils literal notranslate"><span class="pre">devops</span></code> directory. It either directly contains
+the command to execute the tests (usually starting with
+<code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>) or it refers to a template file with the command.</p>
+</section>
+<section id="building-the-website">
+<h2>Building the website<a class="headerlink" href="#building-the-website" title="Permalink to this headline">¶</a></h2>
+<p>The website is built using <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>
+and some of its extensions. Specifically, the website is available for all our
+releases to allow users to check the documentation of the version of the
+package that they are using.</p>
+<p>To be able to build the documentation you need to install all the
+requirements using <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements-dev.txt</span></code>.</p>
+<p>When making changes to the documentation at least run the following command
+to build the website using your changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sphinx</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">j</span> <span class="n">auto</span> <span class="n">docs</span> <span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>or use the shortcut</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">doc</span>
+</pre></div>
+</div>
+<p>This will generate the website in the directory mentioned at the end of the
+command. Navigate to that directory and find the corresponding files where
+you made changes, open them in the browser and verify that your changes
+render properly and links are working as expected.</p>
+<p>To fully build the website for all versions use the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">scripts</span><span class="o">/</span><span class="n">build_documentation</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">documentation</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">docs</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>or the shortcut</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">doc</span><span class="o">-</span><span class="n">multiversion</span>
+</pre></div>
+</div>
+<p>The comprehensive set of commands to build the website is in our CircleCI
+configuration file in the <cite>.circleci</cite> directory of the repository.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.1e043a052b0af929e4d8.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

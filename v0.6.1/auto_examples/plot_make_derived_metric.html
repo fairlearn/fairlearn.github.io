@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Making Derived Metrics &#8212; Fairlearn 0.6.1.dev0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -22,8 +23,8 @@
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -31,7 +32,7 @@
     
   <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -151,6 +152,9 @@
         
       
       
+        <li>v0.6.2: Documentation page not present</li>
+      
+      
         <li>main: Documentation page not present</li>
       
   </ul>
@@ -245,7 +249,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-make-derived-metric-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="making-derived-metrics">
+<section class="sphx-glr-example-title" id="making-derived-metrics">
 <span id="sphx-glr-auto-examples-plot-make-derived-metric-py"></span><h1>Making Derived Metrics<a class="headerlink" href="#making-derived-metrics" title="Permalink to this headline">¶</a></h1>
 <p>This notebook demonstrates the use of the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_derived_metric" title="fairlearn.metrics.make_derived_metric"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.make_derived_metric()</span></code></a>
 function.
@@ -255,7 +259,7 @@ While the <a class="reference internal" href="../api_reference/fairlearn.metrics
 scalars through its aggregation functions, its API does not conform to that usually
 expected by these algorithms.
 The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.make_derived_metric" title="fairlearn.metrics.make_derived_metric"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_derived_metric()</span></code></a> function exists to bridge this gap.</p>
-<div class="section" id="getting-the-data">
+<section id="getting-the-data">
 <h2>Getting the Data<a class="headerlink" href="#getting-the-data" title="Permalink to this headline">¶</a></h2>
 <p><em>This section may be skipped. It simply creates a dataset for
 illustrative purposes</em></p>
@@ -360,8 +364,8 @@ from the test data.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">unmitigated_predictor</span></a><span class="o">.</span><span class="n">predict</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="creating-a-derived-metric">
+</section>
+<section id="creating-a-derived-metric">
 <h2>Creating a derived metric<a class="headerlink" href="#creating-a-derived-metric" title="Permalink to this headline">¶</a></h2>
 <p>Suppose our key metric is the accuracy score, and we are most interested in
 ensuring that it exceeds some threshold for all subgroups
@@ -439,8 +443,8 @@ argument, since we are taking the minimum value.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8086132293432836
-From function   : 0.8086132293432836
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8096080490577758
+From function   : 0.8096080490577758
 </pre></div>
 </div>
 <p>The returned function can also handle parameters which are not sample
@@ -464,7 +468,7 @@ First we evaluate this with a <a class="reference internal" href="../api_referen
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.02292353194046548
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.0243630646220816
 </pre></div>
 </div>
 <p>And next, we create a function to evaluate the same. Note that
@@ -485,11 +489,11 @@ we do not need to use <a class="reference external" href="https://docs.python.or
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.02292353194046548
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.0243630646220816
 </pre></div>
 </div>
-</div>
-<div class="section" id="pregenerated-metrics">
+</section>
+<section id="pregenerated-metrics">
 <h2>Pregenerated Metrics<a class="headerlink" href="#pregenerated-metrics" title="Permalink to this headline">¶</a></h2>
 <p>We provide a number of pregenerated metrics, to cover
 common use cases. For example, we provide a
@@ -511,7 +515,7 @@ find the minimum over the accuracy scores:</p>
 From pregenerated: 0.8114035087719298
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.483 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.597 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-make-derived-metric-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/4aab6a1d20b03cacad12f86d13173237/plot_make_derived_metric.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_make_derived_metric.py</span></code></a></p>
@@ -521,8 +525,8 @@ From pregenerated: 0.8114035087719298
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
@@ -542,7 +546,7 @@ From pregenerated: 0.8114035087719298
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>

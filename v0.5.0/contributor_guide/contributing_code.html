@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Contributing code &#8212; Fairlearn 0.5.0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
@@ -22,8 +23,8 @@
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
@@ -31,7 +32,7 @@
     
   <link rel="preload" as="script" href="../_static/js/index.1e043a052b0af929e4d8.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -156,6 +157,11 @@
       
       
         
+          <li><a href="../../v0.6.2/contributor_guide/contributing_code.html">v0.6.2</a></li>
+        
+      
+      
+        
           <li><a href="../../main/contributor_guide/contributing_code.html">main</a></li>
         
       
@@ -260,21 +266,21 @@
               
               <div>
                 
-  <div class="section" id="contributing-code">
+  <section id="contributing-code">
 <h1>Contributing code<a class="headerlink" href="#contributing-code" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="api-conventions">
+<section id="api-conventions">
 <h2>API conventions<a class="headerlink" href="#api-conventions" title="Permalink to this headline">¶</a></h2>
 <p>This section relies on the definitions from our <a class="reference internal" href="../user_guide/fairness_in_machine_learning.html#terminology"><span class="std std-ref">Fairness in Machine Learning</span></a> guide,
 including the definitions of “estimator”, “reduction”, “sensitive features”,
 “moment”, and “parity”.</p>
-<div class="section" id="unfairness-mitigation-algorithms">
+<section id="unfairness-mitigation-algorithms">
 <h3>Unfairness mitigation algorithms<a class="headerlink" href="#unfairness-mitigation-algorithms" title="Permalink to this headline">¶</a></h3>
 <p>Unfairness mitigation algorithms take form of scikit-learn-style estimators.
 Any algorithm-specific parameters are passed to the constructor. The resulting
 instance of the algorithm should support methods <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
 <code class="code docutils literal notranslate"><span class="pre">predict</span></code> with APIs resembling those of scikit-learn as much as
 possible. Any deviations are noted below.</p>
-<div class="section" id="reductions">
+<section id="reductions">
 <h4>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h4>
 <p>Reduction constructors require a parameter corresponding to an estimator that
 implements the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method with the <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.
@@ -298,8 +304,8 @@ signatures:</p>
 <code class="code docutils literal notranslate"><span class="pre">fit</span></code> as a keyword argument <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>. In the future,
 it will also be possible to provide sensitive features as columns of
 <code class="code docutils literal notranslate"><span class="pre">X</span></code>.</p>
-</div>
-<div class="section" id="postprocessing-algorithms">
+</section>
+<section id="postprocessing-algorithms">
 <h4>Postprocessing algorithms<a class="headerlink" href="#postprocessing-algorithms" title="Permalink to this headline">¶</a></h4>
 <p>The constructors of postprocessing algorithms require either an already
 trained predictor or an estimator (which is trained on the data when executing
@@ -317,10 +323,10 @@ optional if the sensitive features are already provided through <code class="cod
 <span class="n">postprocessor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
               </div>
@@ -340,7 +346,7 @@ optional if the sensitive features are already provided through <code class="cod
   <div class="container">
     <p>
           &copy; Copyright 2019, Microsoft Corporation and contributors..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>
