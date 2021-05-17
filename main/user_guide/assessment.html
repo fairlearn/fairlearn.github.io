@@ -249,24 +249,17 @@
      2.1.4. Control features for grouped metrics
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-grouped-metrics">
+     2.1.5. Plotting grouped metrics
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#fairlearn-dashboard">
    2.2. Fairlearn dashboard
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setup-and-a-single-model-assessment">
-     2.2.1. Setup and a single-model assessment
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#comparing-multiple-models">
-     2.2.2. Comparing multiple models
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -392,10 +385,10 @@ metrics simultaneously:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">                    precision recall</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a                         0.0   0.0</span>
-<span class="go">b                         1.0   0.5</span>
+<span class="go">a                         0.0    0.0</span>
+<span class="go">b                         1.0    0.5</span>
 <span class="go">c                         0.6   0.75</span>
-<span class="go">d                         0.0   0.0</span>
+<span class="go">d                         0.0    0.0</span>
 </pre></div>
 </div>
 <p>If there are per-sample arguments (such as sample weights), these can also be provided
@@ -417,7 +410,7 @@ in a dictionary via the <code class="docutils literal notranslate"><span class="
 <span class="go">Name: recall_score, dtype: object</span>
 </pre></div>
 </div>
-<p>If mutiple metrics are being evaluated, then <code class="docutils literal notranslate"><span class="pre">sample_params</span></code> becomes a dictionary of
+<p>If multiple metrics are being evaluated, then <code class="docutils literal notranslate"><span class="pre">sample_params</span></code> becomes a dictionary of
 dictionaries, with the first key corresponding matching that in the dictionary holding
 the desired underlying metric functions.</p>
 <p>We do not support non-sample parameters at the current time. If these are required, then
@@ -720,10 +713,33 @@ For more examples, please
 see the <a class="reference internal" href="../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a> notebook in the
 <a class="reference internal" href="../auto_examples/index.html#examples"><span class="std std-ref">Example Notebooks</span></a>.</p>
 </section>
+<section id="plotting-grouped-metrics">
+<span id="plot"></span><h3><span class="section-number">2.1.5. </span>Plotting grouped metrics<a class="headerlink" href="#plotting-grouped-metrics" title="Permalink to this headline">¶</a></h3>
+<p>The simplest way to visualize grouped metrics from the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> is
+to take advantage of the inherent plotting capabilities of
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
+    <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">,</span>
+    <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
+    <span class="s1">&#39;false positive rate&#39;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
+    <span class="s1">&#39;true positive rate&#39;</span><span class="p">:</span> <span class="n">true_positive_rate</span><span class="p">,</span>
+    <span class="s1">&#39;selection rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
+    <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">:</span> <span class="n">y_true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+<span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Show all metrics&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="auto_examples/plot_quickstart.html"><img alt="../_images/sphx_glr_plot_quickstart_001.png" src="../_images/sphx_glr_plot_quickstart_001.png" /></a>
+</figure>
+</section>
 </section>
 <section id="fairlearn-dashboard">
 <span id="dashboard"></span><h2><span class="section-number">2.2. </span>Fairlearn dashboard<a class="headerlink" href="#fairlearn-dashboard" title="Permalink to this headline">¶</a></h2>
-<p>The Fairlearn dashboard is a Jupyter notebook widget for assessing how a
+<p>The Fairlearn dashboard was a Jupyter notebook widget for assessing how a
 model’s predictions impact different groups (e.g., different ethnicities), and
 also for comparing multiple models along different fairness and performance
 metrics.</p>
@@ -731,89 +747,11 @@ metrics.</p>
 <p class="admonition-title">Note</p>
 <p>The <code class="code docutils literal notranslate"><span class="pre">FairlearnDashboard</span></code> is no longer being developed as
 part of Fairlearn.
-The widget itself has been moved to
-<a class="reference external" href="https://pypi.org/project/raiwidgets/">the raiwidgets package</a>.
-Fairlearn will provide some of the existing functionality
-through <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>-based visualizations.</p>
+For more information on how to use it refer to
+<a class="reference external" href="https://github.com/microsoft/responsible-ai-widgets">https://github.com/microsoft/responsible-ai-widgets</a>.
+Fairlearn provides some of the existing functionality through
+<code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>-based visualizations. Refer to the <a class="reference internal" href="#plot"><span class="std std-ref">Plotting grouped metrics</span></a> section.</p>
 </div>
-<section id="setup-and-a-single-model-assessment">
-<h3><span class="section-number">2.2.1. </span>Setup and a single-model assessment<a class="headerlink" href="#setup-and-a-single-model-assessment" title="Permalink to this headline">¶</a></h3>
-<p>To assess a single model’s fairness and performance, the dashboard widget can
-be launched within a Jupyter notebook as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.widget</span> <span class="kn">import</span> <span class="n">FairlearnDashboard</span>
-
-<span class="c1"># A_test containts your sensitive features (e.g., age, binary gender)</span>
-<span class="c1"># sensitive_feature_names contains your sensitive feature names</span>
-<span class="c1"># y_true contains ground truth labels</span>
-<span class="c1"># y_pred contains prediction labels</span>
-
-<span class="n">FairlearnDashboard</span><span class="p">(</span><span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span>
-                   <span class="n">sensitive_feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;BinaryGender&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">],</span>
-                   <span class="n">y_true</span><span class="o">=</span><span class="n">Y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-                   <span class="n">y_pred</span><span class="o">=</span><span class="p">[</span><span class="n">y_pred</span><span class="o">.</span><span class="n">tolist</span><span class="p">()])</span>
-</pre></div>
-</div>
-<p>After the launch, the widget walks the user through the assessment setup,
-where the user is asked to select</p>
-<ol class="arabic simple">
-<li><p>the sensitive feature of interest (e.g., binary gender or age), and</p></li>
-<li><p>the performance metric (e.g., model precision) along which to evaluate the
-overall model performance as well as any disparities across groups. These
-selections are then used to obtain the visualization of the model’s impact
-on the subgroups (e.g., model precision for females and model precision for
-males).</p></li>
-</ol>
-<p>The following figures illustrate the setup steps, where <em>binary gender</em> is
-selected as a sensitive feature and <em>accuracy rate</em> is selected as the
-performance metric.</p>
-<img alt="../_images/fairlearn-dashboard-start.png" src="../_images/fairlearn-dashboard-start.png" />
-<img alt="../_images/fairlearn-dashboard-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-multiple-sensitive-features.png" />
-<img alt="../_images/fairlearn-dashboard-performance-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-performance-multiple-sensitive-features.png" />
-<p>After the setup, the dashboard presents the model assessment in two panels:</p>
-<table class="colwidths-given table">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 75%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><th class="stub"><p>Disparity in performance</p></th>
-<td><p>This panel shows: (1) the performance of your model with respect to
-your selected performance metric (e.g., <em>accuracy rate</em>) overall as
-well as on different subgroups based on your selected sensitive
-feature (e.g., <em>accuracy rate</em> for females, <em>accuracy rate</em> for
-males); (2) the disparity (difference) in the values of the selected
-performance metric across different subgroups; (3) the distribution of
-errors in each subgroup (e.g., female, male). For binary
-classification, the errors are further split into overprediction
-(predicting 1 when the true label is 0), and underprediction
-(predicting 0 when the true label is 1).</p></td>
-</tr>
-<tr class="row-even"><th class="stub"><p>Disparity in predictions</p></th>
-<td><p>This panel shows a bar chart that contains the selection rate in each
-group, meaning the fraction of data classified as 1 (in binary
-classification) or distribution of prediction values (in regression).</p></td>
-</tr>
-</tbody>
-</table>
-<img alt="../_images/fairlearn-dashboard-disparity-performance-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-disparity-performance-multiple-sensitive-features.png" />
-<img alt="../_images/fairlearn-dashboard-disparity-predictions-multiple-sensitive-features.png" src="../_images/fairlearn-dashboard-disparity-predictions-multiple-sensitive-features.png" />
-</section>
-<section id="comparing-multiple-models">
-<h3><span class="section-number">2.2.2. </span>Comparing multiple models<a class="headerlink" href="#comparing-multiple-models" title="Permalink to this headline">¶</a></h3>
-<p>The dashboard also enables comparison of multiple models, such as the models
-produced by different learning algorithms and different mitigation approaches,
-including <code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.ExponentiatedGradient</span></code>, and
-<code class="code docutils literal notranslate"><span class="pre">fairlearn.postprocessing.ThresholdOptimizer</span></code>.</p>
-<p>As before, the user is first asked to select the sensitive feature and the
-performance metric. The <em>model comparison</em> view then depicts the performance
-and disparity of all the provided models in a scatter plot. This allows the
-user to examine trade-offs between performance and fairness. Each of the dots
-can be clicked to open the assessment of the corresponding model. The figure
-below shows the model comparison view with <em>binary gender</em> selected as a
-sensitive feature and <em>accuracy rate</em> selected as the performance metric.</p>
-<img alt="../_images/fairlearn-dashboard-models.png" src="../_images/fairlearn-dashboard-models.png" />
-</section>
 </section>
 </section>
 
