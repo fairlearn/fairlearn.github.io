@@ -349,39 +349,7 @@ To help simplify installation of the prerequisites, we have the
 script which runs <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> on all three of the above files.
 This script will also optionally pin the requirements to any lower bound specified (by changing any
 occurrences of <code class="code docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="code docutils literal notranslate"><span class="pre">==</span></code> in each file).</p>
-<details id="onboarding-guide">
-<summary>
-<strong>
-<em><p>Onboarding guide for users of version 0.2 or earlier</p>
-</em>
-</strong>
-</summary><p>Up to version 0.2, Fairlearn contained only the exponentiated gradient method.
-The Fairlearn repository now has a more comprehensive scope and aims to
-incorporate other methods. The same exponentiated gradient technique is now
-the class <code class="code docutils literal notranslate"><span class="pre">fairlearn.reductions.ExponentiatedGradient</span></code>. While in the past
-exponentiated gradient was invoked via</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">fairlearn.classred</span> <span class="kn">import</span> <span class="n">expgrad</span>
-<span class="kn">from</span> <span class="nn">fairlearn.moments</span> <span class="kn">import</span> <span class="n">DP</span>
-
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  <span class="c1"># or any other estimator</span>
-<span class="n">exponentiated_gradient_result</span> <span class="o">=</span> <span class="n">expgrad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">DP</span><span class="p">())</span>
-<span class="n">positive_probabilities</span> <span class="o">=</span> <span class="n">exponentiated_gradient_result</span><span class="o">.</span><span class="n">best_classifier</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">randomized_predictions</span> <span class="o">=</span> <span class="p">(</span><span class="n">positive_probabilities</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">positive_probabilities</span><span class="p">)))</span> <span class="o">*</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<p>the equivalent operation is now</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ExponentiatedGradient</span><span class="p">,</span> <span class="n">DemographicParity</span>
-
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  <span class="c1"># or any other estimator</span>
-<span class="n">exponentiated_gradient</span> <span class="o">=</span> <span class="n">ExponentiatedGradient</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">DemographicParity</span><span class="p">())</span>
-<span class="n">exponentiated_gradient</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
-<span class="n">randomized_predictions</span> <span class="o">=</span> <span class="n">exponentiated_gradient</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Please open a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">new issue</a> if
-you encounter any problems.</p>
-</details></section>
+</section>
 </section>
 <section id="investigating-automated-test-failures">
 <h2>Investigating automated test failures<a class="headerlink" href="#investigating-automated-test-failures" title="Permalink to this headline">¶</a></h2>
