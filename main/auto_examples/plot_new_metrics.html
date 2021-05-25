@@ -367,7 +367,7 @@ We start with some uncontroversial <cite>import</cite> statements:</p>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class"><span class="n">Pipeline</span></a>
 
 <span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate</span>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate</span><span class="p">,</span> <span class="n">count</span>
 </pre></div>
 </div>
 <p>Next, we import the data:</p>
@@ -391,7 +391,7 @@ three unique values:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:91: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -434,13 +434,13 @@ illustrative purposes.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   A[&#39;Credit Score&#39;] = col_credit
-/tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
+/tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -660,7 +660,7 @@ class. Let us construct an instance of this class, and then look at
 its capabilities:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fbeta_06</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 
-<span class="n">metric_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;selection_rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span> <span class="s1">&#39;fbeta_06&#39;</span><span class="p">:</span> <span class="n">fbeta_06</span><span class="p">}</span>
+<span class="n">metric_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;selection_rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span> <span class="s1">&#39;fbeta_06&#39;</span><span class="p">:</span> <span class="n">fbeta_06</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">}</span>
 
 <span class="n">grouped_on_sex</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metric_fns</span><span class="p">,</span>
                              <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -694,13 +694,15 @@ same values calculated above:</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.194704
 fbeta_06          0.682783
+count                14653
 dtype: object
 </pre></div>
 </div>
 <p>The other property in the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object
 is <code class="docutils literal notranslate"><span class="pre">by_group</span></code>. This contains the metrics evaluated on each subgroup defined
-by the categories in the <code class="docutils literal notranslate"><span class="pre">sensitive_features=</span></code> argument. In this case, we
-have results for males and females:</p>
+by the categories in the <code class="docutils literal notranslate"><span class="pre">sensitive_features=</span></code> argument. Note that
+<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.count()</span></code></a> can be used to display the number of
+data points in each subgroup. In this case, we have results for males and females:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">by_group</span>
 </pre></div>
 </div>
@@ -725,9 +727,11 @@ have results for males and females:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>sex</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -737,11 +741,13 @@ have results for males and females:</p>
       <th>Female</th>
       <td>0.06883</td>
       <td>0.634014</td>
+      <td>4838</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.25675</td>
       <td>0.689789</td>
+      <td>9815</td>
     </tr>
   </tbody>
 </table>
@@ -787,9 +793,11 @@ column:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>race</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -799,16 +807,19 @@ column:</p>
       <th>Black</th>
       <td>0.068198</td>
       <td>0.592125</td>
+      <td>1437</td>
     </tr>
     <tr>
       <th>Other</th>
       <td>0.16763</td>
       <td>0.693717</td>
+      <td>692</td>
     </tr>
     <tr>
       <th>White</th>
       <td>0.210715</td>
       <td>0.686081</td>
+      <td>12524</td>
     </tr>
   </tbody>
 </table>
@@ -855,8 +866,9 @@ pass these along:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.198845
-fbeta_06          0.688503
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.192313
+fbeta_06          0.681521
+count                14653
 dtype: object
 </pre></div>
 </div>
@@ -885,9 +897,11 @@ dtype: object
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>sex</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -895,13 +909,15 @@ dtype: object
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.069279</td>
-      <td>0.646515</td>
+      <td>0.069128</td>
+      <td>0.642401</td>
+      <td>4838</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.261946</td>
-      <td>0.694423</td>
+      <td>0.252553</td>
+      <td>0.687186</td>
+      <td>9815</td>
     </tr>
   </tbody>
 </table>
@@ -931,6 +947,7 @@ of less than 0.6.” We can evaluate the minimum values easily:</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.068198
 fbeta_06          0.592125
+count                  692
 dtype: object
 </pre></div>
 </div>
@@ -944,6 +961,7 @@ For this, we provide the method <code class="docutils literal notranslate"><span
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.142518
 fbeta_06          0.101591
+count                11832
 dtype: object
 </pre></div>
 </div>
@@ -956,6 +974,7 @@ result is always positive:</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.126507
 fbeta_06          0.090657
+count                13961
 dtype: object
 </pre></div>
 </div>
@@ -968,6 +987,7 @@ We can take the ratios between the minimum and maximum values of each metric:</p
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.323648
 fbeta_06          0.853555
+count             0.055254
 dtype: object
 </pre></div>
 </div>
@@ -980,6 +1000,7 @@ metric. Analogous to the differences, the ratios are always in the range
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.350263
 fbeta_06          0.867223
+count             0.047226
 dtype: float64
 </pre></div>
 </div>
@@ -1030,10 +1051,12 @@ shows the intersections between subgroups:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>race</th>
       <th>sex</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1044,33 +1067,39 @@ shows the intersections between subgroups:</p>
       <th>Female</th>
       <td>0.032258</td>
       <td>0.630316</td>
+      <td>713</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.103591</td>
       <td>0.580624</td>
+      <td>724</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.070866</td>
       <td>0.503704</td>
+      <td>254</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.223744</td>
       <td>0.728972</td>
+      <td>438</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.075433</td>
       <td>0.642076</td>
+      <td>3871</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.271235</td>
       <td>0.692069</td>
+      <td>8653</td>
     </tr>
   </tbody>
 </table>
@@ -1088,6 +1117,7 @@ fact):</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.032258
 fbeta_06          0.503704
+count                  254
 dtype: object
 </pre></div>
 </div>
@@ -1100,6 +1130,7 @@ the <code class="docutils literal notranslate"><span class="pre">by_group</span>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate     0.11893
 fbeta_06          0.690978
+count             0.029354
 dtype: object
 </pre></div>
 </div>
@@ -1156,9 +1187,11 @@ unique value of the control feature:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Credit Score</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1168,16 +1201,19 @@ unique value of the control feature:</p>
       <th>High</th>
       <td>0.03617</td>
       <td>0.664928</td>
+      <td>470</td>
     </tr>
     <tr>
       <th>Low</th>
       <td>0.022924</td>
       <td>0.549994</td>
+      <td>7285</td>
     </tr>
     <tr>
       <th>Medium</th>
       <td>0.386924</td>
       <td>0.695034</td>
+      <td>6898</td>
     </tr>
   </tbody>
 </table>
@@ -1211,11 +1247,13 @@ unique value of the control feature:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Credit Score</th>
       <th>race</th>
       <th>sex</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1227,33 +1265,39 @@ unique value of the control feature:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>54</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.066667</td>
       <td>1.0</td>
+      <td>15</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>21</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>4</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.019608</td>
       <td>0.529595</td>
+      <td>306</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.142857</td>
       <td>0.759305</td>
+      <td>70</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Low</th>
@@ -1261,33 +1305,39 @@ unique value of the control feature:</p>
       <th>Female</th>
       <td>0.00703</td>
       <td>0.626728</td>
+      <td>569</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.020513</td>
       <td>0.563536</td>
+      <td>390</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.012048</td>
       <td>0.519084</td>
+      <td>166</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.037267</td>
       <td>0.693878</td>
+      <td>161</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.015084</td>
       <td>0.525773</td>
+      <td>2917</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.03342</td>
       <td>0.55025</td>
+      <td>3082</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Medium</th>
@@ -1295,33 +1345,39 @@ unique value of the control feature:</p>
       <th>Female</th>
       <td>0.211111</td>
       <td>0.639653</td>
+      <td>90</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.206897</td>
       <td>0.577576</td>
+      <td>319</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.238806</td>
       <td>0.5</td>
+      <td>67</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.336996</td>
       <td>0.732057</td>
+      <td>273</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.373457</td>
       <td>0.680881</td>
+      <td>648</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.406108</td>
       <td>0.700837</td>
+      <td>5501</td>
     </tr>
   </tbody>
 </table>
@@ -1354,9 +1410,11 @@ by the control feature:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Credit Score</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1366,16 +1424,19 @@ by the control feature:</p>
       <th>High</th>
       <td>0.000000</td>
       <td>0.000000</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>Low</th>
       <td>0.007030</td>
       <td>0.519084</td>
+      <td>161.0</td>
     </tr>
     <tr>
       <th>Medium</th>
       <td>0.206897</td>
       <td>0.500000</td>
+      <td>67.0</td>
     </tr>
   </tbody>
 </table>
@@ -1407,9 +1468,11 @@ by the control feature:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Credit Score</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1419,16 +1482,19 @@ by the control feature:</p>
       <th>High</th>
       <td>0.000000</td>
       <td>0.000000</td>
+      <td>0.013072</td>
     </tr>
     <tr>
       <th>Low</th>
       <td>0.188635</td>
       <td>0.748092</td>
+      <td>0.052239</td>
     </tr>
     <tr>
       <th>Medium</th>
       <td>0.509462</td>
       <td>0.683007</td>
+      <td>0.012180</td>
     </tr>
   </tbody>
 </table>
@@ -1495,10 +1561,12 @@ Found 36 subgroups. Evaluation may be slow
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Loan Size</th>
       <th>Credit Score</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1509,32 +1577,38 @@ Found 36 subgroups. Evaluation may be slow
       <th>High</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>23</td>
     </tr>
     <tr>
       <th>Low</th>
       <td>0.004348</td>
       <td>0.60177</td>
+      <td>460</td>
     </tr>
     <tr>
       <th>Medium</th>
       <td>0.071429</td>
       <td>0.388325</td>
+      <td>434</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">Small</th>
       <th>High</th>
       <td>0.038031</td>
       <td>0.664928</td>
+      <td>447</td>
     </tr>
     <tr>
       <th>Low</th>
       <td>0.024176</td>
       <td>0.549299</td>
+      <td>6825</td>
     </tr>
     <tr>
       <th>Medium</th>
       <td>0.408106</td>
       <td>0.700288</td>
+      <td>6464</td>
     </tr>
   </tbody>
 </table>
@@ -1570,12 +1644,14 @@ indicate that there were no samples in the cell:</p>
       <th></th>
       <th>selection_rate</th>
       <th>fbeta_06</th>
+      <th>count</th>
     </tr>
     <tr>
       <th>Loan Size</th>
       <th>Credit Score</th>
       <th>race</th>
       <th>sex</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -1588,20 +1664,24 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>Male</th>
+      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1610,11 +1690,13 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>13</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Low</th>
@@ -1622,33 +1704,39 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>52</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.030303</td>
       <td>1.0</td>
+      <td>33</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>14</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>133</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.004444</td>
       <td>0.557377</td>
+      <td>225</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Medium</th>
@@ -1656,33 +1744,39 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>7</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.026316</td>
       <td>0.295652</td>
+      <td>38</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.111111</td>
       <td>0.0</td>
+      <td>9</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>19</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>28</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.087087</td>
       <td>0.420976</td>
+      <td>333</td>
     </tr>
     <tr>
       <th rowspan="18" valign="top">Small</th>
@@ -1691,33 +1785,39 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>49</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.071429</td>
       <td>1.0</td>
+      <td>14</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>4</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.020478</td>
       <td>0.529595</td>
+      <td>293</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.144928</td>
       <td>0.759305</td>
+      <td>69</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Low</th>
@@ -1725,33 +1825,39 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.007737</td>
       <td>0.626728</td>
+      <td>517</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.019608</td>
       <td>0.518293</td>
+      <td>357</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.01227</td>
       <td>0.519084</td>
+      <td>163</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.040816</td>
       <td>0.715789</td>
+      <td>147</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.015805</td>
       <td>0.527656</td>
+      <td>2784</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.035702</td>
       <td>0.550162</td>
+      <td>2857</td>
     </tr>
     <tr>
       <th rowspan="6" valign="top">Medium</th>
@@ -1759,33 +1865,39 @@ indicate that there were no samples in the cell:</p>
       <th>Female</th>
       <td>0.228916</td>
       <td>0.648094</td>
+      <td>83</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.231317</td>
       <td>0.590371</td>
+      <td>281</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">Other</th>
       <th>Female</th>
       <td>0.258621</td>
       <td>0.524085</td>
+      <td>58</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.362205</td>
       <td>0.740024</td>
+      <td>254</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">White</th>
       <th>Female</th>
       <td>0.390323</td>
       <td>0.682328</td>
+      <td>620</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>0.426664</td>
       <td>0.705861</td>
+      <td>5168</td>
     </tr>
   </tbody>
 </table>
@@ -1852,7 +1964,7 @@ Name: member_counts, dtype: object
 </div>
 <p>Recall that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> indicates that there were no individuals
 in a cell - <code class="docutils literal notranslate"><span class="pre">member_counts()</span></code> will not even have been called.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.012 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.627 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>

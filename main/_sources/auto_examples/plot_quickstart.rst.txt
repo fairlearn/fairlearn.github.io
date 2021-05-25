@@ -56,7 +56,7 @@ MetricFrame visualizations
 
 .. code-block:: default
 
-    from fairlearn.metrics import MetricFrame, false_positive_rate, true_positive_rate, selection_rate
+    from fairlearn.metrics import MetricFrame, false_positive_rate, true_positive_rate, selection_rate, count
     import pandas as pd
     from sklearn.datasets import fetch_openml
     from sklearn.metrics import accuracy_score, precision_score, recall_score
@@ -79,7 +79,7 @@ MetricFrame visualizations
         'false positive rate': false_positive_rate,
         'true positive rate': true_positive_rate,
         'selection rate': selection_rate,
-        'count': lambda y_true, y_pred: y_true.shape[0]}
+        'count': count}
     metric_frame = MetricFrame(metrics, y_true, y_pred, sensitive_features=sex)
     metric_frame.by_group.plot.bar(
         subplots=True, layout=[3, 3], legend=False, figsize=[12, 8],
@@ -88,7 +88,7 @@ MetricFrame visualizations
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.659 seconds)
+   **Total running time of the script:** ( 0 minutes  6.459 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:

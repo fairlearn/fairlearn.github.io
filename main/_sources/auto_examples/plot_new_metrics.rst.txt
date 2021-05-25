@@ -87,7 +87,7 @@ We start with some uncontroversial `import` statements:
     from sklearn.pipeline import Pipeline
 
     from fairlearn.metrics import MetricFrame
-    from fairlearn.metrics import selection_rate
+    from fairlearn.metrics import selection_rate, count
 
 
 
@@ -149,7 +149,7 @@ three unique values:
 
  .. code-block:: none
 
-    /tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:91: SettingWithCopyWarning: 
+    /tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:91: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -211,13 +211,13 @@ illustrative purposes.
 
  .. code-block:: none
 
-    /tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
+    /tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
       A['Credit Score'] = col_credit
-    /tmp/tmpihttizz7/6760754a478a64e0ded111e68df1d3c9e554829b/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
+    /tmp/tmpxv3lihpn/9de97773dc98213e307a7b257414b38d6db2366b/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -525,7 +525,7 @@ its capabilities:
 
     fbeta_06 = functools.partial(skm.fbeta_score, beta=0.6)
 
-    metric_fns = {'selection_rate': selection_rate, 'fbeta_06': fbeta_06}
+    metric_fns = {'selection_rate': selection_rate, 'fbeta_06': fbeta_06, 'count': count}
 
     grouped_on_sex = MetricFrame(metric_fns,
                                  y_test, y_pred,
@@ -583,19 +583,21 @@ same values calculated above:
 
     selection_rate    0.194704
     fbeta_06          0.682783
+    count                14653
     dtype: object
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 270-274
+.. GENERATED FROM PYTHON SOURCE LINES 270-275
 
 The other property in the :class:`fairlearn.metrics.MetricFrame` object
 is ``by_group``. This contains the metrics evaluated on each subgroup defined
-by the categories in the ``sensitive_features=`` argument. In this case, we
-have results for males and females:
+by the categories in the ``sensitive_features=`` argument. Note that
+:func:`fairlearn.metrics.count` can be used to display the number of
+data points in each subgroup. In this case, we have results for males and females:
 
-.. GENERATED FROM PYTHON SOURCE LINES 274-277
+.. GENERATED FROM PYTHON SOURCE LINES 275-278
 
 .. code-block:: default
 
@@ -630,9 +632,11 @@ have results for males and females:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>sex</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -642,11 +646,13 @@ have results for males and females:
           <th>Female</th>
           <td>0.06883</td>
           <td>0.634014</td>
+          <td>4838</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.25675</td>
           <td>0.689789</td>
+          <td>9815</td>
         </tr>
       </tbody>
     </table>
@@ -655,7 +661,7 @@ have results for males and females:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 278-283
+.. GENERATED FROM PYTHON SOURCE LINES 279-284
 
 We can immediately see a substantial disparity in the selection rate between
 males and females.
@@ -663,7 +669,7 @@ males and females.
 We can also create another :class:`fairlearn.metrics.MetricFrame` object
 using race as the sensitive feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 283-288
+.. GENERATED FROM PYTHON SOURCE LINES 284-289
 
 .. code-block:: default
 
@@ -679,11 +685,11 @@ using race as the sensitive feature:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 289-290
+.. GENERATED FROM PYTHON SOURCE LINES 290-291
 
 The ``overall`` property is unchanged:
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-292
+.. GENERATED FROM PYTHON SOURCE LINES 291-293
 
 .. code-block:: default
 
@@ -696,12 +702,12 @@ The ``overall`` property is unchanged:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 293-295
+.. GENERATED FROM PYTHON SOURCE LINES 294-296
 
 The ``by_group`` property now contains the metrics evaluated based on the 'race'
 column:
 
-.. GENERATED FROM PYTHON SOURCE LINES 295-297
+.. GENERATED FROM PYTHON SOURCE LINES 296-298
 
 .. code-block:: default
 
@@ -735,9 +741,11 @@ column:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>race</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -747,16 +755,19 @@ column:
           <th>Black</th>
           <td>0.068198</td>
           <td>0.592125</td>
+          <td>1437</td>
         </tr>
         <tr>
           <th>Other</th>
           <td>0.16763</td>
           <td>0.693717</td>
+          <td>692</td>
         </tr>
         <tr>
           <th>White</th>
           <td>0.210715</td>
           <td>0.686081</td>
+          <td>12524</td>
         </tr>
       </tbody>
     </table>
@@ -765,12 +776,12 @@ column:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 298-300
+.. GENERATED FROM PYTHON SOURCE LINES 299-301
 
 We see that there is also a significant disparity in selection rates when
 grouping by race.
 
-.. GENERATED FROM PYTHON SOURCE LINES 302-319
+.. GENERATED FROM PYTHON SOURCE LINES 303-320
 
 Sample weights and other arrays
 -------------------------------
@@ -790,7 +801,7 @@ To use these arguments, we pass in a dictionary as the ``sample_params=``
 argument of the constructor. Let us generate some random weights, and
 pass these along:
 
-.. GENERATED FROM PYTHON SOURCE LINES 319-333
+.. GENERATED FROM PYTHON SOURCE LINES 320-334
 
 .. code-block:: default
 
@@ -815,11 +826,11 @@ pass these along:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 334-335
+.. GENERATED FROM PYTHON SOURCE LINES 335-336
 
 We can inspect the overall values, and check they are as expected:
 
-.. GENERATED FROM PYTHON SOURCE LINES 335-341
+.. GENERATED FROM PYTHON SOURCE LINES 336-342
 
 .. code-block:: default
 
@@ -839,18 +850,19 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate    0.198845
-    fbeta_06          0.688503
+    selection_rate    0.192313
+    fbeta_06          0.681521
+    count                14653
     dtype: object
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 342-343
+.. GENERATED FROM PYTHON SOURCE LINES 343-344
 
 We can also see the effect on the metric being evaluated on the subgroups:
 
-.. GENERATED FROM PYTHON SOURCE LINES 343-345
+.. GENERATED FROM PYTHON SOURCE LINES 344-346
 
 .. code-block:: default
 
@@ -884,9 +896,11 @@ We can also see the effect on the metric being evaluated on the subgroups:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>sex</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -894,13 +908,15 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.069279</td>
-          <td>0.646515</td>
+          <td>0.069128</td>
+          <td>0.642401</td>
+          <td>4838</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.261946</td>
-          <td>0.694423</td>
+          <td>0.252553</td>
+          <td>0.687186</td>
+          <td>9815</td>
         </tr>
       </tbody>
     </table>
@@ -909,7 +925,7 @@ We can also see the effect on the metric being evaluated on the subgroups:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 346-363
+.. GENERATED FROM PYTHON SOURCE LINES 347-364
 
 Quantifying Disparities
 =======================
@@ -929,7 +945,7 @@ minimum value seen for a subgroup for each underlying metric (we also provide
 useful if there is a mandate that "no subgroup should have an ``fbeta_score()``
 of less than 0.6." We can evaluate the minimum values easily:
 
-.. GENERATED FROM PYTHON SOURCE LINES 363-365
+.. GENERATED FROM PYTHON SOURCE LINES 364-366
 
 .. code-block:: default
 
@@ -948,18 +964,19 @@ of less than 0.6." We can evaluate the minimum values easily:
 
     selection_rate    0.068198
     fbeta_06          0.592125
+    count                  692
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 366-370
+.. GENERATED FROM PYTHON SOURCE LINES 367-371
 
 As noted above, the selection rates varies greatly by race and by sex.
 This can be quantified in terms of a difference between the subgroup with
 the highest value of the metric, and the subgroup with the lowest value.
 For this, we provide the method ``difference(method='between_groups)``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 370-372
+.. GENERATED FROM PYTHON SOURCE LINES 371-373
 
 .. code-block:: default
 
@@ -978,17 +995,18 @@ For this, we provide the method ``difference(method='between_groups)``:
 
     selection_rate    0.142518
     fbeta_06          0.101591
+    count                11832
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 373-376
+.. GENERATED FROM PYTHON SOURCE LINES 374-377
 
 We can also evaluate the difference relative to the corresponding overall
 value of the metric. In this case we take the absolute value, so that the
 result is always positive:
 
-.. GENERATED FROM PYTHON SOURCE LINES 376-378
+.. GENERATED FROM PYTHON SOURCE LINES 377-379
 
 .. code-block:: default
 
@@ -1007,17 +1025,18 @@ result is always positive:
 
     selection_rate    0.126507
     fbeta_06          0.090657
+    count                13961
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 379-382
+.. GENERATED FROM PYTHON SOURCE LINES 380-383
 
 There are situations where knowing the ratios of the metrics evaluated on
 the subgroups is more useful. For this we have the ``ratio()`` method.
 We can take the ratios between the minimum and maximum values of each metric:
 
-.. GENERATED FROM PYTHON SOURCE LINES 382-384
+.. GENERATED FROM PYTHON SOURCE LINES 383-385
 
 .. code-block:: default
 
@@ -1036,17 +1055,18 @@ We can take the ratios between the minimum and maximum values of each metric:
 
     selection_rate    0.323648
     fbeta_06          0.853555
+    count             0.055254
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 385-388
+.. GENERATED FROM PYTHON SOURCE LINES 386-389
 
 We can also compute the ratios relative to the overall value for each
 metric. Analogous to the differences, the ratios are always in the range
 :math:`[0,1]`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 388-390
+.. GENERATED FROM PYTHON SOURCE LINES 389-391
 
 .. code-block:: default
 
@@ -1065,11 +1085,12 @@ metric. Analogous to the differences, the ratios are always in the range
 
     selection_rate    0.350263
     fbeta_06          0.867223
+    count             0.047226
     dtype: float64
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 391-405
+.. GENERATED FROM PYTHON SOURCE LINES 392-406
 
 Intersections of Features
 =========================
@@ -1086,7 +1107,7 @@ We can examine the intersections of sensitive features by passing
 multiple columns to the :class:`fairlearn.metrics.MetricFrame`
 constructor:
 
-.. GENERATED FROM PYTHON SOURCE LINES 405-410
+.. GENERATED FROM PYTHON SOURCE LINES 406-411
 
 .. code-block:: default
 
@@ -1102,12 +1123,12 @@ constructor:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 411-413
+.. GENERATED FROM PYTHON SOURCE LINES 412-414
 
 The overall values are unchanged, but the ``by_group`` table now
 shows the intersections between subgroups:
 
-.. GENERATED FROM PYTHON SOURCE LINES 413-416
+.. GENERATED FROM PYTHON SOURCE LINES 414-417
 
 .. code-block:: default
 
@@ -1143,10 +1164,12 @@ shows the intersections between subgroups:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>race</th>
           <th>sex</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1157,33 +1180,39 @@ shows the intersections between subgroups:
           <th>Female</th>
           <td>0.032258</td>
           <td>0.630316</td>
+          <td>713</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.103591</td>
           <td>0.580624</td>
+          <td>724</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.070866</td>
           <td>0.503704</td>
+          <td>254</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.223744</td>
           <td>0.728972</td>
+          <td>438</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.075433</td>
           <td>0.642076</td>
+          <td>3871</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.271235</td>
           <td>0.692069</td>
+          <td>8653</td>
         </tr>
       </tbody>
     </table>
@@ -1192,7 +1221,7 @@ shows the intersections between subgroups:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 417-422
+.. GENERATED FROM PYTHON SOURCE LINES 418-423
 
 The aggregations are still performed across all subgroups for each metric,
 so each continues to reduce to a single value. If we look at the
@@ -1200,7 +1229,7 @@ so each continues to reduce to a single value. If we look at the
 ``fbeta_score()`` suggested above (for females with a race of 'Other' in
 fact):
 
-.. GENERATED FROM PYTHON SOURCE LINES 422-424
+.. GENERATED FROM PYTHON SOURCE LINES 423-425
 
 .. code-block:: default
 
@@ -1219,17 +1248,18 @@ fact):
 
     selection_rate    0.032258
     fbeta_06          0.503704
+    count                  254
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 425-428
+.. GENERATED FROM PYTHON SOURCE LINES 426-429
 
 Looking at the ``ratio()`` method, we see that the disparity is worse
 (specifically between white males and black females, if we check in
 the ``by_group`` table):
 
-.. GENERATED FROM PYTHON SOURCE LINES 428-430
+.. GENERATED FROM PYTHON SOURCE LINES 429-431
 
 .. code-block:: default
 
@@ -1248,11 +1278,12 @@ the ``by_group`` table):
 
     selection_rate     0.11893
     fbeta_06          0.690978
+    count             0.029354
     dtype: object
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 431-445
+.. GENERATED FROM PYTHON SOURCE LINES 432-446
 
 Control Features
 ================
@@ -1269,7 +1300,7 @@ we have the concept of *control features*.
 Control features are introduced by the ``control_features=``
 argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
-.. GENERATED FROM PYTHON SOURCE LINES 445-450
+.. GENERATED FROM PYTHON SOURCE LINES 446-451
 
 .. code-block:: default
 
@@ -1296,13 +1327,13 @@ argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 451-454
+.. GENERATED FROM PYTHON SOURCE LINES 452-455
 
 This has an immediate effect on the ``overall`` property. Instead
 of having one value for each metric, we now have a value for each
 unique value of the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 454-456
+.. GENERATED FROM PYTHON SOURCE LINES 455-457
 
 .. code-block:: default
 
@@ -1336,9 +1367,11 @@ unique value of the control feature:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Credit Score</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1348,16 +1381,19 @@ unique value of the control feature:
           <th>High</th>
           <td>0.03617</td>
           <td>0.664928</td>
+          <td>470</td>
         </tr>
         <tr>
           <th>Low</th>
           <td>0.022924</td>
           <td>0.549994</td>
+          <td>7285</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.386924</td>
           <td>0.695034</td>
+          <td>6898</td>
         </tr>
       </tbody>
     </table>
@@ -1366,11 +1402,11 @@ unique value of the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 457-458
+.. GENERATED FROM PYTHON SOURCE LINES 458-459
 
 The ``by_group`` property is similarly expanded:
 
-.. GENERATED FROM PYTHON SOURCE LINES 458-460
+.. GENERATED FROM PYTHON SOURCE LINES 459-461
 
 .. code-block:: default
 
@@ -1406,11 +1442,13 @@ The ``by_group`` property is similarly expanded:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Credit Score</th>
           <th>race</th>
           <th>sex</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1422,33 +1460,39 @@ The ``by_group`` property is similarly expanded:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>54</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.066667</td>
           <td>1.0</td>
+          <td>15</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>21</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>4</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.019608</td>
           <td>0.529595</td>
+          <td>306</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.142857</td>
           <td>0.759305</td>
+          <td>70</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Low</th>
@@ -1456,33 +1500,39 @@ The ``by_group`` property is similarly expanded:
           <th>Female</th>
           <td>0.00703</td>
           <td>0.626728</td>
+          <td>569</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.020513</td>
           <td>0.563536</td>
+          <td>390</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.012048</td>
           <td>0.519084</td>
+          <td>166</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.037267</td>
           <td>0.693878</td>
+          <td>161</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.015084</td>
           <td>0.525773</td>
+          <td>2917</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.03342</td>
           <td>0.55025</td>
+          <td>3082</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Medium</th>
@@ -1490,33 +1540,39 @@ The ``by_group`` property is similarly expanded:
           <th>Female</th>
           <td>0.211111</td>
           <td>0.639653</td>
+          <td>90</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.206897</td>
           <td>0.577576</td>
+          <td>319</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.238806</td>
           <td>0.5</td>
+          <td>67</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.336996</td>
           <td>0.732057</td>
+          <td>273</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.373457</td>
           <td>0.680881</td>
+          <td>648</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.406108</td>
           <td>0.700837</td>
+          <td>5501</td>
         </tr>
       </tbody>
     </table>
@@ -1525,12 +1581,12 @@ The ``by_group`` property is similarly expanded:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 461-463
+.. GENERATED FROM PYTHON SOURCE LINES 462-464
 
 The aggregates are also evaluated once for each group identified
 by the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 463-465
+.. GENERATED FROM PYTHON SOURCE LINES 464-466
 
 .. code-block:: default
 
@@ -1564,9 +1620,11 @@ by the control feature:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Credit Score</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1576,16 +1634,19 @@ by the control feature:
           <th>High</th>
           <td>0.000000</td>
           <td>0.000000</td>
+          <td>4.0</td>
         </tr>
         <tr>
           <th>Low</th>
           <td>0.007030</td>
           <td>0.519084</td>
+          <td>161.0</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.206897</td>
           <td>0.500000</td>
+          <td>67.0</td>
         </tr>
       </tbody>
     </table>
@@ -1594,11 +1655,11 @@ by the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 466-467
+.. GENERATED FROM PYTHON SOURCE LINES 467-468
 
 And:
 
-.. GENERATED FROM PYTHON SOURCE LINES 467-469
+.. GENERATED FROM PYTHON SOURCE LINES 468-470
 
 .. code-block:: default
 
@@ -1632,9 +1693,11 @@ And:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Credit Score</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1644,16 +1707,19 @@ And:
           <th>High</th>
           <td>0.000000</td>
           <td>0.000000</td>
+          <td>0.013072</td>
         </tr>
         <tr>
           <th>Low</th>
           <td>0.188635</td>
           <td>0.748092</td>
+          <td>0.052239</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.509462</td>
           <td>0.683007</td>
+          <td>0.012180</td>
         </tr>
       </tbody>
     </table>
@@ -1662,7 +1728,7 @@ And:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 470-475
+.. GENERATED FROM PYTHON SOURCE LINES 471-476
 
 In our data, we see that we have a dearth of positive results
 for high income non-whites, which significantly affects the
@@ -1670,7 +1736,7 @@ aggregates.
 
 We can continue adding more control features:
 
-.. GENERATED FROM PYTHON SOURCE LINES 475-480
+.. GENERATED FROM PYTHON SOURCE LINES 476-481
 
 .. code-block:: default
 
@@ -1714,11 +1780,11 @@ We can continue adding more control features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 481-482
+.. GENERATED FROM PYTHON SOURCE LINES 482-483
 
 The ``overall`` property now splits into more values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 482-484
+.. GENERATED FROM PYTHON SOURCE LINES 483-485
 
 .. code-block:: default
 
@@ -1753,10 +1819,12 @@ The ``overall`` property now splits into more values:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Loan Size</th>
           <th>Credit Score</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1767,32 +1835,38 @@ The ``overall`` property now splits into more values:
           <th>High</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>23</td>
         </tr>
         <tr>
           <th>Low</th>
           <td>0.004348</td>
           <td>0.60177</td>
+          <td>460</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.071429</td>
           <td>0.388325</td>
+          <td>434</td>
         </tr>
         <tr>
           <th rowspan="3" valign="top">Small</th>
           <th>High</th>
           <td>0.038031</td>
           <td>0.664928</td>
+          <td>447</td>
         </tr>
         <tr>
           <th>Low</th>
           <td>0.024176</td>
           <td>0.549299</td>
+          <td>6825</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.408106</td>
           <td>0.700288</td>
+          <td>6464</td>
         </tr>
       </tbody>
     </table>
@@ -1801,12 +1875,12 @@ The ``overall`` property now splits into more values:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 485-487
+.. GENERATED FROM PYTHON SOURCE LINES 486-488
 
 As does the ``by_groups`` property, where ``NaN`` values
 indicate that there were no samples in the cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 487-489
+.. GENERATED FROM PYTHON SOURCE LINES 488-490
 
 .. code-block:: default
 
@@ -1843,12 +1917,14 @@ indicate that there were no samples in the cell:
           <th></th>
           <th>selection_rate</th>
           <th>fbeta_06</th>
+          <th>count</th>
         </tr>
         <tr>
           <th>Loan Size</th>
           <th>Credit Score</th>
           <th>race</th>
           <th>sex</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -1861,20 +1937,24 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>5</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>1</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>3</td>
         </tr>
         <tr>
           <th>Male</th>
+          <td>NaN</td>
           <td>NaN</td>
           <td>NaN</td>
         </tr>
@@ -1883,11 +1963,13 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>13</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>1</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Low</th>
@@ -1895,33 +1977,39 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>52</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.030303</td>
           <td>1.0</td>
+          <td>33</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>3</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>14</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>133</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.004444</td>
           <td>0.557377</td>
+          <td>225</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Medium</th>
@@ -1929,33 +2017,39 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>7</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.026316</td>
           <td>0.295652</td>
+          <td>38</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.111111</td>
           <td>0.0</td>
+          <td>9</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>19</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>28</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.087087</td>
           <td>0.420976</td>
+          <td>333</td>
         </tr>
         <tr>
           <th rowspan="18" valign="top">Small</th>
@@ -1964,33 +2058,39 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>49</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.071429</td>
           <td>1.0</td>
+          <td>14</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>18</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.0</td>
           <td>0.0</td>
+          <td>4</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.020478</td>
           <td>0.529595</td>
+          <td>293</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.144928</td>
           <td>0.759305</td>
+          <td>69</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Low</th>
@@ -1998,33 +2098,39 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.007737</td>
           <td>0.626728</td>
+          <td>517</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.019608</td>
           <td>0.518293</td>
+          <td>357</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.01227</td>
           <td>0.519084</td>
+          <td>163</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.040816</td>
           <td>0.715789</td>
+          <td>147</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.015805</td>
           <td>0.527656</td>
+          <td>2784</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.035702</td>
           <td>0.550162</td>
+          <td>2857</td>
         </tr>
         <tr>
           <th rowspan="6" valign="top">Medium</th>
@@ -2032,33 +2138,39 @@ indicate that there were no samples in the cell:
           <th>Female</th>
           <td>0.228916</td>
           <td>0.648094</td>
+          <td>83</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.231317</td>
           <td>0.590371</td>
+          <td>281</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
           <td>0.258621</td>
           <td>0.524085</td>
+          <td>58</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.362205</td>
           <td>0.740024</td>
+          <td>254</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.390323</td>
           <td>0.682328</td>
+          <td>620</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.426664</td>
           <td>0.705861</td>
+          <td>5168</td>
         </tr>
       </tbody>
     </table>
@@ -2067,12 +2179,12 @@ indicate that there were no samples in the cell:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 490-492
+.. GENERATED FROM PYTHON SOURCE LINES 491-493
 
 The aggregates behave similarly. By this point, we are having significant issues
 with under-populated intersections. Consider:
 
-.. GENERATED FROM PYTHON SOURCE LINES 492-506
+.. GENERATED FROM PYTHON SOURCE LINES 493-507
 
 .. code-block:: default
 
@@ -2143,7 +2255,7 @@ with under-populated intersections. Consider:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 507-509
+.. GENERATED FROM PYTHON SOURCE LINES 508-510
 
 Recall that ``NaN`` indicates that there were no individuals
 in a cell - ``member_counts()`` will not even have been called.
@@ -2151,7 +2263,7 @@ in a cell - ``member_counts()`` will not even have been called.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.012 seconds)
+   **Total running time of the script:** ( 0 minutes  10.627 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
