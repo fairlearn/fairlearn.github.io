@@ -303,7 +303,7 @@ learning training.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.DemographicParity">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">DemographicParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L249-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.DemographicParity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">DemographicParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L262-L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.DemographicParity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.UtilityParity</span></code></a></p>
 <p>Implementation of demographic parity as a moment.</p>
 <p>A classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies demographic parity if</p>
@@ -317,17 +317,24 @@ Similarly, the <cite>index</cite> property will have twice as many entries
 (corresponding to the Lagrange multipliers for positive and negative constraints)
 as there are unique values for the sensitive feature.
 The <code class="xref py py-meth docutils literal notranslate"><span class="pre">signed_weights()</span></code> method will compute the costs according
-to Example 3 of
-<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>.</p>
+to Example 3 of <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a> <a class="footnote-reference brackets" href="#id2" id="id1">4</a>.</p>
 <p>This <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the Demographic Parity constraint applied within
 each stratum, but not between strata. If the control feature groups
 are <span class="math notranslate nohighlight">\(c \in \mathcal{C}\)</span> then the above equation will become</p>
 <div class="math notranslate nohighlight">
 \[P[h(X) = 1 | A = a, C = c] = P[h(X) = 1 | C = c] \; \forall a, c\]</div>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">4</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.DemographicParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L279-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.DemographicParity.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L298-L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.DemographicParity.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into the object.</p>
 </dd></dl>
 
@@ -340,7 +347,7 @@ are <span class="math notranslate nohighlight">\(c \in \mathcal{C}\)</span> then
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.EqualizedOdds">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">EqualizedOdds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L390-L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">EqualizedOdds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L423-L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.UtilityParity</span></code></a></p>
 <p>Implementation of equalized odds as a moment.</p>
 <p>Adds conditioning on label compared to demographic parity, i.e.</p>
@@ -357,13 +364,21 @@ the number of unique values of the <cite>Y</cite> array, multiplied by two (for
 the Lagrange multipliers for positive and negative constraints).</p>
 <p>With these definitions, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">signed_weights()</span></code> method
 will calculate the costs according to Example 4 of
-<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>.</p>
+<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a> <a class="footnote-reference brackets" href="#id5" id="id4">7</a>.</p>
 <p>This <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id4">7</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.EqualizedOdds.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L421-L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L461-L471"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into the object.</p>
 </dd></dl>
 
@@ -412,7 +427,7 @@ each stratum, but not between strata.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.ErrorRateParity">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">ErrorRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L434-L475"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ErrorRateParity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">ErrorRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L474-L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ErrorRateParity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.UtilityParity</span></code></a></p>
 <p>Implementation of error rate parity as a moment.</p>
 <p>A classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies error rate parity if</p>
@@ -425,14 +440,22 @@ entry, which will be equal to 1.</p>
 <p>The <cite>index</cite> property will have twice as many entries (corresponding to the Lagrange multipliers
 for positive and negative constraints) as there are unique values for the sensitive feature.</p>
 <p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">signed_weights()</span></code> method will compute the costs according to Example 3 of
-<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>.
+<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a> <a class="footnote-reference brackets" href="#id8" id="id7">8</a>.
 However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
 <p>This <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id7">8</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.ErrorRateParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L461-L475"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ErrorRateParity.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L508-L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ErrorRateParity.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into the object.</p>
 </dd></dl>
 
@@ -530,7 +553,7 @@ the result will be a scalar. Otherwise the result will be a vector</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">FalsePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L344-L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">FalsePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L370-L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.UtilityParity</span></code></a></p>
 <p>Implementation of false positive rate parity as a moment.</p>
 <p>Adds conditioning on label <cite>Y=0</cite> compared to demographic parity, i.e.,</p>
@@ -547,14 +570,22 @@ either NaN or <cite>label=0</cite> (so only one unique non-NaN value), multiplie
 two (for the Lagrange multipliers for positive and negative constraints).</p>
 <p>With these definitions, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">signed_weights()</span></code> method will calculate
 the costs for <cite>Y=0</cite> as they are calculated in Example 4 of
-<cite>Agarwal et al. (2018) &lt;https://arxiv.org/abs/1803.02453&gt;</cite>,
-but will use the weights equal to zero for <cite>Y=1</cite>.</p>
+<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>,
+but will use the weights equal to zero for <cite>Y=1</cite> <a class="footnote-reference brackets" href="#id12" id="id11">6</a>.</p>
 <p>This <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id11">6</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L376-L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L409-L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into the object.</p>
 </dd></dl>
 
@@ -567,11 +598,11 @@ each stratum, but not between strata.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">GridSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_rule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_optimization'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L22-L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">GridSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_rule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_optimization'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L22-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v0.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
 <p>Estimator to perform a grid search given a blackbox estimator algorithm.</p>
 <p>The approach used is taken from section 3.4 of
-<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>.</p>
+<a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a> <a class="footnote-reference brackets" href="#id15" id="id14">1</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -604,9 +635,17 @@ the exact set of Lagrange multipliers they desire using this argument.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id14">1</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford,
+and H. Wallach, “A Reductions Approach to Fair Classification,”
+arXiv.org, 16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L98-L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L105-L207"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the grid search.</p>
 <p>This will result in multiple copies of the
 estimator being made, and the <code class="code docutils literal notranslate"><span class="pre">fit(X)</span></code> method
@@ -625,7 +664,7 @@ feature used by the constraints object</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L202-L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L209-L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide a prediction using the best model found by the grid search.</p>
 <p>This dispatches <cite>X</cite> to the <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> method of the
 selected estimator, and hence the return type is dependent on that method.</p>
@@ -638,7 +677,7 @@ selected estimator, and hence the return type is dependent on that method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L214-L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict_proba" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L221-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide the result of <code class="code docutils literal notranslate"><span class="pre">predict_proba</span></code> from the best model found by the grid search.</p>
 <p>The underlying estimator must support <code class="code docutils literal notranslate"><span class="pre">predict_proba(X)</span></code> for this
 to work. The return type is determined by this method.</p>
@@ -729,7 +768,7 @@ imposed on the solution. This is an abstract class for all such objects.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.TruePositiveRateParity">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">TruePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L292-L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateParity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">TruePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L311-L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateParity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.UtilityParity</span></code></a></p>
 <p>Implementation of true positive rate parity as a moment.</p>
 <p>Adds conditioning on label <cite>Y=1</cite> compared to demographic parity, i.e.,</p>
@@ -748,13 +787,21 @@ constraints).</p>
 <p>With these definitions, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">signed_weights()</span></code> method will calculate
 the costs for <cite>Y=1</cite> as they are calculated in Example 4 of
 <cite>Agarwal et al. (2018) &lt;https://arxiv.org/abs/1803.02453&gt;</cite>, but will use
-the weights equal to zero for <cite>Y=0</cite>.</p>
+the weights equal to zero for <cite>Y=0</cite> <a class="footnote-reference brackets" href="#id18" id="id17">5</a>.</p>
 <p>This <a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id17">5</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.TruePositiveRateParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L330-L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateParity.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L356-L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.TruePositiveRateParity.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into the object.</p>
 </dd></dl>
 
@@ -818,7 +865,7 @@ Default 0.0</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.bound">
-<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L191-L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.bound" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L197-L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return bound vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -838,28 +885,35 @@ Default 0.0</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.gamma">
-<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L167-L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.gamma" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L173-L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.gamma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the degree to which constraints are currently violated by the predictor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L109-L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.load_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L109-L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the specified data into this object.</p>
 <p>This adds a column <cite>event</cite> to the <cite>tags</cite> field.</p>
-<p>The <cite>utilities</cite> is a 2-d array which correspond to g(X,A,Y,h(X)) as
-mentioned in the paper
-<cite>Agarwal et al. (2018) &lt;https://arxiv.org/abs/1803.02453&gt;</cite>.
+<p>The <cite>utilities</cite> is a 2-d array which corresponds to g(X,A,Y,h(X)) as
+mentioned in the paper <cite>Agarwal et al. (2018) &lt;https://arxiv.org/abs/1803.02453&gt;</cite> <a class="footnote-reference brackets" href="#id20" id="id19">2</a>.
 The <cite>utilities</cite> defaults to h(X), i.e. [0, 1] for each X_i.
 The first column is G^0 and the second is G^1.
 Assumes binary classification with labels 0/1.</p>
 <div class="math notranslate nohighlight">
 \[utilities = [g(X,A,Y,h(X)=0), g(X,A,Y,h(X)=1)]\]</div>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id19">2</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.project_lambda">
-<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L200-L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.project_lambda" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L206-L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.project_lambda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the projected lambda values.</p>
 <p>i.e., returns lambda which is guaranteed to lead to the same or higher value of the
 Lagrangian compared with lambda_vec for all possible choices of the classifier, h.</p>
@@ -867,16 +921,24 @@ Lagrangian compared with lambda_vec for all possible choices of the classifier, 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.signed_weights">
-<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L217-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.signed_weights" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L223-L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.signed_weights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the signed weights.</p>
 <p>Uses the equations for <span class="math notranslate nohighlight">\(C_i^0\)</span> and <span class="math notranslate nohighlight">\(C_i^1\)</span> as defined
 in Section 3.2 of <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>
 in the ‘best response of the Q-player’ subsection to compute the
 signed weights to be applied to the data by the next call to the underlying
-estimator.</p>
+estimator <a class="footnote-reference brackets" href="#id23" id="id22">3</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>lambda_vec</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.2.4)"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The vector of Lagrange multipliers indexed by <cite>index</cite></p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id22">3</a></span></dt>
+<dd><p>A. Agarwal, A. Beygelzimer, M. Dudík, J. Langford, and
+H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
+16-Jul-2018. [Online]. Available: <a class="reference external" href="https://arxiv.org/abs/1803.02453">https://arxiv.org/abs/1803.02453</a>.</p>
 </dd>
 </dl>
 </dd></dl>
