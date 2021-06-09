@@ -232,13 +232,16 @@ ensuring that it exceeds some threshold for all subgroups
 We might use the :class:`~fairlearn.metrics.MetricFrame` as
 follows:
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-145
+.. GENERATED FROM PYTHON SOURCE LINES 139-148
 
 .. code-block:: default
 
 
     acc_frame = MetricFrame(
-        skm.accuracy_score, y_test, y_pred, sensitive_features=A_test["sex"]
+        metrics=skm.accuracy_score,
+        y_true=y_test,
+        y_pred=y_pred,
+        sensitive_features=A_test["sex"]
     )
     print("Minimum accuracy_score: ", acc_frame.group_min())
 
@@ -257,7 +260,7 @@ follows:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-173
+.. GENERATED FROM PYTHON SOURCE LINES 149-176
 
 We can create a function to perform this in a single call
 using :func:`~fairlearn.metrics.make_derived_metric`.
@@ -287,7 +290,7 @@ base metric, which accepts two extra arguments:
 For the current case, we do not need the :code:`method=`
 argument, since we are taking the minimum value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-178
+.. GENERATED FROM PYTHON SOURCE LINES 176-181
 
 .. code-block:: default
 
@@ -311,20 +314,20 @@ argument, since we are taking the minimum value.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-180
+.. GENERATED FROM PYTHON SOURCE LINES 182-183
 
 To show that the returned function also works with sample weights:
 
-.. GENERATED FROM PYTHON SOURCE LINES 180-201
+.. GENERATED FROM PYTHON SOURCE LINES 183-204
 
 .. code-block:: default
 
     random_weights = np.random.rand(len(y_test))
 
     acc_frame_sw = MetricFrame(
-        skm.accuracy_score,
-        y_test,
-        y_pred,
+        metrics=skm.accuracy_score,
+        y_true=y_test,
+        y_pred=y_pred,
         sensitive_features=A_test["sex"],
         sample_params={"sample_weight": random_weights},
     )
@@ -350,13 +353,13 @@ To show that the returned function also works with sample weights:
 
  .. code-block:: none
 
-    From MetricFrame: 0.8076665767973656
-    From function   : 0.8076665767973656
+    From MetricFrame: 0.8097786198759134
+    From function   : 0.8097786198759134
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-207
+.. GENERATED FROM PYTHON SOURCE LINES 205-210
 
 The returned function can also handle parameters which are not sample
 parameters. Consider :func:`sklearn.metrics.fbeta_score`, which
@@ -364,7 +367,7 @@ has a required :code:`beta=` argument (and suppose that this time
 we are most interested in the maximum difference to the overall value).
 First we evaluate this with a :class:`fairlearn.metrics.MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-222
+.. GENERATED FROM PYTHON SOURCE LINES 210-225
 
 .. code-block:: default
 
@@ -373,9 +376,9 @@ First we evaluate this with a :class:`fairlearn.metrics.MetricFrame`:
     fbeta_03.__name__ = "fbeta_score__beta_0.3"
 
     beta_frame = MetricFrame(
-        fbeta_03,
-        y_test,
-        y_pred,
+        metrics=fbeta_03,
+        y_true=y_test,
+        y_pred=y_pred,
         sensitive_features=A_test["sex"],
         sample_params={"sample_weight": random_weights},
     )
@@ -393,18 +396,18 @@ First we evaluate this with a :class:`fairlearn.metrics.MetricFrame`:
 
  .. code-block:: none
 
-    From frame: 0.039200787862804676
+    From frame: 0.0030611051742274187
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-226
+.. GENERATED FROM PYTHON SOURCE LINES 226-229
 
 And next, we create a function to evaluate the same. Note that
 we do not need to use :func:`functools.partial` to bind the
 :code:`beta=` argument:
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-241
+.. GENERATED FROM PYTHON SOURCE LINES 229-244
 
 .. code-block:: default
 
@@ -433,12 +436,12 @@ we do not need to use :func:`functools.partial` to bind the
 
  .. code-block:: none
 
-    From function: 0.039200787862804676
+    From function: 0.0030611051742274187
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 242-249
+.. GENERATED FROM PYTHON SOURCE LINES 245-252
 
 Pregenerated Metrics
 ====================
@@ -448,7 +451,7 @@ common use cases. For example, we provide a
 :code:`accuracy_score_group_min()` function to
 find the minimum over the accuracy scores:
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-260
+.. GENERATED FROM PYTHON SOURCE LINES 252-263
 
 .. code-block:: default
 
@@ -482,7 +485,7 @@ find the minimum over the accuracy scores:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.490 seconds)
+   **Total running time of the script:** ( 0 minutes  2.248 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_make_derived_metric.py:

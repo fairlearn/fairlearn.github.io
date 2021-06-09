@@ -426,9 +426,9 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
 .. code-block:: default
 
-    metric_frame = MetricFrame(metric={"accuracy": skm.accuracy_score,
-                                       "selection_rate": selection_rate,
-                                       "count": count},
+    metric_frame = MetricFrame(metrics={"accuracy": skm.accuracy_score,
+                                        "selection_rate": selection_rate,
+                                        "count": count},
                                sensitive_features=A_test,
                                y_true=Y_test,
                                y_pred=unmitigated_predictor.predict(X_test))
@@ -604,9 +604,9 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
         key = "dominant_model_{0}".format(i)
         predictions[key] = non_dominated[i].predict(X_test)
 
-        metric_frames[key] = MetricFrame(metric={"accuracy": skm.accuracy_score,
-                                                 "selection_rate": selection_rate,
-                                                 "count": count},
+        metric_frames[key] = MetricFrame(metrics={"accuracy": skm.accuracy_score,
+                                                  "selection_rate": selection_rate,
+                                                  "count": count},
                                          sensitive_features=A_test,
                                          y_true=Y_test,
                                          y_pred=predictions[key])
@@ -657,7 +657,7 @@ between accuracy and disparity given the relevant business constraints.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  4.076 seconds)
+   **Total running time of the script:** ( 4 minutes  28.918 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_grid_search_census.py:

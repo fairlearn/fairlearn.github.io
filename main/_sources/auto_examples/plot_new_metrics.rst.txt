@@ -149,7 +149,7 @@ three unique values:
 
  .. code-block:: none
 
-    /tmp/tmpzj4jefw7/d77c728136e9bfe3df2e43756ba345b7492421ac/examples/plot_new_metrics.py:91: SettingWithCopyWarning: 
+    /tmp/tmprk4a_ctf/1247b081b5cbdf9373595b7e4627c142ae30ae44/examples/plot_new_metrics.py:91: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -211,13 +211,13 @@ illustrative purposes.
 
  .. code-block:: none
 
-    /tmp/tmpzj4jefw7/d77c728136e9bfe3df2e43756ba345b7492421ac/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
+    /tmp/tmprk4a_ctf/1247b081b5cbdf9373595b7e4627c142ae30ae44/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
       A['Credit Score'] = col_credit
-    /tmp/tmpzj4jefw7/d77c728136e9bfe3df2e43756ba345b7492421ac/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
+    /tmp/tmprk4a_ctf/1247b081b5cbdf9373595b7e4627c142ae30ae44/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -518,7 +518,7 @@ these groups. For this purpose, Fairlearn provides the
 class. Let us construct an instance of this class, and then look at
 its capabilities:
 
-.. GENERATED FROM PYTHON SOURCE LINES 233-242
+.. GENERATED FROM PYTHON SOURCE LINES 233-243
 
 .. code-block:: default
 
@@ -527,8 +527,9 @@ its capabilities:
 
     metric_fns = {'selection_rate': selection_rate, 'fbeta_06': fbeta_06, 'count': count}
 
-    grouped_on_sex = MetricFrame(metric_fns,
-                                 y_test, y_pred,
+    grouped_on_sex = MetricFrame(metrics=metric_fns,
+                                 y_true=y_test,
+                                 y_pred=y_pred,
                                  sensitive_features=A_test['sex'])
 
 
@@ -538,7 +539,7 @@ its capabilities:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 243-264
+.. GENERATED FROM PYTHON SOURCE LINES 244-265
 
 The :class:`fairlearn.metrics.MetricFrame` object requires a
 minimum of four arguments:
@@ -562,7 +563,7 @@ object. First, there is the ``overall`` property, which contains
 the metrics evaluated on the entire dataset. We see that this contains the
 same values calculated above:
 
-.. GENERATED FROM PYTHON SOURCE LINES 264-269
+.. GENERATED FROM PYTHON SOURCE LINES 265-270
 
 .. code-block:: default
 
@@ -589,7 +590,7 @@ same values calculated above:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 270-275
+.. GENERATED FROM PYTHON SOURCE LINES 271-276
 
 The other property in the :class:`fairlearn.metrics.MetricFrame` object
 is ``by_group``. This contains the metrics evaluated on each subgroup defined
@@ -597,7 +598,7 @@ by the categories in the ``sensitive_features=`` argument. Note that
 :func:`fairlearn.metrics.count` can be used to display the number of
 data points in each subgroup. In this case, we have results for males and females:
 
-.. GENERATED FROM PYTHON SOURCE LINES 275-278
+.. GENERATED FROM PYTHON SOURCE LINES 276-279
 
 .. code-block:: default
 
@@ -661,7 +662,7 @@ data points in each subgroup. In this case, we have results for males and female
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 279-284
+.. GENERATED FROM PYTHON SOURCE LINES 280-285
 
 We can immediately see a substantial disparity in the selection rate between
 males and females.
@@ -669,13 +670,14 @@ males and females.
 We can also create another :class:`fairlearn.metrics.MetricFrame` object
 using race as the sensitive feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 284-289
+.. GENERATED FROM PYTHON SOURCE LINES 285-291
 
 .. code-block:: default
 
 
-    grouped_on_race = MetricFrame(metric_fns,
-                                  y_test, y_pred,
+    grouped_on_race = MetricFrame(metrics=metric_fns,
+                                  y_true=y_test,
+                                  y_pred=y_pred,
                                   sensitive_features=A_test['race'])
 
 
@@ -685,11 +687,11 @@ using race as the sensitive feature:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-291
+.. GENERATED FROM PYTHON SOURCE LINES 292-293
 
 The ``overall`` property is unchanged:
 
-.. GENERATED FROM PYTHON SOURCE LINES 291-293
+.. GENERATED FROM PYTHON SOURCE LINES 293-295
 
 .. code-block:: default
 
@@ -702,12 +704,12 @@ The ``overall`` property is unchanged:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 294-296
+.. GENERATED FROM PYTHON SOURCE LINES 296-298
 
 The ``by_group`` property now contains the metrics evaluated based on the 'race'
 column:
 
-.. GENERATED FROM PYTHON SOURCE LINES 296-298
+.. GENERATED FROM PYTHON SOURCE LINES 298-300
 
 .. code-block:: default
 
@@ -776,12 +778,12 @@ column:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 299-301
+.. GENERATED FROM PYTHON SOURCE LINES 301-303
 
 We see that there is also a significant disparity in selection rates when
 grouping by race.
 
-.. GENERATED FROM PYTHON SOURCE LINES 303-320
+.. GENERATED FROM PYTHON SOURCE LINES 305-322
 
 Sample weights and other arrays
 -------------------------------
@@ -801,7 +803,7 @@ To use these arguments, we pass in a dictionary as the ``sample_params=``
 argument of the constructor. Let us generate some random weights, and
 pass these along:
 
-.. GENERATED FROM PYTHON SOURCE LINES 320-334
+.. GENERATED FROM PYTHON SOURCE LINES 322-337
 
 .. code-block:: default
 
@@ -814,8 +816,9 @@ pass these along:
     }
 
 
-    grouped_with_weights = MetricFrame(metric_fns,
-                                       y_test, y_pred,
+    grouped_with_weights = MetricFrame(metrics=metric_fns,
+                                       y_true=y_test,
+                                       y_pred=y_pred,
                                        sensitive_features=A_test['sex'],
                                        sample_params=example_sample_params)
 
@@ -826,11 +829,11 @@ pass these along:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 335-336
+.. GENERATED FROM PYTHON SOURCE LINES 338-339
 
 We can inspect the overall values, and check they are as expected:
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-342
+.. GENERATED FROM PYTHON SOURCE LINES 339-345
 
 .. code-block:: default
 
@@ -850,19 +853,19 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate    0.194907
-    fbeta_06          0.686149
+    selection_rate    0.192023
+    fbeta_06          0.678366
     count                14653
     dtype: object
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 343-344
+.. GENERATED FROM PYTHON SOURCE LINES 346-347
 
 We can also see the effect on the metric being evaluated on the subgroups:
 
-.. GENERATED FROM PYTHON SOURCE LINES 344-346
+.. GENERATED FROM PYTHON SOURCE LINES 347-349
 
 .. code-block:: default
 
@@ -908,14 +911,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.069351</td>
-          <td>0.649021</td>
+          <td>0.065502</td>
+          <td>0.629957</td>
           <td>4838</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.256606</td>
-          <td>0.691439</td>
+          <td>0.255191</td>
+          <td>0.685029</td>
           <td>9815</td>
         </tr>
       </tbody>
@@ -925,7 +928,7 @@ We can also see the effect on the metric being evaluated on the subgroups:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 347-364
+.. GENERATED FROM PYTHON SOURCE LINES 350-367
 
 Quantifying Disparities
 =======================
@@ -945,7 +948,7 @@ minimum value seen for a subgroup for each underlying metric (we also provide
 useful if there is a mandate that "no subgroup should have an ``fbeta_score()``
 of less than 0.6." We can evaluate the minimum values easily:
 
-.. GENERATED FROM PYTHON SOURCE LINES 364-366
+.. GENERATED FROM PYTHON SOURCE LINES 367-369
 
 .. code-block:: default
 
@@ -969,14 +972,14 @@ of less than 0.6." We can evaluate the minimum values easily:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 367-371
+.. GENERATED FROM PYTHON SOURCE LINES 370-374
 
 As noted above, the selection rates varies greatly by race and by sex.
 This can be quantified in terms of a difference between the subgroup with
 the highest value of the metric, and the subgroup with the lowest value.
 For this, we provide the method ``difference(method='between_groups)``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 371-373
+.. GENERATED FROM PYTHON SOURCE LINES 374-376
 
 .. code-block:: default
 
@@ -1000,13 +1003,13 @@ For this, we provide the method ``difference(method='between_groups)``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 374-377
+.. GENERATED FROM PYTHON SOURCE LINES 377-380
 
 We can also evaluate the difference relative to the corresponding overall
 value of the metric. In this case we take the absolute value, so that the
 result is always positive:
 
-.. GENERATED FROM PYTHON SOURCE LINES 377-379
+.. GENERATED FROM PYTHON SOURCE LINES 380-382
 
 .. code-block:: default
 
@@ -1030,13 +1033,13 @@ result is always positive:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 380-383
+.. GENERATED FROM PYTHON SOURCE LINES 383-386
 
 There are situations where knowing the ratios of the metrics evaluated on
 the subgroups is more useful. For this we have the ``ratio()`` method.
 We can take the ratios between the minimum and maximum values of each metric:
 
-.. GENERATED FROM PYTHON SOURCE LINES 383-385
+.. GENERATED FROM PYTHON SOURCE LINES 386-388
 
 .. code-block:: default
 
@@ -1060,13 +1063,13 @@ We can take the ratios between the minimum and maximum values of each metric:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 386-389
+.. GENERATED FROM PYTHON SOURCE LINES 389-392
 
 We can also compute the ratios relative to the overall value for each
 metric. Analogous to the differences, the ratios are always in the range
 :math:`[0,1]`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 389-391
+.. GENERATED FROM PYTHON SOURCE LINES 392-394
 
 .. code-block:: default
 
@@ -1090,7 +1093,7 @@ metric. Analogous to the differences, the ratios are always in the range
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 392-406
+.. GENERATED FROM PYTHON SOURCE LINES 395-409
 
 Intersections of Features
 =========================
@@ -1107,13 +1110,14 @@ We can examine the intersections of sensitive features by passing
 multiple columns to the :class:`fairlearn.metrics.MetricFrame`
 constructor:
 
-.. GENERATED FROM PYTHON SOURCE LINES 406-411
+.. GENERATED FROM PYTHON SOURCE LINES 409-415
 
 .. code-block:: default
 
 
-    grouped_on_race_and_sex = MetricFrame(metric_fns,
-                                          y_test, y_pred,
+    grouped_on_race_and_sex = MetricFrame(metrics=metric_fns,
+                                          y_true=y_test,
+                                          y_pred=y_pred,
                                           sensitive_features=A_test[['race', 'sex']])
 
 
@@ -1123,12 +1127,12 @@ constructor:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 412-414
+.. GENERATED FROM PYTHON SOURCE LINES 416-418
 
 The overall values are unchanged, but the ``by_group`` table now
 shows the intersections between subgroups:
 
-.. GENERATED FROM PYTHON SOURCE LINES 414-417
+.. GENERATED FROM PYTHON SOURCE LINES 418-421
 
 .. code-block:: default
 
@@ -1221,7 +1225,7 @@ shows the intersections between subgroups:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 418-423
+.. GENERATED FROM PYTHON SOURCE LINES 422-427
 
 The aggregations are still performed across all subgroups for each metric,
 so each continues to reduce to a single value. If we look at the
@@ -1229,7 +1233,7 @@ so each continues to reduce to a single value. If we look at the
 ``fbeta_score()`` suggested above (for females with a race of 'Other' in
 fact):
 
-.. GENERATED FROM PYTHON SOURCE LINES 423-425
+.. GENERATED FROM PYTHON SOURCE LINES 427-429
 
 .. code-block:: default
 
@@ -1253,13 +1257,13 @@ fact):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 426-429
+.. GENERATED FROM PYTHON SOURCE LINES 430-433
 
 Looking at the ``ratio()`` method, we see that the disparity is worse
 (specifically between white males and black females, if we check in
 the ``by_group`` table):
 
-.. GENERATED FROM PYTHON SOURCE LINES 429-431
+.. GENERATED FROM PYTHON SOURCE LINES 433-435
 
 .. code-block:: default
 
@@ -1283,7 +1287,7 @@ the ``by_group`` table):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 432-446
+.. GENERATED FROM PYTHON SOURCE LINES 436-450
 
 Control Features
 ================
@@ -1300,12 +1304,13 @@ we have the concept of *control features*.
 Control features are introduced by the ``control_features=``
 argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
-.. GENERATED FROM PYTHON SOURCE LINES 446-451
+.. GENERATED FROM PYTHON SOURCE LINES 450-456
 
 .. code-block:: default
 
-    cond_credit_score = MetricFrame(metric_fns,
-                                    y_test, y_pred,
+    cond_credit_score = MetricFrame(metrics=metric_fns,
+                                    y_true=y_test,
+                                    y_pred=y_pred,
                                     sensitive_features=A_test[['race', 'sex']],
                                     control_features=A_test['Credit Score'])
 
@@ -1327,13 +1332,13 @@ argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 452-455
+.. GENERATED FROM PYTHON SOURCE LINES 457-460
 
 This has an immediate effect on the ``overall`` property. Instead
 of having one value for each metric, we now have a value for each
 unique value of the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 455-457
+.. GENERATED FROM PYTHON SOURCE LINES 460-462
 
 .. code-block:: default
 
@@ -1402,11 +1407,11 @@ unique value of the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 458-459
+.. GENERATED FROM PYTHON SOURCE LINES 463-464
 
 The ``by_group`` property is similarly expanded:
 
-.. GENERATED FROM PYTHON SOURCE LINES 459-461
+.. GENERATED FROM PYTHON SOURCE LINES 464-466
 
 .. code-block:: default
 
@@ -1581,12 +1586,12 @@ The ``by_group`` property is similarly expanded:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 462-464
+.. GENERATED FROM PYTHON SOURCE LINES 467-469
 
 The aggregates are also evaluated once for each group identified
 by the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 464-466
+.. GENERATED FROM PYTHON SOURCE LINES 469-471
 
 .. code-block:: default
 
@@ -1655,11 +1660,11 @@ by the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 467-468
+.. GENERATED FROM PYTHON SOURCE LINES 472-473
 
 And:
 
-.. GENERATED FROM PYTHON SOURCE LINES 468-470
+.. GENERATED FROM PYTHON SOURCE LINES 473-475
 
 .. code-block:: default
 
@@ -1728,7 +1733,7 @@ And:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 471-476
+.. GENERATED FROM PYTHON SOURCE LINES 476-481
 
 In our data, we see that we have a dearth of positive results
 for high income non-whites, which significantly affects the
@@ -1736,12 +1741,13 @@ aggregates.
 
 We can continue adding more control features:
 
-.. GENERATED FROM PYTHON SOURCE LINES 476-481
+.. GENERATED FROM PYTHON SOURCE LINES 481-487
 
 .. code-block:: default
 
-    cond_both = MetricFrame(metric_fns,
-                            y_test, y_pred,
+    cond_both = MetricFrame(metrics=metric_fns,
+                            y_true=y_test,
+                            y_pred=y_pred,
                             sensitive_features=A_test[['race', 'sex']],
                             control_features=A_test[['Loan Size', 'Credit Score']])
 
@@ -1780,11 +1786,11 @@ We can continue adding more control features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 482-483
+.. GENERATED FROM PYTHON SOURCE LINES 488-489
 
 The ``overall`` property now splits into more values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 483-485
+.. GENERATED FROM PYTHON SOURCE LINES 489-491
 
 .. code-block:: default
 
@@ -1875,12 +1881,12 @@ The ``overall`` property now splits into more values:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 486-488
+.. GENERATED FROM PYTHON SOURCE LINES 492-494
 
 As does the ``by_groups`` property, where ``NaN`` values
 indicate that there were no samples in the cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 488-490
+.. GENERATED FROM PYTHON SOURCE LINES 494-496
 
 .. code-block:: default
 
@@ -2179,12 +2185,12 @@ indicate that there were no samples in the cell:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 491-493
+.. GENERATED FROM PYTHON SOURCE LINES 497-499
 
 The aggregates behave similarly. By this point, we are having significant issues
 with under-populated intersections. Consider:
 
-.. GENERATED FROM PYTHON SOURCE LINES 493-507
+.. GENERATED FROM PYTHON SOURCE LINES 499-514
 
 .. code-block:: default
 
@@ -2195,8 +2201,9 @@ with under-populated intersections. Consider:
         return len(y_true)
 
 
-    counts = MetricFrame(member_counts,
-                         y_test, y_pred,
+    counts = MetricFrame(metrics=member_counts,
+                         y_true=y_test,
+                         y_pred=y_pred,
                          sensitive_features=A_test[['race', 'sex']],
                          control_features=A_test[['Loan Size', 'Credit Score']])
 
@@ -2255,7 +2262,7 @@ with under-populated intersections. Consider:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 508-510
+.. GENERATED FROM PYTHON SOURCE LINES 515-517
 
 Recall that ``NaN`` indicates that there were no individuals
 in a cell - ``member_counts()`` will not even have been called.
@@ -2263,7 +2270,7 @@ in a cell - ``member_counts()`` will not even have been called.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.620 seconds)
+   **Total running time of the script:** ( 0 minutes  10.646 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
