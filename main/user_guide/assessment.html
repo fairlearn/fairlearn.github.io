@@ -302,6 +302,38 @@
     <a class="reference internal nav-link" href="#plotting-grouped-metrics">
      2.1.5. Plotting grouped metrics
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#customize-plots-ylim">
+       2.1.5.1. Customize Plots:
+       <code class="code docutils literal notranslate">
+        <span class="pre">
+         ylim
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#customize-plots-colormap">
+       2.1.5.2. Customize Plots:
+       <code class="code docutils literal notranslate">
+        <span class="pre">
+         colormap
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#customize-plots-kind">
+       2.1.5.3. Customize Plots:
+       <code class="code docutils literal notranslate">
+        <span class="pre">
+         kind
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -794,12 +826,78 @@ to take advantage of the inherent plotting capabilities of
                            <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
                            <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
 <span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
-    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Show all metrics&#39;</span><span class="p">)</span>
+    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
 </pre></div>
 </div>
 <div class="figure align-center">
 <a class="reference external image-reference" href="auto_examples/plot_quickstart.html"><img alt="../_images/sphx_glr_plot_quickstart_001.png" src="../_images/sphx_glr_plot_quickstart_001.png" /></a>
+</div>
+<p>It is possible to customize the plots. Here are some common examples.</p>
+<div class="section" id="customize-plots-ylim">
+<h4><span class="section-number">2.1.5.1. </span>Customize Plots: <code class="code docutils literal notranslate"><span class="pre">ylim</span></code><a class="headerlink" href="#customize-plots-ylim" title="Permalink to this headline">¶</a></h4>
+<p>The y-axis range is automatically set, which can be misleading, therefore it is
+sometimes useful to set the <cite>ylim</cite> argument to define the yaxis range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics with assigned y-axis range&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="../_images/sphx_glr_plot_quickstart_002.png" src="../_images/sphx_glr_plot_quickstart_002.png" />
+</div>
+</div>
+<div class="section" id="customize-plots-colormap">
+<h4><span class="section-number">2.1.5.2. </span>Customize Plots: <code class="code docutils literal notranslate"><span class="pre">colormap</span></code><a class="headerlink" href="#customize-plots-colormap" title="Permalink to this headline">¶</a></h4>
+<p>To change the color scheme, we can use the <cite>colormap</cite> argument. A list of colorschemes
+can be found <a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">here</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;Accent&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics in Accent colormap&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="../_images/sphx_glr_plot_quickstart_003.png" src="../_images/sphx_glr_plot_quickstart_003.png" />
+</div>
+</div>
+<div class="section" id="customize-plots-kind">
+<h4><span class="section-number">2.1.5.3. </span>Customize Plots: <code class="code docutils literal notranslate"><span class="pre">kind</span></code><a class="headerlink" href="#customize-plots-kind" title="Permalink to this headline">¶</a></h4>
+<p>There are different types of charts (e.g. pie, bar, line) which can be defined by the <cite>kind</cite>
+argument. Here is an example of a pie chart.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;pie&quot;</span><span class="p">,</span>
+    <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics in pie&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="../_images/sphx_glr_plot_quickstart_004.png" src="../_images/sphx_glr_plot_quickstart_004.png" />
+</div>
+<p>There are many other customizations that can be done. More information can be found in
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.2.4)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
 </div>
 </div>
 </div>

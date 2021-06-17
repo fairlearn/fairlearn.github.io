@@ -22,13 +22,36 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-42
+.. GENERATED FROM PYTHON SOURCE LINES 11-84
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_quickstart_001.png
-    :alt: Show all metrics, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
-    :class: sphx-glr-single-img
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_quickstart_001.png
+          :alt: Show all metrics, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_quickstart_002.png
+          :alt: Show all metrics with assigned y-axis range, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_quickstart_003.png
+          :alt: Show all metrics in Accent colormap, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_quickstart_004.png
+          :alt: Show all metrics in pie
+          :class: sphx-glr-multi-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -37,15 +60,15 @@ MetricFrame visualizations
 
  .. code-block:: none
 
+    /usr/local/lib/python3.7/site-packages/pandas/plotting/_matplotlib/core.py:1583: MatplotlibDeprecationWarning: normalize=None does not normalize if the sum is less than 1 but this behavior is deprecated since 3.3 until two minor releases later. After the deprecation period the default value will be normalize=True. To prevent normalization pass normalize=False 
+      results = ax.pie(y, labels=blabels, **kwds)
 
-    array([[<AxesSubplot:title={'center':'accuracy'}, xlabel='sex'>,
-            <AxesSubplot:title={'center':'precision'}, xlabel='sex'>,
-            <AxesSubplot:title={'center':'recall'}, xlabel='sex'>],
-           [<AxesSubplot:title={'center':'false positive rate'}, xlabel='sex'>,
-            <AxesSubplot:title={'center':'true positive rate'}, xlabel='sex'>,
-            <AxesSubplot:title={'center':'selection rate'}, xlabel='sex'>],
-           [<AxesSubplot:title={'center':'count'}, xlabel='sex'>,
-            <AxesSubplot:xlabel='sex'>, <AxesSubplot:xlabel='sex'>]],
+    array([[<AxesSubplot:ylabel='accuracy'>,
+            <AxesSubplot:ylabel='precision'>, <AxesSubplot:ylabel='recall'>],
+           [<AxesSubplot:ylabel='false positive rate'>,
+            <AxesSubplot:ylabel='true positive rate'>,
+            <AxesSubplot:ylabel='selection rate'>],
+           [<AxesSubplot:ylabel='count'>, <AxesSubplot:>, <AxesSubplot:>]],
           dtype=object)
 
 
@@ -56,7 +79,13 @@ MetricFrame visualizations
 
 .. code-block:: default
 
-    from fairlearn.metrics import MetricFrame, false_positive_rate, true_positive_rate, selection_rate, count
+    from fairlearn.metrics import (
+        MetricFrame,
+        false_positive_rate,
+        true_positive_rate,
+        selection_rate,
+        count
+    )
     import pandas as pd
     from sklearn.datasets import fetch_openml
     from sklearn.metrics import accuracy_score, precision_score, recall_score
@@ -64,8 +93,8 @@ MetricFrame visualizations
 
     data = fetch_openml(data_id=1590, as_frame=True)
     X = pd.get_dummies(data.data)
-    y_true = (data.target == '>50K') * 1
-    sex = data.data['sex']
+    y_true = (data.target == ">50K") * 1
+    sex = data.data["sex"]
 
     classifier = DecisionTreeClassifier(min_samples_leaf=10, max_depth=4)
     classifier.fit(X, y_true)
@@ -85,13 +114,49 @@ MetricFrame visualizations
                                y_pred=y_pred,
                                sensitive_features=sex)
     metric_frame.by_group.plot.bar(
-        subplots=True, layout=[3, 3], legend=False, figsize=[12, 8],
-        title='Show all metrics')
+        subplots=True,
+        layout=[3, 3],
+        legend=False,
+        figsize=[12, 8],
+        title="Show all metrics",
+    )
+
+    # Customize plots with ylim
+    metric_frame.by_group.plot(
+        kind="bar",
+        ylim=[0, 1],
+        subplots=True,
+        layout=[3, 3],
+        legend=False,
+        figsize=[12, 8],
+        title="Show all metrics with assigned y-axis range",
+    )
+
+    # Customize plots with colormap
+    metric_frame.by_group.plot(
+        kind="bar",
+        subplots=True,
+        layout=[3, 3],
+        legend=False,
+        figsize=[12, 8],
+        colormap="Accent",
+        title="Show all metrics in Accent colormap",
+    )
+
+    # Customize plots with kind
+    metric_frame.by_group.plot(
+        kind="pie",
+        subplots=True,
+        layout=[3, 3],
+        legend=False,
+        figsize=[12, 8],
+        title="Show all metrics in pie",
+    )
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.979 seconds)
+   **Total running time of the script:** ( 0 minutes  7.239 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:
