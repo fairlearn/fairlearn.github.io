@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fairlearn.metrics package &#8212; Fairlearn 0.7.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fairlearn.postprocessing package" href="fairlearn.postprocessing.html" />
+    <link rel="prev" title="fairlearn.datasets package" href="fairlearn.datasets.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="https://fairlearn.org">
+  <img src="../_static/_static/images/fairlearn_full_color.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow">
+            <span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord">
+            <span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        
+          <li><a href="../../v0.4.6/api_reference/fairlearn.metrics.html">v0.4.6</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.5.0/api_reference/fairlearn.metrics.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.2/api_reference/fairlearn.metrics.html">v0.6.2</a></li>
+        
+      
+      
+        
+          <li><strong><a href="fairlearn.metrics.html">v0.7.0</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.datasets.html">
+   fairlearn.datasets package
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   fairlearn.metrics package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.postprocessing.html">
+   fairlearn.postprocessing package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.preprocessing.html">
+   fairlearn.preprocessing package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.reductions.html">
+   fairlearn.reductions package
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-fairlearn.metrics">
+<span id="fairlearn-metrics-package"></span><h1>fairlearn.metrics package<a class="headerlink" href="#module-fairlearn.metrics" title="Permalink to this headline">¶</a></h1>
+<p>Functionality for computing metrics, with a particular focus on disaggregated metrics.</p>
+<p>For our purpose, a metric is a function with signature
+<code class="docutils literal notranslate"><span class="pre">f(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">....)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">y_true</span></code> are the set of true values and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> are
+values predicted by a machine learning algorithm. Other
+arguments may be present (most often sample weights), which will
+affect how the metric is calculated.</p>
+<p>This module provides the concept of a <em>disaggregated metric</em>.
+This is a metric where in addition to <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>
+values, the user provides information about group membership
+for each sample.
+For example, a user could provide a ‘Gender’ column, and the
+disaggregated metric would contain separate results for the subgroups
+‘male’, ‘female’ and ‘nonbinary’ indicated by that column.
+The underlying metric function is evaluated for each of these three
+subgroups.
+This extends to multiple grouping columns, calculating the metric
+for each combination of subgroups.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_metric_frame.py#L89-L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collection of disaggregated metric values.</p>
+<p>This data structure stores and manipulates disaggregated values for any number of underlying
+metrics. At least one sensitive feature must be supplied, which is used
+to split the data into subgroups. The underlying metric(s) is(are) calculated
+across the entire dataset (made available by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> property) and
+for each identified subgroup (made available by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property).</p>
+<p>The only limitations placed on the metric functions are that:</p>
+<ul class="simple">
+<li><p>The first two arguments they take must be <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays</p></li>
+<li><p>Any other arguments must correspond to sample properties (such as sample weights),
+meaning that their first dimension is the same as that of y_true and y_pred. These
+arguments will be split up along with the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays</p></li>
+</ul>
+<p>The interpretation of the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays is up to the
+underlying metric - it is perfectly possible to pass in lists of class
+probability tuples. We also support non-scalar return types for the
+metric function (such as confusion matrices) at the current time. However,
+the aggregation functions will not be well defined in this case.</p>
+<p>Group fairness metrics are obtained by methods that implement
+various aggregators over group-level metrics, such such as the
+maximum, minimum, or the worst-case difference or ratio.</p>
+<p>This data structure also supports the concept of ‘control features.’ Like the sensitive
+features, control features identify subgroups within the data, but
+aggregations are not performed over the control features. Instead, the
+aggregations produce a result for each subgroup identified by the control
+feature(s). The name ‘control features’ refers to the statistical practice
+of ‘controlling’ for a variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> (<em>callable</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – <p>The underlying metric functions which are to be calculated. This
+can either be a single metric function or a dictionary of functions.
+These functions must be callable as
+<code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">**sample_params)</span></code>.
+If there are any other arguments required (such as <code class="docutils literal notranslate"><span class="pre">beta</span></code> for
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a>) then
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> must be used.</p>
+<p><strong>Note</strong> that the values returned by various members of the class change
+based on whether this argument is a callable or a dictionary of
+callables. This distinction remains <em>even if</em> the dictionary only
+contains a single entry.</p>
+</p></li>
+<li><p><strong>y_true</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><em>pandas.DataFrame</em></a>) – The ground-truth labels (for classification) or target values (for regression).</p></li>
+<li><p><strong>y_pred</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><em>pandas.DataFrame</em></a>) – The predictions.</p></li>
+<li><p><strong>sensitive_features</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)"><em>pandas.Series</em></a><em>, </em><em>dict of 1d arrays</em><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><em>pandas.DataFrame</em></a>) – The sensitive features which should be used to create the subgroups.
+At least one sensitive feature must be provided.
+All names (whether on pandas objects or dictionary keys) must be strings.
+We also forbid DataFrames with column names of <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+For cases where no names are provided we generate names <code class="docutils literal notranslate"><span class="pre">sensitive_feature_[n]</span></code>.</p></li>
+<li><p><strong>control_features</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)"><em>pandas.Series</em></a><em>, </em><em>dict of 1d arrays</em><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><em>pandas.DataFrame</em></a>) – <p>Control features are similar to sensitive features, in that they
+divide the input data into subgroups.
+Unlike the sensitive features, aggregations are not performed
+across the control features - for example, the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property
+will have one value for each subgroup in the control feature(s),
+rather than a single value for the entire data set.
+Control features can be specified similarly to the sensitive features.
+However, their default names (if none can be identified in the
+input values) are of the format <code class="docutils literal notranslate"><span class="pre">control_feature_[n]</span></code>.</p>
+<p><strong>Note</strong> the types returned by members of the class vary based on whether
+control features are present.</p>
+</p></li>
+<li><p><strong>sample_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Parameters for the metric function(s). If there is only one metric function,
+then this is a dictionary of strings and array-like objects, which are split
+alongside the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays, and passed to the metric function.
+If there are multiple metric functions (passed as a dictionary), then this is
+a nested dictionary, with the first set of string keys identifying the
+metric function name, with the values being the string-to-array-like dictionaries.</p></li>
+<li><p><strong>metric</strong> (<em>callable</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – <p>The underlying metric functions which are to be calculated. This
+can either be a single metric function or a dictionary of functions.
+These functions must be callable as
+<code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">**sample_params)</span></code>.
+If there are any other arguments required (such as <code class="docutils literal notranslate"><span class="pre">beta</span></code> for
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v0.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a>) then
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> must be used.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.7.0: </span><cite>metric</cite> will be removed in version 0.10.0, use <cite>metrics</cite> instead.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference">
+<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_metric_frame.py#L439-L478"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum absolute difference between groups for each metric.</p>
+<p>This method calculates a scalar value for each underlying metric by
+finding the maximum absolute difference between the entries in each
+combination of sensitive features in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
+<p>Similar to other methods, the result type varies with the
+specification of the metric functions, and whether control features
+are present or not.</p>
+<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
+value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the maximum difference between
+any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
+<code class="docutils literal notranslate"><span class="pre">group_max()</span> <span class="pre">-</span> <span class="pre">group_min()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
+computes the difference between each subgroup and the
+corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
+features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric).
+The result is the absolute maximum of these values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_max">
+<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_metric_frame.py#L375-L405"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum value of the metric over the sensitive features.</p>
+<p>This method computes the maximum value over all combinations of
+sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property (it will only succeed if all the underlying metric
+functions return scalar values). The exact return type depends on
+whether control features are present, and whether the metric functions
+were specified as a single callable or a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum value over sensitive features. The exact type
+follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_min">
+<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_metric_frame.py#L407-L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the minimum value of the metric over the sensitive features.</p>
+<p>This method computes the minimum value over all combinations of
+sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property (it will only succeed if all the underlying metric
+functions return scalar values). The exact return type depends on
+whether control features are present, and whether the metric functions
+were specified as a single callable or a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The minimum value over sensitive features. The exact type
+follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>typing.Any pandas.Series or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ratio">
+<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_metric_frame.py#L480-L544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the minimum ratio between groups for each metric.</p>
+<p>This method calculates a scalar value for each underlying metric by
+finding the minimum ratio (that is, the ratio is forced to be
+less than unity) between the entries in each
+column of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
+<p>Similar to other methods, the result type varies with the
+specification of the metric functions, and whether control features
+are present or not.</p>
+<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
+value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the minimum ratio between
+any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
+<code class="docutils literal notranslate"><span class="pre">group_min()</span> <span class="pre">/</span> <span class="pre">group_max()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
+computes the ratio between each subgroup and the
+corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
+features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric),
+expressing the ratio as a number less than 1.
+The result is the minimum of these values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.by_group">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">by_group</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union[pandas.core.series.Series,</span> <span class="pre">pandas.core.frame.DataFrame]</span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the collection of metrics evaluated for each subgroup.</p>
+<p>The collection is defined by the combination of classes in the
+sensitive and control features. The exact type depends on
+the specification of the metric function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>When a callable is supplied to the constructor, the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>When the metric functions were specified with a dictionary (even
+if the dictionary only has a single entry), then the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with columns named after the metric
+functions, and rows indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>If a particular combination of subgroups was not present in the dataset
+(likely to occur as more sensitive and control features
+are specified), then the corresponding entry will be NaN.</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.control_levels">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">control_levels</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.control_levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of feature names which are produced by control features.</p>
+<p>If control features are present, then the rows of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property have a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a> index. This property
+identifies which elements of that index are control features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of names, which can be used in calls to
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v1.3.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>] or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.overall">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">overall</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union[Any,</span> <span class="pre">pandas.core.series.Series,</span> <span class="pre">pandas.core.frame.DataFrame]</span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.overall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the underlying metrics evaluated on the whole dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>The exact type varies based on whether control featuers were
+provided and how the metric functions were specified.</p>
+<table class="table">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 28%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrics</p></th>
+<th class="head"><p>Control Features</p></th>
+<th class="head"><p>Result Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Callable</p></td>
+<td><p>None</p></td>
+<td><p>Return type of callable</p></td>
+</tr>
+<tr class="row-odd"><td><p>Callable</p></td>
+<td><p>Provided</p></td>
+<td><p>Series, indexed by the subgroups
+of the conditional feature(s)</p></td>
+</tr>
+<tr class="row-even"><td><p>Dict</p></td>
+<td><p>None</p></td>
+<td><p>Series, indexed by the metric
+names</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dict</p></td>
+<td><p>Provided</p></td>
+<td><p>DataFrame. Columns are
+metric names, rows are subgroups
+of conditional feature(s)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The distinction applies even if the dictionary contains a
+single metric function. This is to allow for a consistent
+interface when calling programatically, while also reducing
+typing for those using Fairlearn interactively.</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.0)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.0)">pandas.DataFrame</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.sensitive_levels">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sensitive_levels</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.sensitive_levels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the feature names which are produced by sensitive features.</p>
+<p>In cases where the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property has a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v1.3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a>
+index, this identifies which elements of the index are sensitive features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of names, which can be used in calls to
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v1.3.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.count">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_extra_metrics.py#L221-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of data points in each group when working with <cite>MetricFrame</cite>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">y_true</span></code> argument is used to make this calculation. For consistency with
+other metric functions, the <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> argument is required, but ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array_like</em>) – The list of true labels</p></li>
+<li><p><strong>y_pred</strong> (<em>array_like</em>) – The predicted labels (ignored)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of data points in each group.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.demographic_parity_difference">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">demographic_parity_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_disparities.py#L10-L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.demographic_parity_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the demographic parity difference.</p>
+<p>The demographic parity difference is defined as the difference
+between the largest and the smallest group-level selection rate,
+<span class="math notranslate nohighlight">\(E[h(X) | A=a]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span> of the sensitive feature(s).
+The demographic parity difference of 0 means that all groups have the same selection rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> – The sensitive features over which demographic parity should be assessed</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the differences. See <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame.difference()</span></code></a>
+for details.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em>) – The sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The demographic parity difference</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.demographic_parity_ratio">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">demographic_parity_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_disparities.py#L56-L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.demographic_parity_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the demographic parity ratio.</p>
+<p>The demographic parity ratio is defined as the ratio
+between the smallest and the largest group-level selection rate,
+<span class="math notranslate nohighlight">\(E[h(X) | A=a]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span> of the sensitive feature(s).
+The demographic parity ratio of 1 means that all groups have the same selection rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> – The sensitive features over which demographic parity should be assessed</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the differences. See <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame.ratio()</span></code></a>
+for details.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em>) – The sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The demographic parity ratio</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.equalized_odds_difference">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">equalized_odds_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_disparities.py#L102-L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.equalized_odds_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the equalized odds difference.</p>
+<p>The greater of two metrics: <cite>true_positive_rate_difference</cite> and
+<cite>false_positive_rate_difference</cite>. The former is the difference between the
+largest and smallest of <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span>
+of the sensitive feature(s). The latter is defined similarly, but for
+<span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=0]\)</span>.
+The equalized odds difference of 0 means that all groups have the same
+true positive, true negative, false positive, and false negative rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> – The sensitive features over which demographic parity should be assessed</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the differences. See <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame.difference()</span></code></a>
+for details.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em>) – The sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The equalized odds difference</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.equalized_odds_ratio">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">equalized_odds_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_disparities.py#L147-L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.equalized_odds_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the equalized odds ratio.</p>
+<p>The smaller of two metrics: <cite>true_positive_rate_ratio</cite> and
+<cite>false_positive_rate_ratio</cite>. The former is the ratio between the
+smallest and largest of <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span>
+of the sensitive feature(s). The latter is defined similarly, but for
+<span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=0]\)</span>.
+The equalized odds ratio of 1 means that all groups have the same
+true positive, true negative, false positive, and false negative rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – Ground truth (correct) labels.</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p></li>
+<li><p><strong>sensitive_features</strong> – The sensitive features over which demographic parity should be assessed</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the differences. See <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame.ratio()</span></code></a>
+for details.</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em>) – The sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The equalized odds ratio</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.false_negative_rate">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">false_negative_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_extra_metrics.py#L182-L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.false_negative_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the false negative rate (also called miss rate).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – The list of true values</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – The list of predicted values</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em><em>, </em><em>optional</em>) – A list of weights to apply to each sample. By default all samples are weighted
+equally</p></li>
+<li><p><strong>pos_label</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The value to treat as the ‘positive’ label in the samples. If <cite>None</cite> (the default)
+then the largest unique value of the y arrays will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The false negative rate for the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.false_positive_rate">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">false_positive_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_extra_metrics.py#L148-L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.false_positive_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the false positive rate (also called fall-out).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – The list of true values</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – The list of predicted values</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em><em>, </em><em>optional</em>) – A list of weights to apply to each sample. By default all samples are weighted
+equally</p></li>
+<li><p><strong>pos_label</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The value to treat as the ‘positive’ label in the samples. If <cite>None</cite> (the default)
+then the largest unique value of the y arrays will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The false positive rate for the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.make_derived_metric">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">make_derived_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_param_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['sample_weight']</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_make_derived_metric.py#L96-L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.make_derived_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a scalar returning metric function based on aggregation of a disaggregated metric.</p>
+<p>Many higher order machine learning operations (such as hyperparameter tuning)
+make use of functions which return scalar metrics. We can create such a function
+for our disaggregated metrics with this function.</p>
+<p>This function takes a metric function, a string to specify the desired aggregation
+transform (matching the methods <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a>,
+<a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a>, <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> and
+<a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>), and a list of
+parameter names to treat as sample parameters.</p>
+<p>The result is a callable object which has the same signature as the original
+function, with a <code class="code docutils literal notranslate"><span class="pre">sensitive_features=</span></code> parameter added.
+If the chosen aggregation transform accepts parameters (currently only
+<code class="code docutils literal notranslate"><span class="pre">method=</span></code> is supported), these can also be given when invoking the
+callable object.
+The result of this function is identical to
+creating a <a class="reference internal" href="#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> object, and then calling the method specified
+by the <code class="code docutils literal notranslate"><span class="pre">transform=</span></code> argument (with the <code class="code docutils literal notranslate"><span class="pre">method=</span></code> argument, if
+required).</p>
+<p>See the <a class="reference internal" href="../user_guide/assessment.html#scalar-metric-results"><span class="std std-ref">Scalar Results from MetricFrame</span></a> section in the <a class="reference internal" href="../user_guide/index.html#user-guide"><span class="std std-ref">User Guide</span></a> for more
+details.
+A <a class="reference internal" href="../auto_examples/plot_make_derived_metric.html#sphx-glr-auto-examples-plot-make-derived-metric-py"><span class="std std-ref">sample notebook</span></a> is
+also available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<em>callable</em>) – The metric function from which the new function should be derived</p></li>
+<li><p><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Selects the transformation aggregation the resultant function should use</p></li>
+<li><p><strong>sample_param_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of parameters names of the underlying <code class="code docutils literal notranslate"><span class="pre">metric</span></code> which should
+be treated as sample parameters (i.e. the same leading dimension as the
+<code class="code docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code> parameters). This defaults to a list with
+a single entry of <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> (as used by many SciKit-Learn
+metrics). If <code class="code docutils literal notranslate"><span class="pre">None</span></code> or an empty list is supplied, then no parameters
+will be treated as sample parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Function with the same signature as the <code class="code docutils literal notranslate"><span class="pre">metric</span></code> but with additional
+<code class="code docutils literal notranslate"><span class="pre">sensitive_feature=</span></code> and <code class="code docutils literal notranslate"><span class="pre">method=</span></code> arguments, to enable the
+required computation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.mean_prediction">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">mean_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_mean_predictions.py#L9-L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.mean_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the (weighted) mean prediction.</p>
+<p>The true values are ignored, but required as an argument in order
+to maintain a consistent interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array_like</em>) – The true labels (ignored)</p></li>
+<li><p><strong>y_pred</strong> (<em>array_like</em>) – The predicted labels</p></li>
+<li><p><strong>sample_weight</strong> (<em>array_like</em>) – Optional array of sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.selection_rate">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">selection_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_selection_rate.py#L13-L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.selection_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the fraction of predicted labels matching the ‘good’ outcome.</p>
+<p>The argument <cite>pos_label</cite> specifies the ‘good’ outcome. For consistency with
+other metric functions, the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> argument is required, but ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array_like</em>) – The true labels (ignored)</p></li>
+<li><p><strong>y_pred</strong> (<em>array_like</em>) – The predicted labels</p></li>
+<li><p><strong>pos_label</strong> (<em>Scalar</em>) – The label to treat as the ‘good’ outcome</p></li>
+<li><p><strong>sample_weight</strong> (<em>array_like</em>) – Optional array of sample weights</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.true_negative_rate">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">true_negative_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_extra_metrics.py#L114-L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.true_negative_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the true negative rate (also called specificity or selectivity).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – The list of true values</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – The list of predicted values</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em><em>, </em><em>optional</em>) – A list of weights to apply to each sample. By default all samples are weighted
+equally</p></li>
+<li><p><strong>pos_label</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The value to treat as the ‘positive’ label in the samples. If <cite>None</cite> (the default)
+then the largest unique value of the y arrays will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The true negative rate for the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.true_positive_rate">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">true_positive_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.7.0/fairlearn/metrics/_extra_metrics.py#L80-L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.true_positive_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the true positive rate (also called sensitivity, recall, or hit rate).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<em>array-like</em>) – The list of true values</p></li>
+<li><p><strong>y_pred</strong> (<em>array-like</em>) – The list of predicted values</p></li>
+<li><p><strong>sample_weight</strong> (<em>array-like</em><em>, </em><em>optional</em>) – A list of weights to apply to each sample. By default all samples are weighted
+equally</p></li>
+<li><p><strong>pos_label</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The value to treat as the ‘positive’ label in the samples. If <cite>None</cite> (the default)
+then the largest unique value of the y arrays will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The true positive rate for the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2018 - 2021, Fairlearn contributors.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

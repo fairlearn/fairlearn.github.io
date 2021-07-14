@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selection rates in census dataset &#8212; Fairlearn 0.7.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MetricFrame visualizations" href="plot_quickstart.html" />
+    <link rel="prev" title="Example Notebooks" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="https://fairlearn.org">
+  <img src="../_static/_static/images/fairlearn_full_color.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow">
+            <span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord">
+            <span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        <li>v0.5.0: Documentation page not present</li>
+      
+      
+        <li>v0.6.2: Documentation page not present</li>
+      
+      
+        
+          <li><strong><a href="plot_quickstart_selection_rate.html">v0.7.0</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Selection rates in census dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_quickstart.html">
+   MetricFrame visualizations
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_make_derived_metric.html">
+   Making Derived Metrics
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_grid_search_census.html">
+   GridSearch with Census Data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_new_metrics.html">
+   Metrics with Multiple Features
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-quickstart-selection-rate-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="selection-rates-in-census-dataset">
+<span id="sphx-glr-auto-examples-plot-quickstart-selection-rate-py"></span><h1>Selection rates in census dataset<a class="headerlink" href="#selection-rates-in-census-dataset" title="Permalink to this headline">¶</a></h1>
+<img alt="Fraction earning over $50,000" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_quickstart_selection_rate_001.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">selection_rate</span>
+<span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_adult</span>
+
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">data</span></a> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">data</span></a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a> <span class="o">=</span> <span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">target</span></a> <span class="o">==</span> <span class="s1">&#39;&gt;50K&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sex</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span>
+
+<span class="n">selection_rates</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">selection_rate</span><span class="p">,</span>
+                              <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span>
+                              <span class="n">y_pred</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span>
+                              <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sex</span></a><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">selection_rates</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Fraction earning over $50,000&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.747 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-quickstart-selection-rate-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/dfb5c2c262e9ab46cb3d04a514878822/plot_quickstart_selection_rate.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_quickstart_selection_rate.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/3f125135916fcd0df8349159971b019f/plot_quickstart_selection_rate.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_quickstart_selection_rate.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2018 - 2021, Fairlearn contributors.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
