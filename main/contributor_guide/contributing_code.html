@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contributing code &#8212; Fairlearn 0.7.1.dev0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing example notebooks" href="contributing_example_notebooks.html" />
+    <link rel="prev" title="Development process" href="development_process.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="https://fairlearn.org">
+  <img src="../_static/fairlearn_full_color.png" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quickstart
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow">
+            <span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord">
+            <span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: Documentation page not present</li>
+      
+      
+        
+          <li><a href="../../v0.5.0/contributor_guide/contributing_code.html">v0.5.0</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.6.2/contributor_guide/contributing_code.html">v0.6.2</a></li>
+        
+      
+      
+        
+          <li><a href="../../v0.7.0/contributor_guide/contributing_code.html">v0.7.0</a></li>
+        
+      
+      
+        
+          <li><strong><a href="contributing_code.html">main</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ways_to_contribute.html">
+   Ways to contribute
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="how_to_talk_about_fairness.html">
+   How to talk and write about fairness in AI
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn_repository_overview.html">
+   Fairlearn Repository Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="development_process.html">
+   Development process
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Contributing code
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="contributing_example_notebooks.html">
+   Contributing example notebooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="contributing_documentation.html">
+   Contributing documentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn_proposals.html">
+   API and design proposals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="release.html">
+   Release Process
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#api-conventions">
+   API conventions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unfairness-mitigation-algorithms">
+     Unfairness mitigation algorithms
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reductions">
+       Reductions
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#postprocessing-algorithms">
+       Postprocessing algorithms
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-style">
+   Code Style
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="contributing-code">
+<h1>Contributing code<a class="headerlink" href="#contributing-code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="api-conventions">
+<h2>API conventions<a class="headerlink" href="#api-conventions" title="Permalink to this headline">¶</a></h2>
+<p>This section relies on the definitions from our <a class="reference internal" href="../user_guide/fairness_in_machine_learning.html#terminology"><span class="std std-ref">Fairness in Machine Learning</span></a> guide,
+including the definitions of “estimator”, “reduction”, “sensitive features”,
+“moment”, and “parity”.</p>
+<div class="section" id="unfairness-mitigation-algorithms">
+<h3>Unfairness mitigation algorithms<a class="headerlink" href="#unfairness-mitigation-algorithms" title="Permalink to this headline">¶</a></h3>
+<p>Unfairness mitigation algorithms take form of scikit-learn-style estimators.
+Any algorithm-specific parameters are passed to the constructor. The resulting
+instance of the algorithm should support methods <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> with APIs resembling those of scikit-learn as much as
+possible. Any deviations are noted below.</p>
+<div class="section" id="reductions">
+<h4>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h4>
+<p>Reduction constructors require a parameter corresponding to an estimator that
+implements the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method with the <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> argument.
+Parity constraints for reductions are expressed via instances of various
+subclasses of the class <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.Moment</span></code></a>. Formally,
+instances of the class <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> implement vector-valued random variables
+whose sample averages over the data are required to be bounded (above and/or
+below).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constraints</span> <span class="o">=</span> <span class="n">Moment</span><span class="p">()</span>
+<span class="n">reduction</span> <span class="o">=</span> <span class="n">Reduction</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reductions provide <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and <code class="code docutils literal notranslate"><span class="pre">predict</span></code> methods with the following
+signatures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reduction</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="n">reduction</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All of the currently supported parity constraints (subclasses of
+<a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a>) are based on sensitive features that need to be provided to
+<code class="code docutils literal notranslate"><span class="pre">fit</span></code> as a keyword argument <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>. In the future,
+it will also be possible to provide sensitive features as columns of
+<code class="code docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</div>
+<div class="section" id="postprocessing-algorithms">
+<h4>Postprocessing algorithms<a class="headerlink" href="#postprocessing-algorithms" title="Permalink to this headline">¶</a></h4>
+<p>The constructors of postprocessing algorithms require either an already
+trained predictor or an estimator (which is trained on the data when executing
+<code class="code docutils literal notranslate"><span class="pre">fit</span></code>). For postprocessing algorithms, the <code class="code docutils literal notranslate"><span class="pre">constraints</span></code> argument
+is provided as a string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postprocessor</span> <span class="o">=</span> <span class="n">PostProcessing</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Post-processing algorithms (such as the ones under
+<a class="reference internal" href="../api_reference/fairlearn.postprocessing.html#module-fairlearn.postprocessing" title="fairlearn.postprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.postprocessing</span></code></a>) provide the same functions as the reductions
+above albeit with <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code> as a required argument for
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code>. In the future, we will make <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>
+optional if the sensitive features are already provided through <code class="code docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postprocessor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+<span class="n">postprocessor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="code-style">
+<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this headline">¶</a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">flake8</span></code> to check for PEP8 compatibility issues. You can either follow
+the guidelines, or you could run <code class="docutils literal notranslate"><span class="pre">black</span></code> on your code. The generated
+formatting by <code class="docutils literal notranslate"><span class="pre">black</span></code> is compatible with the requirements we have. You can
+configure your IDE to use <code class="docutils literal notranslate"><span class="pre">black</span></code> to format your code. Please refer to your
+IDE’s instructions for further details.</p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2018 - 2021, Fairlearn contributors.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.3.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
