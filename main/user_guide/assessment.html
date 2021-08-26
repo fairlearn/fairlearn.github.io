@@ -894,19 +894,19 @@ see the <a class="reference internal" href="../auto_examples/plot_new_metrics.ht
 <span id="plot"></span><h3>Plotting grouped metrics<a class="headerlink" href="#plotting-grouped-metrics" title="Permalink to this headline">¶</a></h3>
 <p>The simplest way to visualize grouped metrics from the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> is
 to take advantage of the inherent plotting capabilities of
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>:</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
-    <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">,</span>
-    <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
-    <span class="s1">&#39;false positive rate&#39;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
-    <span class="s1">&#39;true positive rate&#39;</span><span class="p">:</span> <span class="n">true_positive_rate</span><span class="p">,</span>
-    <span class="s1">&#39;selection rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
-    <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">}</span>
-<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
-                           <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
-                           <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
-                           <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
+    <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">,</span>
+    <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
+    <span class="s2">&quot;false positive rate&quot;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
+    <span class="s2">&quot;true positive rate&quot;</span><span class="p">:</span> <span class="n">true_positive_rate</span><span class="p">,</span>
+    <span class="s2">&quot;selection rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span>
+<span class="p">)</span>
 <span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
     <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
@@ -965,13 +965,13 @@ can be found <a class="reference external" href="https://matplotlib.org/stable/t
 <h4>Customize Plots: <code class="code docutils literal notranslate"><span class="pre">kind</span></code><a class="headerlink" href="#customize-plots-kind" title="Permalink to this headline">¶</a></h4>
 <p>There are different types of charts (e.g. pie, bar, line) which can be defined by the <cite>kind</cite>
 argument. Here is an example of a pie chart.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="p">[[</span><span class="s2">&quot;count&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;pie&quot;</span><span class="p">,</span>
     <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics in pie&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show count metric in pie chart&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -979,7 +979,7 @@ argument. Here is an example of a pie chart.</p>
 <img alt="../_images/sphx_glr_plot_quickstart_004.png" src="../_images/sphx_glr_plot_quickstart_004.png" />
 </div>
 <p>There are many other customizations that can be done. More information can be found in
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.3.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
 </div>
 </div>
 </div>

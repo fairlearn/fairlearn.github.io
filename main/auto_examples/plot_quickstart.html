@@ -288,20 +288,11 @@ to download the full example code</p>
 </li>
 <li><img alt="Show all metrics in Accent colormap, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count" class="sphx-glr-multi-img" src="../_images/sphx_glr_plot_quickstart_003.png" />
 </li>
-<li><img alt="Show all metrics in pie" class="sphx-glr-multi-img" src="../_images/sphx_glr_plot_quickstart_004.png" />
+<li><img alt="Show count metric in pie chart" class="sphx-glr-multi-img" src="../_images/sphx_glr_plot_quickstart_004.png" />
 </li>
 </ul>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/site-packages/pandas/plotting/_matplotlib/core.py:1616: MatplotlibDeprecationWarning: normalize=None does not normalize if the sum is less than 1 but this behavior is deprecated since 3.3 until two minor releases later. After the deprecation period the default value will be normalize=True. To prevent normalization pass normalize=False
-  results = ax.pie(y, labels=blabels, **kwds)
-
-array([[&lt;AxesSubplot:ylabel=&#39;accuracy&#39;&gt;,
-        &lt;AxesSubplot:ylabel=&#39;precision&#39;&gt;, &lt;AxesSubplot:ylabel=&#39;recall&#39;&gt;],
-       [&lt;AxesSubplot:ylabel=&#39;false positive rate&#39;&gt;,
-        &lt;AxesSubplot:ylabel=&#39;true positive rate&#39;&gt;,
-        &lt;AxesSubplot:ylabel=&#39;selection rate&#39;&gt;],
-       [&lt;AxesSubplot:ylabel=&#39;count&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;]],
-      dtype=object)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:ylabel=&#39;count&#39;&gt;]], dtype=object)
 </pre></div>
 </div>
 <div class="line-block">
@@ -312,7 +303,7 @@ array([[&lt;AxesSubplot:ylabel=&#39;accuracy&#39;&gt;,
     <span class="n">false_positive_rate</span><span class="p">,</span>
     <span class="n">true_positive_rate</span><span class="p">,</span>
     <span class="n">selection_rate</span><span class="p">,</span>
-    <span class="n">count</span>
+    <span class="n">count</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
@@ -330,17 +321,17 @@ array([[&lt;AxesSubplot:ylabel=&#39;accuracy&#39;&gt;,
 
 <span class="c1"># Analyze metrics using MetricFrame</span>
 <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a><span class="p">,</span>
-    <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="sklearn.metrics.precision_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">precision_score</span></a><span class="p">,</span>
-    <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="sklearn.metrics.recall_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">recall_score</span></a><span class="p">,</span>
-    <span class="s1">&#39;false positive rate&#39;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
-    <span class="s1">&#39;true positive rate&#39;</span><span class="p">:</span> <span class="n">true_positive_rate</span><span class="p">,</span>
-    <span class="s1">&#39;selection rate&#39;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
-    <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">}</span>
-<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
-                           <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span>
-                           <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
-                           <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sex</span></a><span class="p">)</span>
+    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a><span class="p">,</span>
+    <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="sklearn.metrics.precision_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">precision_score</span></a><span class="p">,</span>
+    <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="sklearn.metrics.recall_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">recall_score</span></a><span class="p">,</span>
+    <span class="s2">&quot;false positive rate&quot;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
+    <span class="s2">&quot;true positive rate&quot;</span><span class="p">:</span> <span class="n">true_positive_rate</span><span class="p">,</span>
+    <span class="s2">&quot;selection rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sex</span></a>
+<span class="p">)</span>
 <span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
     <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
@@ -371,18 +362,18 @@ array([[&lt;AxesSubplot:ylabel=&#39;accuracy&#39;&gt;,
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics in Accent colormap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Customize plots with kind</span>
-<span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="c1"># Customize plots with kind (note that we are only plotting the &quot;count&quot; metric here because we are showing a pie chart)</span>
+<span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="p">[[</span><span class="s2">&quot;count&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;pie&quot;</span><span class="p">,</span>
     <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics in pie&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show count metric in pie chart&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.036 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.724 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-quickstart-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7abd7e6ca9347ac36626133807c2fafe/plot_quickstart.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_quickstart.py</span></code></a></p>

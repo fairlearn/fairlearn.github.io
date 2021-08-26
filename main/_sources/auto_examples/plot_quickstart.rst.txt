@@ -50,7 +50,7 @@ MetricFrame visualizations
     *
 
       .. image:: /auto_examples/images/sphx_glr_plot_quickstart_004.png
-          :alt: Show all metrics in pie
+          :alt: Show count metric in pie chart
           :class: sphx-glr-multi-img
 
 
@@ -60,16 +60,8 @@ MetricFrame visualizations
 
  .. code-block:: none
 
-    /usr/local/lib/python3.7/site-packages/pandas/plotting/_matplotlib/core.py:1616: MatplotlibDeprecationWarning: normalize=None does not normalize if the sum is less than 1 but this behavior is deprecated since 3.3 until two minor releases later. After the deprecation period the default value will be normalize=True. To prevent normalization pass normalize=False 
-      results = ax.pie(y, labels=blabels, **kwds)
 
-    array([[<AxesSubplot:ylabel='accuracy'>,
-            <AxesSubplot:ylabel='precision'>, <AxesSubplot:ylabel='recall'>],
-           [<AxesSubplot:ylabel='false positive rate'>,
-            <AxesSubplot:ylabel='true positive rate'>,
-            <AxesSubplot:ylabel='selection rate'>],
-           [<AxesSubplot:ylabel='count'>, <AxesSubplot:>, <AxesSubplot:>]],
-          dtype=object)
+    array([[<AxesSubplot:ylabel='count'>]], dtype=object)
 
 
 
@@ -84,7 +76,7 @@ MetricFrame visualizations
         false_positive_rate,
         true_positive_rate,
         selection_rate,
-        count
+        count,
     )
     import pandas as pd
     from sklearn.datasets import fetch_openml
@@ -102,17 +94,17 @@ MetricFrame visualizations
 
     # Analyze metrics using MetricFrame
     metrics = {
-        'accuracy': accuracy_score,
-        'precision': precision_score,
-        'recall': recall_score,
-        'false positive rate': false_positive_rate,
-        'true positive rate': true_positive_rate,
-        'selection rate': selection_rate,
-        'count': count}
-    metric_frame = MetricFrame(metrics=metrics,
-                               y_true=y_true,
-                               y_pred=y_pred,
-                               sensitive_features=sex)
+        "accuracy": accuracy_score,
+        "precision": precision_score,
+        "recall": recall_score,
+        "false positive rate": false_positive_rate,
+        "true positive rate": true_positive_rate,
+        "selection rate": selection_rate,
+        "count": count,
+    }
+    metric_frame = MetricFrame(
+        metrics=metrics, y_true=y_true, y_pred=y_pred, sensitive_features=sex
+    )
     metric_frame.by_group.plot.bar(
         subplots=True,
         layout=[3, 3],
@@ -143,20 +135,20 @@ MetricFrame visualizations
         title="Show all metrics in Accent colormap",
     )
 
-    # Customize plots with kind
-    metric_frame.by_group.plot(
+    # Customize plots with kind (note that we are only plotting the "count" metric here because we are showing a pie chart)
+    metric_frame.by_group[["count"]].plot(
         kind="pie",
         subplots=True,
-        layout=[3, 3],
+        layout=[1, 1],
         legend=False,
         figsize=[12, 8],
-        title="Show all metrics in pie",
+        title="Show count metric in pie chart",
     )
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.036 seconds)
+   **Total running time of the script:** ( 0 minutes  6.724 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:
