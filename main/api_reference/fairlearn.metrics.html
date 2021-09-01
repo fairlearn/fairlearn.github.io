@@ -284,7 +284,7 @@ This extends to multiple grouping columns, calculating the metric
 for each combination of subgroups.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L89-L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L97-L732"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Collection of disaggregated metric values.</p>
 <p>This data structure stores and manipulates disaggregated values for any number of underlying
@@ -369,7 +369,7 @@ If there are any other arguments required (such as <code class="docutils literal
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference">
-<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L439-L478"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L506-L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum absolute difference between groups for each metric.</p>
 <p>This method calculates a scalar value for each underlying metric by
 finding the maximum absolute difference between the entries in each
@@ -387,7 +387,11 @@ features, then <a class="reference internal" href="#fairlearn.metrics.MetricFram
 The result is the absolute maximum of these values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p></li>
+<li><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'coerce'</em>) – if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
@@ -400,7 +404,7 @@ The result is the absolute maximum of these values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_max">
-<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L375-L405"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L458-L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum value of the metric over the sensitive features.</p>
 <p>This method computes the maximum value over all combinations of
 sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
@@ -409,20 +413,24 @@ functions return scalar values). The exact return type depends on
 whether control features are present, and whether the metric functions
 were specified as a single callable or a dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The maximum value over sensitive features. The exact type
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'raise'</em>) – if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The maximum value over sensitive features. The exact type
 follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)">pandas.DataFrame</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)">pandas.DataFrame</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_min">
-<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L407-L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the minimum value of the metric over the sensitive features.</p>
+<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L482-L504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum value of the metric over the sensitive features.</p>
 <p>This method computes the minimum value over all combinations of
 sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
 property (it will only succeed if all the underlying metric
@@ -430,19 +438,23 @@ functions return scalar values). The exact return type depends on
 whether control features are present, and whether the metric functions
 were specified as a single callable or a dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The minimum value over sensitive features. The exact type
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'raise'</em>) – if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The maximum value over sensitive features. The exact type
 follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>typing.Any pandas.Series or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)">pandas.DataFrame</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>typing.Any or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.2)">pandas.DataFrame</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ratio">
-<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L480-L544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L561-L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the minimum ratio between groups for each metric.</p>
 <p>This method calculates a scalar value for each underlying metric by
 finding the minimum ratio (that is, the ratio is forced to be
@@ -462,7 +474,11 @@ expressing the ratio as a number less than 1.
 The result is the minimum of these values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p></li>
+<li><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'coerce'</em>) – if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
