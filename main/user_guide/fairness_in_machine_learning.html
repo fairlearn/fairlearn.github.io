@@ -411,6 +411,38 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem">
+   What traps can we fall into when modeling a social problem?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-solutionism-trap">
+     The Solutionism Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-ripple-effect-trap">
+     The Ripple Effect Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-formalism-trap">
+     The Formalism Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-portability-trap">
+     The Portability Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-framing-trap">
+     The Framing Trap
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
 </nav>
@@ -472,7 +504,7 @@ face recognition, document search, or product recommendation.</p></li>
 <div class="section" id="construct-validity">
 <h3>Construct validity<a class="headerlink" href="#construct-validity" title="Permalink to this headline">¶</a></h3>
 <p>In many cases, fairness-related harms can be traced back to the way a real-world problem is translated into a machine learning task. Which target variable do we intend to predict? What features will be included? What (fairness) constraints do we consider? Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
-<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Measurement and Fairness <a class="footnote-reference brackets" href="#id15" id="id2">9</a> . This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation. In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
+<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id2">10</a> . This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation. In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
 <div class="section" id="key-terms">
 <h4>Key Terms<a class="headerlink" href="#key-terms" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -489,15 +521,15 @@ face recognition, document search, or product recommendation.</p></li>
 <li><p><strong>Fairness</strong> is an example of an unobservable theoretical construct. Several measurement models exist for measuring fairness, including demographic parity. These measurements may come together to form a measurement model, where several measurements are combined to ultimately measure fairness.See <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> for more examples of measurement models for measuring fairness.</p></li>
 <li><p><strong>Teacher effectiveness</strong> is an example of an unobservable theoretical construct. Common measurement models include student performance on standardized exams and qualitative feedback for the teacher’s students.</p></li>
 <li><p><strong>Socioeconomic status</strong> is an example of an unobservable theoretical construct. A common measurement model includes annual household income.</p></li>
-<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#id16" id="id3">10</a> for a related example.</p></li>
+<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#id18" id="id3">11</a> for a related example.</p></li>
 </ul>
-<p><strong>Note:</strong> We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.  Please reference Measurement and Fairness <a class="footnote-reference brackets" href="#id15" id="id4">9</a> for more detailed examples.</p>
+<p><strong>Note:</strong> We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.  Please reference Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id4">10</a> for more detailed examples.</p>
 </div>
 <div class="section" id="what-is-construct-validity">
 <h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Permalink to this headline">¶</a></h4>
-<p>Though the Measurement and Fairness <a class="footnote-reference brackets" href="#id15" id="id5">9</a> paper explores both construct reliability and construct validity, we focus our
+<p>Though the Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id5">10</a> paper explores both construct reliability and construct validity, we focus our
 exploration below on construct Validity. We note that both play an important role in understanding fairness in sociotechnical
-contexts. With that said, Measurement and Fairness <a class="footnote-reference brackets" href="#id15" id="id6">9</a> offers a fairness-oriented conceptualization of construct validity, that
+contexts. With that said, Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id6">10</a> offers a fairness-oriented conceptualization of construct validity, that
 is helpful in thinking about fairness in sociotechnical contexts. We capture the idea in seven key parts that when combined
 can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
 <ol class="arabic simple">
@@ -570,16 +602,16 @@ For example, in Fairlearn, we consider the following types of parity constraints
 <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution over
 <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
 independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
-<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id14" id="id7">8</a></p></li>
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id15" id="id7">8</a></p></li>
 <li><p><em>Equalized odds</em>: A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized odds under a
 distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
 <span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
-<a class="footnote-reference brackets" href="#id14" id="id8">8</a></p></li>
+<a class="footnote-reference brackets" href="#id15" id="id8">8</a></p></li>
 <li><p><em>Equal opportunity</em>: a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#id13" id="id9">7</a></p></li>
+<a class="footnote-reference brackets" href="#id14" id="id9">7</a></p></li>
 </ul>
 <p><em>Regression</em>:</p>
 <ul class="simple">
@@ -587,10 +619,10 @@ conditional expectations with respect to positive labels, i.e., <span class="mat
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
 of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
-<a class="footnote-reference brackets" href="#id12" id="id10">6</a></p></li>
+<a class="footnote-reference brackets" href="#id13" id="id10">6</a></p></li>
 <li><p><em>Bounded group loss</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies bounded group loss at
 level <span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if
-<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id12" id="id11">6</a></p></li>
+<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id13" id="id11">6</a></p></li>
 </ul>
 <p>Above, demographic parity seeks to mitigate allocation harms, whereas bounded
 group loss primarily seeks to mitigate quality-of-service harms. Equalized
@@ -616,27 +648,190 @@ Additionally, group metrics yield the minimum and maximum metric value and for
 which groups these values were observed, as well as the difference and ratio
 between the maximum and the minimum values. For more information refer to the
 subpackage <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="what-traps-can-we-fall-into-when-modeling-a-social-problem">
+<h2>What traps can we fall into when modeling a social problem?<a class="headerlink" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem" title="Permalink to this headline">¶</a></h2>
+<p>Machine learning systems used in the real world are inherently sociotechnical
+systems, which include both technologies and social actors. Designers of machine
+learning systems typically translate a real-world context into a machine learning
+model through abstraction: focusing only on ‘relevant’ aspects of that context,
+which are typically described by inputs, outputs, and the relationship between them.
+However, by abstracting away the social context they are at risk of falling into
+‘abstraction traps’: a failure to consider how social context and technology
+are interrelated.</p>
+<p>In this section, we explain what those traps are, and give some suggestions on
+how we can avoid them.</p>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst et al. <a class="footnote-reference brackets" href="#id16" id="id12">9</a>
+identify failure modes that can arise from abstracting away the social context
+when modeling. They identify them as:</p>
+<ul class="simple">
+<li><p><em>The Solutionism Trap</em></p></li>
+<li><p><em>The Ripple Effect Trap</em></p></li>
+<li><p><em>The Formalism Trap</em></p></li>
+<li><p><em>The Portability Trap</em></p></li>
+<li><p><em>The Framing Trap</em></p></li>
+</ul>
+<p>We provide some definitions and examples of these traps to help Fairlearn
+users think about how choices they make in their work can lead to or avoid
+these common pitfalls.</p>
+<div class="section" id="the-solutionism-trap">
+<h3>The Solutionism Trap<a class="headerlink" href="#the-solutionism-trap" title="Permalink to this headline">¶</a></h3>
+<p>This trap occurs when we assume that the best solution to a problem
+may involve technology, and fail to recognize other possible solutions
+outside of this realm. Solutionist approaches may also not be appropriate
+in situations where definitions of fairness may change over time
+(see ‘The Formalism Trap’ below).</p>
+<p>Example: consider the problem of internet connectivity in rural communities.
+An example of the solutionism trap is assuming that using data science to
+measure internet speed in a given region
+can help improve internet connectivity.
+However, if there are additional socioeconomic challenges within
+a community, for example with education, infrastructure, information
+technology, or health services, then an algorithmic solution purely
+focused on internet speed may fail to meaningfully address the needs of
+the community.</p>
+</div>
+<div class="section" id="the-ripple-effect-trap">
+<h3>The Ripple Effect Trap<a class="headerlink" href="#the-ripple-effect-trap" title="Permalink to this headline">¶</a></h3>
+<p>This trap occurs when we do not consider the unintended consequences of
+introducing technology into an existing social system. Such consequences
+include changes in behaviors, outcomes, individual experiences, or changes
+in underlying social values and incentives of a given social system; for
+instance, by increasing perceived value of quantifiable metrics over
+non-quantifiable ones.</p>
+<p>Example: consider the problem of banks deciding whether an individual should
+be approved for a loan. Prior to using machine learning algorithms
+to compute a “score”, banks might rely on loan officers that engage in
+conversations with clients, recommend a plan based on their unique
+situation, and discuss with other team members to obtain feedback.
+By introducing an algorithm, it is possible that loan officers may limit
+their conversations with team members and clients, assuming the algorithm’s
+recommendations are good enough without those additional sources of information.</p>
+<p>To avoid this pitfall, we must be aware that once a technology is incorporated
+into a social context, new groups may reinterpret it differently. We should
+adopt “what if” scenarios to envision how the social context might change
+after introducing a model, including how it may change the power dynamics of
+existing groups in that context, or how actors might change their behaviors to
+game the model.</p>
+</div>
+<div class="section" id="the-formalism-trap">
+<h3>The Formalism Trap<a class="headerlink" href="#the-formalism-trap" title="Permalink to this headline">¶</a></h3>
+<p>Many tasks of a data scientist involve some form of formalization: from
+measuring real-world phenomena as data to translating business Key Performance
+Indicators (KPIs) and constraints into metrics, loss functions, or parameters.
+We fall into the formalism trap when we fail to account for the full meaning
+of social concepts like fairness.</p>
+<p>Fairness is a complex construct that is contested: different people may
+have different ideas of what is fair in a particular scenario. While
+mathematical fairness metrics may capture some aspects of fairness, they
+fail to capture all relevant aspects. For example, group fairness metrics
+do not account for differences in individual experiences, nor do they
+account for procedural justice.</p>
+<p>In some scenarios, fairness metrics such as demographic parity and equalized
+odds cannot be satisfied at the same time. At a first glance, this may appear
+to be a mathematical problem. However, the conflict is actually grounded in
+different understandings of what fairness is. Consequently, there is no
+mathematical approach to solve the conflict. Instead we need to decide which
+metrics might be appropriate for the situation at hand, keeping in mind the
+limitations of a mathematical formalization. In some cases, there may be no
+suitable metric.</p>
+<p>Some reasons why we fall into this trap are because fairness is
+context-dependent, because it is open to contestation by different groups
+of people, and because there are differences between ways of thinking about
+fairness between the legal world (i.e., fairness as procedural) and the fair-ML
+community (i.e., fairness as outcome-based).</p>
+<p>Where mathematical abstraction encounters a limitation is when
+capturing information regarding contextuality (different communities
+may have different definitions for what constitutes an “unfair” outcome;
+for instance, is it unfair to hire an applicant whose primary language
+is English, for an English speaking role, over an applicant whose only
+spoken language is not English?); contestability (the definitions of
+discrimination and unfairness are politically contested and change
+over time, which may pose fundamental challenges for representing
+them mathematically); and procedurality (for example, how do judges
+and police officers determine whether bail, counselling, probation, or
+incarceration is appropriate);</p>
+</div>
+<div class="section" id="the-portability-trap">
+<h3>The Portability Trap<a class="headerlink" href="#the-portability-trap" title="Permalink to this headline">¶</a></h3>
+<p>This trap occurs when we fail to understand how reusing a model or
+algorithm that is designed for one specific social context may not
+necessarily apply to a different social context. Reusing an algorithmic
+solution and failing to take into account differences in involved social
+contexts can result in misleading results and potentially harmful consequences.</p>
+<p>For instance, reusing a machine learning algorithm used to screen
+job applications in the nursing industry for a system used to screen
+job applications in the information technology sector could fall into the
+portability trap. One important difference between both contexts is
+the difference in skills required to succeed in both industries.
+Another key difference between these contexts involves the demographic
+differences (in terms of gender) of employees in each of these industries,
+which may result from wording in job postings, social constructs on gender
+and societal roles, and the percentages of successful applicants in
+each field per (gender) group.</p>
+</div>
+<div class="section" id="the-framing-trap">
+<h3>The Framing Trap<a class="headerlink" href="#the-framing-trap" title="Permalink to this headline">¶</a></h3>
+<p>This trap occurs when we fail to consider the full picture surrounding
+a particular social context when abstracting a social problem. Elements
+involved include but are not limited to: the social landscape that the
+chosen phenomenon exists in, characteristics of individuals or
+circumstances of the chosen situation, third parties involved along with
+their circumstances, and the task that is being set out to abstract
+(i.e., calculating a risk score, choosing between a pool of candidates,
+selecting an appropriate treatment, etc).</p>
+<p>To help us avoid drawing narrow boundaries of what is considered in scope
+for the problem, we might consider using wider “frames” around what is
+considered to be in scope for the problem, moving from an algorithmic frame
+to a sociotechnical frame.</p>
+<p>For instance, adopting a <em>sociotechnical</em> frame (instead of a data-focused,
+or algorithmic frame) allows us to recognize that a machine learning model
+is part of social and technical interactions between people and technology,
+and thus the social components of a given social context should be included
+as part of the problem formulation and modeling approach (including local
+decision-making processes, incentive structures, institutional processes,
+and more).</p>
+<p>For instance, we might fall into this trap by assessing risk of re-engagement
+in criminal behavior for an individual charged with an offense, while failing
+to consider factors such as the legacy of racial biases in criminal justice
+systems, the relationship of socio-economic status and mental health to the
+social construction of criminality, along with existing societal biases of
+judges, police officers, or other social actors involved in the larger
+sociotechnical frame around a criminal justice algorithm.</p>
+<p>Within the sociotechnical frame the model incorporates not only more
+nuanced data on the history of the case, but also the social context in
+which judging and recommending an outcome take place. This frame might
+incorporate the processes associated with crime reporting, the offense-trial
+pipeline, and an awareness of how the relationship between various social actors and
+the algorithm may impact the intended outcomes of a given model.</p>
 <div class="topic">
 <p class="topic-title">References:</p>
 <dl class="footnote brackets">
-<dt class="label" id="id12"><span class="brackets">6</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
+<dt class="label" id="id13"><span class="brackets">6</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
 <dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
 Reduction-based Algorithms”</a>,
 ICML, 2019.</p>
 </dd>
-<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
 <dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
 Learning”</a>,
 NIPS, 2016.</p>
 </dd>
-<dt class="label" id="id14"><span class="brackets">8</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
+<dt class="label" id="id15"><span class="brackets">8</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
 <dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
 Approach to Fair Classification”</a>, ICML, 2018.</p>
 </dd>
-<dt class="label" id="id15"><span class="brackets">9</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>,<a href="#id6">4</a>)</span></dt>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id12">9</a></span></dt>
+<dd><p>Selbst, Andrew D. and Boyd, Danah and Friedler, Sorelle and Venkatasubramanian,
+Suresh and Vertesi, Janet, “Fairness and Abstraction in Sociotechnical Systems”
+(August 23, 2018). 2019 ACM Conference on Fairness, Accountability, and Transparency
+(FAT*), 59-68, Available at <a class="reference external" href="https://ssrn.com/abstract=3265913">SSRN:</a>,</p>
+</dd>
+<dt class="label" id="id17"><span class="brackets">10</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>,<a href="#id6">4</a>)</span></dt>
 <dd><p>Jacobs, Wallach <a class="reference external" href="https://arxiv.org/pdf/1912.05511.pdf">“Measurement and Fairness”</a>, FAccT, 2021.</p>
 </dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id3">10</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id3">11</a></span></dt>
 <dd><p>Obermeyer, Powers, Vogeli, Mullainathan <a class="reference external" href="https://science.sciencemag.org/content/366/6464/447">“Dissecting racial bias in an algorithm used to manage the health of populations”</a>, Science, 2019.</p>
 </dd>
 </dl>
