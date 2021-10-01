@@ -266,15 +266,17 @@ default - uncomment the next two lines to see training data plots as well
 
     *
 
-      .. image:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_001.png
-          :alt: original test data:
-          :class: sphx-glr-multi-img
+      .. image-sg:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_001.png
+         :alt: original test data:
+         :srcset: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_001.png
+         :class: sphx-glr-multi-img
 
     *
 
-      .. image:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_002.png
-          :alt: fairness-unaware prediction on test data:
-          :class: sphx-glr-multi-img
+      .. image-sg:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_002.png
+         :alt: fairness-unaware prediction on test data:
+         :srcset: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_002.png
+         :class: sphx-glr-multi-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -292,9 +294,9 @@ default - uncomment the next two lines to see training data plots as well
     P[recidivism predicted | African-American]                = 0.5155642023346303
     P[recidivism predicted | African-American, recidivism]    = 0.661319073083779
     P[recidivism predicted | African-American, no recidivism] = 0.3404710920770878
-    P[recidivism predicted | Caucasian]                       = 0.2857142857142857
+    P[recidivism predicted | Caucasian]                       = 0.2815126050420168
     P[recidivism predicted | Caucasian, recidivism]           = 0.42435424354243545
-    P[recidivism predicted | Caucasian, no recidivism]        = 0.20090293453724606
+    P[recidivism predicted | Caucasian, no recidivism]        = 0.19413092550790068
 
 
 
@@ -426,9 +428,10 @@ more accurate estimates.
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_003.png
-    :alt: equalized odds with postprocessed model on test data:
-    :class: sphx-glr-single-img
+.. image-sg:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_003.png
+   :alt: equalized odds with postprocessed model on test data:
+   :srcset: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_003.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -439,12 +442,12 @@ more accurate estimates.
 
 
     equalized odds with postprocessed model on test data:
-    P[recidivism predicted | African-American]                = 0.46108949416342415
-    P[recidivism predicted | African-American, recidivism]    = 0.5686274509803921
-    P[recidivism predicted | African-American, no recidivism] = 0.33190578158458245
-    P[recidivism predicted | Caucasian]                       = 0.4677871148459384
-    P[recidivism predicted | Caucasian, recidivism]           = 0.6236162361623616
-    P[recidivism predicted | Caucasian, no recidivism]        = 0.3724604966139955
+    P[recidivism predicted | African-American]                = 0.25583657587548636
+    P[recidivism predicted | African-American, recidivism]    = 0.3404634581105169
+    P[recidivism predicted | African-American, no recidivism] = 0.15417558886509636
+    P[recidivism predicted | Caucasian]                       = 0.23949579831932774
+    P[recidivism predicted | Caucasian, recidivism]           = 0.3726937269372694
+    P[recidivism predicted | Caucasian, no recidivism]        = 0.1580135440180587
 
 
 
@@ -485,8 +488,8 @@ or even real valued scores. In this case, this looks as follows:
  .. code-block:: none
 
 
-    array([0.08323404, 0.43451484, 0.54980294, ..., 0.56740062, 0.22122327,
-           0.37423461])
+    array([0.08207579, 0.43139474, 0.54704338, ..., 0.5663099 , 0.2746925 ,
+           0.37253929])
 
 
 
@@ -546,31 +549,31 @@ would be the ones shown below:
 
     Thresholding rules:
 
-    {'African-American':              x  ...               operation
-    0     0.000000  ...                  [>inf]
-    1     0.000000  ...   [>0.9894717395978474]
-    2     0.000000  ...   [>0.9832299702680278]
-    3     0.000000  ...   [>0.9767016738850934]
-    4     0.000000  ...   [>0.9755579558991025]
-    ...        ...  ...                     ...
-    1339  0.997135  ...  [>0.07794734423504954]
-    1340  0.998090  ...  [>0.06980843567768341]
-    1342  0.999045  ...  [>0.06410481191645395]
-    1343  0.999045  ...  [>0.04892218445583864]
-    1344  1.000000  ...                 [>-inf]
+    {'African-American':              x  ...                operation
+    0     0.000000  ...                   [>inf]
+    1     0.000000  ...    [>0.9900687636639569]
+    2     0.000000  ...    [>0.9833277651689363]
+    3     0.000000  ...    [>0.9769547709303381]
+    4     0.000000  ...    [>0.9759584558991209]
+    ...        ...  ...                      ...
+    1325  0.997135  ...    [>0.0778282878057597]
+    1326  0.998090  ...   [>0.07110773038945087]
+    1328  0.999045  ...   [>0.06284092259619639]
+    1329  0.999045  ...  [>0.049301185293204534]
+    1330  1.000000  ...                  [>-inf]
 
-    [1345 rows x 3 columns], 'Caucasian':             x  ...               operation
-    0    0.000000  ...                  [>inf]
-    1    0.000000  ...   [>0.9901698849834395]
-    2    0.000000  ...   [>0.9843556044263456]
-    3    0.000000  ...   [>0.9780210112158703]
-    4    0.000000  ...   [>0.9719729383415978]
-    ..        ...  ...                     ...
-    885  0.995227  ...   [>0.0680332984683496]
-    886  0.996420  ...  [>0.06078803669146356]
-    887  0.997613  ...  [>0.04566358154803128]
-    888  0.998807  ...  [>0.02003713764039698]
-    889  1.000000  ...                 [>-inf]
+    [1331 rows x 3 columns], 'Caucasian':             x  ...                operation
+    0    0.000000  ...                   [>inf]
+    1    0.000000  ...    [>0.9900788571796366]
+    2    0.000000  ...    [>0.9841750223688153]
+    3    0.000000  ...    [>0.9777093594992807]
+    4    0.000000  ...     [>0.970539859957647]
+    ..        ...  ...                      ...
+    885  0.995227  ...   [>0.06951543060671335]
+    886  0.996420  ...    [>0.0620909555121215]
+    887  0.997613  ...   [>0.04704292461657521]
+    888  0.998807  ...  [>0.020606227673051484]
+    889  1.000000  ...                  [>-inf]
 
     [890 rows x 3 columns]}
 
@@ -643,11 +646,11 @@ calculated as follows:
         number of samples with label 1: 551
         number of samples with label 0: 838
     African-American:
-        P[Ŷ = 1 | Y = 0] = 0.34001910219675263
-        P[Ŷ = 1 | Y = 1] = 0.6854545454545454
+        P[Ŷ = 1 | Y = 0] = 0.3390639923591213
+        P[Ŷ = 1 | Y = 1] = 0.6845454545454546
     Caucasian:
-        P[Ŷ = 1 | Y = 0] = 0.1801909307875895
-        P[Ŷ = 1 | Y = 1] = 0.4010889292196007
+        P[Ŷ = 1 | Y = 0] = 0.18377088305489261
+        P[Ŷ = 1 | Y = 1] = 0.4029038112522686
 
 
 
@@ -698,9 +701,10 @@ both groups/curves.
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_004.png
-    :alt: plot binary classification COMPAS
-    :class: sphx-glr-single-img
+.. image-sg:: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_004.png
+   :alt: plot binary classification COMPAS
+   :srcset: /auto_examples/images/sphx_glr_plot_binary_classification_COMPAS_004.png
+   :class: sphx-glr-single-img
 
 
 
@@ -796,20 +800,20 @@ analytically. By choosing a large `grid_size` this can be alleviated.
  .. code-block:: none
 
     African-American:
-    [p_ignore: 0.23207031263141853
-      prediction_constant: 0.337
-      p0: 0.6265294117647058
-      operation0: [>0.5255937372948403]
-      p1: 0.3734705882352942
-      operation1: [>0.4511577443731408]]
+    [p_ignore: 0.26151601889416654
+      prediction_constant: 0.14200000000000002
+      p0: 0.8378857142857137
+      operation0: [>0.582560375489295]
+      p1: 0.16211428571428632
+      operation1: [>0.5665583358251426]]
     -----------------------------------
     Caucasian:
     [p_ignore: 0.0
-      prediction_constant: 0.337
-      p0: 0.003735849056603747
-      operation0: [>0.5172897195295328]
-      p1: 0.9962641509433963
-      operation1: [>0.40323605733701584]]
+      prediction_constant: 0.14200000000000002
+      p0: 0.0019999999999962322
+      operation0: [>0.5189601859109456]
+      p1: 0.9980000000000038
+      operation1: [>0.517070252088971]]
     -----------------------------------
 
 
@@ -818,7 +822,7 @@ analytically. By choosing a large `grid_size` this can be alleviated.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.994 seconds)
+   **Total running time of the script:** ( 0 minutes  6.849 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_binary_classification_COMPAS.py:
