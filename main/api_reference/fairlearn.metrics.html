@@ -284,7 +284,7 @@ This extends to multiple grouping columns, calculating the metric
 for each combination of subgroups.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L97-L732"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L97-L802"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Collection of disaggregated metric values.</p>
 <p>This data structure stores and manipulates disaggregated values for any number of underlying
@@ -367,9 +367,78 @@ If there are any other arguments required (such as <code class="docutils literal
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">selection_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf1</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Access the disaggregated metrics via a pandas Series</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf1</span><span class="o">.</span><span class="n">by_group</span> 
+<span class="go">                    selection_rate</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">Female                         0.8</span>
+<span class="go">Male                           0.4</span>
+</pre></div>
+</div>
+<p>Access the largest difference, smallest ratio, and worst case performance</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;difference: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">difference</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+<span class="gp">... </span>     <span class="sa">f</span><span class="s2">&quot;ratio: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">ratio</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t</span><span class="s2">&quot;</span>
+<span class="gp">... </span>     <span class="sa">f</span><span class="s2">&quot;max across groups: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">group_max</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">difference: 0.4     ratio: 0.5      max across groups: 0.8</span>
+</pre></div>
+</div>
+<p>You can also evaluate multiple metrics by providing a dictionary</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;accuracy&quot;</span><span class="p">:</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics_dict</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Access the disaggregated metrics via a pandas DataFrame</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span><span class="o">.</span><span class="n">by_group</span> 
+<span class="go">                    accuracy selection_rate</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">Female                   0.8            0.8</span>
+<span class="go">Male                     0.6            0.4</span>
+</pre></div>
+</div>
+<p>The largest difference, smallest ratio, and the maximum and minimum values
+across the groups are then all pandas Series, for example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span><span class="o">.</span><span class="n">difference</span><span class="p">()</span>
+<span class="go">accuracy          0.2</span>
+<span class="go">selection_rate    0.4</span>
+<span class="go">dtype: object</span>
+</pre></div>
+</div>
+<p>You’ll probably want to view them transposed</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;difference&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">difference</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;ratio&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">ratio</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;group_min&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">group_min</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;group_max&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">group_max</span><span class="p">()})</span><span class="o">.</span><span class="n">T</span>
+<span class="go">           accuracy selection_rate</span>
+<span class="go">difference      0.2            0.4</span>
+<span class="go">ratio          0.75            0.5</span>
+<span class="go">group_min       0.6            0.4</span>
+<span class="go">group_max       0.8            0.8</span>
+</pre></div>
+</div>
+<p>More information about plotting metrics can be found in the following section: <a class="reference internal" href="../user_guide/assessment.html#plot"><span class="std std-ref">Plotting grouped metrics</span></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference">
-<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L506-L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L576-L629"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum absolute difference between groups for each metric.</p>
 <p>This method calculates a scalar value for each underlying metric by
 finding the maximum absolute difference between the entries in each
@@ -404,7 +473,7 @@ if ‘coerce’, then invalid parsing will be set as NaN</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_max">
-<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L458-L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L528-L550"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum value of the metric over the sensitive features.</p>
 <p>This method computes the maximum value over all combinations of
 sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
@@ -429,7 +498,7 @@ follows the table in <a class="reference internal" href="#fairlearn.metrics.Metr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_min">
-<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L482-L504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L552-L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the maximum value of the metric over the sensitive features.</p>
 <p>This method computes the minimum value over all combinations of
 sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
@@ -454,7 +523,7 @@ follows the table in <a class="reference internal" href="#fairlearn.metrics.Metr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ratio">
-<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L561-L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L631-L702"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the minimum ratio between groups for each metric.</p>
 <p>This method calculates a scalar value for each underlying metric by
 finding the minimum ratio (that is, the ratio is forced to be
