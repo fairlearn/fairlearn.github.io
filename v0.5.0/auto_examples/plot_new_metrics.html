@@ -369,7 +369,7 @@ three unique values:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpzdx5g_b1/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:87: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp_nx3kn73/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:87: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -412,13 +412,13 @@ illustrative purposes.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmpzdx5g_b1/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:121: SettingWithCopyWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/tmp/tmp_nx3kn73/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:121: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   A[&#39;Credit Score&#39;] = col_credit
-/tmp/tmpzdx5g_b1/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:122: SettingWithCopyWarning:
+/tmp/tmp_nx3kn73/d1581b4576fa5c4dbb0fb99bf5548c74ba05b0ac/examples/plot_new_metrics.py:122: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -618,7 +618,7 @@ minimum of four arguments:</p>
 one underlying metric is required (as in this case), then we must
 provide them in a dictionary.</p>
 <p>The underlying metrics must have a signature <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code>,
-so we have to use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> to
+so we have to use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> to
 furnish <code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code> (we will show how to pass in extra array
 arguments such as sample weights shortly).</p>
 <p>We will now take a closer look at the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
@@ -763,7 +763,7 @@ grouping by race.</p>
 the form <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code> - we do not support scalar arguments
 such as <code class="docutils literal notranslate"><span class="pre">pos_label=</span></code> or <code class="docutils literal notranslate"><span class="pre">beta=</span></code> in the constructor. Such
 arguments should be bound into a new function using
-<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>, and the result passed in. However, we do
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>, and the result passed in. However, we do
 support arguments which have one entry for each sample, with an array
 of sample weights being the most common example. These are divided
 into subgroups along with <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>, and passed along
@@ -794,8 +794,8 @@ pass these along:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.202759
-fbeta_06           0.68525
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.198747
+fbeta_06          0.682106
 dtype: object
 </pre></div>
 </div>
@@ -834,13 +834,13 @@ dtype: object
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.074606</td>
-      <td>0.633507</td>
+      <td>0.073726</td>
+      <td>0.646981</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.265443</td>
-      <td>0.692913</td>
+      <td>0.260591</td>
+      <td>0.68733</td>
     </tr>
   </tbody>
 </table>
@@ -1778,7 +1778,7 @@ Name: member_counts, dtype: object
 </div>
 <p>Recall that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> indicates that there were no individuals
 in a cell - <code class="docutils literal notranslate"><span class="pre">member_counts()</span></code> will not even have been called.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.777 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.415 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
