@@ -463,11 +463,17 @@ H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.ExponentiatedGradient">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">ExponentiatedGradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_linprog_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L19-L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">ExponentiatedGradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_linprog_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L19-L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
 <p>An Estimator which implements the exponentiated gradient approach to reductions.</p>
 <p>The exponentiated gradient algorithm is described in detail by
 <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.3.0: </span>Was a function before, not a class</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.6: </span>Requires 0-1 labels for classification problems</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -479,26 +485,47 @@ In binary classification labels <cite>y</cite> and predictions returned by
 <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> are either 0 or 1.
 In regression values <cite>y</cite> and predictions are continuous.</p></li>
 <li><p><strong>constraints</strong> (<a class="reference internal" href="#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><em>fairlearn.reductions.Moment</em></a>) – The disparity constraints expressed as moments</p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Allowed fairness constraint violation; the solution is guaranteed to
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – <p>Allowed fairness constraint violation; the solution is guaranteed to
 have the error within <code class="code docutils literal notranslate"><span class="pre">2*best_gap</span></code> of the best error under
 constraint <cite>eps</cite>; the constraint violation is at most
-<code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code></p></li>
-<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Maximum number of iterations</p></li>
+<code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code></p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.5.0: </span><code class="code docutils literal notranslate"><span class="pre">eps</span></code> is now only responsible for setting the L1 norm bound
+in the optimization</p>
+</div>
+</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – <p>Maximum number of iterations</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0: </span>Used to be <code class="code docutils literal notranslate"><span class="pre">T</span></code></p>
+</div>
+</p></li>
 <li><p><strong>nu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Convergence threshold for the duality gap, corresponding to a
 conservative automatic setting based on the statistical uncertainty
 in measuring classification error</p></li>
-<li><p><strong>eta_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Initial setting of the learning rate</p></li>
-<li><p><strong>run_linprog_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – if True each step of exponentiated gradient is followed by the saddle
+<li><p><strong>eta_0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – <p>Initial setting of the learning rate</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0: </span>Used to be <code class="code docutils literal notranslate"><span class="pre">eta_mul</span></code></p>
+</div>
+</p></li>
+<li><p><strong>run_linprog_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – <p>if True each step of exponentiated gradient is followed by the saddle
 point optimization over the convex hull of classifiers returned so
-far; default True</p></li>
-<li><p><strong>sample_weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
-(defaults to <cite>sample_weight</cite>)</p></li>
+far; default True</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+</p></li>
+<li><p><strong>sample_weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
+(defaults to <cite>sample_weight</cite>)</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.ExponentiatedGradient.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L71-L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L97-L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a fair classifier under specified fairness constraints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -512,7 +539,7 @@ far; default True</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.ExponentiatedGradient.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L192-L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L218-L261"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide predictions for the given input data.</p>
 <p>Predictions are randomized, i.e., repeatedly calling <cite>predict</cite> with
 the same feature data may yield different output. This
@@ -593,11 +620,17 @@ H. Wallach, “A Reductions Approach to Fair Classification,” arXiv.org,
 
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">GridSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_rule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_optimization'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L22-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">GridSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_rule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_optimization'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_weight'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L22-L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.MetaEstimatorMixin</span></code></p>
 <p>Estimator to perform a grid search given a blackbox estimator algorithm.</p>
 <p>The approach used is taken from section 3.4 of
 <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. (2018)</a> <a class="footnote-reference brackets" href="#id15" id="id14">1</a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.3.0.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.6: </span>Enabled for more than two sensitive feature values</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -625,8 +658,12 @@ by default</p></li>
 It is ‘0’ by default</p></li>
 <li><p><strong>grid</strong> – Instead of supplying a size and limit for the grid, users may specify
 the exact set of Lagrange multipliers they desire using this argument.</p></li>
-<li><p><strong>sample_weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
-(defaults to <cite>sample_weight</cite>)</p></li>
+<li><p><strong>sample_weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
+(defaults to <cite>sample_weight</cite>)</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -640,7 +677,7 @@ arXiv.org, 16-Jul-2018. [Online]. Available: <a class="reference external" href=
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L105-L207"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.fit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L112-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the grid search.</p>
 <p>This will result in multiple copies of the
 estimator being made, and the <code class="code docutils literal notranslate"><span class="pre">fit(X)</span></code> method
@@ -659,7 +696,7 @@ feature used by the constraints object</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L209-L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L216-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide a prediction using the best model found by the grid search.</p>
 <p>This dispatches <cite>X</cite> to the <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> method of the
 selected estimator, and hence the return type is dependent on that method.</p>
@@ -672,7 +709,7 @@ selected estimator, and hence the return type is dependent on that method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.GridSearch.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L221-L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict_proba" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_grid_search/grid_search.py#L228-L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.GridSearch.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provide the result of <code class="code docutils literal notranslate"><span class="pre">predict_proba</span></code> from the best model found by the grid search.</p>
 <p>The underlying estimator must support <code class="code docutils literal notranslate"><span class="pre">predict_proba(X)</span></code> for this
 to work. The return type is determined by this method.</p>
