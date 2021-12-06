@@ -484,7 +484,7 @@ rather than specific causes (such as societal biases), we avoid the usage of
 the words <em>bias</em> or <em>debiasing</em> in describing the functionality of Fairlearn.</p>
 </div>
 <div class="section" id="types-of-harms">
-<h2>Types of harms<a class="headerlink" href="#types-of-harms" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Types of harms<a class="headerlink" href="#types-of-harms" title="Permalink to this headline">¶</a></h2>
 <p>There are many types of harms (see, e.g., the
 <a class="reference external" href="https://www.youtube.com/watch?v=fMym_BKWQzk">keynote by K. Crawford at NeurIPS 2017</a>).
 The Fairlearn package is most applicable to two kinds of harms:</p>
@@ -504,7 +504,7 @@ face recognition, document search, or product recommendation.</p></li>
 <div class="section" id="construct-validity">
 <h3>Construct validity<a class="headerlink" href="#construct-validity" title="Permalink to this headline">¶</a></h3>
 <p>In many cases, fairness-related harms can be traced back to the way a real-world problem is translated into a machine learning task. Which target variable do we intend to predict? What features will be included? What (fairness) constraints do we consider? Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
-<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id2">10</a> . This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation. In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
+<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id3">10</a> . This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation. In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
 <div class="section" id="key-terms">
 <h4>Key Terms<a class="headerlink" href="#key-terms" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -521,15 +521,15 @@ face recognition, document search, or product recommendation.</p></li>
 <li><p><strong>Fairness</strong> is an example of an unobservable theoretical construct. Several measurement models exist for measuring fairness, including demographic parity. These measurements may come together to form a measurement model, where several measurements are combined to ultimately measure fairness.See <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> for more examples of measurement models for measuring fairness.</p></li>
 <li><p><strong>Teacher effectiveness</strong> is an example of an unobservable theoretical construct. Common measurement models include student performance on standardized exams and qualitative feedback for the teacher’s students.</p></li>
 <li><p><strong>Socioeconomic status</strong> is an example of an unobservable theoretical construct. A common measurement model includes annual household income.</p></li>
-<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#id18" id="id3">11</a> for a related example.</p></li>
+<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#id21" id="id4">11</a> for a related example.</p></li>
 </ul>
-<p><strong>Note:</strong> We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.  Please reference Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id4">10</a> for more detailed examples.</p>
+<p><strong>Note:</strong> We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.  Please reference Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id5">10</a> for more detailed examples.</p>
 </div>
 <div class="section" id="what-is-construct-validity">
-<h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Permalink to this headline">¶</a></h4>
-<p>Though the Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id5">10</a> paper explores both construct reliability and construct validity, we focus our
+<span id="id6"></span><h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Permalink to this headline">¶</a></h4>
+<p>Though the Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id7">10</a> paper explores both construct reliability and construct validity, we focus our
 exploration below on construct Validity. We note that both play an important role in understanding fairness in sociotechnical
-contexts. With that said, Measurement and Fairness <a class="footnote-reference brackets" href="#id17" id="id6">10</a> offers a fairness-oriented conceptualization of construct validity, that
+contexts. With that said, Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id8">10</a> offers a fairness-oriented conceptualization of construct validity, that
 is helpful in thinking about fairness in sociotechnical contexts. We capture the idea in seven key parts that when combined
 can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
 <ol class="arabic simple">
@@ -586,7 +586,7 @@ that define specific <em>protected classes</em>. Since we seek to apply group
 fairness in a wider range of settings, we avoid this term.</p>
 </div>
 <div class="section" id="parity-constraints">
-<h3>Parity constraints<a class="headerlink" href="#parity-constraints" title="Permalink to this headline">¶</a></h3>
+<span id="id9"></span><h3>Parity constraints<a class="headerlink" href="#parity-constraints" title="Permalink to this headline">¶</a></h3>
 <p>Group fairness is typically formalized by a set of constraints on the behavior
 of the predictor called <strong>parity constraints</strong> (also called criteria). Parity
 constraints require that some aspect (or aspects) of the predictor behavior be
@@ -602,16 +602,16 @@ For example, in Fairlearn, we consider the following types of parity constraints
 <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution over
 <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
 independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
-<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id15" id="id7">8</a></p></li>
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id18" id="id10">8</a></p></li>
 <li><p><em>Equalized odds</em>: A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized odds under a
 distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
 <span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
-<a class="footnote-reference brackets" href="#id15" id="id8">8</a></p></li>
+<a class="footnote-reference brackets" href="#id18" id="id11">8</a></p></li>
 <li><p><em>Equal opportunity</em>: a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#id14" id="id9">7</a></p></li>
+<a class="footnote-reference brackets" href="#id17" id="id12">7</a></p></li>
 </ul>
 <p><em>Regression</em>:</p>
 <ul class="simple">
@@ -619,10 +619,10 @@ conditional expectations with respect to positive labels, i.e., <span class="mat
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
 of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
-<a class="footnote-reference brackets" href="#id13" id="id10">6</a></p></li>
+<a class="footnote-reference brackets" href="#id16" id="id13">6</a></p></li>
 <li><p><em>Bounded group loss</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies bounded group loss at
 level <span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if
-<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id13" id="id11">6</a></p></li>
+<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id16" id="id14">6</a></p></li>
 </ul>
 <p>Above, demographic parity seeks to mitigate allocation harms, whereas bounded
 group loss primarily seeks to mitigate quality-of-service harms. Equalized
@@ -630,7 +630,7 @@ odds and equal opportunity can be used as a diagnostic for both allocation
 harms as well as quality-of-service harms.</p>
 </div>
 <div class="section" id="disparity-metrics-group-metrics">
-<h3>Disparity metrics, group metrics<a class="headerlink" href="#disparity-metrics-group-metrics" title="Permalink to this headline">¶</a></h3>
+<span id="disparity-metrics"></span><h3>Disparity metrics, group metrics<a class="headerlink" href="#disparity-metrics-group-metrics" title="Permalink to this headline">¶</a></h3>
 <p>Disparity metrics evaluate how far a given predictor departs from satisfying a
 parity constraint. They can either compare the behavior across different
 groups in terms of ratios or in terms of differences. For example, for binary
@@ -651,7 +651,7 @@ subpackage <a class="reference internal" href="../api_reference/fairlearn.metric
 </div>
 </div>
 <div class="section" id="what-traps-can-we-fall-into-when-modeling-a-social-problem">
-<h2>What traps can we fall into when modeling a social problem?<a class="headerlink" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem" title="Permalink to this headline">¶</a></h2>
+<span id="abstraction-traps"></span><h2>What traps can we fall into when modeling a social problem?<a class="headerlink" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem" title="Permalink to this headline">¶</a></h2>
 <p>Machine learning systems used in the real world are inherently sociotechnical
 systems, which include both technologies and social actors. Designers of machine
 learning systems typically translate a real-world context into a machine learning
@@ -662,7 +662,7 @@ However, by abstracting away the social context they are at risk of falling into
 are interrelated.</p>
 <p>In this section, we explain what those traps are, and give some suggestions on
 how we can avoid them.</p>
-<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst et al. <a class="footnote-reference brackets" href="#id16" id="id12">9</a>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst et al. <a class="footnote-reference brackets" href="#id19" id="id15">9</a>
 identify failure modes that can arise from abstracting away the social context
 when modeling. They identify them as:</p>
 <ul class="simple">
@@ -676,7 +676,7 @@ when modeling. They identify them as:</p>
 users think about how choices they make in their work can lead to or avoid
 these common pitfalls.</p>
 <div class="section" id="the-solutionism-trap">
-<h3>The Solutionism Trap<a class="headerlink" href="#the-solutionism-trap" title="Permalink to this headline">¶</a></h3>
+<span id="solutionism-trap"></span><h3>The Solutionism Trap<a class="headerlink" href="#the-solutionism-trap" title="Permalink to this headline">¶</a></h3>
 <p>This trap occurs when we assume that the best solution to a problem
 may involve technology, and fail to recognize other possible solutions
 outside of this realm. Solutionist approaches may also not be appropriate
@@ -693,7 +693,7 @@ focused on internet speed may fail to meaningfully address the needs of
 the community.</p>
 </div>
 <div class="section" id="the-ripple-effect-trap">
-<h3>The Ripple Effect Trap<a class="headerlink" href="#the-ripple-effect-trap" title="Permalink to this headline">¶</a></h3>
+<span id="ripple-effect-trap"></span><h3>The Ripple Effect Trap<a class="headerlink" href="#the-ripple-effect-trap" title="Permalink to this headline">¶</a></h3>
 <p>This trap occurs when we do not consider the unintended consequences of
 introducing technology into an existing social system. Such consequences
 include changes in behaviors, outcomes, individual experiences, or changes
@@ -716,7 +716,7 @@ existing groups in that context, or how actors might change their behaviors to
 game the model.</p>
 </div>
 <div class="section" id="the-formalism-trap">
-<h3>The Formalism Trap<a class="headerlink" href="#the-formalism-trap" title="Permalink to this headline">¶</a></h3>
+<span id="formalism-trap"></span><h3>The Formalism Trap<a class="headerlink" href="#the-formalism-trap" title="Permalink to this headline">¶</a></h3>
 <p>Many tasks of a data scientist involve some form of formalization: from
 measuring real-world phenomena as data to translating business Key Performance
 Indicators (KPIs) and constraints into metrics, loss functions, or parameters.
@@ -754,7 +754,7 @@ and police officers determine whether bail, counselling, probation, or
 incarceration is appropriate);</p>
 </div>
 <div class="section" id="the-portability-trap">
-<h3>The Portability Trap<a class="headerlink" href="#the-portability-trap" title="Permalink to this headline">¶</a></h3>
+<span id="portability-trap"></span><h3>The Portability Trap<a class="headerlink" href="#the-portability-trap" title="Permalink to this headline">¶</a></h3>
 <p>This trap occurs when we fail to understand how reusing a model or
 algorithm that is designed for one specific social context may not
 necessarily apply to a different social context. Reusing an algorithmic
@@ -772,7 +772,7 @@ and societal roles, and the percentages of successful applicants in
 each field per (gender) group.</p>
 </div>
 <div class="section" id="the-framing-trap">
-<h3>The Framing Trap<a class="headerlink" href="#the-framing-trap" title="Permalink to this headline">¶</a></h3>
+<span id="framing-trap"></span><h3>The Framing Trap<a class="headerlink" href="#the-framing-trap" title="Permalink to this headline">¶</a></h3>
 <p>This trap occurs when we fail to consider the full picture surrounding
 a particular social context when abstracting a social problem. Elements
 involved include but are not limited to: the social landscape that the
@@ -808,30 +808,30 @@ the algorithm may impact the intended outcomes of a given model.</p>
 <div class="topic">
 <p class="topic-title">References:</p>
 <dl class="footnote brackets">
-<dt class="label" id="id13"><span class="brackets">6</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
+<dt class="label" id="id16"><span class="brackets">6</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>)</span></dt>
 <dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
 Reduction-based Algorithms”</a>,
 ICML, 2019.</p>
 </dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id9">7</a></span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id12">7</a></span></dt>
 <dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
 Learning”</a>,
 NIPS, 2016.</p>
 </dd>
-<dt class="label" id="id15"><span class="brackets">8</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
+<dt class="label" id="id18"><span class="brackets">8</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
 <dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
 Approach to Fair Classification”</a>, ICML, 2018.</p>
 </dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id12">9</a></span></dt>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id15">9</a></span></dt>
 <dd><p>Selbst, Andrew D. and Boyd, Danah and Friedler, Sorelle and Venkatasubramanian,
 Suresh and Vertesi, Janet, “Fairness and Abstraction in Sociotechnical Systems”
 (August 23, 2018). 2019 ACM Conference on Fairness, Accountability, and Transparency
 (FAT*), 59-68, Available at <a class="reference external" href="https://ssrn.com/abstract=3265913">SSRN:</a>,</p>
 </dd>
-<dt class="label" id="id17"><span class="brackets">10</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>,<a href="#id6">4</a>)</span></dt>
+<dt class="label" id="id20"><span class="brackets">10</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id8">4</a>)</span></dt>
 <dd><p>Jacobs, Wallach <a class="reference external" href="https://arxiv.org/pdf/1912.05511.pdf">“Measurement and Fairness”</a>, FAccT, 2021.</p>
 </dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id3">11</a></span></dt>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id4">11</a></span></dt>
 <dd><p>Obermeyer, Powers, Vogeli, Mullainathan <a class="reference external" href="https://science.sciencemag.org/content/366/6464/447">“Dissecting racial bias in an algorithm used to manage the health of populations”</a>, Science, 2019.</p>
 </dd>
 </dl>
