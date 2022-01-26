@@ -22,7 +22,7 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-84
+.. GENERATED FROM PYTHON SOURCE LINES 11-83
 
 
 
@@ -32,21 +32,21 @@ MetricFrame visualizations
     *
 
       .. image-sg:: /auto_examples/images/sphx_glr_plot_quickstart_001.png
-         :alt: Show all metrics, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+         :alt: Show all metrics, accuracy, precision, false positive rate, false negative rate, selection rate, count
          :srcset: /auto_examples/images/sphx_glr_plot_quickstart_001.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/images/sphx_glr_plot_quickstart_002.png
-         :alt: Show all metrics with assigned y-axis range, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+         :alt: Show all metrics with assigned y-axis range, accuracy, precision, false positive rate, false negative rate, selection rate, count
          :srcset: /auto_examples/images/sphx_glr_plot_quickstart_002.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/images/sphx_glr_plot_quickstart_003.png
-         :alt: Show all metrics in Accent colormap, accuracy, precision, recall, false positive rate, true positive rate, selection rate, count
+         :alt: Show all metrics in Accent colormap, accuracy, precision, false positive rate, false negative rate, selection rate, count
          :srcset: /auto_examples/images/sphx_glr_plot_quickstart_003.png
          :class: sphx-glr-multi-img
 
@@ -78,13 +78,13 @@ MetricFrame visualizations
     from fairlearn.metrics import (
         MetricFrame,
         false_positive_rate,
-        true_positive_rate,
+        false_negative_rate,
         selection_rate,
         count,
     )
     import pandas as pd
     from sklearn.datasets import fetch_openml
-    from sklearn.metrics import accuracy_score, precision_score, recall_score
+    from sklearn.metrics import accuracy_score, precision_score
     from sklearn.tree import DecisionTreeClassifier
 
     data = fetch_openml(data_id=1590, as_frame=True)
@@ -100,9 +100,8 @@ MetricFrame visualizations
     metrics = {
         "accuracy": accuracy_score,
         "precision": precision_score,
-        "recall": recall_score,
         "false positive rate": false_positive_rate,
-        "true positive rate": true_positive_rate,
+        "false negative rate": false_negative_rate,
         "selection rate": selection_rate,
         "count": count,
     }
@@ -152,7 +151,7 @@ MetricFrame visualizations
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.258 seconds)
+   **Total running time of the script:** ( 0 minutes  6.964 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:
