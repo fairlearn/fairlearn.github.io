@@ -724,7 +724,7 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 <span class="go">SF 0</span>
 <span class="go">a    0.6</span>
 <span class="go">b    0.2</span>
-<span class="go">Name: selection_rate, dtype: object</span>
+<span class="go">Name: selection_rate, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="go">sign  event  group_id</span>
@@ -791,7 +791,7 @@ by considering both events <span class="math notranslate nohighlight">\(Y=0\)</s
 <span class="go">sensitive_feature_0</span>
 <span class="go">a    0.75...</span>
 <span class="go">b    0.33...</span>
-<span class="go">Name: true_positive_rate, dtype: object</span>
+<span class="go">Name: true_positive_rate, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="go">sign  event    group_id</span>
@@ -872,7 +872,7 @@ the overall error rate by more than the value of <code class="code docutils lite
 <span class="go">sensitive_feature_0</span>
 <span class="go">a    0.8</span>
 <span class="go">b    0.4</span>
-<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span> <span class="o">=</span> <span class="n">ErrorRateParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -998,8 +998,8 @@ Group <code class="code docutils literal notranslate"><span class="pre">&quot;a&
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mae_frame</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">SF 0</span>
 <span class="go">a    0.05</span>
-<span class="go">b    0.5</span>
-<span class="go">Name: mean_absolute_error, dtype: object</span>
+<span class="go">b    0.50</span>
+<span class="go">Name: mean_absolute_error, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="go">group_id</span>

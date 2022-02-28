@@ -620,11 +620,11 @@ in combination with a <code class="code docutils literal notranslate"><span clas
 <span class="gp">... </span>                 <span class="n">sensitive_features</span><span class="o">=</span><span class="n">group_membership_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span> <span class="c1"># series with accuracy for each sensitive group</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a         1.0</span>
-<span class="go">b         0.5</span>
-<span class="go">c    0.428571</span>
-<span class="go">d         1.0</span>
-<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="go">a         1.0...</span>
+<span class="go">b         0.5...</span>
+<span class="go">c         0.428...</span>
+<span class="go">d         1.0...</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">difference</span><span class="p">())</span> <span class="c1"># difference in accuracy between the max and min of all groups</span>
 <span class="go">0.5714285714285714</span>
 </pre></div>
@@ -644,14 +644,14 @@ show each group’s size):</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">overall</span>
 <span class="go">precision    0.5555...</span>
 <span class="go">recall       0.5...</span>
-<span class="go">dtype: object</span>
+<span class="go">dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span><span class="o">.</span><span class="n">by_group</span>
-<span class="go">                    precision recall count</span>
+<span class="go">                     precision  recall  count</span>
 <span class="go">sensitive_feature_0</span>
-<span class="go">a                         0.0    0.0     2</span>
-<span class="go">b                         1.0    0.5     4</span>
-<span class="go">c                         0.6   0.75     7</span>
-<span class="go">d                         0.0    0.0     3</span>
+<span class="go">a                          0.0    0.00    2.0</span>
+<span class="go">b                          1.0    0.50    4.0</span>
+<span class="go">c                          0.6    0.75    7.0</span>
+<span class="go">d                          0.0    0.00    3.0</span>
 </pre></div>
 </div>
 <p>If there are per-sample arguments (such as sample weights), these can also be provided
@@ -671,7 +671,7 @@ in a dictionary via the <code class="docutils literal notranslate"><span class="
 <span class="go">b    0.5...</span>
 <span class="go">c    0.7142...</span>
 <span class="go">d    0...</span>
-<span class="go">Name: recall_score, dtype: object</span>
+<span class="go">Name: recall_score, dtype: float64</span>
 </pre></div>
 </div>
 <p>If multiple metrics are being evaluated, then <code class="docutils literal notranslate"><span class="pre">sample_params</span></code> becomes a dictionary of
@@ -697,7 +697,7 @@ function:</p>
 <span class="go">b    0.7906...</span>
 <span class="go">c    0.6335...</span>
 <span class="go">d    0...</span>
-<span class="go">Name: metric, dtype: object</span>
+<span class="go">Name: metric, dtype: float64</span>
 </pre></div>
 </div>
 </div>
@@ -724,7 +724,7 @@ holds the intersections of these groups:</p>
 <span class="go">      8       0.5</span>
 <span class="go">d     6       0.0</span>
 <span class="go">      8       0.0</span>
-<span class="go">Name: recall_score, dtype: object</span>
+<span class="go">Name: recall_score, dtype: float64</span>
 </pre></div>
 </div>
 <p>With such a small number of samples, we are obviously running into cases where
@@ -941,7 +941,7 @@ parameter:</p>
 <span class="go">CF</span>
 <span class="go">H    0.4285...</span>
 <span class="go">L    0.375...</span>
-<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The &#39;by_group&#39; property looks similar to how it would if we had two sensitive features</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">CF  SF</span>
@@ -951,7 +951,7 @@ parameter:</p>
 <span class="go">L   A     0.4...</span>
 <span class="go">    B     0.2857...</span>
 <span class="go">    C     0.5...</span>
-<span class="go">Name: accuracy_score, dtype: object</span>
+<span class="go">Name: accuracy_score, dtype: float64</span>
 </pre></div>
 </div>
 <p>Note how the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a> property is stratified based on the
