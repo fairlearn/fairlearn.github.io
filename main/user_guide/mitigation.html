@@ -458,6 +458,11 @@
      Grid Search
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -503,24 +508,24 @@
 <tbody>
 <tr class="row-even"><th class="stub"><p><a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a></p></th>
 <td><p>A wrapper (reduction) approach to fair classification described in <em>A Reductions</em>
-<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id18" id="id2">5</a>.</p></td>
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2">1</a>.</p></td>
 <td><p>✔</p></td>
 <td><p>✔</p></td>
 <td><p>DP, EO, TPRP, FPRP, ERP, BGL</p></td>
 </tr>
 <tr class="row-odd"><th class="stub"><p><a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearch</span></code></a></p></th>
 <td><p>A wrapper (reduction) approach described in Section 3.4 of <em>A Reductions</em>
-<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#id18" id="id3">5</a>. For regression it acts as a
+<em>Approach to Fair Classification</em> <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id3">1</a>. For regression it acts as a
 grid-search variant of the algorithm described in Section 5 of
 <em>Fair Regression: Quantitative Definitions and Reduction-based</em>
-<em>Algorithms</em> <a class="footnote-reference brackets" href="#id17" id="id4">4</a>.</p></td>
+<em>Algorithms</em> <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id4">2</a>.</p></td>
 <td><p>✔</p></td>
 <td><p>✔</p></td>
 <td><p>DP, EO, TPRP, FPRP, ERP, BGL</p></td>
 </tr>
 <tr class="row-even"><th class="stub"><p><a class="reference internal" href="../api_reference/fairlearn.postprocessing.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a></p></th>
 <td><p>Postprocessing algorithm based on the paper <em>Equality of Opportunity</em>
-<em>in Supervised Learning</em> <a class="footnote-reference brackets" href="#id19" id="id5">6</a>. This technique takes as input an
+<em>in Supervised Learning</em> <a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id5">3</a>. This technique takes as input an
 existing classifier and the sensitive feature, and derives a monotone
 transformation of the classifier’s prediction to enforce the specified
 parity constraints.</p></td>
@@ -582,7 +587,7 @@ sociotechnical challenge and how to view Fairlearn in this context refer to
 </div>
 <p>The reductions approach for classification seeks to reduce binary
 classification subject to fairness constraints to a sequence of weighted
-classification problems (see <a class="footnote-reference brackets" href="#id18" id="id9">5</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#id17" id="id10">4</a>).
+classification problems (see <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id9">1</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id10">2</a>).
 As a result, the reduction algorithms
 in Fairlearn only require a wrapper access to any “base” learning algorithm.
 By this we mean that the “base” algorithm only needs to implement <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
@@ -1022,25 +1027,21 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 </div>
 <div class="section" id="grid-search">
 <span id="id16"></span><h3>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
-<div class="topic">
-<p class="topic-title">References:</p>
-<dl class="footnote brackets">
-<dt class="label" id="id17"><span class="brackets">4</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id10">2</a>)</span></dt>
-<dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
-Reduction-based Algorithms”</a>,
-ICML, 2019.</p>
+</div>
+<div class="section" id="references">
+<span id="id17"></span><h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p id="id18"><dl class="footnote brackets">
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id9">3</a>)</span></dt>
+<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
 </dd>
-<dt class="label" id="id18"><span class="brackets">5</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id9">3</a>)</span></dt>
-<dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
-Approach to Fair Classification”</a>, ICML, 2018.</p>
+<dt class="label" id="footcite-agarwal2019fair"><span class="brackets">2</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id10">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
 </dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id5">6</a></span></dt>
-<dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
-Learning”</a>,
-NeurIPS, 2016.</p>
+<dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
 </dd>
 </dl>
-</div>
+</p>
 </div>
 </div>
 </div>
