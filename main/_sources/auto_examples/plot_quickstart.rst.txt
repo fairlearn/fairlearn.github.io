@@ -22,7 +22,7 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-83
+.. GENERATED FROM PYTHON SOURCE LINES 11-94
 
 
 
@@ -57,21 +57,16 @@ MetricFrame visualizations
          :srcset: /auto_examples/images/sphx_glr_plot_quickstart_004.png
          :class: sphx-glr-multi-img
 
+    *
 
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-
-    array([[<AxesSubplot:ylabel='count'>]], dtype=object)
+      .. image-sg:: /auto_examples/images/sphx_glr_plot_quickstart_005.png
+         :alt: Show count metric in pie chart
+         :srcset: /auto_examples/images/sphx_glr_plot_quickstart_005.png
+         :class: sphx-glr-multi-img
 
 
 
 
-
-|
 
 .. code-block:: default
 
@@ -148,10 +143,21 @@ MetricFrame visualizations
         title="Show count metric in pie chart",
     )
 
+    # Saving plots
+    fig = metric_frame.by_group[["count"]].plot(
+        kind="pie",
+        subplots=True,
+        layout=[1, 1],
+        legend=False,
+        figsize=[12, 8],
+        title="Show count metric in pie chart",
+    )
+    fig[0][0].figure.savefig("filename.png")
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.389 seconds)
+   **Total running time of the script:** ( 0 minutes  7.291 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:

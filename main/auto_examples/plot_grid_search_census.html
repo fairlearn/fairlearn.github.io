@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GridSearch with Census Data &#8212; Fairlearn 0.7.1.dev0 documentation</title>
+    <title>GridSearch with Census Data &#8212; Fairlearn 0.8.0.dev0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -167,16 +167,16 @@
   <h4>Versions</h4>
   <ul>
       
-        <li>v0.4.6: Documentation page not present</li>
+        <li>v0.4.6: N/A</li>
       
       
-        <li>v0.5.0: Documentation page not present</li>
+        <li>v0.5.0: N/A</li>
       
       
-        <li>v0.6.2: Documentation page not present</li>
+        <li>v0.6.2: N/A</li>
       
       
-        <li>v0.7.0: Documentation page not present</li>
+        <li>v0.7.0: N/A</li>
       
       
         
@@ -722,7 +722,7 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.itertuples.html#pandas.DataFrame.itertuples" title="pandas.DataFrame.itertuples" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">all_results</span><span class="o">.</span><span class="n">itertuples</span></a><span class="p">():</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors_for_lower_or_eq_disparity</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a><span class="p">[</span><span class="s2">&quot;disparity&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">row</span><span class="o">.</span><span class="n">disparity</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">error</span> <span class="o">&lt;=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html#pandas.Series.min" title="pandas.Series.min" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">errors_for_lower_or_eq_disparity</span><span class="o">.</span><span class="n">min</span></a><span class="p">():</span>
-        <span class="n">non_dominated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">predictor</span><span class="p">)</span>
+        <span class="n">non_dominated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">predictor</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we can evaluate the dominant models along with the unmitigated model.</p>
@@ -764,7 +764,7 @@ Note the range of the axes - the disparity axis covers more values than the accu
 so we can reduce disparity substantially for a small loss in accuracy.</p>
 <p>In a real example, we would pick the model which represented the best trade-off
 between accuracy and disparity given the relevant business constraints.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  23.317 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  30.076 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/298425cd75e0a5fa4e9d7f332f44eb61/plot_grid_search_census.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid_search_census.py</span></code></a></p>

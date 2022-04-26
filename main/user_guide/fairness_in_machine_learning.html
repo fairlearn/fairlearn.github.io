@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fairness in Machine Learning &#8212; Fairlearn 0.7.1.dev0 documentation</title>
+    <title>Fairness in Machine Learning &#8212; Fairlearn 0.8.0.dev0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -351,8 +351,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="installation_and_version_guide/v0.7.1.html">
-       v0.7.1
+      <a class="reference internal" href="installation_and_version_guide/v0.8.0.html">
+       v0.8.0
       </a>
      </li>
     </ul>
@@ -477,6 +477,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -537,8 +542,14 @@ face recognition, document search, or product recommendation.</p></li>
 <p>The concepts outlined in this glossary are relevant to sociotechnical contexts.</p>
 <div class="section" id="construct-validity">
 <h3>Construct validity<a class="headerlink" href="#construct-validity" title="Permalink to this headline">¶</a></h3>
-<p>In many cases, fairness-related harms can be traced back to the way a real-world problem is translated into a machine learning task. Which target variable do we intend to predict? What features will be included? What (fairness) constraints do we consider? Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
-<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id3">10</a> . This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation. In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
+<p>In many cases, fairness-related harms can be traced back to the way a real-world problem is translated into a machine learning task.
+Which target variable do we intend to predict?
+What features will be included?
+What (fairness) constraints do we consider?
+Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
+<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id3">1</a>.
+This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation.
+In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
 <div class="section" id="key-terms">
 <h4>Key Terms<a class="headerlink" href="#key-terms" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -555,24 +566,27 @@ face recognition, document search, or product recommendation.</p></li>
 <li><p><strong>Fairness</strong> is an example of an unobservable theoretical construct. Several measurement models exist for measuring fairness, including demographic parity. These measurements may come together to form a measurement model, where several measurements are combined to ultimately measure fairness.See <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> for more examples of measurement models for measuring fairness.</p></li>
 <li><p><strong>Teacher effectiveness</strong> is an example of an unobservable theoretical construct. Common measurement models include student performance on standardized exams and qualitative feedback for the teacher’s students.</p></li>
 <li><p><strong>Socioeconomic status</strong> is an example of an unobservable theoretical construct. A common measurement model includes annual household income.</p></li>
-<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#id21" id="id4">11</a> for a related example.</p></li>
+<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#footcite-obermeyer2019dissecting" id="id4">2</a> for a related example.</p></li>
 </ul>
-<p><strong>Note:</strong> We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.  Please reference Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id5">10</a> for more detailed examples.</p>
+<p><strong>Note:</strong>
+We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.
+Please reference Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id5">1</a> for more detailed examples.</p>
 </div>
 <div class="section" id="what-is-construct-validity">
 <span id="id6"></span><h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Permalink to this headline">¶</a></h4>
-<p>Though the Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id7">10</a> paper explores both construct reliability and construct validity, we focus our
-exploration below on construct Validity. We note that both play an important role in understanding fairness in sociotechnical
-contexts. With that said, Measurement and Fairness <a class="footnote-reference brackets" href="#id20" id="id8">10</a> offers a fairness-oriented conceptualization of construct validity, that
-is helpful in thinking about fairness in sociotechnical contexts. We capture the idea in seven key parts that when combined
-can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
+<p>Though Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id7">1</a> explore both construct reliability and construct validity, we focus our
+exploration below on construct Validity.
+We note that both play an important role in understanding fairness in sociotechnical contexts.
+With that said, Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id8">1</a> offers a fairness-oriented conceptualization of construct validity, that
+is helpful in thinking about fairness in sociotechnical contexts.
+We capture the idea in seven key parts that when combined  can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
 <ol class="arabic simple">
 <li><p><strong>Face validity</strong> – On the surface, how plausible do the measurements produced by the measurement model look?</p></li>
 <li><p><strong>Content validity</strong> – This has three subcomponents:</p>
 <ol class="loweralpha simple">
-<li><p><strong>Contestedness</strong> – Is there a single understanding of the unobservable theoretical construct? Or is that understanding contested (and thus context        dependent).</p></li>
-<li><p><strong>Substantive validity</strong> – Can we demonstrate that the measurement model contains the observable properties and other unobservable                           theoretical constructs related to the construct of interest (and only those)?</p></li>
-<li><p><strong>Structural validity</strong> – Does the measurement model appropriately capture the relationships between the construct of interest and the measured           observable properties and other unobservable theoretical constructs?</p></li>
+<li><p><strong>Contestedness</strong> – Is there a single understanding of the unobservable theoretical construct? Or is that understanding contested (and thus context dependent).</p></li>
+<li><p><strong>Substantive validity</strong> – Can we demonstrate that the measurement model contains the observable properties and other unobservable theoretical constructs related to the construct of interest (and only those)?</p></li>
+<li><p><strong>Structural validity</strong> – Does the measurement model appropriately capture the relationships between the construct of interest and the measured observable properties and other unobservable theoretical constructs?</p></li>
 </ol>
 </li>
 <li><p><strong>Convergent validity</strong> – Do the measurements obtained correlate with other measurements (that exist) from
@@ -636,16 +650,16 @@ For example, in Fairlearn, we consider the following types of parity constraints
 <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution over
 <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
 independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
-<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id18" id="id10">8</a></p></li>
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.  <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id10">3</a></p></li>
 <li><p><em>Equalized odds</em>: A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized odds under a
 distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
 <span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
-<a class="footnote-reference brackets" href="#id18" id="id11">8</a></p></li>
+<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id11">3</a></p></li>
 <li><p><em>Equal opportunity</em>: a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#id17" id="id12">7</a></p></li>
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id12">4</a></p></li>
 </ul>
 <p><em>Regression</em>:</p>
 <ul class="simple">
@@ -653,10 +667,10 @@ conditional expectations with respect to positive labels, i.e., <span class="mat
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
 of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
-<a class="footnote-reference brackets" href="#id16" id="id13">6</a></p></li>
+<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id13">5</a></p></li>
 <li><p><em>Bounded group loss</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies bounded group loss at
 level <span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if
-<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#id16" id="id14">6</a></p></li>
+<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id14">5</a></p></li>
 </ul>
 <p>Above, demographic parity seeks to mitigate allocation harms, whereas bounded
 group loss primarily seeks to mitigate quality-of-service harms. Equalized
@@ -696,7 +710,7 @@ However, by abstracting away the social context they are at risk of falling into
 are interrelated.</p>
 <p>In this section, we explain what those traps are, and give some suggestions on
 how we can avoid them.</p>
-<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst et al. <a class="footnote-reference brackets" href="#id19" id="id15">9</a>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id15">6</a>
 identify failure modes that can arise from abstracting away the social context
 when modeling. They identify them as:</p>
 <ul class="simple">
@@ -839,37 +853,31 @@ which judging and recommending an outcome take place. This frame might
 incorporate the processes associated with crime reporting, the offense-trial
 pipeline, and an awareness of how the relationship between various social actors and
 the algorithm may impact the intended outcomes of a given model.</p>
-<div class="topic">
-<p class="topic-title">References:</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<div class="docutils container" id="id16">
 <dl class="footnote brackets">
-<dt class="label" id="id16"><span class="brackets">6</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>)</span></dt>
-<dd><p>Agarwal, Dudik, Wu <a class="reference external" href="https://arxiv.org/pdf/1905.12843.pdf">“Fair Regression: Quantitative Definitions and
-Reduction-based Algorithms”</a>,
-ICML, 2019.</p>
+<dt class="label" id="footcite-jacobs2021measurement"><span class="brackets">1</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id8">4</a>)</span></dt>
+<dd><p>Abigail Z. Jacobs and Hanna Wallach. Measurement and fairness. In <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</em>, FAccT ‘21, 375–385. New York, NY, USA, 2021. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">https://doi.org/10.1145/3442188.3445901</a>, <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">doi:10.1145/3442188.3445901</a>.</p>
 </dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id12">7</a></span></dt>
-<dd><p>Hardt, Price, Srebro <a class="reference external" href="https://papers.nips.cc/paper/6374-equality-of-opportunity-in-supervised-learning.pdf">“Equality of Opportunity in Supervised
-Learning”</a>,
-NIPS, 2016.</p>
+<dt class="label" id="footcite-obermeyer2019dissecting"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>Ziad Obermeyer, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. Dissecting racial bias in an algorithm used to manage the health of populations. <em>Science</em>, 366(6464):447–453, 2019. URL: <a class="reference external" href="https://www.science.org/doi/abs/10.1126/science.aax2342">https://www.science.org/doi/abs/10.1126/science.aax2342</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.science.org/doi/pdf/10.1126/science.aax2342">arXiv:https://www.science.org/doi/pdf/10.1126/science.aax2342</a>, <a class="reference external" href="https://doi.org/10.1126/science.aax2342">doi:10.1126/science.aax2342</a>.</p>
 </dd>
-<dt class="label" id="id18"><span class="brackets">8</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
-<dd><p>Agarwal, Beygelzimer, Dudik, Langford, Wallach <a class="reference external" href="https://arxiv.org/pdf/1803.02453.pdf">“A Reductions
-Approach to Fair Classification”</a>, ICML, 2018.</p>
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">3</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
 </dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id15">9</a></span></dt>
-<dd><p>Selbst, Andrew D. and Boyd, Danah and Friedler, Sorelle and Venkatasubramanian,
-Suresh and Vertesi, Janet, “Fairness and Abstraction in Sociotechnical Systems”
-(August 23, 2018). 2019 ACM Conference on Fairness, Accountability, and Transparency
-(FAT*), 59-68, Available at <a class="reference external" href="https://ssrn.com/abstract=3265913">SSRN:</a>,</p>
+<dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
+<dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
 </dd>
-<dt class="label" id="id20"><span class="brackets">10</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id8">4</a>)</span></dt>
-<dd><p>Jacobs, Wallach <a class="reference external" href="https://arxiv.org/pdf/1912.05511.pdf">“Measurement and Fairness”</a>, FAccT, 2021.</p>
+<dt class="label" id="footcite-agarwal2019fair"><span class="brackets">5</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id4">11</a></span></dt>
-<dd><p>Obermeyer, Powers, Vogeli, Mullainathan <a class="reference external" href="https://science.sciencemag.org/content/366/6464/447">“Dissecting racial bias in an algorithm used to manage the health of populations”</a>, Science, 2019.</p>
+<dt class="label" id="footcite-selbst2019fairness"><span class="brackets"><a class="fn-backref" href="#id15">6</a></span></dt>
+<dd><p>Andrew D. Selbst, danah boyd, Sorelle A. Friedler, Suresh Venkatasubramanian, and Janet Vertesi. Fairness and abstraction in sociotechnical systems. In <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, FAT* ‘19, 59–68. New York, NY, USA, 2019. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">https://doi.org/10.1145/3287560.3287598</a>, <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">doi:10.1145/3287560.3287598</a>.</p>
 </dd>
 </dl>
-</div>
 </div>
 </div>
 </div>
