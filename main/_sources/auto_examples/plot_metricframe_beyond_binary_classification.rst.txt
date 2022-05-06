@@ -27,13 +27,16 @@ MetricFrame: Beyond Binary Classification
 This notebook contains examples of using :class:`~fairlearn.metrics.MetricFrame`
 for tasks which go beyond simple binary classification.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-18
+.. GENERATED FROM PYTHON SOURCE LINES 13-21
 
 .. code-block:: default
 
 
-    import sklearn.metrics as skm
     import functools
+
+    import numpy as np
+    import sklearn.metrics as skm
+
     from fairlearn.metrics import MetricFrame
 
 
@@ -43,7 +46,7 @@ for tasks which go beyond simple binary classification.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-30
+.. GENERATED FROM PYTHON SOURCE LINES 22-33
 
 Multiclass & Nonscalar Results
 ==============================
@@ -57,12 +60,11 @@ the result of a metric to be a scalar.
 
 First, let us generate some random input data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-45
+.. GENERATED FROM PYTHON SOURCE LINES 33-47
 
 .. code-block:: default
 
 
-    import numpy as np
 
     rng = np.random.default_rng(seed=96132)
 
@@ -74,7 +76,7 @@ First, let us generate some random input data:
     y_pred = rng.integers(n_classes, size=n_rows)
 
     temp = rng.integers(n_sensitive_features, size=n_rows)
-    s_f = [chr(ord('a')+x) for x in temp]
+    s_f = [chr(ord("a") + x) for x in temp]
 
 
 
@@ -83,21 +85,20 @@ First, let us generate some random input data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-50
+.. GENERATED FROM PYTHON SOURCE LINES 48-52
 
 To use :func:`~sklearn.metrics.confusion_matrix`, we
 need to prebind the `labels` argument, since it is possible
 that some of the subgroups will not contain all of
 the possible labels
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-55
+.. GENERATED FROM PYTHON SOURCE LINES 52-56
 
 .. code-block:: default
 
 
 
-    conf_mat = functools.partial(skm.confusion_matrix,
-                                 labels=np.unique(y_true))
+    conf_mat = functools.partial(skm.confusion_matrix, labels=np.unique(y_true))
 
 
 
@@ -106,20 +107,19 @@ the possible labels
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-58
+.. GENERATED FROM PYTHON SOURCE LINES 57-59
 
 With this now available, we can create our
 :class:`~fairlearn.metrics.MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-64
+.. GENERATED FROM PYTHON SOURCE LINES 59-64
 
 .. code-block:: default
 
 
-    mf = MetricFrame(metrics={'conf_mat': conf_mat},
-                     y_true=y_true,
-                     y_pred=y_pred,
-                     sensitive_features=s_f)
+    mf = MetricFrame(
+        metrics={"conf_mat": conf_mat}, y_true=y_true, y_pred=y_pred, sensitive_features=s_f
+    )
 
 
 
@@ -241,14 +241,14 @@ For example:
 .. code-block:: default
 
 
-    recall = functools.partial(skm.recall_score, average='macro')
+    recall = functools.partial(skm.recall_score, average="macro")
 
-    mf2 = MetricFrame(metrics={'conf_mat': conf_mat,
-                               'recall': recall
-                               },
-                      y_true=y_true,
-                      y_pred=y_pred,
-                      sensitive_features=s_f)
+    mf2 = MetricFrame(
+        metrics={"conf_mat": conf_mat, "recall": recall},
+        y_true=y_true,
+        y_pred=y_pred,
+        sensitive_features=s_f,
+    )
 
     print("Overall values")
     print(mf2.overall)
@@ -305,9 +305,10 @@ bounding boxes, and returns the ratio of their areas.
 If the bounding boxes are identical, then the metric will
 be 1; if disjoint then it will be 0. A function to do this is:
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-168
+.. GENERATED FROM PYTHON SOURCE LINES 122-170
 
 .. code-block:: default
+
 
 
     def bounding_box_iou(box_A_input, box_B_input):
@@ -362,14 +363,15 @@ be 1; if disjoint then it will be 0. A function to do this is:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-173
+
+.. GENERATED FROM PYTHON SOURCE LINES 171-175
 
 This is a metric for two bounding boxes, but for :class:`~fairlearn.metrics.MetricFrame`
 we need to compare two lists of bounding boxes. For the sake of
 simplicity, we will return the mean value of 'iou' for the
 two lists, but this is by no means the only choice:
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-186
+.. GENERATED FROM PYTHON SOURCE LINES 175-189
 
 .. code-block:: default
 
@@ -393,12 +395,13 @@ two lists, but this is by no means the only choice:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-189
+
+.. GENERATED FROM PYTHON SOURCE LINES 190-192
 
 We need to generate some input data, so first create a function to
 generate a single random bounding box:
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-197
+.. GENERATED FROM PYTHON SOURCE LINES 192-201
 
 .. code-block:: default
 
@@ -417,22 +420,20 @@ generate a single random bounding box:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-200
+
+.. GENERATED FROM PYTHON SOURCE LINES 202-204
 
 Now use this to create sample `y_true` and `y_pred` arrays of
 bounding boxes:
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-212
+.. GENERATED FROM PYTHON SOURCE LINES 204-213
 
 .. code-block:: default
 
 
 
     def many_bounding_boxes(n_rows, max_coord, max_delta, rng):
-        return [
-            generate_bounding_box(max_coord, max_delta, rng)
-            for _ in range(n_rows)
-        ]
+        return [generate_bounding_box(max_coord, max_delta, rng) for _ in range(n_rows)]
 
 
     true_bounding_boxes = many_bounding_boxes(n_rows, 5, 10, rng)
@@ -445,19 +446,21 @@ bounding boxes:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 213-214
+.. GENERATED FROM PYTHON SOURCE LINES 214-215
 
 Finally, we can use these in a :class:`~fairlearn.metrics.MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 214-225
+.. GENERATED FROM PYTHON SOURCE LINES 215-228
 
 .. code-block:: default
 
 
-    mf_bb = MetricFrame(metrics={'mean_iou': mean_iou},
-                        y_true=true_bounding_boxes,
-                        y_pred=pred_bounding_boxes,
-                        sensitive_features=s_f)
+    mf_bb = MetricFrame(
+        metrics={"mean_iou": mean_iou},
+        y_true=true_bounding_boxes,
+        y_pred=pred_bounding_boxes,
+        sensitive_features=s_f,
+    )
 
     print("Overall metric")
     print(mf_bb.overall)
@@ -488,7 +491,7 @@ Finally, we can use these in a :class:`~fairlearn.metrics.MetricFrame`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-240
+.. GENERATED FROM PYTHON SOURCE LINES 229-243
 
 The individual entries in the `y_true` and `y_pred` arrays
 can be arbitrarily complex. It is the metric functions
@@ -505,7 +508,7 @@ will be complex is natural language processing,
 where each row of the input could be an entire sentence,
 possibly with complex word embeddings included.
 
-.. GENERATED FROM PYTHON SOURCE LINES 242-253
+.. GENERATED FROM PYTHON SOURCE LINES 245-256
 
 Conclusion
 ==========
@@ -522,7 +525,7 @@ work).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.102 seconds)
+   **Total running time of the script:** ( 0 minutes  0.078 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_metricframe_beyond_binary_classification.py:

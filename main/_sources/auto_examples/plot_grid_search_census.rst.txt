@@ -49,19 +49,20 @@ We download the data set using `fetch_adult` function in `fairlearn.datasets`.
 We start by importing the various modules we're going to use:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-44
+.. GENERATED FROM PYTHON SOURCE LINES 34-45
 
 .. code-block:: default
 
 
-    from sklearn.model_selection import train_test_split
-    from fairlearn.reductions import GridSearch
-    from fairlearn.reductions import DemographicParity, ErrorRate
-    from fairlearn.metrics import MetricFrame, selection_rate, count
-    from sklearn.preprocessing import LabelEncoder, StandardScaler
-    from sklearn.linear_model import LogisticRegression
-    from sklearn import metrics as skm
     import pandas as pd
+    from sklearn import metrics as skm
+    from sklearn.datasets import fetch_openml
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+    from fairlearn.metrics import MetricFrame, count, selection_rate
+    from fairlearn.reductions import DemographicParity, ErrorRate, GridSearch
 
 
 
@@ -70,19 +71,19 @@ We start by importing the various modules we're going to use:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-46
+.. GENERATED FROM PYTHON SOURCE LINES 46-47
 
 We can now load and inspect the data by using the `fairlearn.datasets` module:
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-53
+.. GENERATED FROM PYTHON SOURCE LINES 47-54
 
 .. code-block:: default
 
 
-    from sklearn.datasets import fetch_openml
+
     data = fetch_openml(data_id=1590, as_frame=True)
     X_raw = data.data
-    Y = (data.target == '>50K') * 1
+    Y = (data.target == ">50K") * 1
     X_raw
 
 
@@ -323,7 +324,7 @@ We can now load and inspect the data by using the `fairlearn.datasets` module:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 55-61
 
 We are going to treat the sex of each individual as a sensitive
 feature (where 0 indicates female and 1 indicates male), and in
@@ -332,13 +333,13 @@ from the main data.
 We then perform some standard data preprocessing steps to convert the
 data into a format suitable for the ML algorithms
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-72
+.. GENERATED FROM PYTHON SOURCE LINES 61-73
 
 .. code-block:: default
 
 
     A = X_raw["sex"]
-    X = X_raw.drop(labels=['sex'], axis=1)
+    X = X_raw.drop(labels=["sex"], axis=1)
     X = pd.get_dummies(X)
 
     sc = StandardScaler()
@@ -355,21 +356,18 @@ data into a format suitable for the ML algorithms
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-74
+.. GENERATED FROM PYTHON SOURCE LINES 74-75
 
 Finally, we split the data into training and test sets:
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-88
+.. GENERATED FROM PYTHON SOURCE LINES 75-86
 
 .. code-block:: default
 
 
-    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(X_scaled,
-                                                                         Y,
-                                                                         A,
-                                                                         test_size=0.2,
-                                                                         random_state=0,
-                                                                         stratify=Y)
+    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(
+        X_scaled, Y, A, test_size=0.2, random_state=0, stratify=Y
+    )
 
     # Work around indexing bug
     X_train = X_train.reset_index(drop=True)
@@ -384,7 +382,7 @@ Finally, we split the data into training and test sets:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-96
+.. GENERATED FROM PYTHON SOURCE LINES 87-94
 
 Training a fairness-unaware predictor
 -------------------------------------
@@ -394,12 +392,12 @@ that does not incorporate fairness.
 For speed of demonstration, we use the simple
 :class:`sklearn.linear_model.LogisticRegression` class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-101
+.. GENERATED FROM PYTHON SOURCE LINES 94-99
 
 .. code-block:: default
 
 
-    unmitigated_predictor = LogisticRegression(solver='liblinear', fit_intercept=True)
+    unmitigated_predictor = LogisticRegression(solver="liblinear", fit_intercept=True)
 
     unmitigated_predictor.fit(X_train, Y_train)
 
@@ -418,25 +416,33 @@ For speed of demonstration, we use the simple
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-103
+.. GENERATED FROM PYTHON SOURCE LINES 100-101
 
 We can start to assess the predictor's fairness using the `MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-115
+.. GENERATED FROM PYTHON SOURCE LINES 101-121
 
 .. code-block:: default
 
-    metric_frame = MetricFrame(metrics={"accuracy": skm.accuracy_score,
-                                        "selection_rate": selection_rate,
-                                        "count": count},
-                               sensitive_features=A_test,
-                               y_true=Y_test,
-                               y_pred=unmitigated_predictor.predict(X_test))
+    metric_frame = MetricFrame(
+        metrics={
+            "accuracy": skm.accuracy_score,
+            "selection_rate": selection_rate,
+            "count": count,
+        },
+        sensitive_features=A_test,
+        y_true=Y_test,
+        y_pred=unmitigated_predictor.predict(X_test),
+    )
     print(metric_frame.overall)
     print(metric_frame.by_group)
     metric_frame.by_group.plot.bar(
-            subplots=True, layout=[3, 1], legend=False, figsize=[12, 8],
-            title='Accuracy and selection rate by group')
+        subplots=True,
+        layout=[3, 1],
+        legend=False,
+        figsize=[12, 8],
+        title="Accuracy and selection rate by group",
+    )
 
 
 
@@ -471,7 +477,7 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-127
+.. GENERATED FROM PYTHON SOURCE LINES 122-133
 
 Looking at the disparity in accuracy, we see that males have an error
 about three times greater than the females.
@@ -485,7 +491,7 @@ predictor rarely eliminates unfairness.
 There will generally be enough other features correlated with the removed
 feature to lead to disparate impact.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-145
+.. GENERATED FROM PYTHON SOURCE LINES 135-151
 
 Mitigation with GridSearch
 --------------------------
@@ -504,14 +510,16 @@ and males should be offered loans at the same rate).
 We are using this metric for the sake of simplicity; in general, the appropriate fairness
 metric will not be obvious.
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-150
+.. GENERATED FROM PYTHON SOURCE LINES 151-158
 
 .. code-block:: default
 
 
-    sweep = GridSearch(LogisticRegression(solver='liblinear', fit_intercept=True),
-                       constraints=DemographicParity(),
-                       grid_size=71)
+    sweep = GridSearch(
+        LogisticRegression(solver="liblinear", fit_intercept=True),
+        constraints=DemographicParity(),
+        grid_size=71,
+    )
 
 
 
@@ -520,7 +528,7 @@ metric will not be obvious.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-158
+.. GENERATED FROM PYTHON SOURCE LINES 159-166
 
 Our algorithms provide :code:`fit()` and :code:`predict()` methods, so they behave in a similar manner
 to other ML packages in Python.
@@ -530,13 +538,12 @@ feature labels, and also the number of predictors to generate in our sweep.
 After :code:`fit()` completes, we extract the full set of predictors from the
 :class:`fairlearn.reductions.GridSearch` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-164
+.. GENERATED FROM PYTHON SOURCE LINES 166-171
 
 .. code-block:: default
 
 
-    sweep.fit(X_train, Y_train,
-              sensitive_features=A_train)
+    sweep.fit(X_train, Y_train, sensitive_features=A_train)
 
     predictors = sweep.predictors_
 
@@ -547,7 +554,7 @@ After :code:`fit()` completes, we extract the full set of predictors from the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-173
+.. GENERATED FROM PYTHON SOURCE LINES 172-180
 
 We could plot performance and fairness metrics of these predictors now.
 However, the plot would be somewhat confusing due to the number of models.
@@ -558,14 +565,16 @@ not be mitigated).
 In general, one might not want to do this, since there may be other considerations
 beyond the strict optimization of error and disparity (of the given sensitive feature).
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-194
+.. GENERATED FROM PYTHON SOURCE LINES 180-207
 
 .. code-block:: default
 
 
     errors, disparities = [], []
     for m in predictors:
-        def classifier(X): return m.predict(X)
+
+        def classifier(X):
+            return m.predict(X)
 
         error = ErrorRate()
         error.load_data(X_train, pd.Series(Y_train), sensitive_features=A_train)
@@ -575,11 +584,15 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
         errors.append(error.gamma(classifier)[0])
         disparities.append(disparity.gamma(classifier).max())
 
-    all_results = pd.DataFrame({"predictor": predictors, "error": errors, "disparity": disparities})
+    all_results = pd.DataFrame(
+        {"predictor": predictors, "error": errors, "disparity": disparities}
+    )
 
     non_dominated = []
     for row in all_results.itertuples():
-        errors_for_lower_or_eq_disparity = all_results["error"][all_results["disparity"] <= row.disparity]
+        errors_for_lower_or_eq_disparity = all_results["error"][
+            all_results["disparity"] <= row.disparity
+        ]
         if row.error <= errors_for_lower_or_eq_disparity.min():
             non_dominated.append(row.predictor)
 
@@ -590,11 +603,11 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-196
+.. GENERATED FROM PYTHON SOURCE LINES 208-209
 
 Finally, we can evaluate the dominant models along with the unmitigated model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 196-220
+.. GENERATED FROM PYTHON SOURCE LINES 209-241
 
 .. code-block:: default
 
@@ -605,16 +618,24 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
         key = "dominant_model_{0}".format(i)
         predictions[key] = non_dominated[i].predict(X_test)
 
-        metric_frames[key] = MetricFrame(metrics={"accuracy": skm.accuracy_score,
-                                                  "selection_rate": selection_rate,
-                                                  "count": count},
-                                         sensitive_features=A_test,
-                                         y_true=Y_test,
-                                         y_pred=predictions[key])
+        metric_frames[key] = MetricFrame(
+            metrics={
+                "accuracy": skm.accuracy_score,
+                "selection_rate": selection_rate,
+                "count": count,
+            },
+            sensitive_features=A_test,
+            y_true=Y_test,
+            y_pred=predictions[key],
+        )
 
     import matplotlib.pyplot as plt
-    x = [metric_frame.overall['accuracy'] for metric_frame in metric_frames.values()]
-    y = [metric_frame.difference()['selection_rate'] for metric_frame in metric_frames.values()]
+
+    x = [metric_frame.overall["accuracy"] for metric_frame in metric_frames.values()]
+    y = [
+        metric_frame.difference()["selection_rate"]
+        for metric_frame in metric_frames.values()
+    ]
     keys = list(metric_frames.keys())
     plt.scatter(x, y)
     for i in range(len(x)):
@@ -642,7 +663,7 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 221-232
+.. GENERATED FROM PYTHON SOURCE LINES 242-253
 
 We see a Pareto front forming - the set of predictors which represent optimal tradeoffs
 between accuracy and disparity in predictions.
@@ -659,7 +680,7 @@ between accuracy and disparity given the relevant business constraints.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  38.965 seconds)
+   **Total running time of the script:** ( 5 minutes  35.393 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_grid_search_census.py:

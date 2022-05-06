@@ -22,7 +22,37 @@
 Selection rates in census dataset
 =================================
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-26
+.. GENERATED FROM PYTHON SOURCE LINES 9-11
+
+.. code-block:: default
+
+    from fairlearn.datasets import fetch_adult
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 12-26
+
+.. code-block:: default
+
+    from fairlearn.metrics import MetricFrame, selection_rate
+
+    data = fetch_adult(as_frame=True)
+    X = data.data
+    y_true = (data.target == ">50K") * 1
+    sex = X["sex"]
+
+    selection_rates = MetricFrame(
+        metrics=selection_rate, y_true=y_true, y_pred=y_true, sensitive_features=sex
+    )
+
+    fig = selection_rates.by_group.plot.bar(
+        legend=False, rot=0, title="Fraction earning over $50,000"
+    )
 
 
 
@@ -35,29 +65,10 @@ Selection rates in census dataset
 
 
 
-.. code-block:: default
-
-    from fairlearn.metrics import MetricFrame, selection_rate
-    from fairlearn.datasets import fetch_adult
-
-    data = fetch_adult(as_frame=True)
-    X = data.data
-    y_true = (data.target == '>50K') * 1
-    sex = X['sex']
-
-    selection_rates = MetricFrame(metrics=selection_rate,
-                                  y_true=y_true,
-                                  y_pred=y_true,
-                                  sensitive_features=sex)
-
-    fig = selection_rates.by_group.plot.bar(
-        legend=False, rot=0,
-        title='Fraction earning over $50,000')
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.800 seconds)
+   **Total running time of the script:** ( 0 minutes  6.167 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart_selection_rate.py:

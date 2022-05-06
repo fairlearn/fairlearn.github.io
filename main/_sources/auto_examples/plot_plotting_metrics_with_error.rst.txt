@@ -22,31 +22,41 @@
 Plotting Metrics with Errors
 ============================
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-13
+.. GENERATED FROM PYTHON SOURCE LINES 9-21
+
+.. code-block:: default
+
+    import numpy as np
+    from sklearn.compose import ColumnTransformer
+    from sklearn.compose import make_column_selector as selector
+    from sklearn.datasets import fetch_openml
+    from sklearn.impute import SimpleImputer
+    from sklearn.metrics import accuracy_score, confusion_matrix, recall_score
+    from sklearn.model_selection import train_test_split
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import OneHotEncoder, StandardScaler
+    from sklearn.tree import DecisionTreeClassifier
+    from sklearn.utils import check_consistent_length
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 22-25
 
 Load and preprocess the data set
 ================================
 We start by importing the various modules we're going to use:
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-29
+.. GENERATED FROM PYTHON SOURCE LINES 25-28
 
 .. code-block:: default
 
-    from fairlearn.experimental.enable_metric_frame_plotting import (
-        plot_metric_frame,
-    )
+    from fairlearn.experimental.enable_metric_frame_plotting import plot_metric_frame
     from fairlearn.metrics import MetricFrame
-    from sklearn.datasets import fetch_openml
-    from sklearn.metrics import recall_score, accuracy_score, confusion_matrix
-    from sklearn.tree import DecisionTreeClassifier
-    from sklearn.model_selection import train_test_split
-    from sklearn.compose import ColumnTransformer
-    from sklearn.impute import SimpleImputer
-    from sklearn.preprocessing import StandardScaler, OneHotEncoder
-    from sklearn.compose import make_column_selector as selector
-    from sklearn.pipeline import Pipeline
-    from sklearn.utils import check_consistent_length
-    import numpy as np
 
 
 
@@ -55,7 +65,7 @@ We start by importing the various modules we're going to use:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-36
+.. GENERATED FROM PYTHON SOURCE LINES 29-35
 
 We download the data set using :meth:`fetch_openml` function in :class:`sklearn.datasets`.
 The original Adult data set can be found at https://archive.ics.uci.edu/ml/datasets/Adult
@@ -64,7 +74,7 @@ to demonstrate the functionality of plotting metrics with error bars.
 We use a pipeline to preprocess the data then use a
 :py:class:`sklearn.tree.DecisionTreeClassifier` to make predictions
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-79
+.. GENERATED FROM PYTHON SOURCE LINES 35-78
 
 .. code-block:: default
 
@@ -118,14 +128,14 @@ We use a pipeline to preprocess the data then use a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-84
+.. GENERATED FROM PYTHON SOURCE LINES 79-83
 
 Confidence interval calculations
 ================================
 We have many different choices for calculating confidence intervals. In this notebook we'll just be using a
 `Wilson score interval <https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-169
+.. GENERATED FROM PYTHON SOURCE LINES 83-164
 
 .. code-block:: default
 
@@ -156,11 +166,9 @@ We have many different choices for calculating confidence intervals. In this not
             np.ndarray
             Array of length 2 of form: [lower_bound, upper_bound]
         """
-        denominator = 1 + z ** 2 / n
+        denominator = 1 + z**2 / n
         centre_adjusted_probability = p + z * z / (2 * n)
-        adjusted_standard_deviation = np.sqrt(
-            (p * (1 - p) + z * z / (4 * n))
-        ) / np.sqrt(n)
+        adjusted_standard_deviation = np.sqrt((p * (1 - p) + z * z / (4 * n))) / np.sqrt(n)
         lower_bound = (
             centre_adjusted_probability - z * adjusted_standard_deviation
         ) / denominator
@@ -187,9 +195,7 @@ We have many different choices for calculating confidence intervals. In this not
         """
         check_consistent_length(y_true, y_pred)
         tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-        bounds = general_wilson(
-            tp / (tp + fn), tp + fn, digits_of_precision, z_score
-        )
+        bounds = general_wilson(tp / (tp + fn), tp + fn, digits_of_precision, z_score)
         return bounds
 
 
@@ -221,14 +227,14 @@ We have many different choices for calculating confidence intervals. In this not
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-174
+.. GENERATED FROM PYTHON SOURCE LINES 165-169
 
 MetricFrame
 ===========
 Now we create a :class:`fairlearn.metrics.MetricFrame` to generate the Wilson bounds for accuracy and recall
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-189
+.. GENERATED FROM PYTHON SOURCE LINES 169-184
 
 .. code-block:: default
 
@@ -254,14 +260,14 @@ Now we create a :class:`fairlearn.metrics.MetricFrame` to generate the Wilson bo
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-194
+.. GENERATED FROM PYTHON SOURCE LINES 185-189
 
 Plotting
 ========
 Plot metrics without confidence intervals
 -----------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-197
+.. GENERATED FROM PYTHON SOURCE LINES 189-192
 
 .. code-block:: default
 
@@ -289,12 +295,12 @@ Plot metrics without confidence intervals
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-200
+.. GENERATED FROM PYTHON SOURCE LINES 193-195
 
 Plot metrics with confidence intervals (possibly asymmetric)
 ------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-215
+.. GENERATED FROM PYTHON SOURCE LINES 195-210
 
 .. code-block:: default
 
@@ -345,12 +351,12 @@ Plot metrics with confidence intervals (possibly asymmetric)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-218
+.. GENERATED FROM PYTHON SOURCE LINES 211-213
 
 Plot metrics with error labels
 ------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 218-227
+.. GENERATED FROM PYTHON SOURCE LINES 213-222
 
 .. code-block:: default
 
@@ -384,12 +390,12 @@ Plot metrics with error labels
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 228-230
+.. GENERATED FROM PYTHON SOURCE LINES 223-225
 
 Plots all columns and treats them as metrics without error bars
 ---------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 230-232
+.. GENERATED FROM PYTHON SOURCE LINES 225-227
 
 .. code-block:: default
 
@@ -417,13 +423,13 @@ Plots all columns and treats them as metrics without error bars
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 233-236
+.. GENERATED FROM PYTHON SOURCE LINES 228-231
 
 Customizing plots
 -----------------
 :func:`plot_metric_frame` returns an :class:`Axes` object that we can customize futher.
 
-.. GENERATED FROM PYTHON SOURCE LINES 236-261
+.. GENERATED FROM PYTHON SOURCE LINES 231-256
 
 .. code-block:: default
 
@@ -475,7 +481,7 @@ Customizing plots
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.633 seconds)
+   **Total running time of the script:** ( 0 minutes  2.568 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_plotting_metrics_with_error.py:
