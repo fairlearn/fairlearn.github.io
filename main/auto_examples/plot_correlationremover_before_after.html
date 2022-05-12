@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CorrelationRemover visualization &#8212; Fairlearn 0.8.0.dev0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Passing pipelines to mitigation techniques" href="plot_mitigation_pipeline.html" />
+    <link rel="prev" title="MetricFrame visualizations" href="plot_quickstart.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="https://fairlearn.org">
+  <img src="../_static/fairlearn_full_color.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Docs
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter">
+            <span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow">
+            <span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord">
+            <span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><div class="sidebar-message">
+  
+  <h4>Versions</h4>
+  <ul>
+      
+        <li>v0.4.6: N/A</li>
+      
+      
+        <li>v0.5.0: N/A</li>
+      
+      
+        <li>v0.6.2: N/A</li>
+      
+      
+        <li>v0.7.0: N/A</li>
+      
+      
+        
+          <li><strong><a href="plot_correlationremover_before_after.html">main</a></strong></li>
+        
+      
+  </ul>
+  
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_quickstart_selection_rate.html">
+   Selection rates in census dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_quickstart.html">
+   MetricFrame visualizations
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   CorrelationRemover visualization
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_mitigation_pipeline.html">
+   Passing pipelines to mitigation techniques
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_metricframe_beyond_binary_classification.html">
+   MetricFrame: Beyond Binary Classification
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_grid_search_census.html">
+   GridSearch with Census Data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_make_derived_metric.html">
+   Making Derived Metrics
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_plotting_metrics_with_error.html">
+   Plotting Metrics with Errors
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_new_metrics.html">
+   Metrics with Multiple Features
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-the-data">
+   Getting the Data
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-correlationremover-before-after-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="correlationremover-visualization">
+<span id="sphx-glr-auto-examples-plot-correlationremover-before-after-py"></span><h1>CorrelationRemover visualization<a class="headerlink" href="#correlationremover-visualization" title="Permalink to this headline">¶</a></h1>
+<p>This notebook demonstrates the use of the <a class="reference internal" href="../api_reference/fairlearn.preprocessing.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.preprocessing.CorrelationRemover()</span></code></a>
+class. We will show this by looking at the correlation matrices
+of the dataset before and after the CorrelationRemover.</p>
+<div class="section" id="getting-the-data">
+<h2>Getting the Data<a class="headerlink" href="#getting-the-data" title="Permalink to this headline">¶</a></h2>
+<p><em>This section may be skipped. It simply creates a dataset for
+illustrative purposes</em></p>
+<p>We will use the well-known UCI ‘Adult’ dataset as the basis of this
+demonstration. This is not for a lending scenario, but we will regard
+it as one for the purposes of this example. We will use the existing
+‘sex’ column to illustrate how the CorrelationRemover works.
+We start with some`import` statements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
+<span class="kn">from</span> <span class="nn">fairlearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CorrelationRemover</span></a>
+</pre></div>
+</div>
+<p>Next, we import the data and transform the ‘sex’ column to a binary feature.
+We also drop most dummy columns that are created, since we are looking
+specifically at the African American race.
+Finally, the columns are rearranged for consistency.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">data</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">43874</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">data</span></a><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;time_in_hospital&quot;</span><span class="p">,</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">,</span> <span class="s2">&quot;medicare&quot;</span><span class="p">]]</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.get_dummies.html#pandas.get_dummies" title="pandas.get_dummies" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">target</span></a>
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html#pandas.DataFrame.drop" title="pandas.DataFrame.drop" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_raw</span><span class="o">.</span><span class="n">drop</span></a><span class="p">([</span><span class="s2">&quot;race_Asian&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;race_Caucasian&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;race_Hispanic&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;race_Other&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;race_Unknown&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;had_inpatient_days_False&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;medicare_False&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[[</span><span class="s1">&#39;time_in_hospital&#39;</span><span class="p">,</span> <span class="s1">&#39;had_inpatient_days_True&#39;</span><span class="p">,</span> <span class="s1">&#39;medicare_True&#39;</span><span class="p">,</span> <span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>We are now going to fit the CorrelationRemover to the data,
+and transform it. The transformed array will be placed back
+in a Pandas DataFrame, for plotting purposes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cr</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CorrelationRemover</span></a><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;race_AfricanAmerican&quot;</span><span class="p">])</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin.fit_transform" title="sklearn.base.TransformerMixin.fit_transform" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">cr</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr</span></a><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time_in_hospital&#39;</span><span class="p">,</span> <span class="s1">&#39;had_inpatient_days_True&#39;</span><span class="p">,</span> <span class="s1">&#39;medicare_True&#39;</span><span class="p">])</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr</span></a><span class="p">[</span><span class="s2">&quot;race_AfricanAmerican&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;race_AfricanAmerican&quot;</span><span class="p">]</span>
+
+<span class="n">cr_alpha</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CorrelationRemover</span></a><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr_alpha</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin.fit_transform" title="sklearn.base.TransformerMixin.fit_transform" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">cr_alpha</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">)</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr_alpha</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr_alpha</span></a><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time_in_hospital&#39;</span><span class="p">,</span> <span class="s1">&#39;had_inpatient_days_True&#39;</span><span class="p">,</span> <span class="s1">&#39;medicare_True&#39;</span><span class="p">])</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr_alpha</span></a><span class="p">[</span><span class="s2">&quot;race_AfricanAmerican&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;race_AfricanAmerican&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We can now plot the correlation matrices before
+and after the CorrelationRemover.
+The code is from  the
+<a class="reference external" href="https://matplotlib.org/devdocs/gallery/images_contours_and_fields/image_annotated_heatmap.html">matplotlib docs</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;had_inpatient_days_True&quot;</span><span class="p">:</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">})</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Show all ticks and label them with the respective list entries</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)),</span> <span class="n">labels</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)),</span> <span class="n">labels</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="c1"># Rotate the tick labels and set their alignment.</span>
+    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">rotation_mode</span><span class="o">=</span><span class="s2">&quot;anchor&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Loop over data dimensions and create text annotations.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="n">j</span><span class="p">,</span>
+                <span class="n">i</span><span class="p">,</span>
+                <span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+
+
+<span class="n">plot_heatmap</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">,</span> <span class="s2">&quot;Correlation values in the original dataset&quot;</span><span class="p">)</span>
+<span class="n">plot_heatmap</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr</span></a><span class="p">,</span> <span class="s2">&quot;Correlation values after CorrelationRemover&quot;</span><span class="p">)</span>
+<span class="n">plot_heatmap</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_cr_alpha</span></a><span class="p">,</span> <span class="s2">&quot;Correlation values after CorrelationRemover with alpha = 0.5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_plot_correlationremover_before_after_001.png" srcset="../_images/sphx_glr_plot_correlationremover_before_after_001.png" alt="Correlation values in the original dataset" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_plot_correlationremover_before_after_002.png" srcset="../_images/sphx_glr_plot_correlationremover_before_after_002.png" alt="Correlation values after CorrelationRemover" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_plot_correlationremover_before_after_003.png" srcset="../_images/sphx_glr_plot_correlationremover_before_after_003.png" alt="Correlation values after CorrelationRemover with alpha = 0.5" class = "sphx-glr-multi-img"/></li>
+</ul>
+<p>Even though there was not a high amount of correlation to begin with,
+the CorrelationRemover successfully removed all correlation between
+‘race_AfricanAmerican’ and the other columns while retaining the correlation
+between the other features. Using a lower value of alpha results in
+not all the correlation being projected away.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.754 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-correlationremover-before-after-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/77b9950b0457a67224b2b94404b9bb99/plot_correlationremover_before_after.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_correlationremover_before_after.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/d9e0623355cd1df6e6f7ed65b3e6270d/plot_correlationremover_before_after.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_correlationremover_before_after.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2018 - 2022, Fairlearn contributors.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
