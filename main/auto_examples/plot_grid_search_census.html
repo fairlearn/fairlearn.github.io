@@ -315,24 +315,24 @@ to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="gridsearch-with-census-data">
 <span id="sphx-glr-auto-examples-plot-grid-search-census-py"></span><h1>GridSearch with Census Data<a class="headerlink" href="#gridsearch-with-census-data" title="Permalink to this headline">¶</a></h1>
-<p>This notebook shows how to use Fairlearn to generate predictors for the Census dataset.
-This dataset is a classification problem - given a range of data about 32,000 individuals,
-predict whether their annual income is above or below fifty thousand dollars per year.</p>
-<p>For the purposes of this notebook, we shall treat this as a loan decision problem.
-We will pretend that the label indicates whether or not each individual repaid a loan in
-the past.
-We will use the data to train a predictor to predict whether previously unseen individuals
-will repay a loan or not.
-The assumption is that the model predictions are used to decide whether an individual
-should be offered a loan.</p>
+<p>Census dataset. This dataset is a classification problem - given a range of
+data about 32,000 individuals, predict whether their annual income is above
+or below fifty thousand dollars per year.</p>
+<p>For the purposes of this notebook, we shall treat this as a loan decision
+problem. We will pretend that the label indicates whether or not each
+individual repaid a loan in the past. We will use the data to train a
+predictor to predict whether previously unseen individuals will repay a loan
+or not. The assumption is that the model predictions are used to decide
+whether an individual should be offered a loan.</p>
 <p>We will first train a fairness-unaware predictor and show that it leads to unfair
 decisions under a specific notion of fairness called <em>demographic parity</em>.
 We then mitigate unfairness by applying the <code class="code docutils literal notranslate"><span class="pre">GridSearch</span></code> algorithm from the
 Fairlearn package.</p>
 <div class="section" id="load-and-preprocess-the-data-set">
 <h2>Load and preprocess the data set<a class="headerlink" href="#load-and-preprocess-the-data-set" title="Permalink to this headline">¶</a></h2>
-<p>We download the data set using <cite>fetch_adult</cite> function in <cite>fairlearn.datasets</cite>.
-We start by importing the various modules we’re going to use:</p>
+<p>We download the data set using <cite>fetch_adult</cite> function in
+<cite>fairlearn.datasets</cite>. We start by importing the various modules we’re going
+to use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span> <span class="k">as</span> <span class="n">skm</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
@@ -580,12 +580,11 @@ We start by importing the various modules we’re going to use:</p>
 </div>
 </div>
 <br />
-<br /><p>We are going to treat the sex of each individual as a sensitive
-feature (where 0 indicates female and 1 indicates male), and in
-this particular case we are going separate this feature out and drop it
-from the main data.
-We then perform some standard data preprocessing steps to convert the
-data into a format suitable for the ML algorithms</p>
+<br /><p>We are going to treat the sex of each individual as a sensitive feature
+(where 0 indicates female and 1 indicates male), and in this particular case
+we are going separate this feature out and drop it from the main data. We
+then perform some standard data preprocessing steps to convert the data into
+a format suitable for the ML algorithms</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html#pandas.DataFrame.drop" title="pandas.DataFrame.drop" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">X_raw</span><span class="o">.</span><span class="n">drop</span></a><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.get_dummies.html#pandas.get_dummies" title="pandas.get_dummies" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">)</span>
@@ -600,7 +599,7 @@ data into a format suitable for the ML algorithms</p>
 </div>
 <p>Finally, we split the data into training and test sets:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span>
-    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a>
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_scaled</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a>
 <span class="p">)</span>
 
 <span class="c1"># Work around indexing bug</span>
@@ -614,9 +613,8 @@ data into a format suitable for the ML algorithms</p>
 <div class="section" id="training-a-fairness-unaware-predictor">
 <h2>Training a fairness-unaware predictor<a class="headerlink" href="#training-a-fairness-unaware-predictor" title="Permalink to this headline">¶</a></h2>
 <p>To show the effect of Fairlearn we will first train a standard ML predictor
-that does not incorporate fairness.
-For speed of demonstration, we use the simple
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.linear_model.LogisticRegression</span></code></a> class:</p>
+that does not incorporate fairness. For speed of demonstration, we use the
+simple <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="(in scikit-learn v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.linear_model.LogisticRegression</span></code></a> class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">unmitigated_predictor</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.fit" title="sklearn.linear_model.LogisticRegression.fit" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">unmitigated_predictor</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">)</span>
@@ -649,14 +647,14 @@ For speed of demonstration, we use the simple
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_grid_search_census_001.png" srcset="../_images/sphx_glr_plot_grid_search_census_001.png" alt="Accuracy and selection rate by group, accuracy, selection_rate, count" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>accuracy             0.854335
-selection_rate       0.196233
-count             9769.000000
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>accuracy              0.851820
+selection_rate        0.194707
+count             19537.000000
 dtype: float64
-        accuracy  ...   count
+        accuracy  ...    count
 sex               ...
-Female  0.930074  ...  3232.0
-Male    0.816888  ...  6537.0
+Female  0.925960  ...   6537.0
+Male    0.814538  ...  13000.0
 
 [2 rows x 3 columns]
 
@@ -666,41 +664,37 @@ array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;accuracy&#39;}, xlabel=&#39
       dtype=object)
 </pre></div>
 </div>
-<p>Looking at the disparity in accuracy, we see that males have an error
-about three times greater than the females.
-More interesting is the disparity in opportunity - males are offered loans at
-three times the rate of females.</p>
+<p>Looking at the disparity in accuracy, we see that males have an error about
+three times greater than the females. More interesting is the disparity in
+opportunity - males are offered loans at three times the rate of females.</p>
 <p>Despite the fact that we removed the feature from the training data, our
-predictor still discriminates based on sex.
-This demonstrates that simply ignoring a sensitive feature when fitting a
-predictor rarely eliminates unfairness.
-There will generally be enough other features correlated with the removed
-feature to lead to disparate impact.</p>
+predictor still discriminates based on sex. This demonstrates that simply
+ignoring a sensitive feature when fitting a predictor rarely eliminates
+unfairness. There will generally be enough other features correlated with the
+removed feature to lead to disparate impact.</p>
 </div>
 <div class="section" id="mitigation-with-gridsearch">
 <h2>Mitigation with GridSearch<a class="headerlink" href="#mitigation-with-gridsearch" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code></a> class implements a simplified version of the
-exponentiated gradient reduction of <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. 2018</a>.
-The user supplies a standard ML estimator, which is treated as a blackbox.
-<cite>GridSearch</cite> works by generating a sequence of relabellings and reweightings, and
-trains a predictor for each.</p>
-<p>For this example, we specify demographic parity (on the sensitive feature of sex) as
-the fairness metric.
-Demographic parity requires that individuals are offered the opportunity (are approved
-for a loan in this example) independent of membership in the sensitive class (i.e., females
-and males should be offered loans at the same rate).
-We are using this metric for the sake of simplicity; in general, the appropriate fairness
-metric will not be obvious.</p>
+<p>The <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code></a> class implements a simplified
+version of the exponentiated gradient reduction of <a class="reference external" href="https://arxiv.org/abs/1803.02453">Agarwal et al. 2018</a>. The user supplies a standard ML
+estimator, which is treated as a blackbox. <cite>GridSearch</cite> works by generating a
+sequence of relabellings and reweightings, and trains a predictor for each.</p>
+<p>For this example, we specify demographic parity (on the sensitive feature of
+sex) as the fairness metric. Demographic parity requires that individuals are
+offered the opportunity (are approved for a loan in this example) independent
+of membership in the sensitive class (i.e., females and males should be
+offered loans at the same rate). We are using this metric for the sake of
+simplicity; in general, the appropriate fairness metric will not be obvious.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sweep</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">GridSearch</span></a><span class="p">(</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="n">constraints</span><span class="o">=</span><span class="n">DemographicParity</span><span class="p">(),</span>
-    <span class="n">grid_size</span><span class="o">=</span><span class="mi">71</span><span class="p">,</span>
+    <span class="n">grid_size</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Our algorithms provide <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> and <code class="code docutils literal notranslate"><span class="pre">predict()</span></code> methods, so they behave in a similar manner
-to other ML packages in Python.
-We do however have to specify two extra arguments to <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> - the column of sensitive
+<p>Our algorithms provide <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> and <code class="code docutils literal notranslate"><span class="pre">predict()</span></code> methods, so they
+behave in a similar manner to other ML packages in Python. We do however have
+to specify two extra arguments to <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> - the column of sensitive
 feature labels, and also the number of predictors to generate in our sweep.</p>
 <p>After <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> completes, we extract the full set of predictors from the
 <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code></a> object.</p>
@@ -710,13 +704,13 @@ feature labels, and also the number of predictors to generate in our sweep.</p>
 </pre></div>
 </div>
 <p>We could plot performance and fairness metrics of these predictors now.
-However, the plot would be somewhat confusing due to the number of models.
-In this case, we are going to remove the predictors which are dominated in the
-error-disparity space by others from the sweep (note that the disparity will only be
-calculated for the sensitive feature; other potentially sensitive features will
-not be mitigated).
-In general, one might not want to do this, since there may be other considerations
-beyond the strict optimization of error and disparity (of the given sensitive feature).</p>
+However, the plot would be somewhat confusing due to the number of models. In
+this case, we are going to remove the predictors which are dominated in the
+error-disparity space by others from the sweep (note that the disparity will
+only be calculated for the sensitive feature; other potentially sensitive
+features will not be mitigated). In general, one might not want to do this,
+since there may be other considerations beyond the strict optimization of
+error and disparity (of the given sensitive feature).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">errors</span><span class="p">,</span> <span class="n">disparities</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="k">for</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">m</span></a> <span class="ow">in</span> <span class="n">predictors</span><span class="p">:</span>
 
@@ -781,17 +775,18 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(25.222222222222214, 0.5, &#39;selection rate difference&#39;)
 </pre></div>
 </div>
-<p>We see a Pareto front forming - the set of predictors which represent optimal tradeoffs
-between accuracy and disparity in predictions.
-In the ideal case, we would have a predictor at (1,0) - perfectly accurate and without
-any unfairness under demographic parity (with respect to the sensitive feature “sex”).
-The Pareto front represents the closest we can come to this ideal based on our data and
-choice of estimator.
-Note the range of the axes - the disparity axis covers more values than the accuracy,
-so we can reduce disparity substantially for a small loss in accuracy.</p>
-<p>In a real example, we would pick the model which represented the best trade-off
-between accuracy and disparity given the relevant business constraints.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 5 minutes  12.836 seconds)</p>
+<p>We see a Pareto front forming - the set of predictors which represent optimal
+tradeoffs between accuracy and disparity in predictions. In the ideal case,
+we would have a predictor at (1,0) - perfectly accurate and without any
+unfairness under demographic parity (with respect to the sensitive feature
+“sex”). The Pareto front represents the closest we can come to this ideal
+based on our data and choice of estimator. Note the range of the axes - the
+disparity axis covers more values than the accuracy, so we can reduce
+disparity substantially for a small loss in accuracy.</p>
+<p>In a real example, we would pick the model which represented the best
+trade-off between accuracy and disparity given the relevant business
+constraints.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  42.594 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/298425cd75e0a5fa4e9d7f332f44eb61/plot_grid_search_census.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid_search_census.py</span></code></a></p>
