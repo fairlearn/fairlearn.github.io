@@ -31,22 +31,24 @@ demonstration of the technical aspects of passing
 :class:`sklearn.pipeline.Pipeline`. For more information around proper
 fairness assessment and mitigation please refer to the :ref:`user_guide`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-29
+.. GENERATED FROM PYTHON SOURCE LINES 16-31
 
 .. code-block:: default
 
 
     import json
-    from fairlearn.datasets import fetch_adult
-    from fairlearn.postprocessing import ThresholdOptimizer, plot_threshold_optimizer
-    from fairlearn.reductions import ExponentiatedGradient, DemographicParity
+
     from sklearn.compose import ColumnTransformer
+    from sklearn.compose import make_column_selector as selector
     from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.model_selection import train_test_split
-    from sklearn.preprocessing import StandardScaler, OneHotEncoder
-    from sklearn.compose import make_column_selector as selector
     from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+    from fairlearn.datasets import fetch_adult
+    from fairlearn.postprocessing import ThresholdOptimizer, plot_threshold_optimizer
+    from fairlearn.reductions import DemographicParity, ExponentiatedGradient
 
 
 
@@ -55,12 +57,12 @@ fairness assessment and mitigation please refer to the :ref:`user_guide`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-32
+.. GENERATED FROM PYTHON SOURCE LINES 32-34
 
 Below we load the "Adult" census dataset and split its features, sensitive
 features, and labels into train and test sets.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-48
+.. GENERATED FROM PYTHON SOURCE LINES 34-51
 
 .. code-block:: default
 
@@ -71,7 +73,8 @@ features, and labels into train and test sets.
     A = X_raw["sex"]
 
     (X_train, X_test, y_train, y_test, A_train, A_test) = train_test_split(
-        X_raw, y, A, test_size=0.3, random_state=12345, stratify=y)
+        X_raw, y, A, test_size=0.3, random_state=12345, stratify=y
+    )
 
     X_train = X_train.reset_index(drop=True)
     X_test = X_test.reset_index(drop=True)
@@ -87,7 +90,7 @@ features, and labels into train and test sets.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-54
+.. GENERATED FROM PYTHON SOURCE LINES 52-57
 
 To illustrate Fairlearn's compatibility with
 :class:`~sklearn.pipeline.Pipeline` we first need to build our pipeline.
@@ -95,7 +98,7 @@ In the following we assemble a pipeline by combining preprocessing steps
 with an estimator. The preprocessing steps include imputing, scaling for
 numerical features and one-hot encoding for categorical features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-84
+.. GENERATED FROM PYTHON SOURCE LINES 57-87
 
 .. code-block:: default
 
@@ -136,12 +139,12 @@ numerical features and one-hot encoding for categorical features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-87
+.. GENERATED FROM PYTHON SOURCE LINES 88-90
 
 Below we will pass the pipeline to some of our mitigation techniques,
 starting with :class:`fairlearn.postprocessing.ThresholdOptimizer`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-101
+.. GENERATED FROM PYTHON SOURCE LINES 90-108
 
 .. code-block:: default
 
@@ -150,13 +153,17 @@ starting with :class:`fairlearn.postprocessing.ThresholdOptimizer`:
         estimator=pipeline,
         constraints="demographic_parity",
         predict_method="predict_proba",
-        prefit=False)
+        prefit=False,
+    )
     threshold_optimizer.fit(X_train, y_train, sensitive_features=A_train)
     print(threshold_optimizer.predict(X_test, sensitive_features=A_test))
-    print(json.dumps(
-        threshold_optimizer.interpolated_thresholder_.interpolation_dict,
-        default=str,
-        indent=4))
+    print(
+        json.dumps(
+            threshold_optimizer.interpolated_thresholder_.interpolation_dict,
+            default=str,
+            indent=4,
+        )
+    )
     plot_threshold_optimizer(threshold_optimizer)
 
 
@@ -193,7 +200,7 @@ starting with :class:`fairlearn.postprocessing.ThresholdOptimizer`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-107
+.. GENERATED FROM PYTHON SOURCE LINES 109-114
 
 Similarly, :class:`fairlearn.reductions.ExponentiatedGradient` works with
 pipelines. Since it requires the :code:`sample_weight` parameter of the
@@ -201,7 +208,7 @@ underlying estimator internally we need to provide it with the correct
 way of passing :code:`sample_weight` to just the :code:`"classifier"` step
 using the step name followed by two underscores and :code:`sample_weight`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-114
+.. GENERATED FROM PYTHON SOURCE LINES 114-122
 
 .. code-block:: default
 
@@ -209,7 +216,8 @@ using the step name followed by two underscores and :code:`sample_weight`.
     exponentiated_gradient = ExponentiatedGradient(
         estimator=pipeline,
         constraints=DemographicParity(),
-        sample_weight_name="classifier__sample_weight")
+        sample_weight_name="classifier__sample_weight",
+    )
     exponentiated_gradient.fit(X_train, y_train, sensitive_features=A_train)
     print(exponentiated_gradient.predict(X_test))
 
@@ -230,7 +238,7 @@ using the step name followed by two underscores and :code:`sample_weight`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  37.662 seconds)
+   **Total running time of the script:** ( 0 minutes  40.247 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_mitigation_pipeline.py:

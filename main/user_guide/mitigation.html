@@ -388,6 +388,13 @@
   <a class="reference internal nav-link" href="#preprocessing">
    Preprocessing
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation-remover">
+     Correlation Remover
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#postprocessing">
@@ -564,12 +571,106 @@ explicit access to the probability distribution used for randomization.</p>
 </div>
 <div class="section" id="preprocessing">
 <span id="id6"></span><h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Preprocessing algorithms transform the dataset to mitigate possible unfairness
+present in the data.
+Preprocessing algorithms in Fairlearn follow the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="(in scikit-learn v1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></a>
+class, meaning that they can <code class="code docutils literal notranslate"><span class="pre">fit</span></code> to the dataset and <code class="code docutils literal notranslate"><span class="pre">transform</span></code> it
+(or <code class="code docutils literal notranslate"><span class="pre">fit_transform</span></code> to fit and transform in one go).</p>
+<div class="section" id="correlation-remover">
+<span id="id7"></span><h3>Correlation Remover<a class="headerlink" href="#correlation-remover" title="Permalink to this headline">¶</a></h3>
+<p>Sensitive features can be correlated with non-sensitive features in the dataset.
+By applying the <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code>, these correlations are projected away
+while details from the original data are retained as much as possible (as measured
+by the least-squares error). The user can control the level of projection via the
+<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter. In mathematical terms, assume we have the original dataset
+<span class="math notranslate nohighlight">\(X\)</span> which contains a set of sensitive attributes <span class="math notranslate nohighlight">\(S\)</span> and a set of
+non-sensitive attributes <span class="math notranslate nohighlight">\(Z\)</span>. The removal of correlation is then
+described as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min _{\mathbf{z}_{1}, \ldots, \mathbf{z}_{n}} \sum_{i=1}^{n}\left\|\mathbf{z}_{i}
+-\mathbf{x}_{i}\right\|^{2} \\
+\text{subject to} \\
+\frac{1}{n} \sum_{i=1}^{n} \mathbf{z}_{i}\left(\mathbf{s}_{i}-\overline{\mathbf{s}}
+\right)^{T}=\mathbf{0}\end{split}\]</div>
+<p>The solution to this problem is found by centering sensitive features, fitting a
+linear regression model to the non-sensitive features and reporting the residual.
+The columns in <span class="math notranslate nohighlight">\(S\)</span> will be dropped from the dataset <span class="math notranslate nohighlight">\(X\)</span>.
+The amount of correlation that is removed can be controlled using the
+<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter. This is described as follows:</p>
+<div class="math notranslate nohighlight">
+\[X_{\text{tfm}} = \alpha X_{\text{filtered}} + (1-\alpha) X_{\text{orig}}\]</div>
+<p>Note that the lack of correlation does not imply anything about statistical dependence.
+In particular, since correlation measures linear relationships, it might still be
+possible that non-linear relationships exist in the data. Therefore, we expect this
+to be most appropriate as a preprocessing step for (generalized) linear models.</p>
+<p>In the example below, the <a class="reference external" href="https://www.openml.org/d/43874">Diabetes 130-Hospitals</a>
+is loaded and the correlation between the African American race and
+the non-sensitive features is removed. This dataset contains more races,
+but in example we will only focus on the African American race.
+The <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code> will drop the sensitive features from the dataset.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.preprocessing</span> <span class="kn">import</span> <span class="n">CorrelationRemover</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">43874</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;time_in_hospital&quot;</span><span class="p">,</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">,</span> <span class="s2">&quot;medicare&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;race_Asian&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Caucasian&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Hispanic&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Other&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Unknown&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;had_inpatient_days_False&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;medicare_False&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">CorrelationRemover(sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the visualization below, we see the correlation values in the
+original dataset. We are particularly interested in the correlations
+between the ‘race_AfricanAmerican’ column and the three non-sensitive attributes
+‘time_in_hospital’, ‘had_inpatient_days’ and ‘medicare_True’. The target
+variable is also included in these visualization for completeness, and it is
+defined as a binary feature which indicated whether the readmission of a patient
+occurred within 30 days of the release. We see that ‘race_AfricanAmerican’ is
+not highly correlated with the three mentioned attributes, but we want to remove
+these correlations nonetheless. The code for generating the correlation matrix
+can be found in
+<a class="reference external" href="../auto_examples/plot_correlationremover_before_after.html">this example notebook</a>.</p>
+<div class="figure align-center">
+<a class="reference external image-reference" href="../auto_examples/plot_correlationremover_before_after.html"><img alt="../_images/sphx_glr_plot_correlationremover_before_after_001.png" src="../_images/sphx_glr_plot_correlationremover_before_after_001.png" /></a>
+</div>
+<p>In order to see the effect of <a class="reference internal" href="../api_reference/fairlearn.preprocessing.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover"><code class="xref py py-class docutils literal notranslate"><span class="pre">CorrelationRemover</span></code></a>, we visualize
+how the correlation matrix has changed after the transformation of the
+dataset. Due to rounding, some of the 0.0 values appear as -0.0. Either
+way, the <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code> successfully removed all correlation
+between ‘race_AfricanAmerican’ and the other columns while retaining
+the correlation between the other features.</p>
+<div class="figure align-center">
+<a class="reference external image-reference" href="../auto_examples/plot_correlationremover_before_after.html"><img alt="../_images/sphx_glr_plot_correlationremover_before_after_002.png" src="../_images/sphx_glr_plot_correlationremover_before_after_002.png" /></a>
+</div>
+<p>We can also use the <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter with for instance <span class="math notranslate nohighlight">\(\alpha=0.5\)</span>
+to control the level of filtering between the sensitive and non-sensitive features.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">CorrelationRemover(alpha=0.5, sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see in the visulization below, not all correlation between
+‘race_AfricanAmerican’ and the other columns was removed. This is exactly what
+we would expect with <span class="math notranslate nohighlight">\(\alpha=0.5\)</span>.</p>
+<div class="figure align-center">
+<a class="reference external image-reference" href="../auto_examples/plot_correlationremover_before_after.html"><img alt="../_images/sphx_glr_plot_correlationremover_before_after_003.png" src="../_images/sphx_glr_plot_correlationremover_before_after_003.png" /></a>
+</div>
+</div>
 </div>
 <div class="section" id="postprocessing">
-<span id="id7"></span><h2>Postprocessing<a class="headerlink" href="#postprocessing" title="Permalink to this headline">¶</a></h2>
+<span id="id8"></span><h2>Postprocessing<a class="headerlink" href="#postprocessing" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="reductions">
-<span id="id8"></span><h2>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
+<span id="id9"></span><h2>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
 <p>On a high level, the reduction algorithms within Fairlearn
 enable unfairness mitigation for an arbitrary machine learning model with
 respect to user-provided fairness constraints. All of the constraints currently supported
@@ -587,7 +688,7 @@ sociotechnical challenge and how to view Fairlearn in this context refer to
 </div>
 <p>The reductions approach for classification seeks to reduce binary
 classification subject to fairness constraints to a sequence of weighted
-classification problems (see <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id9">1</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id10">2</a>).
+classification problems (see <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id10">1</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id11">2</a>).
 As a result, the reduction algorithms
 in Fairlearn only require a wrapper access to any “base” learning algorithm.
 By this we mean that the “base” algorithm only needs to implement <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
@@ -682,7 +783,7 @@ bound the ratio between the pairs of groups, but such a bound is implied.</p>
 <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> for the same constraint object.</p>
 </div>
 <div class="section" id="demographic-parity">
-<span id="id11"></span><h4>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h4>
+<span id="id12"></span><h4>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h4>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>demographic parity</em> if</p>
 <div class="math notranslate nohighlight">
 \[\P[h(X) = 1 \given A = a] = \P[h(X) = 1] \quad \forall a\]</div>
@@ -829,7 +930,7 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 </div>
 </div>
 <div class="section" id="equalized-odds">
-<span id="id12"></span><h4>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h4>
+<span id="id13"></span><h4>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h4>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>equalized odds</em> if it satisfies both
 <em>true positive rate parity</em> and <em>false positive rate parity</em>, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -854,7 +955,7 @@ and false positive rate.</p>
 </div>
 </div>
 <div class="section" id="error-rate-parity">
-<span id="id13"></span><h4>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Permalink to this headline">¶</a></h4>
+<span id="id14"></span><h4>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Permalink to this headline">¶</a></h4>
 <p>The <em>error rate parity</em> requires that the error rates should be
 the same across all groups. For a classifier <span class="math notranslate nohighlight">\(h(X)\)</span>
 this means that</p>
@@ -975,7 +1076,7 @@ specify the type of loss by passing the corresponding loss object when
 instantiating the object that represents our fairness constraint. The only
 supported type of constraint at this point is <a class="reference internal" href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a>.</p>
 <div class="section" id="bounded-group-loss">
-<span id="id14"></span><h4>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Permalink to this headline">¶</a></h4>
+<span id="id15"></span><h4>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Permalink to this headline">¶</a></h4>
 <p><em>Bounded group loss</em> requires the loss of each group to be below a
 user-specified amount <span class="math notranslate nohighlight">\(\zeta\)</span>. If <span class="math notranslate nohighlight">\(\zeta\)</span> is chosen reasonably
 small the losses of all groups are very similar.
@@ -1023,19 +1124,19 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 </div>
 </div>
 <div class="section" id="exponentiated-gradient">
-<span id="id15"></span><h3>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Permalink to this headline">¶</a></h3>
+<span id="id16"></span><h3>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="grid-search">
-<span id="id16"></span><h3>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
+<span id="id17"></span><h3>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="references">
-<span id="id17"></span><h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
-<div class="docutils container" id="id18">
+<span id="id18"></span><h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<div class="docutils container" id="id19">
 <dl class="footnote brackets">
-<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id9">3</a>)</span></dt>
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id10">3</a>)</span></dt>
 <dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
 </dd>
-<dt class="label" id="footcite-agarwal2019fair"><span class="brackets">2</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id10">2</a>)</span></dt>
+<dt class="label" id="footcite-agarwal2019fair"><span class="brackets">2</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id11">2</a>)</span></dt>
 <dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
 </dd>
 <dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>

@@ -679,7 +679,7 @@ to the input data), and use these to compute a measure. For example, the
 \[P( Y_{pred}=1 \given Y_{true}=1 )\]</div>
 <p>That is, a measure of whether the model finds all the positive cases in the
 input data. The <cite>scikit-learn</cite> package implements this in
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>.</p>
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>.</p>
 <p>Suppose we have the following data we can see that the prediction is <cite>1</cite> in five
 of the ten cases where the true value is <cite>1</cite>, so we expect the recall to be 0.5:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
@@ -696,7 +696,7 @@ of the ten cases where the true value is <cite>1</cite>, so we expect the recall
 group label <span class="math notranslate nohighlight">\(g \in G\)</span>, and we will want to know how the metric behaves
 for each group <span class="math notranslate nohighlight">\(g\)</span>. To help with this, Fairlearn provides a class that takes
 an existing (disaggregated) metric function, like
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a> or <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.false_positive_rate()</span></code></a>,
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a> or <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.false_positive_rate()</span></code></a>,
 and applies it to each group within a set of data.</p>
 <p>This data structure, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>, enables evaluation
 of disaggregated metrics. In its simplest form <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
@@ -848,7 +848,7 @@ for binary classification. One way to measure fairness in the multiclass
 scenario is to define one-to-one or one-to-rest classifications for each group
 and calculate the metrics on this instead. Alternatively, we can use predefined
 metrics for multiclass classification. For example, accuracy is a multiclass
-metric that we can use through scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a>
+metric that we can use through scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a>
 in combination with a <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code> as follows:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
@@ -983,67 +983,67 @@ of such functions which will be commonly used:</p>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.balanced_accuracy_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.balanced_accuracy_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.f1_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.f1_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_absolute_error()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_absolute_error()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_squared_error()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.mean_squared_error()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.precision_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.precision_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.r2_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.r2_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score()</span></code></a></p></td>
 <td><p>Y</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 <td><p>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.zero_one_loss.html#sklearn.metrics.zero_one_loss" title="(in scikit-learn v1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.zero_one_loss()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.zero_one_loss.html#sklearn.metrics.zero_one_loss" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.zero_one_loss()</span></code></a></p></td>
 <td><p>.</p></td>
 <td><p>Y</p></td>
 <td><p>Y</p></td>
@@ -1248,7 +1248,7 @@ argument. Here is an example of a pie chart.</p>
 </div>
 <p>There are many other customizations that can be done. More information can be found in
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
-<p>In order to save a plot, access the <a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a> as below and save it with your
+<p>In order to save a plot, access the <a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a> as below and save it with your
 desired filename.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="p">[[</span><span class="s2">&quot;count&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;pie&quot;</span><span class="p">,</span>

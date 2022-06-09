@@ -22,46 +22,47 @@
 GridSearch with Census Data
 ===========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-27
+.. GENERATED FROM PYTHON SOURCE LINES 11-26
 
-This notebook shows how to use Fairlearn to generate predictors for the Census dataset.
-This dataset is a classification problem - given a range of data about 32,000 individuals,
-predict whether their annual income is above or below fifty thousand dollars per year.
+Census dataset. This dataset is a classification problem - given a range of
+data about 32,000 individuals, predict whether their annual income is above
+or below fifty thousand dollars per year.
 
-For the purposes of this notebook, we shall treat this as a loan decision problem.
-We will pretend that the label indicates whether or not each individual repaid a loan in
-the past.
-We will use the data to train a predictor to predict whether previously unseen individuals
-will repay a loan or not.
-The assumption is that the model predictions are used to decide whether an individual
-should be offered a loan.
+For the purposes of this notebook, we shall treat this as a loan decision
+problem. We will pretend that the label indicates whether or not each
+individual repaid a loan in the past. We will use the data to train a
+predictor to predict whether previously unseen individuals will repay a loan
+or not. The assumption is that the model predictions are used to decide
+whether an individual should be offered a loan.
 
 We will first train a fairness-unaware predictor and show that it leads to unfair
 decisions under a specific notion of fairness called *demographic parity*.
 We then mitigate unfairness by applying the :code:`GridSearch` algorithm from the
 Fairlearn package.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-34
+.. GENERATED FROM PYTHON SOURCE LINES 28-34
 
 Load and preprocess the data set
 --------------------------------
-We download the data set using `fetch_adult` function in `fairlearn.datasets`.
-We start by importing the various modules we're going to use:
+We download the data set using `fetch_adult` function in
+`fairlearn.datasets`. We start by importing the various modules we're going
+to use:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-44
+.. GENERATED FROM PYTHON SOURCE LINES 34-45
 
 .. code-block:: default
 
 
-    from sklearn.model_selection import train_test_split
-    from fairlearn.reductions import GridSearch
-    from fairlearn.reductions import DemographicParity, ErrorRate
-    from fairlearn.metrics import MetricFrame, selection_rate, count
-    from sklearn.preprocessing import LabelEncoder, StandardScaler
-    from sklearn.linear_model import LogisticRegression
-    from sklearn import metrics as skm
     import pandas as pd
+    from sklearn import metrics as skm
+    from sklearn.datasets import fetch_openml
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+    from fairlearn.metrics import MetricFrame, count, selection_rate
+    from fairlearn.reductions import DemographicParity, ErrorRate, GridSearch
 
 
 
@@ -70,19 +71,18 @@ We start by importing the various modules we're going to use:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-46
+.. GENERATED FROM PYTHON SOURCE LINES 46-47
 
 We can now load and inspect the data by using the `fairlearn.datasets` module:
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-53
+.. GENERATED FROM PYTHON SOURCE LINES 47-53
 
 .. code-block:: default
 
 
-    from sklearn.datasets import fetch_openml
     data = fetch_openml(data_id=1590, as_frame=True)
     X_raw = data.data
-    Y = (data.target == '>50K') * 1
+    Y = (data.target == ">50K") * 1
     X_raw
 
 
@@ -323,22 +323,21 @@ We can now load and inspect the data by using the `fairlearn.datasets` module:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 54-59
 
-We are going to treat the sex of each individual as a sensitive
-feature (where 0 indicates female and 1 indicates male), and in
-this particular case we are going separate this feature out and drop it
-from the main data.
-We then perform some standard data preprocessing steps to convert the
-data into a format suitable for the ML algorithms
+We are going to treat the sex of each individual as a sensitive feature
+(where 0 indicates female and 1 indicates male), and in this particular case
+we are going separate this feature out and drop it from the main data. We
+then perform some standard data preprocessing steps to convert the data into
+a format suitable for the ML algorithms
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-72
+.. GENERATED FROM PYTHON SOURCE LINES 59-71
 
 .. code-block:: default
 
 
     A = X_raw["sex"]
-    X = X_raw.drop(labels=['sex'], axis=1)
+    X = X_raw.drop(labels=["sex"], axis=1)
     X = pd.get_dummies(X)
 
     sc = StandardScaler()
@@ -355,21 +354,18 @@ data into a format suitable for the ML algorithms
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-74
+.. GENERATED FROM PYTHON SOURCE LINES 72-73
 
 Finally, we split the data into training and test sets:
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-88
+.. GENERATED FROM PYTHON SOURCE LINES 73-84
 
 .. code-block:: default
 
 
-    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(X_scaled,
-                                                                         Y,
-                                                                         A,
-                                                                         test_size=0.2,
-                                                                         random_state=0,
-                                                                         stratify=Y)
+    X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(
+        X_scaled, Y, A, test_size=0.4, random_state=0, stratify=Y
+    )
 
     # Work around indexing bug
     X_train = X_train.reset_index(drop=True)
@@ -384,22 +380,20 @@ Finally, we split the data into training and test sets:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-96
+.. GENERATED FROM PYTHON SOURCE LINES 85-90
 
 Training a fairness-unaware predictor
 -------------------------------------
-
 To show the effect of Fairlearn we will first train a standard ML predictor
-that does not incorporate fairness.
-For speed of demonstration, we use the simple
-:class:`sklearn.linear_model.LogisticRegression` class:
+that does not incorporate fairness. For speed of demonstration, we use the
+simple :class:`sklearn.linear_model.LogisticRegression` class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-101
+.. GENERATED FROM PYTHON SOURCE LINES 90-95
 
 .. code-block:: default
 
 
-    unmitigated_predictor = LogisticRegression(solver='liblinear', fit_intercept=True)
+    unmitigated_predictor = LogisticRegression(solver="liblinear", fit_intercept=True)
 
     unmitigated_predictor.fit(X_train, Y_train)
 
@@ -407,36 +401,42 @@ For speed of demonstration, we use the simple
 
 
 
-.. rst-class:: sphx-glr-script-out
 
- Out:
+.. raw:: html
 
- .. code-block:: none
+    <div class="output_subarea output_html rendered_html output_result">
+    <style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression(solver=&#x27;liblinear&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LogisticRegression</label><div class="sk-toggleable__content"><pre>LogisticRegression(solver=&#x27;liblinear&#x27;)</pre></div></div></div></div></div>
+    </div>
+    <br />
+    <br />
 
-
-    LogisticRegression(solver='liblinear')
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 102-103
+.. GENERATED FROM PYTHON SOURCE LINES 96-97
 
 We can start to assess the predictor's fairness using the `MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-115
+.. GENERATED FROM PYTHON SOURCE LINES 97-117
 
 .. code-block:: default
 
-    metric_frame = MetricFrame(metrics={"accuracy": skm.accuracy_score,
-                                        "selection_rate": selection_rate,
-                                        "count": count},
-                               sensitive_features=A_test,
-                               y_true=Y_test,
-                               y_pred=unmitigated_predictor.predict(X_test))
+    metric_frame = MetricFrame(
+        metrics={
+            "accuracy": skm.accuracy_score,
+            "selection_rate": selection_rate,
+            "count": count,
+        },
+        sensitive_features=A_test,
+        y_true=Y_test,
+        y_pred=unmitigated_predictor.predict(X_test),
+    )
     print(metric_frame.overall)
     print(metric_frame.by_group)
     metric_frame.by_group.plot.bar(
-            subplots=True, layout=[3, 1], legend=False, figsize=[12, 8],
-            title='Accuracy and selection rate by group')
+        subplots=True,
+        layout=[3, 1],
+        legend=False,
+        figsize=[12, 8],
+        title="Accuracy and selection rate by group",
+    )
 
 
 
@@ -453,14 +453,14 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
  .. code-block:: none
 
-    accuracy             0.854335
-    selection_rate       0.196233
-    count             9769.000000
+    accuracy              0.851820
+    selection_rate        0.194707
+    count             19537.000000
     dtype: float64
-            accuracy  ...   count
-    sex               ...        
-    Female  0.930074  ...  3232.0
-    Male    0.816888  ...  6537.0
+            accuracy  ...    count
+    sex               ...         
+    Female  0.925960  ...   6537.0
+    Male    0.814538  ...  13000.0
 
     [2 rows x 3 columns]
 
@@ -471,47 +471,46 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-127
+.. GENERATED FROM PYTHON SOURCE LINES 118-127
 
-Looking at the disparity in accuracy, we see that males have an error
-about three times greater than the females.
-More interesting is the disparity in opportunity - males are offered loans at
-three times the rate of females.
+Looking at the disparity in accuracy, we see that males have an error about
+three times greater than the females. More interesting is the disparity in
+opportunity - males are offered loans at three times the rate of females.
 
 Despite the fact that we removed the feature from the training data, our
-predictor still discriminates based on sex.
-This demonstrates that simply ignoring a sensitive feature when fitting a
-predictor rarely eliminates unfairness.
-There will generally be enough other features correlated with the removed
-feature to lead to disparate impact.
+predictor still discriminates based on sex. This demonstrates that simply
+ignoring a sensitive feature when fitting a predictor rarely eliminates
+unfairness. There will generally be enough other features correlated with the
+removed feature to lead to disparate impact.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-145
+.. GENERATED FROM PYTHON SOURCE LINES 130-145
 
 Mitigation with GridSearch
 --------------------------
 
-The :class:`fairlearn.reductions.GridSearch` class implements a simplified version of the
-exponentiated gradient reduction of `Agarwal et al. 2018 <https://arxiv.org/abs/1803.02453>`_.
-The user supplies a standard ML estimator, which is treated as a blackbox.
-`GridSearch` works by generating a sequence of relabellings and reweightings, and
-trains a predictor for each.
+The :class:`fairlearn.reductions.GridSearch` class implements a simplified
+version of the exponentiated gradient reduction of `Agarwal et al. 2018
+<https://arxiv.org/abs/1803.02453>`_. The user supplies a standard ML
+estimator, which is treated as a blackbox. `GridSearch` works by generating a
+sequence of relabellings and reweightings, and trains a predictor for each.
 
-For this example, we specify demographic parity (on the sensitive feature of sex) as
-the fairness metric.
-Demographic parity requires that individuals are offered the opportunity (are approved
-for a loan in this example) independent of membership in the sensitive class (i.e., females
-and males should be offered loans at the same rate).
-We are using this metric for the sake of simplicity; in general, the appropriate fairness
-metric will not be obvious.
+For this example, we specify demographic parity (on the sensitive feature of
+sex) as the fairness metric. Demographic parity requires that individuals are
+offered the opportunity (are approved for a loan in this example) independent
+of membership in the sensitive class (i.e., females and males should be
+offered loans at the same rate). We are using this metric for the sake of
+simplicity; in general, the appropriate fairness metric will not be obvious.
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-150
+.. GENERATED FROM PYTHON SOURCE LINES 145-152
 
 .. code-block:: default
 
 
-    sweep = GridSearch(LogisticRegression(solver='liblinear', fit_intercept=True),
-                       constraints=DemographicParity(),
-                       grid_size=71)
+    sweep = GridSearch(
+        LogisticRegression(solver="liblinear", fit_intercept=True),
+        constraints=DemographicParity(),
+        grid_size=31,
+    )
 
 
 
@@ -520,23 +519,22 @@ metric will not be obvious.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-158
+.. GENERATED FROM PYTHON SOURCE LINES 153-160
 
-Our algorithms provide :code:`fit()` and :code:`predict()` methods, so they behave in a similar manner
-to other ML packages in Python.
-We do however have to specify two extra arguments to :code:`fit()` - the column of sensitive
+Our algorithms provide :code:`fit()` and :code:`predict()` methods, so they
+behave in a similar manner to other ML packages in Python. We do however have
+to specify two extra arguments to :code:`fit()` - the column of sensitive
 feature labels, and also the number of predictors to generate in our sweep.
 
 After :code:`fit()` completes, we extract the full set of predictors from the
 :class:`fairlearn.reductions.GridSearch` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-164
+.. GENERATED FROM PYTHON SOURCE LINES 160-165
 
 .. code-block:: default
 
 
-    sweep.fit(X_train, Y_train,
-              sensitive_features=A_train)
+    sweep.fit(X_train, Y_train, sensitive_features=A_train)
 
     predictors = sweep.predictors_
 
@@ -547,25 +545,27 @@ After :code:`fit()` completes, we extract the full set of predictors from the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-173
+.. GENERATED FROM PYTHON SOURCE LINES 166-174
 
 We could plot performance and fairness metrics of these predictors now.
-However, the plot would be somewhat confusing due to the number of models.
-In this case, we are going to remove the predictors which are dominated in the
-error-disparity space by others from the sweep (note that the disparity will only be
-calculated for the sensitive feature; other potentially sensitive features will
-not be mitigated).
-In general, one might not want to do this, since there may be other considerations
-beyond the strict optimization of error and disparity (of the given sensitive feature).
+However, the plot would be somewhat confusing due to the number of models. In
+this case, we are going to remove the predictors which are dominated in the
+error-disparity space by others from the sweep (note that the disparity will
+only be calculated for the sensitive feature; other potentially sensitive
+features will not be mitigated). In general, one might not want to do this,
+since there may be other considerations beyond the strict optimization of
+error and disparity (of the given sensitive feature).
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-194
+.. GENERATED FROM PYTHON SOURCE LINES 174-201
 
 .. code-block:: default
 
 
     errors, disparities = [], []
     for m in predictors:
-        def classifier(X): return m.predict(X)
+
+        def classifier(X):
+            return m.predict(X)
 
         error = ErrorRate()
         error.load_data(X_train, pd.Series(Y_train), sensitive_features=A_train)
@@ -575,11 +575,15 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
         errors.append(error.gamma(classifier)[0])
         disparities.append(disparity.gamma(classifier).max())
 
-    all_results = pd.DataFrame({"predictor": predictors, "error": errors, "disparity": disparities})
+    all_results = pd.DataFrame(
+        {"predictor": predictors, "error": errors, "disparity": disparities}
+    )
 
     non_dominated = []
     for row in all_results.itertuples():
-        errors_for_lower_or_eq_disparity = all_results["error"][all_results["disparity"] <= row.disparity]
+        errors_for_lower_or_eq_disparity = all_results["error"][
+            all_results["disparity"] <= row.disparity
+        ]
         if row.error <= errors_for_lower_or_eq_disparity.min():
             non_dominated.append(row.predictor)
 
@@ -590,11 +594,11 @@ beyond the strict optimization of error and disparity (of the given sensitive fe
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-196
+.. GENERATED FROM PYTHON SOURCE LINES 202-203
 
 Finally, we can evaluate the dominant models along with the unmitigated model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 196-220
+.. GENERATED FROM PYTHON SOURCE LINES 203-235
 
 .. code-block:: default
 
@@ -605,16 +609,24 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
         key = "dominant_model_{0}".format(i)
         predictions[key] = non_dominated[i].predict(X_test)
 
-        metric_frames[key] = MetricFrame(metrics={"accuracy": skm.accuracy_score,
-                                                  "selection_rate": selection_rate,
-                                                  "count": count},
-                                         sensitive_features=A_test,
-                                         y_true=Y_test,
-                                         y_pred=predictions[key])
+        metric_frames[key] = MetricFrame(
+            metrics={
+                "accuracy": skm.accuracy_score,
+                "selection_rate": selection_rate,
+                "count": count,
+            },
+            sensitive_features=A_test,
+            y_true=Y_test,
+            y_pred=predictions[key],
+        )
 
     import matplotlib.pyplot as plt
-    x = [metric_frame.overall['accuracy'] for metric_frame in metric_frames.values()]
-    y = [metric_frame.difference()['selection_rate'] for metric_frame in metric_frames.values()]
+
+    x = [metric_frame.overall["accuracy"] for metric_frame in metric_frames.values()]
+    y = [
+        metric_frame.difference()["selection_rate"]
+        for metric_frame in metric_frames.values()
+    ]
     keys = list(metric_frames.keys())
     plt.scatter(x, y)
     for i in range(len(x)):
@@ -642,24 +654,25 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 221-232
+.. GENERATED FROM PYTHON SOURCE LINES 236-248
 
-We see a Pareto front forming - the set of predictors which represent optimal tradeoffs
-between accuracy and disparity in predictions.
-In the ideal case, we would have a predictor at (1,0) - perfectly accurate and without
-any unfairness under demographic parity (with respect to the sensitive feature "sex").
-The Pareto front represents the closest we can come to this ideal based on our data and
-choice of estimator.
-Note the range of the axes - the disparity axis covers more values than the accuracy,
-so we can reduce disparity substantially for a small loss in accuracy.
+We see a Pareto front forming - the set of predictors which represent optimal
+tradeoffs between accuracy and disparity in predictions. In the ideal case,
+we would have a predictor at (1,0) - perfectly accurate and without any
+unfairness under demographic parity (with respect to the sensitive feature
+"sex"). The Pareto front represents the closest we can come to this ideal
+based on our data and choice of estimator. Note the range of the axes - the
+disparity axis covers more values than the accuracy, so we can reduce
+disparity substantially for a small loss in accuracy.
 
-In a real example, we would pick the model which represented the best trade-off
-between accuracy and disparity given the relevant business constraints.
+In a real example, we would pick the model which represented the best
+trade-off between accuracy and disparity given the relevant business
+constraints.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 5 minutes  3.075 seconds)
+   **Total running time of the script:** ( 1 minutes  52.915 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_grid_search_census.py:
