@@ -815,7 +815,7 @@ labels, denoted by the “group_membership_data” column:</p>
 <span class="go">recall by groups =  {&#39;a&#39;: 0.0, &#39;b&#39;: 0.5, &#39;c&#39;: 0.75, &#39;d&#39;: 0.0}</span>
 </pre></div>
 </div>
-<p>The disaggregated metrics are stored in a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>
+<p>The disaggregated metrics are stored in a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>
 <code class="code docutils literal notranslate"><span class="pre">grouped_metric.by_group</span></code>. Note that the overall recall is the same
 as that calculated above in the Ungrouped Metric section, while the ‘by_group’
 dictionary can be checked against the table above.</p>
@@ -838,7 +838,7 @@ across groups and also the difference and ratio between the maximum and minimum:
 <p>A single instance of <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> can evaluate multiple
 metrics simultaneously by providing the <cite>metrics</cite> argument with a
 dictionary of desired metrics. The disaggregated metrics are then stored in a
-pandas DataFrame. Note that <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> can
+pandas DataFrame. Note that <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> can
 be used to show each group’s size:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">count</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_metric</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">({</span><span class="s1">&#39;precision&#39;</span><span class="p">:</span><span class="n">skm</span><span class="o">.</span><span class="n">precision_score</span><span class="p">,</span>
@@ -1227,7 +1227,7 @@ see the <a class="reference internal" href="../auto_examples/plot_new_metrics.ht
 <h3>Plotting grouped metrics<a class="headerlink" href="#plotting-grouped-metrics" title="Permalink to this headline">#</a></h3>
 <p>The simplest way to visualize grouped metrics from the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> is
 to take advantage of the inherent plotting capabilities of
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>:</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
     <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">,</span>
@@ -1312,7 +1312,7 @@ argument. Here is an example of a pie chart.</p>
 <img alt="../_images/sphx_glr_plot_quickstart_004.png" src="../_images/sphx_glr_plot_quickstart_004.png" />
 </figure>
 <p>There are many other customizations that can be done. More information can be found in
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v1.4.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a>.</p>
 <p>In order to save a plot, access the <a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a> as below and save it with your
 desired filename.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">metric_frame</span><span class="o">.</span><span class="n">by_group</span><span class="p">[[</span><span class="s2">&quot;count&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
