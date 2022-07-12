@@ -463,7 +463,7 @@ We start with some uncontroversial <cite>import</cite> statements:</p>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class"><span class="n">Pipeline</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
 
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">selection_rate</span>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a>
 </pre></div>
 </div>
 <p>Next, we import the data:</p>
@@ -733,7 +733,7 @@ metrics are <a class="reference internal" href="../api_reference/fairlearn.metri
 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v1.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a> (with
 <code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code>).
 We can evaluate these metrics directly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selection Rate:&quot;</span><span class="p">,</span> <span class="n">selection_rate</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selection Rate:&quot;</span><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fbeta:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -750,9 +750,9 @@ class. Let us construct an instance of this class, and then look at
 its capabilities:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fbeta_06</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">metric_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span> <span class="s2">&quot;fbeta_06&quot;</span><span class="p">:</span> <span class="n">fbeta_06</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count</span><span class="p">}</span>
+<span class="n">metric_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span> <span class="s2">&quot;fbeta_06&quot;</span><span class="p">:</span> <span class="n">fbeta_06</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">:</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">}</span>
 
-<span class="n">grouped_on_sex</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grouped_on_sex</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
@@ -776,9 +776,9 @@ arguments such as sample weights shortly).</p>
 object. First, there is the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property, which contains
 the metrics evaluated on the entire dataset. We see that this contains the
 same values calculated above:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">selection_rate</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">)</span>
-<span class="k">assert</span> <span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s2">&quot;fbeta_06&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span></a><span class="p">[</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">)</span>
+<span class="k">assert</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span></a><span class="p">[</span><span class="s2">&quot;fbeta_06&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -793,7 +793,7 @@ is <code class="docutils literal notranslate"><span class="pre">by_group</span><
 by the categories in the <code class="docutils literal notranslate"><span class="pre">sensitive_features=</span></code> argument. Note that
 <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.count()</span></code></a> can be used to display the number of
 data points in each subgroup. In this case, we have results for males and females:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -848,18 +848,18 @@ data points in each subgroup. In this case, we have results for males and female
 males and females.</p>
 <p>We can also create another <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object
 using race as the sensitive feature:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grouped_on_race</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">overall</span></code> property is unchanged:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span> <span class="o">==</span> <span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span></a> <span class="o">==</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">by_group</span></code> property now contains the metrics evaluated based on the ‘race’
 column:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -941,7 +941,7 @@ pass these along:</p>
 <span class="p">}</span>
 
 
-<span class="n">grouped_with_weights</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grouped_with_weights</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -951,24 +951,24 @@ pass these along:</p>
 </pre></div>
 </div>
 <p>We can inspect the overall values, and check they are as expected:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">selection_rate</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">[</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a>
 <span class="p">)</span>
-<span class="k">assert</span> <span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">[</span><span class="s2">&quot;fbeta_06&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span>
+<span class="k">assert</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">[</span><span class="s2">&quot;fbeta_06&quot;</span><span class="p">]</span> <span class="o">==</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">random_weights</span></a>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.195549
-fbeta_06              0.683856
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.193902
+fbeta_06              0.677895
 count             14653.000000
 dtype: float64
 </pre></div>
 </div>
 <p>We can also see the effect on the metric being evaluated on the subgroups:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1004,14 +1004,14 @@ dtype: float64
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.072521</td>
-      <td>0.634442</td>
+      <td>0.065517</td>
+      <td>0.611403</td>
       <td>4838.0</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.257069</td>
-      <td>0.691417</td>
+      <td>0.258005</td>
+      <td>0.687009</td>
       <td>9815.0</td>
     </tr>
   </tbody>
@@ -1036,7 +1036,7 @@ minimum value seen for a subgroup for each underlying metric (we also provide
 <code class="docutils literal notranslate"><span class="pre">group_max()</span></code>). This is
 useful if there is a mandate that “no subgroup should have an <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code>
 of less than 0.6.” We can evaluate the minimum values easily:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1050,7 +1050,7 @@ dtype: object
 This can be quantified in terms of a difference between the subgroup with
 the highest value of the metric, and the subgroup with the lowest value.
 For this, we provide the method <code class="docutils literal notranslate"><span class="pre">difference(method='between_groups)</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1063,7 +1063,7 @@ dtype: object
 <p>We can also evaluate the difference relative to the corresponding overall
 value of the metric. In this case we take the absolute value, so that the
 result is always positive:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1076,7 +1076,7 @@ dtype: float64
 <p>There are situations where knowing the ratios of the metrics evaluated on
 the subgroups is more useful. For this we have the <code class="docutils literal notranslate"><span class="pre">ratio()</span></code> method.
 We can take the ratios between the minimum and maximum values of each metric:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1089,7 +1089,7 @@ dtype: object
 <p>We can also compute the ratios relative to the overall value for each
 metric. Analogous to the differences, the ratios are always in the range
 <span class="math notranslate nohighlight">\([0,1]\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1113,7 +1113,7 @@ accuracy score). Moreover, performance on black females was <em>terrible</em>.
 We can examine the intersections of sensitive features by passing
 multiple columns to the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
 constructor:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grouped_on_race_and_sex</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -1123,8 +1123,8 @@ constructor:</p>
 </div>
 <p>The overall values are unchanged, but the <code class="docutils literal notranslate"><span class="pre">by_group</span></code> table now
 shows the intersections between subgroups:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">overall</span> <span class="o">==</span> <span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">overall</span></a> <span class="o">==</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1209,7 +1209,7 @@ so each continues to reduce to a single value. If we look at the
 <code class="docutils literal notranslate"><span class="pre">group_min()</span></code>, we see that we violate the mandate we specified for the
 <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> suggested above (for females with a race of ‘Other’ in
 fact):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1222,7 +1222,7 @@ dtype: object
 <p>Looking at the <code class="docutils literal notranslate"><span class="pre">ratio()</span></code> method, we see that the disparity is worse
 (specifically between white males and black females, if we check in
 the <code class="docutils literal notranslate"><span class="pre">by_group</span></code> table):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -1245,7 +1245,7 @@ between (say) black females and white males. To example these cases,
 we have the concept of <em>control features</em>.</p>
 <p>Control features are introduced by the <code class="docutils literal notranslate"><span class="pre">control_features=</span></code>
 argument to the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> object:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cond_credit_score</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -1257,7 +1257,7 @@ argument to the <a class="reference internal" href="../api_reference/fairlearn.m
 <p>This has an immediate effect on the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property. Instead
 of having one value for each metric, we now have a value for each
 unique value of the control feature:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">overall</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">overall</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1315,7 +1315,7 @@ unique value of the control feature:</p>
 </div>
 <br />
 <br /><p>The <code class="docutils literal notranslate"><span class="pre">by_group</span></code> property is similarly expanded:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1480,7 +1480,7 @@ unique value of the control feature:</p>
 <br />
 <br /><p>The aggregates are also evaluated once for each group identified
 by the control feature:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1538,7 +1538,7 @@ by the control feature:</p>
 </div>
 <br />
 <br /><p>And:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1599,7 +1599,7 @@ by the control feature:</p>
 for high income non-whites, which significantly affects the
 aggregates.</p>
 <p>We can continue adding more control features:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cond_both</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metric_fns</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -1609,7 +1609,7 @@ aggregates.</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">overall</span></code> property now splits into more values:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span><span class="o">.</span><span class="n">overall</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">cond_both</span><span class="o">.</span><span class="n">overall</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1690,7 +1690,7 @@ aggregates.</p>
 <br />
 <br /><p>As does the <code class="docutils literal notranslate"><span class="pre">by_groups</span></code> property, where <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values
 indicate that there were no samples in the cell:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cond_both</span><span class="o">.</span><span class="n">by_group</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">cond_both</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1984,7 +1984,7 @@ with under-populated intersections. Consider:</p>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
 
 
-<span class="n">counts</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">counts</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">member_counts</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -1992,7 +1992,7 @@ with under-populated intersections. Consider:</p>
     <span class="n">control_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">[[</span><span class="s2">&quot;Loan Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Credit Score&quot;</span><span class="p">]],</span>
 <span class="p">)</span>
 
-<span class="n">counts</span><span class="o">.</span><span class="n">by_group</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">counts</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -2047,7 +2047,7 @@ since the <a class="reference internal" href="../api_reference/fairlearn.metrics
 will be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> (or in a few cases, it will be
 a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, but that has a similar
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.to_csv.html#pandas.Series.to_csv" title="(in pandas v1.4.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_csv()</span></code></a> method):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">csv_output</span> <span class="o">=</span> <span class="n">cond_credit_score</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">to_csv</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">csv_output</span> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">cond_credit_score</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">to_csv</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">csv_output</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2079,7 +2079,7 @@ directly to a CSV file, rather than returning a string (as shown
 above).</p>
 <p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overall()</span></code></a> property can
 be handled similarly, in the cases that it is not a scalar.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.787 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.538 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>

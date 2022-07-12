@@ -437,7 +437,7 @@ to download the full example code</p>
 <h2>Load and preprocess the data set<a class="headerlink" href="#load-and-preprocess-the-data-set" title="Permalink to this headline">#</a></h2>
 <p>We start by importing the various modules we’re going to use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.experimental.enable_metric_frame_plotting</span> <span class="kn">import</span> <span class="n">plot_metric_frame</span>
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a>
 </pre></div>
 </div>
 <p>We download the data set using <code class="xref py py-meth docutils literal notranslate"><span class="pre">fetch_openml()</span></code> function in <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.datasets</span></code>.
@@ -585,7 +585,7 @@ We use a pipeline to preprocess the data then use a
     <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a><span class="p">,</span>
     <span class="s2">&quot;Accuracy Bounds&quot;</span><span class="p">:</span> <span class="n">accuracy_wilson</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics_dict</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test_true</span></a><span class="p">,</span>
     <span class="n">y_pred</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test_pred</span></a><span class="p">,</span>
@@ -598,7 +598,7 @@ We use a pipeline to preprocess the data then use a
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">#</a></h2>
 <section id="plot-metrics-without-confidence-intervals">
 <h3>Plot metrics without confidence intervals<a class="headerlink" href="#plot-metrics-without-confidence-intervals" title="Permalink to this headline">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span><span class="n">metric_frame</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_plotting_metrics_with_error_001.png" srcset="../_images/sphx_glr_plot_plotting_metrics_with_error_001.png" alt="plot plotting metrics with error" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
@@ -610,7 +610,7 @@ We use a pipeline to preprocess the data then use a
 <section id="plot-metrics-with-confidence-intervals-possibly-asymmetric">
 <h3>Plot metrics with confidence intervals (possibly asymmetric)<a class="headerlink" href="#plot-metrics-with-confidence-intervals-possibly-asymmetric" title="Permalink to this headline">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span>
-    <span class="n">metric_frame</span><span class="p">,</span>
+    <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">],</span>
     <span class="n">conf_intervals</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall Bounds&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy Bounds&quot;</span><span class="p">],</span>
@@ -618,7 +618,7 @@ We use a pipeline to preprocess the data then use a
     <span class="n">subplots</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">plot_metric_frame</span><span class="p">(</span>
-    <span class="n">metric_frame</span><span class="p">,</span>
+    <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="p">,</span>
     <span class="n">metrics</span><span class="o">=</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span>
     <span class="n">conf_intervals</span><span class="o">=</span><span class="s2">&quot;Recall Bounds&quot;</span><span class="p">,</span>
@@ -637,7 +637,7 @@ We use a pipeline to preprocess the data then use a
 <section id="plot-metrics-with-error-labels">
 <h3>Plot metrics with error labels<a class="headerlink" href="#plot-metrics-with-error-labels" title="Permalink to this headline">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span>
-    <span class="n">metric_frame</span><span class="p">,</span>
+    <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
     <span class="n">metrics</span><span class="o">=</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span>
     <span class="n">conf_intervals</span><span class="o">=</span><span class="s2">&quot;Recall Bounds&quot;</span><span class="p">,</span>
@@ -654,7 +654,7 @@ We use a pipeline to preprocess the data then use a
 </section>
 <section id="plots-all-columns-and-treats-them-as-metrics-without-error-bars">
 <h3>Plots all columns and treats them as metrics without error bars<a class="headerlink" href="#plots-all-columns-and-treats-them-as-metrics-without-error-bars" title="Permalink to this headline">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span><span class="n">metric_frame</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_metric_frame</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_plotting_metrics_with_error_005.png" srcset="../_images/sphx_glr_plot_plotting_metrics_with_error_005.png" alt="Recall, Accuracy" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
@@ -668,7 +668,7 @@ We use a pipeline to preprocess the data then use a
 <h3>Customizing plots<a class="headerlink" href="#customizing-plots" title="Permalink to this headline">#</a></h3>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_metric_frame()</span></code> returns an <code class="xref py py-class docutils literal notranslate"><span class="pre">Axes</span></code> object that we can customize futher.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axs</span></a> <span class="o">=</span> <span class="n">plot_metric_frame</span><span class="p">(</span>
-    <span class="n">metric_frame</span><span class="p">,</span>
+    <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">metric_frame</span></a><span class="p">,</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;point&quot;</span><span class="p">,</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">],</span>
     <span class="n">conf_intervals</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Recall Bounds&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy Bounds&quot;</span><span class="p">],</span>
@@ -697,7 +697,7 @@ We use a pipeline to preprocess the data then use a
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.800 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.469 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-plotting-metrics-with-error-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/0211ea2c687644b93b7c4804c06ad616/plot_plotting_metrics_with_error.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_plotting_metrics_with_error.py</span></code></a></p>
