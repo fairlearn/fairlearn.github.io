@@ -771,6 +771,101 @@ by town · Issue #16155 · scikit-learn/scikit-learn,” GitHub, 18-Jan-2020.
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_diabetes_hospital">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_diabetes_hospital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/datasets/_fetch_diabetes_hospital.py#L10-L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_diabetes_hospital" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the preprocessed Diabetes 130-Hospitals dataset (binary classification).</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>101766</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>numeric, categorical, string</p></td>
+</tr>
+<tr class="row-even"><td><p>Classes</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: UCI Repository <a class="footnote-reference brackets" href="#footcite-strack2014diabetes" id="id13">1</a>
+Paper: Strack et al., 2014 <a class="footnote-reference brackets" href="#footcite-strack2014impact" id="id14">2</a></p>
+<p>The “Diabetes 130-Hospitals” dataset represents 10 years of clinical care at 130
+U.S. hospitals and delivery networks, collected from 1999 to 2008. Each record
+represents the hospital admission record for a patient diagnosed with diabetes
+whose stay lasted between one to fourteen days.</p>
+<p>The original “Diabetes 130-Hospitals” dataset was collected by Beata Strack,
+Jonathan P. DeShazo, Chris Gennings, Juan L. Olmo, Sebastian Ventura,
+Krzysztof J. Cios, and John N. Clore in 2014.</p>
+<p>This version of the dataset was derived by the Fairlearn team for the SciPy
+2021 tutorial “Fairness in AI Systems: From social context to practice using
+Fairlearn”. In this version, the target variable “readmitted” is binarized
+into whether the patient was re-admitted within thirty days. The full
+pre-processing script is available
+<a class="reference external" href="https://github.com/fairlearn/talks/blob/main/2021_scipy_tutorial/preprocess.py">here</a>.</p>
+<p>Read more in the <a class="reference internal" href="../user_guide/datasets/diabetes_hospital_data.html#diabetes-hospital-data"><span class="std std-ref">User Guide</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset is always returned as a pandas object, because string
+attributes are not supported for array representation, resulting
+in a <cite>ValueError</cite>.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.8.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (101766, 25)</span></dt><dd><p>Each row corresponding to the 25 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (101766,)</span></dt><dd><p>Each value represents whether readmission of the patient
+occurred within 30 days of the release.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 25</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the Diabetes 130-Hospitals dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div class="docutils container" id="id15">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-strack2014diabetes"><span class="brackets"><a class="fn-backref" href="#id13">1</a></span></dt>
+<dd><p>Beata Strack, Jonathan Deshazo, Chris Gennings, Juan Luis Olmo Ortiz, Sebastian Ventura, Krzysztof Cios, and John Clore. Diabetes 130-us hospitals for years 1999-2008 data set. 05 2014. URL: <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008">https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008</a>.</p>
+</dd>
+<dt class="label" id="footcite-strack2014impact"><span class="brackets"><a class="fn-backref" href="#id14">2</a></span></dt>
+<dd><p>Beata Strack, Jonathan Deshazo, Chris Gennings, Juan Luis Olmo Ortiz, Sebastian Ventura, Krzysztof Cios, and John Clore. Impact of hba1c measurement on hospital readmission rates: analysis of 70,000 clinical database patient records. <em>BioMed research international</em>, 2014:781670, 04 2014. <a class="reference external" href="https://doi.org/10.1155/2014/781670">doi:10.1155/2014/781670</a>.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
 </section>
 
 
