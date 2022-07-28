@@ -261,63 +261,47 @@ function checkPageExistsAndRedirect(event) {
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_quickstart_selection_rate.html">
    Selection rates in census dataset
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_quickstart.html">
    MetricFrame visualizations
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_correlationremover_before_after.html">
    CorrelationRemover visualization
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_mitigation_pipeline.html">
    Passing pipelines to mitigation techniques
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_metricframe_beyond_binary_classification.html">
    MetricFrame: Beyond Binary Classification
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_grid_search_census.html">
    GridSearch with Census Data
   </a>
  </li>
-</ul>
-<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Making Derived Metrics
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_plotting_metrics_with_error.html">
    Plotting Metrics with Errors
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_new_metrics.html">
    Metrics with Multiple Features
@@ -517,7 +501,6 @@ follows:</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum accuracy_score: &quot;</span><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">acc_frame</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Minimum accuracy_score:  0.8098103202121151
 </pre></div>
 </div>
@@ -555,7 +538,6 @@ argument, since we are taking the minimum value.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum accuracy_score: &quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">my_acc_min</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Minimum accuracy_score:  0.8098103202121151
 </pre></div>
 </div>
@@ -582,9 +564,8 @@ argument, since we are taking the minimum value.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function   :&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_func</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8142839243436613
-From function   : 0.8142839243436613
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From MetricFrame: 0.8053116452094883
+From function   : 0.8053116452094883
 </pre></div>
 </div>
 <p>The returned function can also handle parameters which are not sample
@@ -607,8 +588,7 @@ First we evaluate this with a <a class="reference internal" href="../api_referen
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From frame:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_frame</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.008849626194460503
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From frame: 0.014092279123227192
 </pre></div>
 </div>
 <p>And next, we create a function to evaluate the same. Note that
@@ -628,8 +608,7 @@ we do not need to use <a class="reference external" href="https://docs.python.or
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From function:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">beta_from_func</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.008849626194460503
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From function: 0.014092279123227192
 </pre></div>
 </div>
 </section>
@@ -650,13 +629,12 @@ find the minimum over the accuracy scores:</p>
 <span class="k">assert</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_myacc</span></a> <span class="o">==</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">from_pregen</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>From my function : 0.8114035087719298
 From pregenerated: 0.8114035087719298
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.108 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-make-derived-metric-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.822 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-make-derived-metric-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/4aab6a1d20b03cacad12f86d13173237/plot_make_derived_metric.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_make_derived_metric.py</span></code></a></p>
 </div>

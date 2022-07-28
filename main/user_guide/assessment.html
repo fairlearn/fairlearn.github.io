@@ -499,6 +499,28 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#common-fairness-metrics">
+   Common fairness metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demographic-parity">
+     Demographic parity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equalized-odds">
+     Equalized odds
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equal-opportunity">
+     Equal opportunity
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#multiple-metrics-in-a-single-metricframe">
    Multiple metrics in a single
    <code class="code docutils literal notranslate">
@@ -837,6 +859,204 @@ across groups and also the difference and ratio between the maximum and minimum:
 <span class="go">ratio in recall =  0.0</span>
 </pre></div>
 </div>
+</section>
+<section id="common-fairness-metrics">
+<h2>Common fairness metrics<a class="headerlink" href="#common-fairness-metrics" title="Permalink to this headline">#</a></h2>
+<p>In the sections below, we review the most common fairness metrics, as well
+as their underlying assumptions and suggestions for use. Each metric requires
+that some aspects of the predictor behavior be comparable across groups. In
+the mathematical definitions below, <span class="math notranslate nohighlight">\(X\)</span> denotes a feature vector
+used for predictions, <span class="math notranslate nohighlight">\(A\)</span> be a single sensitive feature (such as age
+or race), and <span class="math notranslate nohighlight">\(Y\)</span> be the true label. Fairness metrics are phrased in
+terms of expectations with respect to the distribution over <span class="math notranslate nohighlight">\((X,A,Y)\)</span>.</p>
+<section id="demographic-parity">
+<span id="id2"></span><h3>Demographic parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">#</a></h3>
+<p>Demographic parity is a fairness metric whose goal is to ensure a machine
+learning model’s predictions are independent of membership in a sensitive
+group. In other words, demographic parity is achieved when the probability
+of a certain prediction is not dependent on sensitive group membership. In
+the binary classification scenario, demographic parity refers to equal
+selection rates across groups. For example, in the context of a resume
+screening model, equal selection would mean that the proportion of
+applicants selected for a job interview should be equal across groups.</p>
+<p>We mathematically define demographic parity using the following
+set of equations.
+A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution
+over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
+independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id3">2</a></p>
+<p>In the case of regression, a predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies demographic parity
+under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
+of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
+<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id4">3</a> Another way to think of demographic parity in a
+regression scenario is to compare the average predicted value across groups.
+Note that in the Fairlearn API, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.demographic_parity_difference()</span></code></a>
+is only defined for classification.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Demographic parity is also sometimes referred to as <em>independence</em>, <em>group fairness</em>, <em>statistical parity</em>, and <em>disparate impact</em>.</p>
+</div>
+<p>Failing to achieve demographic parity could generate allocation harms.
+Allocation harms occur when AI systems allocate
+opportunities, resources, or information differently across different
+groups (for example, an AI hiring system that is more likely to advance resumes
+of male applicants than resumes of female applicants regardless of qualification).
+Demographic parity can be used to assess the extent of allocation harms because it
+reflects an assumption that resources should be allocated proportionally
+across groups. Of the metrics described in this section, it can be the easiest
+to implement. However, operationalizing fairness using demographic parity
+rests on a few assumptions: that either the dataset is not a good representation
+of what the world actually looks like (e.g., a resume assessment system that is
+more likely to filter out qualified female applicants due to an organizational
+bias towards male applicants, regardless of skill level), or that the dataset
+is an accurate representation of the phenomena being modeled, but the
+phenomena itself is unjust (e.g., consider the case of predictive policing,
+where a system created to predict crime rates may correctly predict higher crime
+rates for certain areas, but simultaneously fail to consider that those higher
+rates may be caused by disproportionate policing and overcriminimalization of those areas).
+In reality, these assumptions may not be the true. The
+dataset might be an accurate representation of the phenomena itself,
+or the phenomena being modeled may not be unjust.
+If either assumption is not true, then demographic parity may not provide
+a meaningful or useful measurement of the fairness of a model’s predictions.</p>
+<p>Fairness metrics like demographic parity can also be used as optimization
+constraints during the machine learning model training process. However,
+demographic parity may not be well-suited for this purpose because
+it does not place requirements on the exact distribution of predictions with
+respect to other important variables. To understand this concept further,
+consider an example from the Fairness in Machine Learning textbook .</p>
+<blockquote>
+<div><p>“However, decisions based on a classifier that satisfies independence can
+have undesirable properties (and similar arguments apply to other
+statistical critiera). Here is one way in which this can happen,
+which is easiest to illustrate if we imagine a callous or ill-intentioned
+decision maker. Imagine a company that in <em>group A</em> hires diligently
+selected applicants at some rate p&gt;0. In <em>group B</em>, the company
+hires carelessly selected applicants at the same rate p. Even though
+the acceptance rates in both groups are identical, it is far more likely
+that unqualified applicants are selected in one group than in the other.
+As a result, it will appear in hindsight that members of <em>group B</em>
+performed worse than members of <em>group A</em>, thus establishing a negative
+track record for group B.”</p>
+</div></blockquote>
+<p>It’s also worth considering whether the assumptions underlying demographic
+parity maintain construct validity (see <a class="reference internal" href="fairness_in_machine_learning.html#id6"><span class="std std-ref">What is construct validity?</span></a>).
+Construct validity is a concept in the social sciences that assesses the
+extent to which the ways we choose to measure abstract
+phenomena are valid. For demographic parity, one relevant question would be
+whether demographic parity meets the criteria for establishing “fairness”,
+itself an unobservable theoretical construct. Further, it’s important
+to ask whether satisfying demographic parity actually brings us closer
+to the world we’d like to see.</p>
+<p id="conditional-group-fairness">In some cases, we may observe a trend in data from multiple demographic groups,
+but that trend may disappear or reverse when groups are combined. Known as
+<a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s Paradox</a>, this
+outcome may appear when observing disparate outcomes across groups. A
+famous example of Simpson’s Paradox is a study of 1973 graduate school
+admissions to the University of California, Berkley <a class="footnote-reference brackets" href="#footcite-bickel1975biasinadmissions" id="id5">4</a>.
+The study showed that when observing admissions by gender, men applying were
+more likely than women to be accepted. However, drilling down into admissions
+by department revealed that women tended to apply to departments with more
+competitive admissions requirements, whereas men tended to apply to less
+competitive depoartments. The more granular analysis showed only four out of
+85 departments exhibited bias against women, and six departments exhibited
+bias towards men. In general, the data indicated departments exhibited a bias
+in favor of minority-gendered applicants, which is opposite from the trend
+observed in the aggregate data.</p>
+<p>This phenomenon is important to fairness evaluation because metrics like
+demographic parity may be different when calculated at an aggregate level and
+within more granular categories. In the case of demographic parity, we might
+need to review
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a, D=d] = \E[h(X) \given D=d] \quad \forall a\)</span>
+where D represents the feature(s) within X across which members of the groups
+within A are distributed.
+Demographic parity would then require that the prediction of the target
+variable is statistically independent of sensitive attributes conditional
+on D. Simply aggregating outcomes across high-level categories can be
+misleading when the data can be further disaggregated.
+It’s important to review metrics across these more graular categories,
+if they exist, to verify that disparate outcomes persist across all levels
+of aggregation.</p>
+<p>However, more granular categories generally contain smaller sample sizes, and
+it can be more difficult to establish that trends seen in very small
+samples are not due to random chance.
+We also recommend watching out for the <a class="reference external" href="https://stats.libretexts.org/Bookshelves/Applied_Statistics/Book%3A_Biological_Statistics_(McDonald)/06%3A_Multiple_Tests/6.01%3A_Multiple_Comparisons">multiple comparisons problem</a>,
+which states that the more statistical inferences are made, the
+more erroneous those inferences will become. For example, in the case
+of evaluating fairness metrics on multiple groups, as we break the
+groups down into more granular categories and evaluate those smaller
+groups, it will become more likely that these subgroups will
+differ enough to fail one of the metrics. For dealing with the multiple
+comparisons problem, we recommend investigating <a class="reference external" href="https://www.statology.org/bonferroni-correction/">statistical techniques</a>
+meant to correct the errors produced by individual statistical tests.</p>
+</section>
+<section id="equalized-odds">
+<span id="id6"></span><h3>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">#</a></h3>
+<p>The goal of the equalized odds fairness metric is to ensure a machine
+learning model performs equally well for different groups. It is stricter
+than demographic parity because it requires that the machine learning
+model’s predictions are not only independent of sensitive group membership,
+but that groups have the same false positive rates and and true positive
+rates. This distinction is important because a model could achieve
+demographic parity (i.e., its predictions could be independent of
+sensitive group membership), but still generate more false positive
+predictions for one group versus others. Equalized odds does not create
+the selection issue discussed in the demographic parity section above.
+For example, in the hiring scenario where the goal is to choose applicants
+from <em>group A</em> and <em>group B</em>, ensuring the model performs equally well at
+choosing applicants from <em>group A</em> and <em>group B</em> can circumvent the issue of
+the model optimizing by selecting applicants from one group at random.</p>
+<p>We mathematically define equalized odds using the following
+set of equations. A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized
+odds under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its
+prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
+conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
+<span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
+<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id7">2</a> Equalized odds requires that the true
+positive rate, <span class="math notranslate nohighlight">\(\P(h(X)=1 | Y=1\)</span>, and the false positive rate,
+<span class="math notranslate nohighlight">\(\P(h(X)=1 | Y=0\)</span>, be equal across groups.</p>
+<p>The inclusion of false positive rates acknowledges that different groups
+experience different costs from misclassification. For example, in the case of
+a model predicting a negative outcome (e.g., probability of recidivating)
+that already disproportionately affects members of minority communities,
+false positive predictions reflect pre-existing disparities in outcomes
+across minority and majority groups. Equalized odds further enforces that the
+accuracy is equally high across all groups, punishing models that only
+perform well on majority groups.</p>
+<p>If a machine learning model does not perform equally well for all groups,
+then it could generate allocation or quality-of-service harms.
+Equalized odds can be used to diagnose both allocation harms as well as
+quality-of-service harms. Allocation harms are discussed in detail in the
+demographic parity section above. Quality-of-service harms occur when an
+AI system does not work as well for one group versus another (for example,
+facial recognition systems that are more likely to fail for dark-skinned
+individuals). For more information on AI harms, see <a class="reference internal" href="fairness_in_machine_learning.html#types-of-harms"><span class="std std-ref">Types of harms</span></a>.</p>
+<p>Equalized odds can be useful for diagnosing allocation harms
+because its goal is to ensure that a machine learning model works equally
+well for different groups. Another way to think about equalized odds is to
+contrast it with demographic parity. While demographic parity assesses the
+allocation of resources generally, equalized odds focuses on the allocation
+of resources that were actually distributed to
+members of that group (indicated by the positive target variable Y=1).
+However, equalized odds makes the assumption
+that the target variable <span class="math notranslate nohighlight">\(Y\)</span> is a good measurement of the phenomena
+being modeled, but that assumption may not hold if the measurement does not
+satisfy the requirements of construct validity.</p>
+</section>
+<section id="equal-opportunity">
+<span id="id8"></span><h3>Equal opportunity<a class="headerlink" href="#equal-opportunity" title="Permalink to this headline">#</a></h3>
+<p>Equal opportunity is a relaxed version of equalized odds that only considers
+conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id9">5</a> Another way of thinking about this metric is
+requiring equal outcomes only within the subset of records belonging to the
+positive class. For example, in the hiring example, equal opportunity
+requires that the individuals who are actually hired have an equal opportunity
+of being hired in the first place. However, by not considering whether false
+positive rates are equivalent across groups, equal opportunity does not
+capture the costs of missclassification disparities.</p>
+</section>
 </section>
 <section id="multiple-metrics-in-a-single-metricframe">
 <h2>Multiple metrics in a single <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code><a class="headerlink" href="#multiple-metrics-in-a-single-metricframe" title="Permalink to this headline">#</a></h2>

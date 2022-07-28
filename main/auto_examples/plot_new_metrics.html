@@ -263,63 +263,47 @@ function checkPageExistsAndRedirect(event) {
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
+    <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_quickstart_selection_rate.html">
    Selection rates in census dataset
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_quickstart.html">
    MetricFrame visualizations
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_correlationremover_before_after.html">
    CorrelationRemover visualization
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_mitigation_pipeline.html">
    Passing pipelines to mitigation techniques
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_metricframe_beyond_binary_classification.html">
    MetricFrame: Beyond Binary Classification
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_grid_search_census.html">
    GridSearch with Census Data
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_make_derived_metric.html">
    Making Derived Metrics
   </a>
  </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="plot_plotting_metrics_with_error.html">
    Plotting Metrics with Errors
   </a>
  </li>
-</ul>
-<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Metrics with Multiple Features
@@ -486,7 +470,6 @@ three unique values:</p>
 <span class="nb">print</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:89: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
@@ -529,7 +512,6 @@ illustrative purposes.</p>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:123: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
@@ -737,7 +719,6 @@ We can evaluate these metrics directly:</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fbeta:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="sklearn.metrics.fbeta_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">fbeta_score</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Selection Rate: 0.1947041561454992
 fbeta: 0.6827826864569057
 </pre></div>
@@ -781,7 +762,6 @@ same values calculated above:</p>
 <span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_on_sex</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.194704
 fbeta_06              0.682783
 count             14653.000000
@@ -960,9 +940,8 @@ pass these along:</p>
 <span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.194968
-fbeta_06              0.678409
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.196495
+fbeta_06              0.688217
 count             14653.000000
 dtype: float64
 </pre></div>
@@ -1004,14 +983,14 @@ dtype: float64
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.069703</td>
-      <td>0.635138</td>
+      <td>0.069060</td>
+      <td>0.634778</td>
       <td>4838.0</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.256172</td>
-      <td>0.684689</td>
+      <td>0.258908</td>
+      <td>0.695809</td>
       <td>9815.0</td>
     </tr>
   </tbody>
@@ -1039,7 +1018,6 @@ of less than 0.6.” We can evaluate the minimum values easily:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.068198
 fbeta_06          0.592125
 count                692.0
@@ -1053,7 +1031,6 @@ For this, we provide the method <code class="docutils literal notranslate"><span
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.142518
 fbeta_06          0.101591
 count              11832.0
@@ -1066,7 +1043,6 @@ result is always positive:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">difference</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.126507
 fbeta_06              0.090657
 count             13961.000000
@@ -1079,7 +1055,6 @@ We can take the ratios between the minimum and maximum values of each metric:</p
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.323648
 fbeta_06          0.853555
 count             0.055254
@@ -1092,7 +1067,6 @@ metric. Analogous to the differences, the ratios are always in the range
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;to_overall&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.350263
 fbeta_06          0.867223
 count             0.047226
@@ -1212,7 +1186,6 @@ fact):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">group_min</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate    0.032258
 fbeta_06          0.503704
 count                254.0
@@ -1225,7 +1198,6 @@ the <code class="docutils literal notranslate"><span class="pre">by_group</span>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-method"><span class="n">grouped_on_race_and_sex</span><span class="o">.</span><span class="n">ratio</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate     0.11893
 fbeta_06          0.690978
 count             0.029354
@@ -1995,7 +1967,6 @@ with under-populated intersections. Consider:</p>
 <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">counts</span><span class="o">.</span><span class="n">by_group</span></a>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loan Size  Credit Score  race   sex
 Large      High          Black  Female       5.0
                                 Male         1.0
@@ -2051,7 +2022,6 @@ a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stab
 <span class="nb">print</span><span class="p">(</span><span class="n">csv_output</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Credit Score,race,sex,selection_rate,fbeta_06,count
 High,Black,Female,0.0,0.0,54.0
 High,Black,Male,0.06666666666666667,1.0,15.0
@@ -2079,8 +2049,8 @@ directly to a CSV file, rather than returning a string (as shown
 above).</p>
 <p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overall()</span></code></a> property can
 be handled similarly, in the cases that it is not a scalar.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.584 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.467 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
 </div>
