@@ -611,6 +611,11 @@ function checkPageExistsAndRedirect(event) {
    Fairlearn dashboard
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -666,8 +671,8 @@ native or a non-native speaker.</p>
 <p>It is also important to consider group intersections, for example, in addition
 to considering groups according to gender and groups according to race, it is
 also important to consider their intersections (e.g., Black women, Latinx
-nonbinary people, etc.). Kimberlé Crenshaw’s work on intersectionality <a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id1">1</a>
-offers a thorough background on this topic.</p>
+nonbinary people, etc.). Crenshaw<a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id1">1</a>
+offers a thorough background on the topic of intersectionality.</p>
 </section>
 <section id="quantify-harms">
 <h3>Quantify harms<a class="headerlink" href="#quantify-harms" title="Permalink to this headline">#</a></h3>
@@ -883,13 +888,15 @@ applicants selected for a job interview should be equal across groups.</p>
 set of equations.
 A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution
 over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
-independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
-<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id3">2</a></p>
+independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>.
+Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id3">2</a> show that this is equivalent to
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.</p>
 <p>In the case of regression, a predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies demographic parity
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
-of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
+of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>.
+Agarwal, Dudík, and Wu<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id4">3</a> show that this is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
-<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id4">3</a> Another way to think of demographic parity in a
+Another way to think of demographic parity in a
 regression scenario is to compare the average predicted value across groups.
 Note that in the Fairlearn API, <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.demographic_parity_difference()</span></code></a>
 is only defined for classification.</p>
@@ -925,7 +932,8 @@ constraints during the machine learning model training process. However,
 demographic parity may not be well-suited for this purpose because
 it does not place requirements on the exact distribution of predictions with
 respect to other important variables. To understand this concept further,
-consider an example from the Fairness in Machine Learning textbook .</p>
+consider an example from the Fairness in Machine Learning textbook
+by Barocas, Hardt, and Narayanan<a class="footnote-reference brackets" href="#footcite-barocas2019fairness" id="id5">4</a>:</p>
 <blockquote>
 <div><p>“However, decisions based on a classifier that satisfies independence can
 have undesirable properties (and similar arguments apply to other
@@ -954,12 +962,12 @@ but that trend may disappear or reverse when groups are combined. Known as
 <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s Paradox</a>, this
 outcome may appear when observing disparate outcomes across groups. A
 famous example of Simpson’s Paradox is a study of 1973 graduate school
-admissions to the University of California, Berkley <a class="footnote-reference brackets" href="#footcite-bickel1975biasinadmissions" id="id5">4</a>.
+admissions to the University of California, Berkley <a class="footnote-reference brackets" href="#footcite-bickel1975biasinadmissions" id="id6">5</a>.
 The study showed that when observing admissions by gender, men applying were
 more likely than women to be accepted. However, drilling down into admissions
 by department revealed that women tended to apply to departments with more
 competitive admissions requirements, whereas men tended to apply to less
-competitive depoartments. The more granular analysis showed only four out of
+competitive departments. The more granular analysis showed only four out of
 85 departments exhibited bias against women, and six departments exhibited
 bias towards men. In general, the data indicated departments exhibited a bias
 in favor of minority-gendered applicants, which is opposite from the trend
@@ -992,7 +1000,7 @@ comparisons problem, we recommend investigating <a class="reference external" hr
 meant to correct the errors produced by individual statistical tests.</p>
 </section>
 <section id="equalized-odds">
-<span id="id6"></span><h3>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">#</a></h3>
+<span id="id7"></span><h3>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">#</a></h3>
 <p>The goal of the equalized odds fairness metric is to ensure a machine
 learning model performs equally well for different groups. It is stricter
 than demographic parity because it requires that the machine learning
@@ -1012,9 +1020,10 @@ set of equations. A classifier <span class="math notranslate nohighlight">\(h\)<
 odds under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its
 prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
-<span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(Y\)</span>.
+Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id8">2</a> show that this is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
-<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id7">2</a> Equalized odds requires that the true
+Equalized odds requires that the true
 positive rate, <span class="math notranslate nohighlight">\(\P(h(X)=1 | Y=1\)</span>, and the false positive rate,
 <span class="math notranslate nohighlight">\(\P(h(X)=1 | Y=0\)</span>, be equal across groups.</p>
 <p>The inclusion of false positive rates acknowledges that different groups
@@ -1046,10 +1055,11 @@ being modeled, but that assumption may not hold if the measurement does not
 satisfy the requirements of construct validity.</p>
 </section>
 <section id="equal-opportunity">
-<span id="id8"></span><h3>Equal opportunity<a class="headerlink" href="#equal-opportunity" title="Permalink to this headline">#</a></h3>
+<span id="id9"></span><h3>Equal opportunity<a class="headerlink" href="#equal-opportunity" title="Permalink to this headline">#</a></h3>
 <p>Equal opportunity is a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id9">5</a> Another way of thinking about this metric is
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id10">6</a>
+Another way of thinking about this metric is
 requiring equal outcomes only within the subset of records belonging to the
 positive class. For example, in the hiring example, equal opportunity
 requires that the individuals who are actually hired have an equal opportunity
@@ -1568,6 +1578,31 @@ For more information on how to use it refer to
 <a class="reference external" href="https://github.com/microsoft/responsible-ai-widgets">https://github.com/microsoft/responsible-ai-widgets</a>.
 Fairlearn provides some of the existing functionality through
 <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>-based visualizations. Refer to the <a class="reference internal" href="#plot"><span class="std std-ref">Plotting</span></a> section.</p>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id11">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-crenshaw1991intersectionality"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Kimberlé Crenshaw. Mapping the margins: intersectionality, identity politics, and violence against women of color. <em>Stanford Law Review</em>, 43(6):1241–1299, 1991. URL: <a class="reference external" href="https://www.jstor.org/stable/1229039">https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.jstor.org/stable/1229039">arXiv:https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.2307/1229039">doi:https://doi.org/10.2307/1229039</a>.</p>
+</dd>
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">2</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id8">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-agarwal2019fair"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-barocas2019fairness"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>Solon Barocas, Moritz Hardt, and Arvind Narayanan. <em>Fairness and Machine Learning</em>. fairmlbook.org, 2019. <a class="reference external" href="http://www.fairmlbook.org/">http://www.fairmlbook.org/</a>.</p>
+</dd>
+<dt class="label" id="footcite-bickel1975biasinadmissions"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>P.J. Bickel, E.A. Hammel, and E.W. and O’Connell. Sex bias in graduate admissions: data from berkeley. <em>Science</em>, 187(4175):398–404, 1975. URL: <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">https://doi.org/10.1126%2Fscience.187.4175.398</a>, <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">doi:10.1126%2Fscience.187.4175.398</a>.</p>
+</dd>
+<dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id10">6</a></span></dt>
+<dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>
