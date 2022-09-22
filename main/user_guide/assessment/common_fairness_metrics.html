@@ -572,7 +572,8 @@ Note that in the Fairlearn API, <a class="reference internal" href="../../api_re
 is only defined for classification.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Demographic parity is also sometimes referred to as <em>independence</em>, <em>group fairness</em>, <em>statistical parity</em>, and <em>disparate impact</em>.</p>
+<p>Demographic parity is also sometimes referred to as <em>independence</em>,
+<em>group fairness</em>, <em>statistical parity</em>, and <em>disparate impact</em>.</p>
 </div>
 <p>Failing to achieve demographic parity could generate allocation harms.
 Allocation harms occur when AI systems allocate
@@ -656,19 +657,21 @@ misleading when the data can be further disaggregated.
 It’s important to review metrics across these more granular categories,
 if they exist, to verify that disparate outcomes persist across all levels
 of aggregation.
-See <a class="reference internal" href="intersecting_groups.html#intersecting-groups"><span class="std std-ref">Intersecting Groups</span></a> below to see how <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can
+See <a class="reference internal" href="intersecting_groups.html#assessment-intersecting-groups"><span class="std std-ref">Intersecting Groups</span></a> below to see how <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can
 help with this.</p>
 <p>However, more granular categories generally contain smaller sample sizes, and
 it can be more difficult to establish that trends seen in very small
 samples are not due to random chance.
-We also recommend watching out for the <a class="reference external" href="https://stats.libretexts.org/Bookshelves/Applied_Statistics/Book%3A_Biological_Statistics_(McDonald)/06%3A_Multiple_Tests/6.01%3A_Multiple_Comparisons">multiple comparisons problem</a>,
+We also recommend watching out for the
+<a class="reference external" href="https://stats.libretexts.org/Bookshelves/Applied_Statistics/Book%3A_Biological_Statistics_(McDonald)/06%3A_Multiple_Tests/6.01%3A_Multiple_Comparisons">multiple comparisons problem</a>,
 which states that the more statistical inferences are made, the
 more erroneous those inferences will become. For example, in the case
 of evaluating fairness metrics on multiple groups, as we break the
 groups down into more granular categories and evaluate those smaller
 groups, it will become more likely that these subgroups will
 differ enough to fail one of the metrics. For dealing with the multiple
-comparisons problem, we recommend investigating <a class="reference external" href="https://www.statology.org/bonferroni-correction/">statistical techniques</a>
+comparisons problem, we recommend investigating
+<a class="reference external" href="https://www.statology.org/bonferroni-correction/">statistical techniques</a>
 meant to correct the errors produced by individual statistical tests.</p>
 <p>Fairlearn provides the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_difference()</span></code></a> and
 <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.demographic_parity_ratio" title="fairlearn.metrics.demographic_parity_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_ratio()</span></code></a> functions for computing demographic

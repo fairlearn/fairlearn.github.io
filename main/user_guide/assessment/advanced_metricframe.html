@@ -508,6 +508,18 @@ function checkPageExistsAndRedirect(event) {
      Per-Sample Arguments
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#no-y-true-or-y-pred">
+     No
+     <cite>
+      y_true
+     </cite>
+     or
+     <cite>
+      y_pred
+     </cite>
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -550,7 +562,7 @@ function checkPageExistsAndRedirect(event) {
 <span id="advanced-metricframe"></span><h1>Advanced Usage of MetricFrame<a class="headerlink" href="#advanced-usage-of-metricframe" title="Permalink to this headline">#</a></h1>
 <p>In this section, we will discuss how <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can
 be used in more sophisticated scenarios.
-All of these will use the following definitions:</p>
+All code examples will use the following definitions:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sf_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
@@ -596,6 +608,8 @@ The keys of this dictionary are the argument names, and the values are 1-D
 arrays equal in length to <code class="docutils literal notranslate"><span class="pre">y_true</span></code> etc.:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_p</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;sample_weight&#39;</span><span class="p">:</span><span class="n">s_w</span> <span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">weighted</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">recall_score</span><span class="p">,</span>
@@ -652,6 +666,39 @@ For example:</p>
 of sample weights to be applied for all metric functions).
 In such a case, the sample parameter in question must be repeated in
 the nested dictionary for each metric function.</p>
+</section>
+<section id="no-y-true-or-y-pred">
+<h3>No <cite>y_true</cite> or <cite>y_pred</cite><a class="headerlink" href="#no-y-true-or-y-pred" title="Permalink to this headline">#</a></h3>
+<p>In some cases, a metric may not have <cite>y_true</cite> or <cite>y_pred</cite> arguments, or even
+either of them.
+One example of this is the selection rate metric, which only considers
+the <cite>y_pred</cite> values (selection rate is used when computing
+<a class="reference internal" href="common_fairness_metrics.html#assessment-demographic-parity"><span class="std std-ref">demographic parity</span></a>).
+However, <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all supplied metric functions to
+conform to the scikit-learn metric paradigm, where the first two arguments
+to the metric function are the <cite>y_true</cite> and <cite>y_pred</cite> arrays.
+The workaround in this case is to supply a dummy argument.
+This is the approach we use in <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">selection_rate()</span></code></a>, which simply ignores
+the supplied <cite>y_true</cite> argument.
+When invoking <cite>MetricFrame</cite>, a <cite>y_true</cite> array of the appropriate length
+must still be supplied.
+For example:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">selection_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dummy_y_true</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel_rate_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">selection_rate</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">y_true</span><span class="o">=</span><span class="n">dummy_y_true</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                             <span class="n">sensitive_features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sf_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SF 0&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel_rate_frame</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">0.55555...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel_rate_frame</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0</span>
+<span class="go">a    0.75</span>
+<span class="go">b    0.50</span>
+<span class="go">c    0.50</span>
+<span class="go">Name: selection_rate, dtype: float64</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="more-complex-metrics">

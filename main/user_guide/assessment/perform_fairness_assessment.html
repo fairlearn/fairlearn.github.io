@@ -565,7 +565,9 @@ native or a non-native speaker.</p>
 to considering groups according to gender and groups according to race, it is
 also important to consider their intersections (e.g., Black women, Latinx
 nonbinary people, etc.). Crenshaw<a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id1">1</a>
-offers a thorough background on the topic of intersectionality.</p>
+offers a thorough background on the topic of intersectionality.
+See <a class="reference internal" href="intersecting_groups.html#assessment-intersecting-groups"><span class="std std-ref">this section</span></a> of our user guide for
+details of how Fairlearn can compute metrics for intersections.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We have assumed that every sensitive feature is representable by a
@@ -578,11 +580,19 @@ could obscure fairness issues.</p>
 </div>
 </section>
 <section id="quantify-harms">
-<h2>Quantify harms<a class="headerlink" href="#quantify-harms" title="Permalink to this headline">#</a></h2>
+<span id="assessment-quantify-harms"></span><h2>Quantify harms<a class="headerlink" href="#quantify-harms" title="Permalink to this headline">#</a></h2>
 <p>Define metrics that quantify harms or benefits:</p>
 <ul class="simple">
-<li><p>In a job screening scenario, we need to quantify the number of candidates that are classified as “negative” (not recommended for the job), but whose true label is “positive” (they are “qualified”). One possible metric is the false negative rate: fraction of qualified candidates that are screened out. Note that before we attempt to classify candidates, we need to determine the construct validity of the “qualified” status; more information on construct validity can be found in <a class="reference internal" href="../fairness_in_machine_learning.html#id6"><span class="std std-ref">What is construct validity?</span></a></p></li>
-<li><p>For a speech-to-text application, the harm could be measured by disparities in the word error rate for different group, measured by the number of mistakes in a transcript divided by the overall number of words.</p></li>
+<li><p>In a job screening scenario, we need to quantify the number of candidates
+that are classified as “negative” (not recommended for the job), but whose
+true label is “positive” (they are “qualified”). One possible metric is
+the false negative rate: fraction of qualified candidates that are
+screened out. Note that before we attempt to classify candidates, we need
+to determine the construct validity of the “qualified” status; more
+information on construct validity can be found in <a class="reference internal" href="../fairness_in_machine_learning.html#id6"><span class="std std-ref">What is construct validity?</span></a></p></li>
+<li><p>For a speech-to-text application, the harm could be measured by disparities
+in the word error rate for different group, measured by the number of
+mistakes in a transcript divided by the overall number of words.</p></li>
 </ul>
 <p>Note that in some cases, the outcome we seek to measure is not
 directly available.
@@ -681,7 +691,7 @@ These are accessed through the <a class="reference internal" href="../../api_ref
 <p>All of these values can be checked against the original arrays above.</p>
 </section>
 <section id="compare-quantified-harms-across-the-groups">
-<h2>Compare quantified harms across the groups<a class="headerlink" href="#compare-quantified-harms-across-the-groups" title="Permalink to this headline">#</a></h2>
+<span id="assessment-compare-harms"></span><h2>Compare quantified harms across the groups<a class="headerlink" href="#compare-quantified-harms-across-the-groups" title="Permalink to this headline">#</a></h2>
 <p>To summarize the disparities in errors (or other metrics), we may want to
 report quantities such as the difference or ratio of the metric values between
 the best and the worst slice. In settings where the goal is to guarantee
@@ -707,6 +717,8 @@ methods show the smallest and largest values for each metric:</p>
 </div>
 <p>We can also compute differences and ratios between groups for all of the
 metrics.
+These are available via the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> and
+<a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> methods respectively.
 The absolute difference will always be returned, and the ratios will be chosen
 to be less than one.
 By default, the computations are done between the maximum and minimum
