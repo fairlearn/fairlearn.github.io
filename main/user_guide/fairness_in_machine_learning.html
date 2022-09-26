@@ -555,11 +555,6 @@ function checkPageExistsAndRedirect(event) {
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-four-fifths-rule-often-misapplied">
-   The Four Fifths Rule: Often Misapplied
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem">
    What traps can we fall into when modeling a social problem?
   </a>
@@ -810,56 +805,6 @@ between the maximum and the minimum values. For more information refer to the
 subpackage <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a>.</p>
 </section>
 </section>
-<section id="the-four-fifths-rule-often-misapplied">
-<h2>The Four Fifths Rule: Often Misapplied<a class="headerlink" href="#the-four-fifths-rule-often-misapplied" title="Permalink to this headline">#</a></h2>
-<p>In the literature around fairness in machine learning, one will often find
-the so-called “four fifths rule” or “80% rule” used to assess whether a model
-(or mitigation technique) has produced a ‘fair’ result.
-Typically, the rule is implemented by using the demographic parity ratio introduced
-in the <a class="reference internal" href="#disparity-metrics"><span class="std std-ref">Disparity metrics, group metrics</span></a> section, with a result considered ‘fair’ if the ratio
-exceeds 80% for all identified subgroups.
-<em>Application of this threshold is wrong in many scenarios.</em></p>
-<p>As we note in many other places in the Fairlearn documentation, ‘fairness’
-must be assessed by examining the entire sociotechnical context of a machine
-learning system.
-In particular, it is important to start from the harms which can occur to real
-people, and work inwards towards the model.
-The demographic parity ratio is simply a metric by which a particular model
-may be measured (on a particular dataset).
-Given the origin of the ‘four-fifths rule’ (which we will discuss next), its
-application may also give an unjustified feeling of legal invulnerability by
-conflating fairness with legality.
-In reality, ‘fairness’ is not always identical to ‘legally allowable,’ and
-the former may not even be a strict subset of the latter. <a class="footnote-reference brackets" href="#f1" id="id15">9</a></p>
-<p>The ‘four fifths rule’ has its origins in a specific area of US
-federal employment law.
-It is a limit for
-<a class="reference external" href="https://en.wikipedia.org/wiki/Prima_facie">prima facie evidence</a>
-that illegal discrimination has occurred relative to a
-relevant control population.
-A violation of the rule is still not sufficient to demonstrate that
-illegal discrimination has occurred - a causal link between the
-statistic and alleged discrimination must still be shown, and the
-court would examine the particulars of each case.
-For an example of the subtleties involved, see
-<a class="reference external" href="https://en.wikipedia.org/wiki/Ricci_v._DeStefano">Ricci v. Stefano</a>
-which resulted from an attempt to ‘correct’ for disparate impact.
-<em>Outside</em> its particular context in US federal employment law,
-the ‘four fifths rule’ has no validity.</p>
-<p>Taken together, we see that applying the ‘four fifths rule’ will
-not be appropriate in most cases.
-Even in cases where it is applicable, the rule does not automatically
-avoid legal jeopardy, much less ensure that results are fair.
-The use of the ‘four fifths rule’ in this manner is an indefensible
-example of epistemic trespassing. <a class="footnote-reference brackets" href="#f2" id="id16">10</a>
-It is for this reason that we try to avoid the use of legal
-terminology in our documentation.</p>
-<p>For a much deeper discussion of the issues involved, we suggest
-Watkins <em>et al.</em><a class="footnote-reference brackets" href="#footcite-watkins2022fourfifths" id="id17">6</a>.
-A higher level look at how legal concepts of fairness can collide
-with mathematical measures of disparity, see
-Xiang and Raji<a class="footnote-reference brackets" href="#footcite-xiang2019legalcompatibility" id="id18">7</a>.</p>
-</section>
 <section id="what-traps-can-we-fall-into-when-modeling-a-social-problem">
 <span id="abstraction-traps"></span><h2>What traps can we fall into when modeling a social problem?<a class="headerlink" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem" title="Permalink to this headline">#</a></h2>
 <p>Machine learning systems used in the real world are inherently sociotechnical
@@ -872,7 +817,7 @@ However, by abstracting away the social context they are at risk of falling into
 are interrelated.</p>
 <p>In this section, we explain what those traps are, and give some suggestions on
 how we can avoid them.</p>
-<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id19">8</a>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id15">6</a>
 identify failure modes that can arise from abstracting away the social context
 when modeling. They identify them as:</p>
 <ul class="simple">
@@ -1019,7 +964,7 @@ the algorithm may impact the intended outcomes of a given model.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id20">
+<div class="docutils container" id="id16">
 <dl class="footnote brackets">
 <dt class="label" id="footcite-jacobs2021measurement"><span class="brackets">1</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id8">4</a>)</span></dt>
 <dd><p>Abigail Z. Jacobs and Hanna Wallach. Measurement and fairness. In <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</em>, FAccT ‘21, 375–385. New York, NY, USA, 2021. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">https://doi.org/10.1145/3442188.3445901</a>, <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">doi:10.1145/3442188.3445901</a>.</p>
@@ -1036,31 +981,11 @@ the algorithm may impact the intended outcomes of a given model.</p>
 <dt class="label" id="footcite-agarwal2019fair"><span class="brackets">5</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>)</span></dt>
 <dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
 </dd>
-<dt class="label" id="footcite-watkins2022fourfifths"><span class="brackets"><a class="fn-backref" href="#id17">6</a></span></dt>
-<dd><p>Elizabeth Anne Watkins, Michael McKenna, and Jiahao Chen. The four-fifths rule is not disparate impact: a woeful tale of epistemic trespassing in algorithmic fairness. 2022. URL: <a class="reference external" href="https://arxiv.org/abs/2202.09519">https://arxiv.org/abs/2202.09519</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.2202.09519">doi:10.48550/ARXIV.2202.09519</a>.</p>
-</dd>
-<dt class="label" id="footcite-xiang2019legalcompatibility"><span class="brackets"><a class="fn-backref" href="#id18">7</a></span></dt>
-<dd><p>Alice Xiang and Inioluwa Deborah Raji. On the legal compatibility of fairness definitions. 2019. URL: <a class="reference external" href="https://arxiv.org/abs/1912.00761">https://arxiv.org/abs/1912.00761</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1912.00761">doi:10.48550/ARXIV.1912.00761</a>.</p>
-</dd>
-<dt class="label" id="footcite-selbst2019fairness"><span class="brackets"><a class="fn-backref" href="#id19">8</a></span></dt>
+<dt class="label" id="footcite-selbst2019fairness"><span class="brackets"><a class="fn-backref" href="#id15">6</a></span></dt>
 <dd><p>Andrew D. Selbst, danah boyd, Sorelle A. Friedler, Suresh Venkatasubramanian, and Janet Vertesi. Fairness and abstraction in sociotechnical systems. In <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, FAT* ‘19, 59–68. New York, NY, USA, 2019. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">https://doi.org/10.1145/3287560.3287598</a>, <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">doi:10.1145/3287560.3287598</a>.</p>
 </dd>
 </dl>
 </div>
-<p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id15">9</a></span></dt>
-<dd><p>For a related example, see the discussion on ‘law’ and ‘justice’ in
-<em>The Caves of Steel</em> (Asimov, 1953)</p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id16">10</a></span></dt>
-<dd><p>Epistemic trespassing is the process of taking expertise in one field and
-applying it to another. This is not an intrinsically bad thing - one could
-label all interdisciplinary research a form of epistemic trespassing.
-However, doing so successfully requires a willingness to learn the subtleties
-of the new field.</p>
-</dd>
-</dl>
 </section>
 </section>
 

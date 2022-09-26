@@ -509,6 +509,16 @@ function checkPageExistsAndRedirect(event) {
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-four-fifths-rule-often-misapplied">
+   The Four Fifths Rule: Often Misapplied
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -536,8 +546,14 @@ function checkPageExistsAndRedirect(event) {
 <span id="id1"></span><h1>Common fairness metrics<a class="headerlink" href="#common-fairness-metrics" title="Permalink to this headline">#</a></h1>
 <p>In the sections below, we review the most common fairness metrics, as well
 as their underlying assumptions and suggestions for use. Each metric requires
-that some aspects of the predictor behavior be comparable across groups.
-In code examples, we will use the following input arrays:</p>
+that some aspects of the predictor behavior be comparable across groups.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that <em>common</em> usage does not imply <em>correct</em> usage; we discuss
+one very common misuse in the
+<a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">section on the Four-Fifths Rule</span></a></p>
+</div>
+<p>In the code examples presented below, we will use the following input arrays:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sf_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
@@ -682,6 +698,8 @@ lowest selection rates <span class="math notranslate nohighlight">\(a \in A\)</s
 that demographic parity has been achieved.
 The second reports the ratio of the lowest and highest selection rates,
 so a result of 1 means there is demographic parity.
+This metric can potentially be used to implement the ‘Four-Fifths’ Rule,
+but <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">read our discussion below</span></a> to understand whether this is an appropriate metric for your use case.
 As with any fairness metric, achieving demographic parity does <em>not</em> automatically mean
 that the classifier is fair!</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_difference</span>
@@ -788,9 +806,117 @@ of being hired in the first place. However, by not considering whether false
 positive rates are equivalent across groups, equal opportunity does not
 capture the costs of missclassification disparities.</p>
 </section>
+<section id="the-four-fifths-rule-often-misapplied">
+<span id="assessment-four-fifths"></span><h2>The Four Fifths Rule: Often Misapplied<a class="headerlink" href="#the-four-fifths-rule-often-misapplied" title="Permalink to this headline">#</a></h2>
+<p>In the literature around fairness in machine learning, one will often find
+the so-called “four fifths rule” or “80% rule” used to assess whether a model
+(or mitigation technique) has produced a ‘fair’ result.
+Typically, the rule is implemented by using the demographic parity ratio introduced
+in the <a class="reference internal" href="#assessment-demographic-parity"><span class="std std-ref">Demographic parity</span></a> section above
+(within Fairlearn, one can use <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.demographic_parity_ratio" title="fairlearn.metrics.demographic_parity_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_ratio()</span></code></a>), with a result
+considered ‘fair’ if the ratio exceeds 80% for all identified subgroups.
+<em>Application of this threshold is wrong in many scenarios.</em></p>
+<p>As we note in many other places in the Fairlearn documentation, ‘fairness’
+must be assessed by examining the entire sociotechnical context of a machine
+learning system.
+In particular, it is important to start from the harms which can occur to real
+people, and work inwards towards the model.
+The demographic parity ratio is simply a metric by which a particular model
+may be measured (on a particular dataset).
+Given the origin of the ‘four-fifths rule’ (which we will discuss next), its
+application may also give an unjustified feeling of legal invulnerability by
+conflating fairness with legality.
+In reality, ‘fairness’ is not always identical to ‘legally allowable,’ and
+the former may not even be a strict subset of the latter. <a class="footnote-reference brackets" href="#f1" id="id8">8</a></p>
+<p>The ‘four fifths rule’ has its origins in a specific area of US
+federal employment law.
+It is a limit for
+<a class="reference external" href="https://en.wikipedia.org/wiki/Prima_facie">prima facie evidence</a>
+that illegal discrimination has occurred relative to a
+relevant control population.
+The four-fifths rule is one of many test statistics that can be used
+to establish a <em>prima facie</em> case, but it is generally only used
+within the context of
+<a class="reference external" href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XIV/part-1607">US Federal employment regulation</a>.
+A violation of the rule is still not sufficient to demonstrate that
+illegal discrimination has occurred - a causal link between the
+statistic and alleged discrimination must still be shown, and the
+(US) court would examine the particulars of each case.
+For an example of the subtleties involved, see
+<a class="reference external" href="https://en.wikipedia.org/wiki/Ricci_v._DeStefano">Ricci v. Stefano</a>
+which resulted from an attempt to ‘correct’ for disparate impact.
+<em>Outside</em> its particular context in US federal employment law,
+the ‘four fifths rule’ has no validity and its misapplication
+is an example of the <a class="reference internal" href="../fairness_in_machine_learning.html#portability-trap"><span class="std std-ref">portability trap</span></a>.</p>
+<p>Taken together, we see that applying the ‘four fifths rule’ will
+not be appropriate in most cases.
+Even in cases where it is applicable, the rule does not automatically
+avoid legal jeopardy, much less ensure that results are fair.
+The use of the ‘four fifths rule’ in this manner is an indefensible
+example of epistemic trespassing. <a class="footnote-reference brackets" href="#f2" id="id9">9</a>
+It is for this reason that we try to avoid the use of legal
+terminology in our documentation.</p>
+<p>For a much deeper discussion of the issues involved, we suggest
+Watkins <em>et al.</em><a class="footnote-reference brackets" href="#footcite-watkins2022fourfifths" id="id10">6</a>.
+A higher level look at how legal concepts of fairness can collide
+with mathematical measures of disparity, see
+Xiang and Raji<a class="footnote-reference brackets" href="#footcite-xiang2019legalcompatibility" id="id11">7</a>.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>We have introduced three commonly used fairness metrics in this section,
+which can be summed up as follows:</p>
+<ul>
+<li><p>Demographic Parity</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>What it compares:</em> Predictions between different groups
+(true values are ignored)</p></li>
+<li><p><em>Reason to use:</em> If the input data are known to contain
+biases, demographic parity may be appropriate to measure fairness</p></li>
+<li><p><em>Caveats:</em> By only using the predicted values, information is thrown
+away. The selection rate is also a very coarse measure of the
+distribution between groups, making it tricky to use as an optimization
+constraint</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Equalized Odds</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>What it compares:</em> True and False Positive rates between different groups</p></li>
+<li><p><em>Reason to use:</em> If historical data does not contain measurement bias or historical
+bias that we need to take into account, and true and false positives
+are considered to be (roughly) of the same importance, equalized odds may be useful</p></li>
+<li><p><em>Caveats:</em> If there are historical biases in the data, then the original labels
+may hold little value. A large imbalance between the positive and negative classes
+will also accentuate any statistical issues related to sensitive groups with low
+membership</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Equal opportunity</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>What it compares:</em> True Positive rates between different groups</p></li>
+<li><p><em>Reason to use:</em> If historical data are useful, and extra false positives
+are much less likely to cause harm than missed true positives, equal
+opportunity may be useful</p></li>
+<li><p><em>Caveats:</em> If there are historical biases in the data, then the original labels
+may hold little value. A large imbalance between the positive and negative classes
+will also accentuate any statistical issues related to sensitive groups with low
+membership</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>However, the fact these are common metrics does not make them applicable to any given
+situation.
+In particular, <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">demographic parity is often misapplied</span></a>.</p>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id8">
+<div class="docutils container" id="id12">
 <dl class="footnote brackets">
 <dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id6">2</a>)</span></dt>
 <dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
@@ -807,8 +933,30 @@ capture the costs of missclassification disparities.</p>
 <dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
 <dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
 </dd>
+<dt class="label" id="footcite-watkins2022fourfifths"><span class="brackets"><a class="fn-backref" href="#id10">6</a></span></dt>
+<dd><p>Elizabeth Anne Watkins, Michael McKenna, and Jiahao Chen. The four-fifths rule is not disparate impact: a woeful tale of epistemic trespassing in algorithmic fairness. 2022. URL: <a class="reference external" href="https://arxiv.org/abs/2202.09519">https://arxiv.org/abs/2202.09519</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.2202.09519">doi:10.48550/ARXIV.2202.09519</a>.</p>
+</dd>
+<dt class="label" id="footcite-xiang2019legalcompatibility"><span class="brackets"><a class="fn-backref" href="#id11">7</a></span></dt>
+<dd><p>Alice Xiang and Inioluwa Deborah Raji. On the legal compatibility of fairness definitions. 2019. URL: <a class="reference external" href="https://arxiv.org/abs/1912.00761">https://arxiv.org/abs/1912.00761</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1912.00761">doi:10.48550/ARXIV.1912.00761</a>.</p>
+</dd>
 </dl>
 </div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>For a related example, see the discussion on ‘law’ and ‘justice’ in
+<em>The Caves of Steel</em> (Asimov, 1953)</p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>Epistemic trespassing is the process of taking expertise in one field and
+applying it to another in which one does not have an equivalent (or any)
+competence.
+This is not an intrinsically bad thing - one could label all
+interdisciplinary research a form of epistemic trespassing.
+However, doing so successfully requires a willingness to learn the subtleties
+of the new field.</p>
+</dd>
+</dl>
 </section>
 </section>
 
