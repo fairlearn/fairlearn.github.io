@@ -546,13 +546,21 @@ what ways?</p>
 <section id="identify-types-of-harms">
 <h2>Identify types of harms<a class="headerlink" href="#identify-types-of-harms" title="Permalink to this headline">#</a></h2>
 <p>See <a class="reference internal" href="../fairness_in_machine_learning.html#types-of-harms"><span class="std std-ref">Types of harms</span></a> for a guide to types of fairness-related harms.
-For example, in a system for screening job applications, qualified candidates
-that are automatically rejected experience an allocation harm. In a
-speech-to-text transcription system, disparities in word error rates for
-different groups may result in harms due to differences in the quality of service.
-Note that one system can lead to multiple harms, and different types of
-harms are not mutually exclusive. For more information, review
-Fairlearn’s <a class="reference external" href="https://github.com/fairlearn/talks/blob/main/2021_scipy_tutorial/overview.pdf">2021 SciPy tutorial</a>.</p>
+The Fairlearn package is particularly suitable for measuring:</p>
+<ul class="simple">
+<li><p><em>Allocation Harms</em> occur when a system unfairly extends or witholds
+opportunities, resources, or information.
+Common (but by no means exhaustive) examples are hiring for jobs, student
+admissions and loan origination.</p></li>
+<li><p><em>Quality of Service Harms</em> occur when a system works much better for
+one group than another.
+For example, facial recognition and speech-to-text systems may have
+substantially different performance for different ethnicities.</p></li>
+</ul>
+<p>Note that one system can lead to multiple harms, and different types of
+harms are not mutually exclusive.
+For more information, review Fairlearn’s
+<a class="reference external" href="https://github.com/fairlearn/talks/blob/main/2021_scipy_tutorial/overview.pdf">2021 SciPy tutorial</a>.</p>
 </section>
 <section id="identify-the-groups-that-might-be-harmed">
 <h2>Identify the groups that might be harmed<a class="headerlink" href="#identify-the-groups-that-might-be-harmed" title="Permalink to this headline">#</a></h2>
@@ -589,7 +597,7 @@ true label is “positive” (they are “qualified”). One possible metric is
 the false negative rate: fraction of qualified candidates that are
 screened out. Note that before we attempt to classify candidates, we need
 to determine the construct validity of the “qualified” status; more
-information on construct validity can be found in <a class="reference internal" href="../fairness_in_machine_learning.html#id6"><span class="std std-ref">What is construct validity?</span></a></p></li>
+information on construct validity can be found in <a class="reference internal" href="../fairness_in_machine_learning.html#id7"><span class="std std-ref">What is construct validity?</span></a></p></li>
 <li><p>For a speech-to-text application, the harm could be measured by disparities
 in the word error rate for different group, measured by the number of
 mistakes in a transcript divided by the overall number of words.</p></li>
@@ -609,7 +617,7 @@ the candidate passes the first stage of the screen.
 If you choose to use a proxy variable to
 represent the harm, check the proxy variable regularly to ensure it
 remains useful over time. Our section on
-<a class="reference internal" href="../fairness_in_machine_learning.html#id6"><span class="std std-ref">construct validity</span></a>
+<a class="reference internal" href="../fairness_in_machine_learning.html#id7"><span class="std std-ref">construct validity</span></a>
 describes how to determine whether a
 proxy variable measures the intended construct in a meaningful
 and useful way. It is important to ensure that the proxy is suitable
@@ -617,10 +625,12 @@ for the social context of the problem you seek to solve.
 In particular, be careful of falling into one of the
 <a class="reference internal" href="../fairness_in_machine_learning.html#abstraction-traps"><span class="std std-ref">abstraction traps</span></a>.</p>
 <p>The centerpiece of fairness assessment in Fairlearn are disaggregated metrics,
-which are metrics evaluated on slices of data. For example, to measure harms due to
-errors, we would begin by evaluating the errors on each slice of the data that
-corresponds to a group. If some of the groups are seeing much larger errors
-than other groups, we would flag this as a fairness harm.</p>
+which are metrics evaluated on slices of data.
+For example, to measure gender-based harms due to errors, we would begin by
+evaluating the errors separately for males, females and nonbinary persons
+in our dataset.
+If we found that males were experiencing errors at a much lower rate than
+females and nonbinary persons, we would flag this as a potential fairness harm.</p>
 <p>Fairlearn provides the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> class to help
 with this quantification.
 Suppose we have some ‘true’ values, some predictions from a model, and also
@@ -694,9 +704,10 @@ These are accessed through the <a class="reference internal" href="../../api_ref
 <span id="assessment-compare-harms"></span><h2>Compare quantified harms across the groups<a class="headerlink" href="#compare-quantified-harms-across-the-groups" title="Permalink to this headline">#</a></h2>
 <p>To summarize the disparities in errors (or other metrics), we may want to
 report quantities such as the difference or ratio of the metric values between
-the best and the worst slice. In settings where the goal is to guarantee
-certain minimum quality of service across all groups (such as speech recognition),
-it is also meaningful to report the worst performance across all considered groups.</p>
+the best and the worst groups identified by the sensitive feature(s).
+In settings where the goal is to guarantee certain minimum quality of service
+across all groups (such as speech recognition), it is also meaningful to
+report the worst performance across all considered groups.</p>
 <p>The <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> class provides several methods for comparing
 the computed metrics.
 For example, the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a> and <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a>
