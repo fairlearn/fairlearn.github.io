@@ -39,8 +39,8 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Making Derived Metrics" href="plot_make_derived_metric.html" />
-    <link rel="prev" title="MetricFrame: Beyond Binary Classification" href="plot_metricframe_beyond_binary_classification.html" />
+    <link rel="next" title="Plotting Metrics with Errors" href="plot_plotting_metrics_with_error.html" />
+    <link rel="prev" title="Making Derived Metrics" href="plot_make_derived_metric.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="None">
   </head>
@@ -287,14 +287,14 @@ function checkPageExistsAndRedirect(event) {
    MetricFrame: Beyond Binary Classification
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   GridSearch with Census Data
-  </a>
- </li>
  <li class="toctree-l1">
   <a class="reference internal" href="plot_make_derived_metric.html">
    Making Derived Metrics
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   GridSearch with Census Data
   </a>
  </li>
  <li class="toctree-l1">
@@ -397,8 +397,10 @@ to use:</p>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
 
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a>
 <span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <a href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">DemographicParity</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ErrorRate</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.reductions.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">GridSearch</span></a>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+    <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">,</span> <span class="n">selection_rate_difference</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>We can now load and inspect the data by using the <cite>fairlearn.datasets</cite> module:</p>
@@ -838,10 +840,31 @@ unfairness under demographic parity (with respect to the sensitive feature
 based on our data and choice of estimator. Note the range of the axes - the
 disparity axis covers more values than the accuracy, so we can reduce
 disparity substantially for a small loss in accuracy.</p>
-<p>In a real example, we would pick the model which represented the best
-trade-off between accuracy and disparity given the relevant business
-constraints.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  42.453 seconds)</p>
+<p>In a real example, we would pick the model which represented the best trade-off
+between accuracy and disparity given the relevant business constraints.</p>
+<p>%% [markdown]
+Comparing models easily
+———————–
+Fairlearn also provides functionality to compare models much more easily.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot model comparison</span>
+<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">(</span>
+    <span class="n">x_axis_metric</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span></a><span class="p">,</span>
+    <span class="n">y_axis_metric</span><span class="o">=</span><span class="n">selection_rate_difference</span><span class="p">,</span>
+    <span class="n">y_true</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span>
+    <span class="n">y_preds</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span>
+    <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">,</span>
+    <span class="n">point_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="c1"># End model comparison</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_plot_grid_search_census_003.png" srcset="../_images/sphx_glr_plot_grid_search_census_003.png" alt="plot grid search census" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>No matplotlib.Axes object was provided to draw on, so we create a new one
+
+&lt;AxesSubplot: xlabel=&#39;accuracy score&#39;, ylabel=&#39;selection rate difference&#39;&gt;
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  41.144 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/298425cd75e0a5fa4e9d7f332f44eb61/plot_grid_search_census.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid_search_census.py</span></code></a></p>

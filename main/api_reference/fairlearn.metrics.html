@@ -1062,6 +1062,63 @@ to maintain a consistent interface</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.metrics.plot_model_comparison">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">plot_model_comparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_axis_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_labels_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_plot_model_comparison.py#L20-L271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.plot_model_comparison" title="Permalink to this definition">#</a></dt>
+<dd><p>Create a scatter plot comparing multiple models along two metrics.</p>
+<p>A typical use case is when one of the metrics is a performance metric
+(e.g., balanced_accuracy) and the other is a fairness metric
+(e.g., false_negative_rate_difference).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_preds</strong> (<em>array-like</em><em>, </em><em>dict of array-like</em>) – An array-like containing predictions per model. Hence, predictions of
+model <code class="code docutils literal notranslate"><span class="pre">i</span></code> should be in <code class="code docutils literal notranslate"><span class="pre">y_preds[i]</span></code>.</p></li>
+<li><p><strong>y_true</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.0)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><em>pandas.DataFrame</em></a>) – The ground-truth labels (for classification) or target values (for regression).</p></li>
+<li><p><strong>sensitive_features</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.0)"><em>pandas.Series</em></a><em>, </em><em>dict of 1d arrays</em><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><em>pandas.DataFrame</em></a><em>, </em><em>optional</em>) – Sensitive features for the fairness metrics (if a fairness metric is
+specified for the x-axis or the y-axis).</p></li>
+<li><p><strong>x_axis_metric</strong> (<em>Callable</em>) – The metric function for the x-axis.
+The metric function must take <cite>y_true</cite>, <cite>y_pred</cite>, and optionally <cite>sensitive_features</cite>
+as arguments, and return a scalar value.</p></li>
+<li><p><strong>y_axis_metric</strong> (<em>Callable</em>) – The metric function for the y-axis, similar to x_axis_metric.
+The metric function must take <cite>y_true</cite>, <cite>y_pred</cite>, and optionally <cite>sensitive_features</cite>
+as arguments, and return a scalar value.</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)"><em>matplotlib.axes.Axes</em></a><em>, </em><em>optional</em>) – If supplied, the scatter plot is drawn on this Axes object.
+Else, a new figure with Axes is created.</p></li>
+<li><p><strong>axis_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – If true, add the names of x and y axis metrics. You can also pass a
+list of size two (or a two-tuple) of strings to use as axis labels instead.</p></li>
+<li><p><strong>point_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – If true, annotate text with inferred point labels. These labels are
+the keys of y_preds if y_preds is a dictionary, else simply the integers
+0…number of points - 1. You can specify point_labels as a list of
+labels as well.</p></li>
+<li><p><strong>point_labels_position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – a list (or a two-tuple) containing precisely two numbers that define the
+offset of the point labels in the x and y direction respectively.
+The offset value is in data coordinates, not pixels.</p></li>
+<li><p><strong>legend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, add a legend. Legend entries are created by passing the
+key word argument <code class="code docutils literal notranslate"><span class="pre">label</span></code> to calls to this function.
+If you want to customize the legend, you should manually call
+ax.legend (where ax is the Axes object) with your customization params</p></li>
+<li><p><strong>show_plot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If true, call pyplot.plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ax</strong> – The Axes object that was drawn on.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)">matplotlib.axes.Axes</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>To offer flexibility in stylistic features besides the aforementioned
+API options, one has at least three options: 1) supply matplotlib arguments
+to <code class="code docutils literal notranslate"><span class="pre">plot_model_comparison</span></code> as you normally
+would to <code class="code docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.scatter</span></code>
+2) change the style of the returned Axes
+3) supply an Axes with your own style already applied</p>
+<p>In case no Axes object is supplied, axis labels are
+automatically inferred from their class name.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="fairlearn.metrics.selection_rate">
 <span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">selection_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_selection_rate.py#L15-L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.selection_rate" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate the fraction of predicted labels matching the ‘good’ outcome.</p>

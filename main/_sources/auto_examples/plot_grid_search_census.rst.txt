@@ -49,7 +49,7 @@ We download the data set using `fetch_adult` function in
 to use:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-45
+.. GENERATED FROM PYTHON SOURCE LINES 34-47
 
 .. code-block:: default
 
@@ -61,8 +61,10 @@ to use:
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-    from fairlearn.metrics import MetricFrame, count, selection_rate
     from fairlearn.reductions import DemographicParity, ErrorRate, GridSearch
+    from fairlearn.metrics import (
+        MetricFrame, selection_rate, count, plot_model_comparison, selection_rate_difference
+    )
 
 
 
@@ -71,11 +73,11 @@ to use:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-47
+.. GENERATED FROM PYTHON SOURCE LINES 48-49
 
 We can now load and inspect the data by using the `fairlearn.datasets` module:
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-53
+.. GENERATED FROM PYTHON SOURCE LINES 49-55
 
 .. code-block:: default
 
@@ -323,7 +325,7 @@ We can now load and inspect the data by using the `fairlearn.datasets` module:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-59
+.. GENERATED FROM PYTHON SOURCE LINES 56-61
 
 We are going to treat the sex of each individual as a sensitive feature
 (where 0 indicates female and 1 indicates male), and in this particular case
@@ -331,7 +333,7 @@ we are going separate this feature out and drop it from the main data. We
 then perform some standard data preprocessing steps to convert the data into
 a format suitable for the ML algorithms
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-71
+.. GENERATED FROM PYTHON SOURCE LINES 61-73
 
 .. code-block:: default
 
@@ -354,11 +356,11 @@ a format suitable for the ML algorithms
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-73
+.. GENERATED FROM PYTHON SOURCE LINES 74-75
 
 Finally, we split the data into training and test sets:
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-84
+.. GENERATED FROM PYTHON SOURCE LINES 75-86
 
 .. code-block:: default
 
@@ -380,7 +382,7 @@ Finally, we split the data into training and test sets:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-90
+.. GENERATED FROM PYTHON SOURCE LINES 87-92
 
 Training a fairness-unaware predictor
 -------------------------------------
@@ -388,7 +390,7 @@ To show the effect of Fairlearn we will first train a standard ML predictor
 that does not incorporate fairness. For speed of demonstration, we use the
 simple :class:`sklearn.linear_model.LogisticRegression` class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-95
+.. GENERATED FROM PYTHON SOURCE LINES 92-97
 
 .. code-block:: default
 
@@ -410,11 +412,11 @@ simple :class:`sklearn.linear_model.LogisticRegression` class:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-97
+.. GENERATED FROM PYTHON SOURCE LINES 98-99
 
 We can start to assess the predictor's fairness using the `MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-117
+.. GENERATED FROM PYTHON SOURCE LINES 99-119
 
 .. code-block:: default
 
@@ -469,7 +471,7 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-127
+.. GENERATED FROM PYTHON SOURCE LINES 120-129
 
 Looking at the disparity in accuracy, we see that males have an error about
 three times greater than the females. More interesting is the disparity in
@@ -481,7 +483,7 @@ ignoring a sensitive feature when fitting a predictor rarely eliminates
 unfairness. There will generally be enough other features correlated with the
 removed feature to lead to disparate impact.
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-145
+.. GENERATED FROM PYTHON SOURCE LINES 132-147
 
 Mitigation with GridSearch
 --------------------------
@@ -499,7 +501,7 @@ of membership in the sensitive class (i.e., females and males should be
 offered loans at the same rate). We are using this metric for the sake of
 simplicity; in general, the appropriate fairness metric will not be obvious.
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-152
+.. GENERATED FROM PYTHON SOURCE LINES 147-154
 
 .. code-block:: default
 
@@ -517,7 +519,7 @@ simplicity; in general, the appropriate fairness metric will not be obvious.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-160
+.. GENERATED FROM PYTHON SOURCE LINES 155-162
 
 Our algorithms provide :code:`fit()` and :code:`predict()` methods, so they
 behave in a similar manner to other ML packages in Python. We do however have
@@ -527,7 +529,7 @@ feature labels, and also the number of predictors to generate in our sweep.
 After :code:`fit()` completes, we extract the full set of predictors from the
 :class:`fairlearn.reductions.GridSearch` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-165
+.. GENERATED FROM PYTHON SOURCE LINES 162-167
 
 .. code-block:: default
 
@@ -543,7 +545,7 @@ After :code:`fit()` completes, we extract the full set of predictors from the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-174
+.. GENERATED FROM PYTHON SOURCE LINES 168-176
 
 We could plot performance and fairness metrics of these predictors now.
 However, the plot would be somewhat confusing due to the number of models. In
@@ -554,7 +556,7 @@ features will not be mitigated). In general, one might not want to do this,
 since there may be other considerations beyond the strict optimization of
 error and disparity (of the given sensitive feature).
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-201
+.. GENERATED FROM PYTHON SOURCE LINES 176-203
 
 .. code-block:: default
 
@@ -592,11 +594,11 @@ error and disparity (of the given sensitive feature).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-203
+.. GENERATED FROM PYTHON SOURCE LINES 204-205
 
 Finally, we can evaluate the dominant models along with the unmitigated model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-235
+.. GENERATED FROM PYTHON SOURCE LINES 205-237
 
 .. code-block:: default
 
@@ -650,7 +652,7 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 236-248
+.. GENERATED FROM PYTHON SOURCE LINES 238-254
 
 We see a Pareto front forming - the set of predictors which represent optimal
 tradeoffs between accuracy and disparity in predictions. In the ideal case,
@@ -661,14 +663,53 @@ based on our data and choice of estimator. Note the range of the axes - the
 disparity axis covers more values than the accuracy, so we can reduce
 disparity substantially for a small loss in accuracy.
 
-In a real example, we would pick the model which represented the best
-trade-off between accuracy and disparity given the relevant business
-constraints.
+In a real example, we would pick the model which represented the best trade-off
+between accuracy and disparity given the relevant business constraints.
+
+%% [markdown]
+Comparing models easily
+-----------------------
+Fairlearn also provides functionality to compare models much more easily.
+
+.. GENERATED FROM PYTHON SOURCE LINES 256-268
+
+.. code-block:: default
+
+
+    # Plot model comparison
+    plot_model_comparison(
+        x_axis_metric=skm.accuracy_score,
+        y_axis_metric=selection_rate_difference,
+        y_true=Y_test,
+        y_preds=predictions,
+        sensitive_features=A_test,
+        point_labels=True,
+        show_plot=True
+    )
+    # End model comparison
+
+
+
+.. image-sg:: /auto_examples/images/sphx_glr_plot_grid_search_census_003.png
+   :alt: plot grid search census
+   :srcset: /auto_examples/images/sphx_glr_plot_grid_search_census_003.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    No matplotlib.Axes object was provided to draw on, so we create a new one
+
+    <AxesSubplot: xlabel='accuracy score', ylabel='selection rate difference'>
+
+
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  42.453 seconds)
+   **Total running time of the script:** ( 1 minutes  41.144 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_grid_search_census.py:
