@@ -332,6 +332,11 @@ function checkPageExistsAndRedirect(event) {
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#citations">
+   Citations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#building-the-website-for-all-versions">
    Building the website for all versions
   </a>
@@ -414,6 +419,31 @@ ensure that they all render properly.</p>
 pull request) and need help, simply &#64;mention
 <code class="code docutils literal notranslate"><span class="pre">&#64;fairlearn/fairlearn-maintainers</span></code> to get help.</p>
 </div>
+<section id="citations">
+<h2>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">#</a></h2>
+<p>Citations are built using the <a class="reference external" href="https://pypi.org/project/sphinxcontrib-bibtex/">sphinxcontrib-bibtex</a>
+extension. This allows us to use the <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/docs/refs.bib">refs.bib</a> BibTeX file to generate our citations.</p>
+<p>To add a citation:</p>
+<ol class="arabic">
+<li><p>Check if your required BibTex entry already exists in the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/docs/refs.bib">docs/refs.bib</a> file. If not, simply paste your entry at the end.</p></li>
+<li><p>Change your bibtex id to the format <code class="docutils literal notranslate"><span class="pre">&lt;author-last-name&gt;&lt;4digit-year&gt;&lt;keyword&gt;</span></code>.</p></li>
+<li><p>Use the <code class="code docutils literal notranslate"><span class="pre">:footcite:`bibtex-id`</span></code> role to create an inline citation rendered as <code class="code docutils literal notranslate"><span class="pre">[CitationNumber]</span></code>.
+For example, <code class="code docutils literal notranslate"><span class="pre">:footcite:`agarwal2018reductions`</span></code> will be rendered as <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2">1</a>.</p></li>
+<li><p>You can also use <code class="code docutils literal notranslate"><span class="pre">:footcite:t:`bibtex-id`</span></code> to create a textual citation. The role <code class="code docutils literal notranslate"><span class="pre">:footcite:t:`agarwal2018reductions`</span></code> will be rendered as Agarwal <em>et al.</em><a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id3">1</a>.</p></li>
+<li><p>To add the bibliography use <code class="code docutils literal notranslate"><span class="pre">..</span> <span class="pre">footbibliography::</span></code> directive at the bottom of your file if not already present.
+This will list all the citations for the current document.</p>
+<p>For example <code class="code docutils literal notranslate"><span class="pre">..</span> <span class="pre">footbibliography::</span></code> will be rendered as shown below:</p>
+<div class="docutils container" id="id4">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ol>
+</section>
 <section id="building-the-website-for-all-versions">
 <h2>Building the website for all versions<a class="headerlink" href="#building-the-website-for-all-versions" title="Permalink to this headline">#</a></h2>
 <p>Our documentation build runs for each pull request and upon merging pull
