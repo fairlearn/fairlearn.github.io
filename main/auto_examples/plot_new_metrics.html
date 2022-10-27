@@ -750,7 +750,7 @@ minimum of four arguments:</p>
 one underlying metric is required (as in this case), then we must
 provide them in a dictionary.</p>
 <p>The underlying metrics must have a signature <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code>,
-so we have to use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> to
+so we have to use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">fbeta_score()</span></code> to
 furnish <code class="docutils literal notranslate"><span class="pre">beta=0.6</span></code> (we will show how to pass in extra array
 arguments such as sample weights shortly).</p>
 <p>We will now take a closer look at the <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>
@@ -905,7 +905,7 @@ grouping by race.</p>
 the form <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred)</span></code> - we do not support scalar arguments
 such as <code class="docutils literal notranslate"><span class="pre">pos_label=</span></code> or <code class="docutils literal notranslate"><span class="pre">beta=</span></code> in the constructor. Such
 arguments should be bound into a new function using
-<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>, and the result passed in. However, we do
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>, and the result passed in. However, we do
 support arguments which have one entry for each sample, with an array
 of sample weights being the most common example. These are divided
 into subgroups along with <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>, and passed along
@@ -940,8 +940,8 @@ pass these along:</p>
 <span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.194562
-fbeta_06              0.681839
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.195666
+fbeta_06              0.675065
 count             14653.000000
 dtype: float64
 </pre></div>
@@ -983,14 +983,14 @@ dtype: float64
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.068246</td>
-      <td>0.613296</td>
+      <td>0.070332</td>
+      <td>0.628057</td>
       <td>4838.0</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.256433</td>
-      <td>0.691569</td>
+      <td>0.258390</td>
+      <td>0.681992</td>
       <td>9815.0</td>
     </tr>
   </tbody>
@@ -2049,7 +2049,7 @@ directly to a CSV file, rather than returning a string (as shown
 above).</p>
 <p>The <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overall()</span></code></a> property can
 be handled similarly, in the cases that it is not a scalar.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.702 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.024 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
