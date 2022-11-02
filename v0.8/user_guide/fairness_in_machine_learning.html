@@ -1,0 +1,1053 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Fairness in Machine Learning &#8212; Fairlearn 0.8.0 documentation</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Assessment" href="assessment/index.html" />
+    <link rel="prev" title="User Guide" href="index.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="None">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+  
+
+
+<a class="navbar-brand logo" href="../https%3A//fairlearn.org.html">
+  
+  
+  
+  
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+    <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        0.8.0  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables user_guide/fairness_in_machine_learning and {'json_url': 'https://fairlearn.org/main/_static/versions.json', 'version_match': '0.8.0'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "user_guide/fairness_in_machine_learning.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://fairlearn.org/main/_static/versions.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "user_guide/fairness_in_machine_learning.html";
+        let btn = document.getElementById("version_switcher_button");
+        // Set empty strings by default so that these attributes exist and can be used in CSS selectors
+        btn.dataset["activeVersionName"] = "";
+        btn.dataset["activeVersion"] = "";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's  variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.8.0") {
+                node.classList.add("active");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api_reference/index.html">
+  API Docs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow"><span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Fairness in Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="assessment/index.html">
+   Assessment
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/perform_fairness_assessment.html">
+     Performing a Fairness Assessment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/common_fairness_metrics.html">
+     Common fairness metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/custom_fairness_metrics.html">
+     Defining custom fairness metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/intersecting_groups.html">
+     Intersecting Groups
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/advanced_metricframe.html">
+     Advanced Usage of MetricFrame
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assessment/plotting.html">
+     Plotting
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mitigation.html">
+   Mitigation
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="datasets/index.html">
+   Datasets
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="datasets/adult_data.html">
+     Adult Census Dataset
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="datasets/acs_income.html">
+       ACSIncome
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="datasets/boston_housing_data.html">
+     Revisiting the Boston Housing Dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="datasets/diabetes_hospital_data.html">
+     Diabetes 130-Hospitals Dataset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="installation_and_version_guide/index.html">
+   Installation and version guide
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="installation_and_version_guide/installation_guide.html">
+     Installation Guide
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="installation_and_version_guide/version_guide.html">
+     Version guide
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.1.html">
+       v0.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.2.0.html">
+       v0.2.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.3.0.html">
+       v0.3.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.0.html">
+       v0.4.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.1.html">
+       v0.4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.2.html">
+       v0.4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.3.html">
+       v0.4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.4.html">
+       v0.4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.5.html">
+       v0.4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.4.6.html">
+       v0.4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.5.0.html">
+       v0.5.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.6.0.html">
+       v0.6.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.6.1.html">
+       v0.6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.6.2.html">
+       v0.6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.7.0.html">
+       v0.7.0
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="installation_and_version_guide/v0.8.0.html">
+       v0.8.0
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="further_resources.html">
+   Further Resources
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fairness-of-ai-systems">
+   Fairness of AI systems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types-of-harms">
+   Types of harms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concept-glossary">
+   Concept glossary
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#construct-validity">
+     Construct validity
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#key-terms">
+       Key Terms
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#key-term-examples-unobservable-theoretical-constructs-and-measurement-models">
+       Key Term Examples  - Unobservable theoretical constructs and Measurement models
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-construct-validity">
+       What is construct validity?
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fairness-assessment-and-unfairness-mitigation">
+   Fairness assessment and unfairness mitigation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#group-fairness-sensitive-features">
+     Group fairness, sensitive features
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parity-constraints">
+     Parity constraints
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disparity-metrics-group-metrics">
+     Disparity metrics, group metrics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem">
+   What traps can we fall into when modeling a social problem?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-solutionism-trap">
+     The Solutionism Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-ripple-effect-trap">
+     The Ripple Effect Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-formalism-trap">
+     The Formalism Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-portability-trap">
+     The Portability Trap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-framing-trap">
+     The Framing Trap
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="terminology">
+<span id="fairness-in-machine-learning"></span><span id="id1"></span><h1>Fairness in Machine Learning<a class="headerlink" href="#terminology" title="Permalink to this headline">#</a></h1>
+<section id="fairness-of-ai-systems">
+<h2>Fairness of AI systems<a class="headerlink" href="#fairness-of-ai-systems" title="Permalink to this headline">#</a></h2>
+<p>AI systems can behave unfairly for a variety of reasons. Sometimes it is
+because of societal biases reflected in the training data and in the decisions
+made during the development and deployment of these systems. In other cases,
+AI systems behave unfairly not because of societal biases, but because of
+characteristics of the data (e.g., too few data points about some group of
+people) or characteristics of the systems themselves. It can be hard to
+distinguish between these reasons, especially since they are not mutually
+exclusive and often exacerbate one another. Therefore, we define whether an AI
+system is behaving unfairly in terms of its impact on people — i.e., in terms
+of harms — and not in terms of specific causes, such as societal biases, or in
+terms of intent, such as prejudice.</p>
+<p><strong>Usage of the word bias.</strong> Since we define fairness in terms of harms
+rather than specific causes (such as societal biases), we avoid the usage of
+the words <em>bias</em> or <em>debiasing</em> in describing the functionality of Fairlearn.</p>
+</section>
+<section id="types-of-harms">
+<span id="id2"></span><h2>Types of harms<a class="headerlink" href="#types-of-harms" title="Permalink to this headline">#</a></h2>
+<p>There are many types of harms (see, e.g., the
+<a class="reference external" href="https://www.youtube.com/watch?v=fMym_BKWQzk">keynote by K. Crawford at NeurIPS 2017</a>).
+Some of these are:</p>
+<ul class="simple">
+<li><p><em>Allocation harms</em> can occur when AI systems extend or withhold
+opportunities, resources, or information. Some of the key applications are in
+hiring, school admissions, and lending.</p></li>
+<li><p><em>Quality-of-service harms</em> can occur when a system does not work as well for
+one person as it does for another, even if no opportunities, resources, or
+information are extended or withheld. Examples include varying accuracy in
+face recognition, document search, or product recommendation.</p></li>
+<li><p><em>Stereotyping harms</em> can occur when a system suggests completions which
+perpetuate stereotypes.
+These are often seen when search engines propose completions to partially
+typed queries.
+See Umoja Noble<a class="footnote-reference brackets" href="#footcite-umojanoble2018algorithmsoppression" id="id3">1</a> for an in-depth
+look at this issue.
+Note that even stereotypes which are nominally positive are also
+problematic, since they still create expectations based on outward
+characteristics, rather than treating people as individuals.</p></li>
+<li><p><em>Erasure harms</em> can occur when a system behaves as if groups (or their
+works) do not exist.
+For example, a text generator prompted about “Female scientists of the 1800s”
+might not produce a result.
+When asked about historical sites near St. Louis, Missouri, a search engine
+might fail to mention <a class="reference external" href="https://en.wikipedia.org/wiki/Cahokia">Cahokia</a>.
+A similar query about southern Africa might overlook
+<a class="reference external" href="https://en.wikipedia.org/wiki/Great_Zimbabwe">Great Zimbabwe</a>, instead
+concentrating on colonial era sites.
+More subtly, a short biography of Alan Turing might not mention his
+sexuality.</p></li>
+</ul>
+<p>This list is not exhaustive, and it is important to remember that harms
+are not mutually exclusive.
+A system can harm multiple groups of people in different ways, and also
+visit multiple harms on a single group of people.
+The Fairlearn package is most applicable to allocation and quality of service harms,
+since these are easiest to measure.</p>
+</section>
+<section id="concept-glossary">
+<h2>Concept glossary<a class="headerlink" href="#concept-glossary" title="Permalink to this headline">#</a></h2>
+<p>The concepts outlined in this glossary are relevant to sociotechnical contexts.</p>
+<section id="construct-validity">
+<h3>Construct validity<a class="headerlink" href="#construct-validity" title="Permalink to this headline">#</a></h3>
+<p>In many cases, fairness-related harms can be traced back to the way a real-world problem is translated into a machine learning task.
+Which target variable do we intend to predict?
+What features will be included?
+What (fairness) constraints do we consider?
+Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
+<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id4">2</a>.
+This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation.
+In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
+<section id="key-terms">
+<h4>Key Terms<a class="headerlink" href="#key-terms" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p><strong>Sociotechnical context</strong> – The context surrounding a technical system, including both social aspects (e.g., people, institutions, communities) and technical aspects (e.g., algorithms, technical processes). The sociotechnical context of a system shapes who might benefit or is harmed by AI systems.</p></li>
+<li><p><strong>Unobservable theoretical construct</strong> – An idea or concept that is unobservable and cannot be directly measured but must instead be inferred through observable measurements defined in a measurement model.</p></li>
+<li><p><strong>Measurement model</strong> – The method and approach used to measure the unobservable theoretical construct.</p></li>
+<li><p><strong>Construct reliability</strong> – This can be thought of as the extent to which the measurements of an unobservable theoretical construct remain the same when measured at different points in time. A lack of construct reliability can either be due to a misalignment between the understanding of the unobservable theoretical construct and the methods being used to measure that construct, or to changes to the construct itself. Construct validity and construct reliability are complementary.</p></li>
+<li><p><strong>Construct validity</strong> – This can be thought of as the extent to which the measurement model measures the intended construct in way that is meaningful and useful.</p></li>
+</ul>
+</section>
+<section id="key-term-examples-unobservable-theoretical-constructs-and-measurement-models">
+<h4>Key Term Examples  - Unobservable theoretical constructs and Measurement models<a class="headerlink" href="#key-term-examples-unobservable-theoretical-constructs-and-measurement-models" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p><strong>Fairness</strong> is an example of an unobservable theoretical construct. Several measurement models exist for measuring fairness, including demographic parity. These measurements may come together to form a measurement model, where several measurements are combined to ultimately measure fairness.See <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> for more examples of measurement models for measuring fairness.</p></li>
+<li><p><strong>Teacher effectiveness</strong> is an example of an unobservable theoretical construct. Common measurement models include student performance on standardized exams and qualitative feedback for the teacher’s students.</p></li>
+<li><p><strong>Socioeconomic status</strong> is an example of an unobservable theoretical construct. A common measurement model includes annual household income.</p></li>
+<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#footcite-obermeyer2019dissecting" id="id5">3</a> for a related example.</p></li>
+</ul>
+<p><strong>Note:</strong>
+We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.
+Please reference Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id6">2</a> for more detailed examples.</p>
+</section>
+<section id="what-is-construct-validity">
+<span id="id7"></span><h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Permalink to this headline">#</a></h4>
+<p>Though Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id8">2</a> explore both construct reliability and construct validity, we focus our
+exploration below on construct Validity.
+We note that both play an important role in understanding fairness in sociotechnical contexts.
+With that said, Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id9">2</a> offers a fairness-oriented conceptualization of construct validity, that
+is helpful in thinking about fairness in sociotechnical contexts.
+We capture the idea in seven key parts that when combined  can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
+<ol class="arabic simple">
+<li><p><strong>Face validity</strong> – On the surface, how plausible do the measurements produced by the measurement model look?</p></li>
+<li><p><strong>Content validity</strong> – This has three subcomponents:</p>
+<ol class="loweralpha simple">
+<li><p><strong>Contestedness</strong> – Is there a single understanding of the unobservable theoretical construct? Or is that understanding contested (and thus context dependent).</p></li>
+<li><p><strong>Substantive validity</strong> – Can we demonstrate that the measurement model contains the observable properties and other unobservable theoretical constructs related to the construct of interest (and only those)?</p></li>
+<li><p><strong>Structural validity</strong> – Does the measurement model appropriately capture the relationships between the construct of interest and the measured observable properties and other unobservable theoretical constructs?</p></li>
+</ol>
+</li>
+<li><p><strong>Convergent validity</strong> – Do the measurements obtained correlate with other measurements (that exist) from
+measurement models for which construct validity has been established?</p></li>
+<li><p><strong>Discriminant validity</strong> – Do the measurements obtained for the construct of interest correlate with
+related constructs as appropriate?</p></li>
+<li><p><strong>Predictive validity</strong> – Are the measurements obtained from the measurement model predictive of measurements
+of any relevant observable properties or other unobservable theoretical constructs?</p></li>
+<li><p><strong>Hypothesis validity</strong> – This describes the nature of the hypotheses that could emerge from the measurements
+produced by the measurement model, and whether those are “substantively interesting”.</p></li>
+<li><p><strong>Consequential validity</strong> – Identify and evaluate the consequences and societal impacts of using the
+measurements obtained for the measurement model. Framed as questions: how is the world shaped by using the
+measurements, and what world do we wish to live in?</p></li>
+</ol>
+<p><strong>Note:</strong> The order in which the parts above are explored and the way in which they are used may vary depending on the specific
+sociotechnical context. This is only intended to explain the key concepts that could be used in a
+framework for analyzing a task.</p>
+</section>
+</section>
+</section>
+<section id="fairness-assessment-and-unfairness-mitigation">
+<h2>Fairness assessment and unfairness mitigation<a class="headerlink" href="#fairness-assessment-and-unfairness-mitigation" title="Permalink to this headline">#</a></h2>
+<p>In Fairlearn, we provide tools to assess fairness of predictors for
+classification and regression. We also provide tools that mitigate unfairness
+in classification and regression. In both assessment and mitigation scenarios,
+fairness is quantified using disparity metrics as we describe below.</p>
+<section id="group-fairness-sensitive-features">
+<h3>Group fairness, sensitive features<a class="headerlink" href="#group-fairness-sensitive-features" title="Permalink to this headline">#</a></h3>
+<p>There are many approaches to conceptualizing fairness. In Fairlearn, we follow
+the approach known as group fairness, which asks: <em>Which groups of individuals
+are at risk for experiencing harms?</em></p>
+<p>The relevant groups (also called subpopulations) are defined using <strong>sensitive
+features</strong> (or sensitive attributes), which are passed to a Fairlearn
+estimator as a vector or a matrix called <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code> (even if it is
+only one feature). The term suggests that the system designer should be
+sensitive to these features when assessing group fairness. Although these
+features may sometimes have privacy implications (e.g., gender or age) in
+other cases they may not (e.g., whether or not someone is a native speaker of
+a particular language). Moreover, the word sensitive does not imply that
+these features should not be used to make predictions – indeed, in some cases
+it may be better to include them.</p>
+<p>Fairness literature also uses the term <em>protected attribute</em> in a similar
+sense as sensitive feature. The term is based on anti-discrimination laws
+that define specific <em>protected classes</em>. Since we seek to apply group
+fairness in a wider range of settings, we avoid this term.</p>
+</section>
+<section id="parity-constraints">
+<span id="id10"></span><h3>Parity constraints<a class="headerlink" href="#parity-constraints" title="Permalink to this headline">#</a></h3>
+<p>Group fairness is typically formalized by a set of constraints on the behavior
+of the predictor called <strong>parity constraints</strong> (also called criteria). Parity
+constraints require that some aspect (or aspects) of the predictor behavior be
+comparable across the groups defined by sensitive features.</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> denote a feature vector used for predictions, <span class="math notranslate nohighlight">\(A\)</span> be a
+single sensitive feature (such as age or race), and <span class="math notranslate nohighlight">\(Y\)</span> be the true
+label. Parity constraints are phrased in terms of expectations with respect to
+the distribution over <span class="math notranslate nohighlight">\((X,A,Y)\)</span>.
+For example, in Fairlearn, we consider the following types of parity constraints.</p>
+<p><em>Binary classification</em>:</p>
+<ul class="simple">
+<li><p><em>Demographic parity</em> (also known as <em>statistical parity</em>): A classifier
+<span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution over
+<span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
+independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.  <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id11">4</a></p></li>
+<li><p><em>Equalized odds</em>: A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized odds under a
+distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
+conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
+<span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
+<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id12">4</a></p></li>
+<li><p><em>Equal opportunity</em>: a relaxed version of equalized odds that only considers
+conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id13">5</a></p></li>
+</ul>
+<p><em>Regression</em>:</p>
+<ul class="simple">
+<li><p><em>Demographic parity</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies demographic parity
+under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
+of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
+<span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
+<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id14">6</a></p></li>
+<li><p><em>Bounded group loss</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies bounded group loss at
+level <span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if
+<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id15">6</a></p></li>
+</ul>
+<p>Above, demographic parity seeks to mitigate allocation harms, whereas bounded
+group loss primarily seeks to mitigate quality-of-service harms. Equalized
+odds and equal opportunity can be used as a diagnostic for both allocation
+harms as well as quality-of-service harms.</p>
+</section>
+<section id="disparity-metrics-group-metrics">
+<span id="disparity-metrics"></span><h3>Disparity metrics, group metrics<a class="headerlink" href="#disparity-metrics-group-metrics" title="Permalink to this headline">#</a></h3>
+<p>Disparity metrics evaluate how far a given predictor departs from satisfying a
+parity constraint. They can either compare the behavior across different
+groups in terms of ratios or in terms of differences. For example, for binary
+classification:</p>
+<ul class="simple">
+<li><p><em>Demographic parity difference</em> is defined as
+<span class="math notranslate nohighlight">\((\max_a \E[h(X) \given A=a]) - (\min_a \E[h(X) \given A=a])\)</span>.</p></li>
+<li><p><em>Demographic parity ratio</em> is defined as
+<span class="math notranslate nohighlight">\(\dfrac{\min_a \E[h(X) \given A=a]}{\max_a \E[h(X) \given A=a]}\)</span>.</p></li>
+</ul>
+<p>The Fairlearn package provides the functionality to convert common accuracy
+and error metrics from <cite>scikit-learn</cite> to <em>group metrics</em>, i.e., metrics that
+are evaluated on the entire data set and also on each group individually.
+Additionally, group metrics yield the minimum and maximum metric value and for
+which groups these values were observed, as well as the difference and ratio
+between the maximum and the minimum values. For more information refer to the
+subpackage <a class="reference internal" href="../api_reference/fairlearn.metrics.html#module-fairlearn.metrics" title="fairlearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code></a>.</p>
+</section>
+</section>
+<section id="what-traps-can-we-fall-into-when-modeling-a-social-problem">
+<span id="abstraction-traps"></span><h2>What traps can we fall into when modeling a social problem?<a class="headerlink" href="#what-traps-can-we-fall-into-when-modeling-a-social-problem" title="Permalink to this headline">#</a></h2>
+<p>Machine learning systems used in the real world are inherently sociotechnical
+systems, which include both technologies and social actors. Designers of machine
+learning systems typically translate a real-world context into a machine learning
+model through abstraction: focusing only on ‘relevant’ aspects of that context,
+which are typically described by inputs, outputs, and the relationship between them.
+However, by abstracting away the social context they are at risk of falling into
+‘abstraction traps’: a failure to consider how social context and technology
+are interrelated.</p>
+<p>In this section, we explain what those traps are, and give some suggestions on
+how we can avoid them.</p>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id16">7</a>
+identify failure modes that can arise from abstracting away the social context
+when modeling. They identify them as:</p>
+<ul class="simple">
+<li><p><em>The Solutionism Trap</em></p></li>
+<li><p><em>The Ripple Effect Trap</em></p></li>
+<li><p><em>The Formalism Trap</em></p></li>
+<li><p><em>The Portability Trap</em></p></li>
+<li><p><em>The Framing Trap</em></p></li>
+</ul>
+<p>We provide some definitions and examples of these traps to help Fairlearn
+users think about how choices they make in their work can lead to or avoid
+these common pitfalls.</p>
+<section id="the-solutionism-trap">
+<span id="solutionism-trap"></span><h3>The Solutionism Trap<a class="headerlink" href="#the-solutionism-trap" title="Permalink to this headline">#</a></h3>
+<p>This trap occurs when we assume that the best solution to a problem
+may involve technology, and fail to recognize other possible solutions
+outside of this realm. Solutionist approaches may also not be appropriate
+in situations where definitions of fairness may change over time
+(see ‘The Formalism Trap’ below).</p>
+<p>Example: consider the problem of internet connectivity in rural communities.
+An example of the solutionism trap is assuming that using data science to
+measure internet speed in a given region
+can help improve internet connectivity.
+However, if there are additional socioeconomic challenges within
+a community, for example with education, infrastructure, information
+technology, or health services, then an algorithmic solution purely
+focused on internet speed may fail to meaningfully address the needs of
+the community.</p>
+</section>
+<section id="the-ripple-effect-trap">
+<span id="ripple-effect-trap"></span><h3>The Ripple Effect Trap<a class="headerlink" href="#the-ripple-effect-trap" title="Permalink to this headline">#</a></h3>
+<p>This trap occurs when we do not consider the unintended consequences of
+introducing technology into an existing social system. Such consequences
+include changes in behaviors, outcomes, individual experiences, or changes
+in underlying social values and incentives of a given social system; for
+instance, by increasing perceived value of quantifiable metrics over
+non-quantifiable ones.</p>
+<p>Example: consider the problem of banks deciding whether an individual should
+be approved for a loan. Prior to using machine learning algorithms
+to compute a “score”, banks might rely on loan officers that engage in
+conversations with clients, recommend a plan based on their unique
+situation, and discuss with other team members to obtain feedback.
+By introducing an algorithm, it is possible that loan officers may limit
+their conversations with team members and clients, assuming the algorithm’s
+recommendations are good enough without those additional sources of information.</p>
+<p>To avoid this pitfall, we must be aware that once a technology is incorporated
+into a social context, new groups may reinterpret it differently. We should
+adopt “what if” scenarios to envision how the social context might change
+after introducing a model, including how it may change the power dynamics of
+existing groups in that context, or how actors might change their behaviors to
+game the model.</p>
+</section>
+<section id="the-formalism-trap">
+<span id="formalism-trap"></span><h3>The Formalism Trap<a class="headerlink" href="#the-formalism-trap" title="Permalink to this headline">#</a></h3>
+<p>Many tasks of a data scientist involve some form of formalization: from
+measuring real-world phenomena as data to translating business Key Performance
+Indicators (KPIs) and constraints into metrics, loss functions, or parameters.
+We fall into the formalism trap when we fail to account for the full meaning
+of social concepts like fairness.</p>
+<p>Fairness is a complex construct that is contested: different people may
+have different ideas of what is fair in a particular scenario. While
+mathematical fairness metrics may capture some aspects of fairness, they
+fail to capture all relevant aspects. For example, group fairness metrics
+do not account for differences in individual experiences, nor do they
+account for procedural justice.</p>
+<p>In some scenarios, fairness metrics such as demographic parity and equalized
+odds cannot be satisfied at the same time. At a first glance, this may appear
+to be a mathematical problem. However, the conflict is actually grounded in
+different understandings of what fairness is. Consequently, there is no
+mathematical approach to solve the conflict. Instead we need to decide which
+metrics might be appropriate for the situation at hand, keeping in mind the
+limitations of a mathematical formalization. In some cases, there may be no
+suitable metric.</p>
+<p>Some reasons why we fall into this trap are because fairness is
+context-dependent, because it is open to contestation by different groups
+of people, and because there are differences between ways of thinking about
+fairness between the legal world (i.e., fairness as procedural) and the fair-ML
+community (i.e., fairness as outcome-based).</p>
+<p>Where mathematical abstraction encounters a limitation is when
+capturing information regarding contextuality (different communities
+may have different definitions for what constitutes an “unfair” outcome;
+for instance, is it unfair to hire an applicant whose primary language
+is English, for an English speaking role, over an applicant whose only
+spoken language is not English?); contestability (the definitions of
+discrimination and unfairness are politically contested and change
+over time, which may pose fundamental challenges for representing
+them mathematically); and procedurality (for example, how do judges
+and police officers determine whether bail, counselling, probation, or
+incarceration is appropriate);</p>
+</section>
+<section id="the-portability-trap">
+<span id="portability-trap"></span><h3>The Portability Trap<a class="headerlink" href="#the-portability-trap" title="Permalink to this headline">#</a></h3>
+<p>This trap occurs when we fail to understand how reusing a model or
+algorithm that is designed for one specific social context may not
+necessarily apply to a different social context. Reusing an algorithmic
+solution and failing to take into account differences in involved social
+contexts can result in misleading results and potentially harmful consequences.</p>
+<p>For instance, reusing a machine learning algorithm used to screen
+job applications in the nursing industry for a system used to screen
+job applications in the information technology sector could fall into the
+portability trap. One important difference between both contexts is
+the difference in skills required to succeed in both industries.
+Another key difference between these contexts involves the demographic
+differences (in terms of gender) of employees in each of these industries,
+which may result from wording in job postings, social constructs on gender
+and societal roles, and the percentages of successful applicants in
+each field per (gender) group.</p>
+</section>
+<section id="the-framing-trap">
+<span id="framing-trap"></span><h3>The Framing Trap<a class="headerlink" href="#the-framing-trap" title="Permalink to this headline">#</a></h3>
+<p>This trap occurs when we fail to consider the full picture surrounding
+a particular social context when abstracting a social problem. Elements
+involved include but are not limited to: the social landscape that the
+chosen phenomenon exists in, characteristics of individuals or
+circumstances of the chosen situation, third parties involved along with
+their circumstances, and the task that is being set out to abstract
+(i.e., calculating a risk score, choosing between a pool of candidates,
+selecting an appropriate treatment, etc).</p>
+<p>To help us avoid drawing narrow boundaries of what is considered in scope
+for the problem, we might consider using wider “frames” around what is
+considered to be in scope for the problem, moving from an algorithmic frame
+to a sociotechnical frame.</p>
+<p>For instance, adopting a <em>sociotechnical</em> frame (instead of a data-focused,
+or algorithmic frame) allows us to recognize that a machine learning model
+is part of social and technical interactions between people and technology,
+and thus the social components of a given social context should be included
+as part of the problem formulation and modeling approach (including local
+decision-making processes, incentive structures, institutional processes,
+and more).</p>
+<p>For instance, we might fall into this trap by assessing risk of re-engagement
+in criminal behavior for an individual charged with an offense, while failing
+to consider factors such as the legacy of racial biases in criminal justice
+systems, the relationship of socio-economic status and mental health to the
+social construction of criminality, along with existing societal biases of
+judges, police officers, or other social actors involved in the larger
+sociotechnical frame around a criminal justice algorithm.</p>
+<p>Within the sociotechnical frame the model incorporates not only more
+nuanced data on the history of the case, but also the social context in
+which judging and recommending an outcome take place. This frame might
+incorporate the processes associated with crime reporting, the offense-trial
+pipeline, and an awareness of how the relationship between various social actors and
+the algorithm may impact the intended outcomes of a given model.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id17">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-umojanoble2018algorithmsoppression"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>Safiya Umoja Noble. <em>Algorithms of Oppression</em>. NYU Press, 2018. <a class="reference external" href="http://algorithmsofoppression.com/">http://algorithmsofoppression.com/</a>.</p>
+</dd>
+<dt class="label" id="footcite-jacobs2021measurement"><span class="brackets">2</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id6">2</a>,<a href="#id8">3</a>,<a href="#id9">4</a>)</span></dt>
+<dd><p>Abigail Z. Jacobs and Hanna Wallach. Measurement and fairness. In <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</em>, FAccT ‘21, 375–385. New York, NY, USA, 2021. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">https://doi.org/10.1145/3442188.3445901</a>, <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">doi:10.1145/3442188.3445901</a>.</p>
+</dd>
+<dt class="label" id="footcite-obermeyer2019dissecting"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p>Ziad Obermeyer, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. Dissecting racial bias in an algorithm used to manage the health of populations. <em>Science</em>, 366(6464):447–453, 2019. URL: <a class="reference external" href="https://www.science.org/doi/abs/10.1126/science.aax2342">https://www.science.org/doi/abs/10.1126/science.aax2342</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.science.org/doi/pdf/10.1126/science.aax2342">arXiv:https://www.science.org/doi/pdf/10.1126/science.aax2342</a>, <a class="reference external" href="https://doi.org/10.1126/science.aax2342">doi:10.1126/science.aax2342</a>.</p>
+</dd>
+<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">4</span><span class="fn-backref">(<a href="#id11">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
+<dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-agarwal2019fair"><span class="brackets">6</span><span class="fn-backref">(<a href="#id14">1</a>,<a href="#id15">2</a>)</span></dt>
+<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-selbst2019fairness"><span class="brackets"><a class="fn-backref" href="#id16">7</a></span></dt>
+<dd><p>Andrew D. Selbst, danah boyd, Sorelle A. Friedler, Suresh Venkatasubramanian, and Janet Vertesi. Fairness and abstraction in sociotechnical systems. In <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, FAT* ‘19, 59–68. New York, NY, USA, 2019. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">https://doi.org/10.1145/3287560.3287598</a>, <a class="reference external" href="https://doi.org/10.1145/3287560.3287598">doi:10.1145/3287560.3287598</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+              </article>
+              
+
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2018 - 2022, Fairlearn contributors.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

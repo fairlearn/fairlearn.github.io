@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>fairlearn.datasets package &#8212; Fairlearn 0.8.0 documentation</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fairlearn.metrics package" href="fairlearn.metrics.html" />
+    <link rel="prev" title="API Docs" href="index.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="None">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+  
+
+
+<a class="navbar-brand logo" href="../https%3A//fairlearn.org.html">
+  
+  
+  
+  
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+    <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        0.8.0  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables api_reference/fairlearn.datasets and {'json_url': 'https://fairlearn.org/main/_static/versions.json', 'version_match': '0.8.0'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "api_reference/fairlearn.datasets.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("https://fairlearn.org/main/_static/versions.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "api_reference/fairlearn.datasets.html";
+        let btn = document.getElementById("version_switcher_button");
+        // Set empty strings by default so that these attributes exist and can be used in CSS selectors
+        btn.dataset["activeVersionName"] = "";
+        btn.dataset["activeVersion"] = "";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's  variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.8.0") {
+                node.classList.add("active");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  API Docs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Example Notebooks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../contributor_guide/index.html">
+  Contributor Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../faq.html">
+  FAQ
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about/index.html">
+  About Us
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/fairlearn/fairlearn" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/fairlearn" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://stackoverflow.com/questions/tagged/fairlearn" rel="noopener" target="_blank" title="StackOverflow"><span><i class="fab fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://discord.gg/R22yCfgsRn" rel="noopener" target="_blank" title="Discord"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   fairlearn.datasets package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.metrics.html">
+   fairlearn.metrics package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.postprocessing.html">
+   fairlearn.postprocessing package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.preprocessing.html">
+   fairlearn.preprocessing package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.reductions.html">
+   fairlearn.reductions package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.adversarial.html">
+   fairlearn.adversarial package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fairlearn.experimental.html">
+   fairlearn.experimental package
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="module-fairlearn.datasets">
+<span id="fairlearn-datasets-package"></span><h1>fairlearn.datasets package<a class="headerlink" href="#module-fairlearn.datasets" title="Permalink to this headline">#</a></h1>
+<p>This module contains datasets that can be used for benchmarking and education.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_acs_income">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_acs_income</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/0.8.0/fairlearn/datasets/_fetch_acs_income.py#L13-L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_acs_income" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the ACS Income dataset (regression).</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>1664500</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>numeric, categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>Target</p></td>
+<td><p>numeric</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>Source: Paper: Ding et al. (2021) <a class="reference internal" href="#r0b52c3bd9ab1-1" id="id1">[1]</a></dt><dd><p>and corresponding repository <a class="reference external" href="https://github.com/zykls/folktables/">https://github.com/zykls/folktables/</a></p>
+</dd>
+</dl>
+<p>Read more in the <a class="reference internal" href="../user_guide/datasets/acs_income.html#acsincome-data"><span class="std std-ref">User Guide</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.8.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the data is a pandas DataFrame including columns with
+appropriate dtypes (numeric, string or categorical). The target is
+a pandas DataFrame or Series depending on the number of target_columns.
+The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
+data. If <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True, then <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">target)</span></code> will be pandas
+DataFrames or Series as describe above.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+<li><p><strong>states</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>default=None</em>) – List containing two letter (capitalized) state abbreviations.
+If None, data from all 50 US states and Puerto Rico will be returned.
+Note that Puerto Rico is the only US territory included in this dataset.
+The state abbreviations and codes can be found on page 1 of the data
+dictionary at ACS PUMS <a class="reference internal" href="#r0b52c3bd9ab1-2" id="id2">[2]</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (1664500, 10)</span></dt><dd><p>Each row corresponding to the 10 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (1664500,)</span></dt><dd><p>Integer denoting each person’s annual income.
+A threshold can be applied as a postprocessing step to frame this
+as a binary classification problem.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">target</span></code> is a pandas object.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 10</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the ACSIncome dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (numpy.ndarray, numpy.ndarray)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is False</p></li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r0b52c3bd9ab1-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Ding, F., Hardt, M., Miller, J., &amp; Schmidt, L. (2021).
+“Retiring Adult: New Datasets for Fair Machine Learning.”
+Advances in Neural Information Processing Systems, 34.</p>
+</dd>
+<dt class="label" id="r0b52c3bd9ab1-2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>“2018 ACS PUMS Data Dictionary”. United States Census Bureau.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_adult">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_adult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/0.8.0/fairlearn/datasets/_fetch_adult.py#L11-L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_adult" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the UCI Adult dataset (binary classification).</p>
+<p>Read more in the <a class="reference internal" href="../user_guide/datasets/boston_housing_data.html#boston-housing-data"><span class="std std-ref">User Guide</span></a>.</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>48842</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>numeric, categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>Classes</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: UCI Repository <a class="reference internal" href="#r66dca5651779-1" id="id3">[1]</a> , Paper: R. Kohavi (1996) <a class="reference internal" href="#r66dca5651779-2" id="id4">[2]</a></p>
+<p>Prediction task is to determine whether a person makes over $50,000 a
+year.</p>
+<p>Read more in the <a class="reference internal" href="../user_guide/datasets/adult_data.html#adult-data"><span class="std std-ref">User Guide</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the data is a pandas DataFrame including columns with
+appropriate dtypes (numeric, string or categorical). The target is
+a pandas DataFrame or Series depending on the number of target_columns.
+The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
+data. If <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True, then <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">target)</span></code> will be pandas
+DataFrames or Series as describe above.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (48842, 14)</span></dt><dd><p>Each row corresponding to the 14 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (48842,)</span></dt><dd><p>Each value represents whether the person earns more than $50,000
+a year (&gt;50K) or not (&lt;=50K).
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">target</span></code> is a pandas object.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 14</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the UCI Adult dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (numpy.ndarray, numpy.ndarray)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is False</p></li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r66dca5651779-1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>R. Kohavi and B. Becker, UCI Machine Learning Repository:
+Adult Data Set, 01-May-1996. [Online]. Available:
+<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>.</p>
+</dd>
+<dt class="label" id="r66dca5651779-2"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>R. Kohavi, “Scaling Up the Accuracy of Naive-Bayes Classifiers:
+a Decision-Tree Hybrid,” in <em>Second International Conference on knowledge
+discovery and data mining: proceedings: August 2-4, 1996, Portland,
+Oregon</em>, 1996, pp. 202–207.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_bank_marketing">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_bank_marketing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/0.8.0/fairlearn/datasets/_fetch_bank_marketing.py#L11-L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_bank_marketing" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the UCI bank marketing dataset (binary classification).</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>45211</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>numeric, categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>Classes</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: UCI Repository <a class="reference internal" href="#r5ce875795388-3" id="id5">[3]</a> Paper: Moro et al., 2014 <a class="reference internal" href="#r5ce875795388-4" id="id6">[4]</a></p>
+<p>The data is related with direct marketing campaigns of a Portuguese
+banking institution. The marketing campaigns were based on phone calls.
+Often, more than one contact to the same client was required,
+in order to access if the product (bank term deposit) would be (or not) subscribed.</p>
+<p>The classification goal is to predict if the client will subscribe a
+term deposit (variable y).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the data is a pandas DataFrame including columns with
+appropriate dtypes (numeric, string or categorical). The target is
+a pandas DataFrame or Series depending on the number of target_columns.
+The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
+data. If <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True, then <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">target)</span></code> will be pandas
+DataFrames or Series as describe above.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (45211, 17)</span></dt><dd><p>Each row corresponding to the 17 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (45211,)</span></dt><dd><p>Each value represents whether the client subscribed a
+term deposit which is ‘yes’ if the client subscribed and ‘no’
+otherwise.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">target</span></code> is a pandas object.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 17</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the UCI bank marketing dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (numpy.ndarray, numpy.ndarray)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is False</p></li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r5ce875795388-3"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p>S. Moro, P. Cortez, and P. Rita, UCI Machine Learning Repository:
+Bank Marketing Data Set, 14-Feb-2014. [Online]. Available:
+<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Bank+Marketing">https://archive.ics.uci.edu/ml/datasets/Bank+Marketing</a>.</p>
+</dd>
+<dt class="label" id="r5ce875795388-4"><span class="brackets"><a class="fn-backref" href="#id6">4</a></span></dt>
+<dd><p>S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict
+the Success of Bank Telemarketing. Decision Support Systems,
+Elsevier, 62:22-31, June 2014</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_boston">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_boston</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/0.8.0/fairlearn/datasets/_fetch_boston.py#L14-L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_boston" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the boston housing dataset (regression).</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>506</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>13</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>real</p></td>
+</tr>
+<tr class="row-even"><td><p>Target</p></td>
+<td><p>real 5. - 50.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: OpenML <a class="reference internal" href="#r804f1a64649f-5" id="id7">[5]</a> Paper: D. Harrison (1978) <a class="reference internal" href="#r804f1a64649f-6" id="id8">[6]</a></p>
+<p>The Boston house-price data of D. Harrison, and D.L. Rubinfeld <a class="reference internal" href="#r804f1a64649f-6" id="id9">[6]</a>.</p>
+<p>Referenced in Belsley, Kuh &amp; Welsch, ‘Regression diagnostics…’, Wiley,
+1980. N.B. <a class="reference internal" href="#r804f1a64649f-7" id="id10">[7]</a>.</p>
+<p>This dataset has known fairness issues <a class="reference internal" href="#r804f1a64649f-8" id="id11">[8]</a>. There’s a “lower status of
+population” (LSTAT) parameter that you need to look out for and a column
+that is a derived from the proportion of people with a black skin color
+that live in a neighborhood (B) <a class="reference internal" href="#r804f1a64649f-9" id="id12">[9]</a>. See the references at the bottom for
+more detailed information.</p>
+<p>Here’s a table of all the variables in order:</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CRIM</p></td>
+<td><p>per capita crime rate by town</p></td>
+</tr>
+<tr class="row-even"><td><p>ZN</p></td>
+<td><p>proportion of residential land zoned for lots over 25,000 sq.ft.</p></td>
+</tr>
+<tr class="row-odd"><td><p>INDUS</p></td>
+<td><p>proportion of non-retail business acres per town</p></td>
+</tr>
+<tr class="row-even"><td><p>CHAS</p></td>
+<td><p>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</p></td>
+</tr>
+<tr class="row-odd"><td><p>NOX</p></td>
+<td><p>nitric oxides concentration (parts per 10 million)</p></td>
+</tr>
+<tr class="row-even"><td><p>RM</p></td>
+<td><p>average number of rooms per dwelling</p></td>
+</tr>
+<tr class="row-odd"><td><p>AGE</p></td>
+<td><p>proportion of owner-occupied units built prior to 1940</p></td>
+</tr>
+<tr class="row-even"><td><p>DIS</p></td>
+<td><p>weighted distances to five Boston employment centres</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAD</p></td>
+<td><p>index of accessibility to radial highways</p></td>
+</tr>
+<tr class="row-even"><td><p>TAX</p></td>
+<td><p>full-value property-tax rate per $10,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>PTRATIO</p></td>
+<td><p>pupil-teacher ratio by town</p></td>
+</tr>
+<tr class="row-even"><td><p>B</p></td>
+<td><p>1000(Bk - 0.63)^2 where Bk is the proportion of Black people by town</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSTAT</p></td>
+<td><p>% lower status of the population</p></td>
+</tr>
+<tr class="row-even"><td><p>MEDV</p></td>
+<td><p>Median value of owner-occupied homes in $1000’s</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>Read more in the <a class="reference internal" href="../user_guide/datasets/boston_housing_data.html#boston-housing-data"><span class="std std-ref">User Guide</span></a>.</p>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the data is a pandas DataFrame including columns with
+appropriate dtypes (numeric, string or categorical). The target is
+a pandas DataFrame or Series depending on the number of target_columns.
+The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
+data. If <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True, then <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">target)</span></code> will be pandas
+DataFrames or Series as describe above.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+<li><p><strong>warn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, it raises an extra warning to make users aware of the unfairness
+aspect of this dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (506, 13)</span></dt><dd><p>Each row corresponding to the 13 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (506,)</span></dt><dd><p>Each value corresponds to the average
+house value in units of 100,000.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">target</span></code> is a pandas object.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 13</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the Boston housing dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (numpy.ndarray, numpy.ndarray)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is False</p></li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True and <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This dataset consists of 506 samples and 13 features. It is notorious for the fairness
+issues related to the <cite>B</cite> column. There’s more information in the references.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r804f1a64649f-5"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
+<dd><p>J. Vanschoren, “boston,” OpenML, 29-Sep-2014. [Online]. Available:
+<a class="reference external" href="https://www.openml.org/d/531">https://www.openml.org/d/531</a>.</p>
+</dd>
+<dt class="label" id="r804f1a64649f-6"><span class="brackets">6</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id9">2</a>)</span></dt>
+<dd><p>D. Harrison and D. L. Rubinfeld, “Hedonic housing prices and the
+demand for clean air,” Journal of Environmental Economics and Management,
+vol. 5, no. 1, pp. 81–102, Mar. 1978.</p>
+</dd>
+<dt class="label" id="r804f1a64649f-7"><span class="brackets"><a class="fn-backref" href="#id10">7</a></span></dt>
+<dd><p>D. A. Belsley, E. Kuh, and R. E. Welsch, Regression diagnostics
+identifying influential data and sources of collinearity. Hoboken, NJ,
+NJ: Wiley-Interscience, 1980.</p>
+</dd>
+<dt class="label" id="r804f1a64649f-8"><span class="brackets"><a class="fn-backref" href="#id11">8</a></span></dt>
+<dd><p>J. Sykes, “- B 1000(Bk - 0.63)^2 where Bk is the proportion of blacks
+by town · Issue #16155 · scikit-learn/scikit-learn,” GitHub, 18-Jan-2020.
+[Online]. Available:
+<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/16155">https://github.com/scikit-learn/scikit-learn/issues/16155</a>.</p>
+</dd>
+<dt class="label" id="r804f1a64649f-9"><span class="brackets"><a class="fn-backref" href="#id12">9</a></span></dt>
+<dd><p>M. Carlisle, “racist data destruction?,” Medium, 13-Jun-2019.
+[Online]. Available:
+<a class="reference external" href="https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8">https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8</a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fairlearn.datasets.fetch_diabetes_hospital">
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_diabetes_hospital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/0.8.0/fairlearn/datasets/_fetch_diabetes_hospital.py#L10-L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_diabetes_hospital" title="Permalink to this definition">#</a></dt>
+<dd><p>Load the preprocessed Diabetes 130-Hospitals dataset (binary classification).</p>
+<p>Download it if necessary.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Samples total</p></td>
+<td><p>101766</p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensionality</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>numeric, categorical, string</p></td>
+</tr>
+<tr class="row-even"><td><p>Classes</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: UCI Repository <a class="footnote-reference brackets" href="#footcite-strack2014diabetes" id="id13">1</a>
+Paper: Strack et al., 2014 <a class="footnote-reference brackets" href="#footcite-strack2014impact" id="id14">2</a></p>
+<p>The “Diabetes 130-Hospitals” dataset represents 10 years of clinical care at 130
+U.S. hospitals and delivery networks, collected from 1999 to 2008. Each record
+represents the hospital admission record for a patient diagnosed with diabetes
+whose stay lasted between one to fourteen days.</p>
+<p>The original “Diabetes 130-Hospitals” dataset was collected by Beata Strack,
+Jonathan P. DeShazo, Chris Gennings, Juan L. Olmo, Sebastian Ventura,
+Krzysztof J. Cios, and John N. Clore in 2014.</p>
+<p>This version of the dataset was derived by the Fairlearn team for the SciPy
+2021 tutorial “Fairness in AI Systems: From social context to practice using
+Fairlearn”. In this version, the target variable “readmitted” is binarized
+into whether the patient was re-admitted within thirty days. The full
+pre-processing script is available
+<a class="reference external" href="https://github.com/fairlearn/talks/blob/main/2021_scipy_tutorial/preprocess.py">here</a>.</p>
+<p>Read more in the <a class="reference internal" href="../user_guide/datasets/diabetes_hospital_data.html#diabetes-hospital-data"><span class="std std-ref">User Guide</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset is always returned as a pandas object, because string
+attributes are not supported for array representation, resulting
+in a <cite>ValueError</cite>.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.8.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
+<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+By default, all fairlearn data is stored in ‘~/.fairlearn-data’
+subfolders.</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dl class="simple">
+<dt>data<span class="classifier">ndarray, shape (101766, 25)</span></dt><dd><p>Each row corresponding to the 25 feature values in order.
+If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
+</dd>
+<dt>target<span class="classifier">numpy array of shape (101766,)</span></dt><dd><p>Each value represents whether readmission of the patient
+occurred within 30 days of the release.</p>
+</dd>
+<dt>feature_names<span class="classifier">list of length 25</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+</dd>
+<dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the Diabetes 130-Hospitals dataset.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<em>tuple of (pandas.DataFrame, pandas.Series)</em>) – if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div class="docutils container" id="id15">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-strack2014diabetes"><span class="brackets"><a class="fn-backref" href="#id13">1</a></span></dt>
+<dd><p>Beata Strack, Jonathan Deshazo, Chris Gennings, Juan Luis Olmo Ortiz, Sebastian Ventura, Krzysztof Cios, and John Clore. Diabetes 130-us hospitals for years 1999-2008 data set. 05 2014. URL: <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008">https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008</a>.</p>
+</dd>
+<dt class="label" id="footcite-strack2014impact"><span class="brackets"><a class="fn-backref" href="#id14">2</a></span></dt>
+<dd><p>Beata Strack, Jonathan Deshazo, Chris Gennings, Juan Luis Olmo Ortiz, Sebastian Ventura, Krzysztof Cios, and John Clore. Impact of hba1c measurement on hospital readmission rates: analysis of 70,000 clinical database patient records. <em>BioMed research international</em>, 2014:781670, 04 2014. <a class="reference external" href="https://doi.org/10.1155/2014/781670">doi:10.1155/2014/781670</a>.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+</section>
+
+
+              </article>
+              
+
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2018 - 2022, Fairlearn contributors.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>
