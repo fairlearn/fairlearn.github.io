@@ -692,9 +692,9 @@ these hyperparameter updates. An example can be seen in the example notebook.</p
 <span id="adversarial-example-1"></span><h2>Example 1: Basics &amp; model specification<a class="headerlink" href="#example-1-basics-model-specification" title="Permalink to this headline">#</a></h2>
 <p>First, we cover a most basic application of adversarial mitigation.
 We start by loading and preprocessing the dataset:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_adult</span>
 
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">1590</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pos_label</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="n">z</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span> <span class="c1"># In this example, we consider &#39;sex&#39; the sensitive feature.</span>
@@ -705,7 +705,7 @@ as we have many columns that are not numerical in nature. To resolve this
 issue, we could for instance use one-hot encodings to preprocess categorical
 columns. Additionally, let’s preprocess the numeric columns to a
 standardized range. For these tasks, we can use functionality from
-scikit-learn (<a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing" title="(in scikit-learn v1.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code></a>). We also use an imputer
+scikit-learn (<a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing" title="(in scikit-learn v1.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code></a>). We also use an imputer
 to get rid of NaN’s:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_transformer</span><span class="p">,</span> <span class="n">make_column_selector</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>

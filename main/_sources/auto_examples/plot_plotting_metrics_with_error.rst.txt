@@ -29,7 +29,7 @@ Plotting Metrics with Errors
     import numpy as np
     from sklearn.compose import ColumnTransformer
     from sklearn.compose import make_column_selector as selector
-    from sklearn.datasets import fetch_openml
+    from fairlearn.datasets import fetch_adult
     from sklearn.impute import SimpleImputer
     from sklearn.metrics import accuracy_score, confusion_matrix, recall_score
     from sklearn.model_selection import train_test_split
@@ -67,7 +67,7 @@ We start by importing the various modules we're going to use:
 
 .. GENERATED FROM PYTHON SOURCE LINES 29-35
 
-We download the data set using :meth:`fetch_openml` function in :class:`sklearn.datasets`.
+We download the data set using the function :func:`fetch_adult` in :mod:`fairlearn.datasets`.
 The original Adult data set can be found at https://archive.ics.uci.edu/ml/datasets/Adult
 There are some caveats to using this dataset, but we will use it solely as an example
 to demonstrate the functionality of plotting metrics with error bars.
@@ -79,7 +79,7 @@ We use a pipeline to preprocess the data then use a
 .. code-block:: default
 
 
-    data = fetch_openml(data_id=1590, as_frame=True)
+    data = fetch_adult(as_frame=True)
     X = data.data
     y = (data.target == ">50K").astype(int)
     X_train, X_test, y_train_true, y_test_true = train_test_split(
@@ -124,6 +124,13 @@ We use a pipeline to preprocess the data then use a
 
 
 
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/.pyenv/versions/3.8.12/lib/python3.8/site-packages/sklearn/preprocessing/_encoders.py:808: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
+      warnings.warn(
 
 
 
@@ -471,7 +478,7 @@ Customizing plots
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.784 seconds)
+   **Total running time of the script:** ( 0 minutes  2.613 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_plotting_metrics_with_error.py:

@@ -28,7 +28,7 @@ MetricFrame visualizations
 
 
     import pandas as pd
-    from sklearn.datasets import fetch_openml
+    from fairlearn.datasets import fetch_adult
     from sklearn.metrics import accuracy_score, precision_score
     from sklearn.tree import DecisionTreeClassifier
 
@@ -51,7 +51,7 @@ MetricFrame visualizations
         selection_rate,
     )
 
-    data = fetch_openml(data_id=1590, as_frame=True)
+    data = fetch_adult(as_frame=True)
     X = pd.get_dummies(data.data)
     y_true = (data.target == ">50K") * 1
     sex = data.data["sex"]
@@ -170,7 +170,7 @@ MetricFrame visualizations
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.408 seconds)
+   **Total running time of the script:** ( 0 minutes  3.655 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:

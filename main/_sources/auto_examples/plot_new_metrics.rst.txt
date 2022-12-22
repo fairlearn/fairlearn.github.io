@@ -79,13 +79,13 @@ We start with some uncontroversial `import` statements:
     import sklearn.metrics as skm
     from sklearn.compose import ColumnTransformer
     from sklearn.compose import make_column_selector as selector
-    from sklearn.datasets import fetch_openml
     from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.model_selection import train_test_split
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+    from fairlearn.datasets import fetch_adult
     from fairlearn.metrics import MetricFrame, count, selection_rate
 
 
@@ -104,7 +104,7 @@ Next, we import the data:
 .. code-block:: default
 
 
-    data = fetch_openml(data_id=1590, as_frame=True)
+    data = fetch_adult(as_frame=True)
     X_raw = data.data
     y = (data.target == ">50K") * 1
 
@@ -837,8 +837,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate        0.194167
-    fbeta_06              0.678732
+    selection_rate        0.195598
+    fbeta_06              0.683710
     count             14653.000000
     dtype: float64
 
@@ -895,14 +895,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.067669</td>
-          <td>0.620949</td>
+          <td>0.069621</td>
+          <td>0.617789</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.255672</td>
-          <td>0.686836</td>
+          <td>0.257992</td>
+          <td>0.693226</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -2268,7 +2268,7 @@ be handled similarly, in the cases that it is not a scalar.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.021 seconds)
+   **Total running time of the script:** ( 0 minutes  3.925 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
