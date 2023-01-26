@@ -499,14 +499,14 @@
               
   <section id="intersecting-groups">
 <span id="assessment-intersecting-groups"></span><h1>Intersecting Groups<a class="headerlink" href="#intersecting-groups" title="Permalink to this headline">#</a></h1>
-<p>The <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> class supports fairness assessment of intersecting groups in two ways:
+<p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> class supports fairness assessment of intersecting groups in two ways:
 multiple sensitive features, and control features.
 Both of these can be used simultaneously.
 One important point to bear in mind when performing an intersectional analysis
 is that some of the intersections may have very few members (or even be empty).
 This will affect the confidence interval associated with the computed metrics;
 random noise has a greater effect on smaller groups.
-To identify such cases, we strongly suggest that <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">count()</span></code></a> be included as a metric
+To identify such cases, we strongly suggest that <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">count()</span></code></a> be included as a metric
 whenever using intersecting groups.
 All of these will use the following definitions:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -518,9 +518,9 @@ All of these will use the following definitions:</p>
 </div>
 <section id="multiple-sensitive-features">
 <h2>Multiple Sensitive Features<a class="headerlink" href="#multiple-sensitive-features" title="Permalink to this headline">#</a></h2>
-<p>Multiple sensitive features can be specified when the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
+<p>Multiple sensitive features can be specified when the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
 is constructed.
-The <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property then holds the intersections
+The <code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code> property then holds the intersections
 of these groups:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -594,10 +594,10 @@ Because of this, control features should be used with particular caution.</p>
 similarly to sensitive features.
 However, the ‘overall’ value for the metric is now computed for each subgroup
 of the control feature(s).
-Similarly, the aggregation functions (such as <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-func docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a>) are
+Similarly, the aggregation functions (such as <code class="xref py py-func docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code>) are
 performed for each subgroup in the conditional feature(s), rather than across
 them (as happens with the sensitive features).</p>
-<p>The <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> constructor allows us to specify control features in
+<p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> constructor allows us to specify control features in
 a manner similar to sensitive features, using a <code class="code docutils literal notranslate"><span class="pre">control_features=</span></code>
 parameter:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">decision</span> <span class="o">=</span> <span class="p">[</span>
@@ -644,14 +644,14 @@ parameter:</p>
 <span class="go">Name: accuracy_score, dtype: float64</span>
 </pre></div>
 </div>
-<p>Note how the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a> property is stratified based on the
-supplied control feature. The <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property allows
+<p>Note how the <code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code> property is stratified based on the
+supplied control feature. The <code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code> property allows
 us to see disparities between the groups in the sensitive feature for each
 group in the control feature.
-When displayed like this, <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> looks similar to
+When displayed like this, <code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code> looks similar to
 how it would if we had specified two sensitive features (although the
 control features will always be at the top level of the hierarchy).</p>
-<p>With the <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> computed, we can perform aggregations:</p>
+<p>With the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> computed, we can perform aggregations:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># See the maximum accuracy for each value of the control feature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metric_c_f</span><span class="o">.</span><span class="n">group_max</span><span class="p">()</span>
 <span class="go">CF</span>
@@ -676,7 +676,7 @@ each value of the control feature.
 For more examples, please
 see the <a class="reference internal" href="../../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a> notebook in the
 <a class="reference internal" href="../../auto_examples/index.html#examples"><span class="std std-ref">Example Notebooks</span></a>.</p>
-<p>Finally, a <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can use multiple control features, multiple
+<p>Finally, a <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can use multiple control features, multiple
 sensitive features and multiple metric functions simultaneously.</p>
 </section>
 </section>

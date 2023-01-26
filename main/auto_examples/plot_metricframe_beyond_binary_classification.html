@@ -466,14 +466,14 @@ to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="metricframe-beyond-binary-classification">
 <span id="sphx-glr-auto-examples-plot-metricframe-beyond-binary-classification-py"></span><h1>MetricFrame: Beyond Binary Classification<a class="headerlink" href="#metricframe-beyond-binary-classification" title="Permalink to this headline">#</a></h1>
-<p>This notebook contains examples of using <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
+<p>This notebook contains examples of using <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
 for tasks which go beyond simple binary classification.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
 
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a>
+<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a>
 </pre></div>
 </div>
 <section id="multiclass-nonscalar-results">
@@ -482,7 +482,7 @@ for tasks which go beyond simple binary classification.</p>
 and that we wish to generate confusion matrices for each subgroup
 identified by the sensitive feature <span class="math notranslate nohighlight">\(\in { a, b, c, d}\)</span>.
 This is supported readily by
-<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, which does not require
+<a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, which does not require
 the result of a metric to be a scalar.</p>
 <p>First, let us generate some random input data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="numpy.random.Generator" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rng</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">96132</span><span class="p">)</span>
@@ -506,14 +506,14 @@ the possible labels</p>
 </pre></div>
 </div>
 <p>With this now available, we can create our
-<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
+<a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;conf_mat&quot;</span><span class="p">:</span> <span class="n">conf_mat</span><span class="p">},</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">s_f</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>From this, we can view the overall confusion matrix:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf</span><span class="o">.</span><span class="n">overall</span></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf</span></a><span class="o">.</span><span class="n">overall</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>conf_mat    [[101, 98, 126], [113, 97, 93], [113, 134, 125]]
@@ -521,7 +521,7 @@ dtype: object
 </pre></div>
 </div>
 <p>And also the confusion matrices for each subgroup:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf</span><span class="o">.</span><span class="n">by_group</span></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf</span></a><span class="o">.</span><span class="n">by_group</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -573,15 +573,15 @@ dtype: object
 </div>
 <br />
 <br /><p>Obviously, the other methods such as
-<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">group_min()</span></code></a>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">group_min()</span></code>
 will not work, since operations such as ‘less than’
 are not well defined for matrices.</p>
 <p>Metric functions with different return types can also
-be mixed in a single <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.
+be mixed in a single <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">recall</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="sklearn.metrics.recall_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span></a><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
 
-<a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf2</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
+<a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf2</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;conf_mat&quot;</span><span class="p">:</span> <span class="n">conf_mat</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall</span><span class="p">},</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span>
@@ -589,9 +589,9 @@ For example:</p>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall values&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf2</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf2</span></a><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Values by group&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf2</span><span class="o">.</span><span class="n">by_group</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf2</span></a><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Overall values
@@ -610,7 +610,7 @@ d                    [[26, 22, 43], [28, 19, 18], [28, 35, 31]]  0.302603
 </section>
 <section id="non-scalar-inputs">
 <h2>Non-scalar Inputs<a class="headerlink" href="#non-scalar-inputs" title="Permalink to this headline">#</a></h2>
-<p><a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> does not require
+<p><a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> does not require
 its inputs to be scalars either. To demonstrate this, we
 will use an image recognition example (kindly supplied by
 Ferdane Bekmezci, Hamid Vaezi Joze and Samira Pouyanfar).</p>
@@ -618,7 +618,7 @@ Ferdane Bekmezci, Hamid Vaezi Joze and Samira Pouyanfar).</p>
 box around regions where they have found their target features.
 For example, if an algorithm detects a face in an image, it
 will place a bounding box around it. These bounding boxes
-constitute <cite>y_pred</cite> for <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.
+constitute <cite>y_pred</cite> for <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>.
 The <cite>y_true</cite> values then come from bounding boxes marked by
 human labellers.</p>
 <p>Bounding boxes are often compared using the ‘iou’ metric.
@@ -672,7 +672,7 @@ be 1; if disjoint then it will be 0. A function to do this is:</p>
     <span class="k">return</span> <span class="n">iou</span>
 </pre></div>
 </div>
-<p>This is a metric for two bounding boxes, but for <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
+<p>This is a metric for two bounding boxes, but for <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>
 we need to compare two lists of bounding boxes. For the sake of
 simplicity, we will return the mean value of ‘iou’ for the
 two lists, but this is by no means the only choice:</p>
@@ -707,8 +707,8 @@ bounding boxes:</p>
 <span class="n">pred_bounding_boxes</span> <span class="o">=</span> <span class="n">many_bounding_boxes</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="numpy.random.Generator" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rng</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p>Finally, we can use these in a <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf_bb</span></a> <span class="o">=</span> <a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
+<p>Finally, we can use these in a <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf_bb</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mean_iou&quot;</span><span class="p">:</span> <span class="n">mean_iou</span><span class="p">},</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_true</span></a><span class="o">=</span><span class="n">true_bounding_boxes</span><span class="p">,</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="o">=</span><span class="n">pred_bounding_boxes</span><span class="p">,</span>
@@ -716,9 +716,9 @@ bounding boxes:</p>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall metric&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf_bb</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf_bb</span></a><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metrics by group&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">mf_bb</span><span class="o">.</span><span class="n">by_group</span></a><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf_bb</span></a><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Overall metric
@@ -736,7 +736,7 @@ d                    0.121758
 <p>The individual entries in the <cite>y_true</cite> and <cite>y_pred</cite> arrays
 can be arbitrarily complex. It is the metric functions
 which give meaning to them. Similarly,
-<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> does not impose
+<a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> does not impose
 restrictions on the return type. One can envisage an image
 recognition task where there are multiple detectable objects in each
 picture, and the image recognition algorithm produces
@@ -751,14 +751,14 @@ possibly with complex word embeddings included.</p>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
 <p>This notebook has given some taste of the flexibility
-of <a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> when it comes
+of <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> when it comes
 to inputs, outputs and metric functions.
 The input arrays can have elements of arbitrary types,
 and the return values from the metric functions can also
 be of any type (although methods such as
-<a class="reference internal" href="../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">group_min()</span></code></a> may not
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">group_min()</span></code> may not
 work).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.081 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.086 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-metricframe-beyond-binary-classification-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/0f3f3957c39cc65c095328726a646ea8/plot_metricframe_beyond_binary_classification.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_metricframe_beyond_binary_classification.py</span></code></a></p>

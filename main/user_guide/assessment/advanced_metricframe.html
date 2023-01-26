@@ -501,7 +501,7 @@
               
   <section id="advanced-usage-of-metricframe">
 <span id="advanced-metricframe"></span><h1>Advanced Usage of MetricFrame<a class="headerlink" href="#advanced-usage-of-metricframe" title="Permalink to this headline">#</a></h1>
-<p>In this section, we will discuss how <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can
+<p>In this section, we will discuss how <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can
 be used in more sophisticated scenarios.
 All code examples will use the following definitions:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -513,7 +513,7 @@ All code examples will use the following definitions:</p>
 </div>
 <section id="extra-arguments-to-metric-functions">
 <span id="extra-arguments-metric-functions"></span><h2>Extra Arguments to Metric functions<a class="headerlink" href="#extra-arguments-to-metric-functions" title="Permalink to this headline">#</a></h2>
-<p>The metric functions supplied to <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> might require additional
+<p>The metric functions supplied to <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> might require additional
 arguments.
 These fall into two categories: ‘scalar’ arguments (which affect the operation
 of the metric function), and ‘per-sample’ arguments (such as sample weights).
@@ -615,11 +615,11 @@ either of them.
 One example of this is the selection rate metric, which only considers
 the <cite>y_pred</cite> values (selection rate is used when computing
 <a class="reference internal" href="common_fairness_metrics.html#assessment-demographic-parity"><span class="std std-ref">demographic parity</span></a>).
-However, <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all supplied metric functions to
+However, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all supplied metric functions to
 conform to the scikit-learn metric paradigm, where the first two arguments
 to the metric function are the <cite>y_true</cite> and <cite>y_pred</cite> arrays.
 The workaround in this case is to supply a dummy argument.
-This is the approach we use in <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">selection_rate()</span></code></a>, which simply ignores
+This is the approach we use in <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">selection_rate()</span></code></a>, which simply ignores
 the supplied <cite>y_true</cite> argument.
 When invoking <cite>MetricFrame</cite>, a <cite>y_true</cite> array of the appropriate length
 must still be supplied.
@@ -646,17 +646,17 @@ For example:</p>
 <span id="id1"></span><h2>More Complex Metrics<a class="headerlink" href="#more-complex-metrics" title="Permalink to this headline">#</a></h2>
 <p>Metric functions often return a single scalar value based on arguments which are vectors of
 scalars.
-This is how <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> was introduced in the <a class="reference internal" href="perform_fairness_assessment.html#perform-fairness-assessment"><span class="std std-ref">Performing a Fairness Assessment</span></a>
+This is how <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> was introduced in the <a class="reference internal" href="perform_fairness_assessment.html#perform-fairness-assessment"><span class="std std-ref">Performing a Fairness Assessment</span></a>
 section above.
 However, this need not be the case - indeed, we were rather vague about the
 contents of the input vectors and the return value of the metric function.
-We will now show how to use <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> in cases where the result is not
+We will now show how to use <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> in cases where the result is not
 a scalar, and when the inputs are not vectors of scalars.</p>
 <section id="non-scalar-results-from-metric-functions">
 <h3>Non-Scalar Results from Metric Functions<a class="headerlink" href="#non-scalar-results-from-metric-functions" title="Permalink to this headline">#</a></h3>
 <p>Metric functions need not return a scalar value.
 A straightforward example of this is the confusion matrix.
-Such return values are fully supported by <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
+Such return values are fully supported by <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf_conf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
 <span class="gp">... </span>   <span class="n">metrics</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">,</span>
@@ -675,7 +675,7 @@ Such return values are fully supported by <a class="reference internal" href="..
 <span class="go">Name: confusion_matrix, dtype: object</span>
 </pre></div>
 </div>
-<p>Obviously for such cases, operations such as <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> have no meaning.
+<p>Obviously for such cases, operations such as <code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code> have no meaning.
 However, if scalar-returning metrics are also present, they will still be calculated:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf_conf_recall</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
 <span class="gp">... </span>   <span class="n">metrics</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;conf_mat&#39;</span><span class="p">:</span><span class="n">confusion_matrix</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span><span class="n">recall_score</span> <span class="p">},</span>
@@ -705,9 +705,9 @@ entry.</p>
 </section>
 <section id="inputs-are-arrays-of-objects">
 <h3>Inputs are Arrays of Objects<a class="headerlink" href="#inputs-are-arrays-of-objects" title="Permalink to this headline">#</a></h3>
-<p><a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can also handle cases when the <span class="math notranslate nohighlight">\(Y_{true}\)</span> and/or <span class="math notranslate nohighlight">\(Y_{pred}\)</span> vectors
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can also handle cases when the <span class="math notranslate nohighlight">\(Y_{true}\)</span> and/or <span class="math notranslate nohighlight">\(Y_{pred}\)</span> vectors
 are not vectors of scalars.
-It is the metric function(s) which gives meaning to these values - <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> itself
+It is the metric function(s) which gives meaning to these values - <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> itself
 just slices the vectors up according to the sensitive feature(s) and the control feature(s).</p>
 <p>As a toy example, suppose that our <code class="docutils literal notranslate"><span class="pre">y</span></code> values (both true and predicted) are tuples representing
 the dimensions of a rectangle.
@@ -725,7 +725,7 @@ In particular, we want to calculate the mean of the area ratios. That is:</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_ts</span> <span class="o">/</span> <span class="n">y_ps</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This is a perfectly good metric for <a class="reference internal" href="../../api_reference/fairlearn.metrics.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, provided we supply appropriate
+<p>This is a perfectly good metric for <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, provided we supply appropriate
 inputs.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_rect_true</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_rect_pred</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
