@@ -39,7 +39,7 @@ MetricFrame visualizations
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-95
+.. GENERATED FROM PYTHON SOURCE LINES 16-98
 
 .. code-block:: default
 
@@ -121,7 +121,10 @@ MetricFrame visualizations
         figsize=[12, 8],
         title="Show count metric in pie chart",
     )
-    fig[0][0].figure.savefig("filename.png")
+
+    # Don't save file during doc build
+    if "__file__" in locals():
+        fig[0][0].figure.savefig("filename.png")
 
 
 
@@ -170,7 +173,7 @@ MetricFrame visualizations
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.147 seconds)
+   **Total running time of the script:** ( 0 minutes  3.835 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:
