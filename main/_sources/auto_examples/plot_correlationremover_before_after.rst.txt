@@ -66,25 +66,37 @@ We also drop most dummy columns that are created, since we are looking
 specifically at the African American race.
 Finally, the columns are rearranged for consistency.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-54
+.. GENERATED FROM PYTHON SOURCE LINES 38-66
 
 .. code-block:: default
 
 
-    data = fetch_diabetes_hospital()
+    data = fetch_diabetes_hospital(as_frame=True)
     X_raw = data.data[["race", "time_in_hospital", "had_inpatient_days", "medicare"]]
     X_raw = pd.get_dummies(X_raw)
     y = data.target
 
-    X_raw = X_raw.drop(["race_Asian",
-                        'race_Caucasian',
-                        'race_Hispanic',
-                        'race_Other',
-                        'race_Unknown',
-                        'had_inpatient_days_False',
-                        'medicare_False'], axis=1)
+    X_raw = X_raw.drop(
+        [
+            "race_Asian",
+            "race_Caucasian",
+            "race_Hispanic",
+            "race_Other",
+            "race_Unknown",
+            "had_inpatient_days_False",
+            "medicare_False",
+        ],
+        axis=1,
+    )
 
-    X_raw = X_raw[['time_in_hospital', 'had_inpatient_days_True', 'medicare_True', 'race_AfricanAmerican']]
+    X_raw = X_raw[
+        [
+            "time_in_hospital",
+            "had_inpatient_days_True",
+            "medicare_True",
+            "race_AfricanAmerican",
+        ]
+    ]
 
 
 
@@ -93,25 +105,29 @@ Finally, the columns are rearranged for consistency.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-58
+.. GENERATED FROM PYTHON SOURCE LINES 67-70
 
 We are now going to fit the CorrelationRemover to the data,
 and transform it. The transformed array will be placed back
 in a Pandas DataFrame, for plotting purposes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-69
+.. GENERATED FROM PYTHON SOURCE LINES 70-85
 
 .. code-block:: default
 
 
     cr = CorrelationRemover(sensitive_feature_ids=["race_AfricanAmerican"])
     X_cr = cr.fit_transform(X_raw)
-    X_cr = pd.DataFrame(X_cr, columns=['time_in_hospital', 'had_inpatient_days_True', 'medicare_True'])
+    X_cr = pd.DataFrame(
+        X_cr, columns=["time_in_hospital", "had_inpatient_days_True", "medicare_True"]
+    )
     X_cr["race_AfricanAmerican"] = X_raw["race_AfricanAmerican"]
 
-    cr_alpha = CorrelationRemover(sensitive_feature_ids=['race_AfricanAmerican'], alpha=0.5)
+    cr_alpha = CorrelationRemover(sensitive_feature_ids=["race_AfricanAmerican"], alpha=0.5)
     X_cr_alpha = cr_alpha.fit_transform(X_raw)
-    X_cr_alpha = pd.DataFrame(X_cr_alpha, columns=['time_in_hospital', 'had_inpatient_days_True', 'medicare_True'])
+    X_cr_alpha = pd.DataFrame(
+        X_cr_alpha, columns=["time_in_hospital", "had_inpatient_days_True", "medicare_True"]
+    )
     X_cr_alpha["race_AfricanAmerican"] = X_raw["race_AfricanAmerican"]
 
 
@@ -121,21 +137,21 @@ in a Pandas DataFrame, for plotting purposes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-74
+.. GENERATED FROM PYTHON SOURCE LINES 86-90
 
 We can now plot the correlation matrices before
 and after the CorrelationRemover.
 The code is from  the
 `matplotlib docs <https://matplotlib.org/devdocs/gallery/images_contours_and_fields/image_annotated_heatmap.html>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-110
+.. GENERATED FROM PYTHON SOURCE LINES 90-126
 
 .. code-block:: default
 
 
 
     def plot_heatmap(df, title):
-        df['target'] = y
+        df["target"] = y
         df = df.rename(columns={"had_inpatient_days_True": "had_inpatient_days"})
         cols = list(df.columns)
 
@@ -199,7 +215,7 @@ The code is from  the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-116
+.. GENERATED FROM PYTHON SOURCE LINES 127-132
 
 Even though there was not a high amount of correlation to begin with,
 the CorrelationRemover successfully removed all correlation between
@@ -210,7 +226,7 @@ not all the correlation being projected away.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.619 seconds)
+   **Total running time of the script:** ( 0 minutes  10.610 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_correlationremover_before_after.py:
