@@ -510,7 +510,7 @@
 <h1>fairlearn.datasets.fetch_adult<a class="headerlink" href="#fairlearn-datasets-fetch-adult" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="fairlearn.datasets.fetch_adult">
-<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_adult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/datasets/_fetch_adult.py#L12-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_adult" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_adult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/datasets/_fetch_adult.py#L12-L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_adult" title="Permalink to this definition">#</a></dt>
 <dd><p>Load the UCI Adult dataset (binary classification).</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/datasets/boston_housing_data.html#boston-housing-data"><span class="std std-ref">User Guide</span></a>.</p>
 <p>Download it if necessary.</p>
@@ -548,12 +548,16 @@ year.</p>
 <li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
 By default, all fairlearn data is stored in ‘~/.fairlearn-data’
 subfolders.</p></li>
-<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, the data is a pandas DataFrame including columns with
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=True</em>) – <p>If True, the data is a pandas DataFrame including columns with
 appropriate dtypes (numeric, string or categorical). The target is
 a pandas DataFrame or Series depending on the number of target_columns.
 The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
 data. If <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True, then <code class="docutils literal notranslate"><span class="pre">(data,</span> <span class="pre">target)</span></code> will be pandas
-DataFrames or Series as describe above.</p></li>
+DataFrames or Series as describe above.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.9.0: </span>Default value changed to True.</p>
+</div>
+</p></li>
 <li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
 object.</p></li>
 </ul>

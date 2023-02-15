@@ -491,12 +491,16 @@ to use:</p>
 <span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a>
 <span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.reductions.DemographicParity.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">DemographicParity</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ErrorRate</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">GridSearch</span></a>
 <span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
-    <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">,</span> <span class="n">selection_rate_difference</span>
+    <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span>
+    <a href="../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span>
+    <a href="../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span>
+    <a href="../api_reference/generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">,</span>
+    <span class="n">selection_rate_difference</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>We can now load and inspect the data by using the <cite>fairlearn.datasets</cite> module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a><span class="p">()</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">data</span></a>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a> <span class="o">=</span> <span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">target</span></a> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a>
@@ -808,10 +812,9 @@ Male    0.814538  ...  13000.0
 
 [2 rows x 3 columns]
 
-array([[&lt;AxesSubplot: title={&#39;center&#39;: &#39;accuracy&#39;}, xlabel=&#39;sex&#39;&gt;],
-       [&lt;AxesSubplot: title={&#39;center&#39;: &#39;selection_rate&#39;}, xlabel=&#39;sex&#39;&gt;],
-       [&lt;AxesSubplot: title={&#39;center&#39;: &#39;count&#39;}, xlabel=&#39;sex&#39;&gt;]],
-      dtype=object)
+array([[&lt;Axes: title={&#39;center&#39;: &#39;accuracy&#39;}, xlabel=&#39;sex&#39;&gt;],
+       [&lt;Axes: title={&#39;center&#39;: &#39;selection_rate&#39;}, xlabel=&#39;sex&#39;&gt;],
+       [&lt;Axes: title={&#39;center&#39;: &#39;count&#39;}, xlabel=&#39;sex&#39;&gt;]], dtype=object)
 </pre></div>
 </div>
 <p>Looking at the disparity in accuracy, we see that males have an error about
@@ -946,17 +949,17 @@ Fairlearn also provides functionality to compare models much more easily.</p>
     <span class="n">y_preds</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span>
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">,</span>
     <span class="n">point_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="c1"># End model comparison</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_grid_search_census_003.png" srcset="../_images/sphx_glr_plot_grid_search_census_003.png" alt="plot grid search census" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>No matplotlib.Axes object was provided to draw on, so we create a new one
 
-&lt;AxesSubplot: xlabel=&#39;accuracy score&#39;, ylabel=&#39;selection rate difference&#39;&gt;
+&lt;Axes: xlabel=&#39;accuracy score&#39;, ylabel=&#39;selection rate difference&#39;&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  33.707 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  29.213 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/298425cd75e0a5fa4e9d7f332f44eb61/plot_grid_search_census.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid_search_census.py</span></code></a></p>
