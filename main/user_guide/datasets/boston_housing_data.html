@@ -438,6 +438,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Revisiting the Boston Housing Dataset</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
 </ul>
 </li>
@@ -498,7 +499,7 @@
             <article class="bd-article" role="main">
               
   <section id="revisiting-the-boston-housing-dataset">
-<h1>Revisiting the Boston Housing Dataset<a class="headerlink" href="#revisiting-the-boston-housing-dataset" title="Permalink to this headline">#</a></h1>
+<span id="boston-housing-data"></span><h1>Revisiting the Boston Housing Dataset<a class="headerlink" href="#revisiting-the-boston-housing-dataset" title="Permalink to this headline">#</a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>The Boston Housing dataset is one of the datasets currently callable in <a class="reference internal" href="../../api_reference/index.html#module-fairlearn.datasets" title="fairlearn.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.datasets</span></code></a> module.
@@ -522,15 +523,16 @@ can potentially lead to fairness-related harms in downstream modelling tasks</p>
 </section>
 <section id="dataset-origin-and-use">
 <span id="boston-dataset-origin"></span><h2>Dataset Origin and Use<a class="headerlink" href="#dataset-origin-and-use" title="Permalink to this headline">#</a></h2>
-<p>Harrison and Rubenfield <a class="footnote-reference brackets" href="#id14" id="id1">12</a>
+<p>Harrison and Rubinfeld<a class="footnote-reference brackets" href="#footcite-harrison1978hedonic" id="id1">1</a>
 developed the dataset to illustrate the issues with using housing market data
 to measure consumer willingness to pay for clean air.
-The authors use a hedonic pricing <a class="footnote-reference brackets" href="#id22" id="id2">20</a>
-approach, which assumes that the price of a good or service can be modeled as a
-function of features both internal and external to the good or service.
-The input to this model was a dataset comprising the Boston Standard Metropolitan
-Statistical Area <a class="footnote-reference brackets" href="#id23" id="id3">21</a>, with the nitric oxides concentration (<em>NOX</em>)
-serving as a proxy for air quality.</p>
+The authors use a
+<a class="reference external" href="https://www.investopedia.com/terms/h/hedonicpricing.asp">hedonic pricing</a>
+approach, which assumes that the price of a good or service can be modeled as
+a function of features both internal and external to the good or service.
+The input to this model was a dataset comprising the Boston Standard
+Metropolitan Statistical Area <a class="footnote-reference brackets" href="#footcite-uscensusbureaumetropolitan" id="id2">2</a>, with the
+nitric oxides concentration (<em>NOX</em>) serving as a proxy for air quality.</p>
 <p>The paper sought to estimate the median value of owner-occupied homes (now
 <em>MEDV</em>), and included the remaining variables to capture other neighborhood
 characteristics.
@@ -553,9 +555,14 @@ Carnegie Mellon University’s <a class="reference external" href="http://lib.st
 and for a time was included as one of scikit-learn’s and tensorflow’s standard toy datasets
 (see <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/datasets/boston_housing" title="(in TensorFlow v2.4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tf.keras.datasets.boston_housing</span></code></a>).
 It has also been the benchmark of choice for many machine learning
-<a class="reference external" href="https://arxiv.org/search/?query=boston+housing&amp;searchtype=all">papers</a> <a class="footnote-reference brackets" href="#id15" id="id4">13</a> <a class="footnote-reference brackets" href="#id16" id="id5">14</a> <a class="footnote-reference brackets" href="#id17" id="id6">15</a>.
-In 2020, users brought the dataset’s fairness issues to the scikit-learn development team
-(see scikit-learn issue <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/16155">#16155</a>), after which the team decided to remove the dataset in scikit-learn version 1.2.</p>
+<a class="reference external" href="https://arxiv.org/search/?query=boston+housing&amp;searchtype=all">papers</a>
+<a class="footnote-reference brackets" href="#footcite-al2018comparative" id="id3">3</a>
+<a class="footnote-reference brackets" href="#footcite-shahhosseini2020optimizing" id="id4">4</a>
+<a class="footnote-reference brackets" href="#footcite-tipping1999relevance" id="id5">5</a>.
+In 2020, users brought the dataset’s fairness issues to the scikit-learn
+development team (see scikit-learn issue
+<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/16155">#16155</a>), after
+which the team decided to remove the dataset in scikit-learn version 1.2.</p>
 <p>The dataset contains the following columns:</p>
 <table class="colwidths-given table">
 <colgroup>
@@ -667,15 +674,16 @@ One expects, therefore, a parabolic relationship between proportion Black in
 a neighborhood and housing values.”</p></li>
 </ul>
 <p>To describe the reasoning behind <em>B</em> further, the authors assume that
-self-segregation correlates to higher home values. However, other
-researchers (see <a class="footnote-reference brackets" href="#id18" id="id8">16</a>) did not find evidence that supports this hypothesis.</p>
+self-segregation correlates to higher home values.
+However, other researchers (see <a class="footnote-reference brackets" href="#footcite-kain1975housing" id="id7">6</a>) did not find
+evidence that supports this hypothesis.</p>
 <p>Additionally, though the authors specify a parabolic transformation
 for <em>B</em>, they do not provide evidence that the relationship between <em>B</em> and <em>MEDV</em>
 is parabolic.
 Harrison and Rubenfield set a threshold of 63% as the point in which median house
 prices flip from declining to increasing, but do not provide the basis for
 this threshold.
-An analysis of the dataset <a class="footnote-reference brackets" href="#id21" id="id9">19</a>
+An analysis of the dataset <a class="footnote-reference brackets" href="#footcite-carlisle2019racist" id="id8">7</a>
 by M. Carlisle further shows that the Boston Housing dataset suffers from serious
 quality and incompleteness issues, as Carlisle was unable to recover the
 original Census data mapping for all the points in the <em>B</em> variable.</p>
@@ -717,7 +725,8 @@ been established.
 However, given the time period in which the paper
 was published there may have been a dearth of related measurement models.</p>
 <p>Intersectionality also requires consideration.
-Intersectionality is defined as the interesection between multiple demographic groups.[#11]_
+Intersectionality is defined as the intersection between multiple demographic
+groups. <a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id9">8</a>
 The impacts of a technical system on intersectional groups may be different
 than the impacts experienced by the individual demographic groups (e.g., Black
 people in aggregate and women in aggregate may experience a technical system
@@ -758,12 +767,13 @@ How does that look in a typical machine learning pipeline?</p>
 to turn this problem into a classification problem.
 The code below maps <em>LSTAT</em> and <em>MEDV</em> to binary values where values greater
 than the median of the column map to TRUE, and otherwise the values are FALSE.
-This methodology follows scikit-lego’s <a class="footnote-reference brackets" href="#id20" id="id10">18</a> exploration
-of the Boston Housing data. We also transform <em>B</em> into a binary variable where
-TRUE values are above the value 136.9. Observations below this point correspond to
-the “true” proportion of Black people above 63%, at which point the authors
-assumed that house prices would begin to be affected by the racism of
-others in the community.</p>
+This methodology follows scikit-lego’s <a class="footnote-reference brackets" href="#footcite-scikitlego2019fairness" id="id10">9</a>
+exploration of the Boston Housing data.
+We also transform <em>B</em> into a binary variable where TRUE values are above the
+value 136.9.
+Observations below this point correspond to the “true” proportion of Black
+people above 63%, at which point the authors assumed that house prices would
+begin to be affected by the racism of others in the community.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fairlearn.metrics</span> <span class="k">as</span> <span class="nn">fm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -836,7 +846,8 @@ an outcome for individuals in the “lower status” category.</p>
 strongly discourage using it in predictive modelling analyses.
 We’ve kept it in Fairlearn because of its potential as a teaching tool
 for how to deal with ethical issues in a dataset.
-There are ways to remove correlations between sensitive features and the remaining columns <a class="footnote-reference brackets" href="#id20" id="id12">18</a>,
+There are ways to remove correlations between sensitive features and the
+remaining columns <a class="footnote-reference brackets" href="#footcite-scikitlego2019fairness" id="id12">9</a>,
 but that is by no means a guarantee that fairness-related harms won’t occur.
 Besides, other benchmark datasets exist that do not present these issues.</p>
 <p>It’s important to keep the differences between the way Harrison and Rubenfield
@@ -872,62 +883,50 @@ different types of statistical analyses and different predicted outcomes.</p>
 <p>If you are searching for a house pricing dataset to use for benchmarking
 purposes or to create a hedonic pricing model, scikit-learn recommends the
 California housing dataset (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing" title="(in scikit-learn v1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.datasets.fetch_california_housing()</span></code></a>)
-or the Ames housing dataset <a class="footnote-reference brackets" href="#id19" id="id13">17</a>
+or the Ames housing dataset <a class="footnote-reference brackets" href="#footcite-scikitlearn2022ames" id="id13">10</a>
 in place of the Boston housing dataset, as using these datasets should not
 generate the same fairness-related harms.
 We strongly discourage using the Boston Housing dataset for machine learning
 benchmarking purposes, and hope this article gives
 you pause about using it in the future.</p>
-<div class="topic">
-<p class="topic-title">References:</p>
+</section>
+</section>
+<section id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
+<div class="docutils container" id="id14">
 <dl class="footnote brackets">
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id1">12</a></span></dt>
-<dd><p>David Harrison, Daniel Rubenfield, <a class="reference external" href="https://deepblue.lib.umich.edu/bitstream/handle/2027.42/22636/0000186.pdf?sequence=1&amp;isAllowed=y">“Hedonic Housing Prices and the Demand for Clean Air”</a>,
-Journal of Environmental Economics and Management, 1978.</p>
+<dt class="label" id="footcite-harrison1978hedonic"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>David Harrison, Jr and Daniel L Rubinfeld. Hedonic housing prices and the demand for clean air. <em>Journal of environmental economics and management</em>, 5(1):81–102, 1978. URL: <a class="reference external" href="https://deepblue.lib.umich.edu/bitstream/handle/2027.42/22636/0000186.pdf?sequence=1&amp;isAllowed=y">https://deepblue.lib.umich.edu/bitstream/handle/2027.42/22636/0000186.pdf?sequence=1&amp;isAllowed=y</a>.</p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id4">13</a></span></dt>
-<dd><p>Ali Al Bataineh, Devinder Kaur, <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8556738">“A Comparative Study of Different Curve Fitting Algorithms in Artificial Neural Network using Housing Dataset”</a>,
-IEEE, 2018.</p>
+<dt class="label" id="footcite-uscensusbureaumetropolitan"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>United States Census Bureau. Metropolitan areas. URL: <a class="reference external" href="https://www.census.gov/history/www/programs/geography/metropolitan_areas.html">https://www.census.gov/history/www/programs/geography/metropolitan_areas.html</a>.</p>
 </dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id5">14</a></span></dt>
-<dd><p>Mohsen Shahhosseini, Guiping Hu, Hieu Pham, <a class="reference external" href="https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1187&amp;context=imse_conf">“Optimizing Ensemble Weights for Machine Learning Models: A Case Study for Housing Price Prediction”</a>,
-Industrial and Manufacturing Systems Engineering Conference Proceedings and Posters, 2019.</p>
+<dt class="label" id="footcite-al2018comparative"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Ali Al Bataineh and Devinder Kaur. A comparative study of different curve fitting algorithms in artificial neural network using housing dataset. In <em>Naecon 2018-ieee national aerospace and electronics conference</em>, 174–178. IEEE, 2018. URL: <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8556738">https://ieeexplore.ieee.org/abstract/document/8556738</a>.</p>
 </dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id6">15</a></span></dt>
-<dd><p>Michael E. Tipping , <a class="reference external" href="https://proceedings.neurips.cc/paper/1999/file/f3144cefe89a60d6a1afaf7859c5076b-Paper.pdf">“The Relevance Vector Machine”</a>,
-1999.</p>
+<dt class="label" id="footcite-shahhosseini2020optimizing"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Mohsen Shahhosseini, Guiping Hu, and Hieu Pham. Optimizing ensemble weights for machine learning models: a case study for housing price prediction. In <em>Smart Service Systems, Operations Management, and Analytics: Proceedings of the 2019 INFORMS International Conference on Service Science</em>, 87–97. Springer, 2020. URL: <a class="reference external" href="https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1187&amp;context=imse_conf">https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1187&amp;context=imse_conf</a>.</p>
 </dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id8">16</a></span></dt>
-<dd><p>John F. Kain, John M. Quigley, <a class="reference external" href="https://www.nber.org/books/kain75-1">“Housing Markets and Racial Discrimination: A Microeconomic Analysis”</a>,
-National Bureau of Economic Research (NBER), 1975.</p>
+<dt class="label" id="footcite-tipping1999relevance"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Michael Tipping. The relevance vector machine. <em>Advances in neural information processing systems</em>, 1999. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/1999/file/f3144cefe89a60d6a1afaf7859c5076b-Paper.pdf">https://proceedings.neurips.cc/paper/1999/file/f3144cefe89a60d6a1afaf7859c5076b-Paper.pdf</a>.</p>
 </dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id13">17</a></span></dt>
-<dd><p>Scikit-Learn, <cite>“The Ames housing dataset” &lt;https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_ames_housing.html&gt;_</cite>,
-2021.</p>
+<dt class="label" id="footcite-kain1975housing"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>John F. Kain and John M. Quigley. Housing markets and racial discrimination: a microeconomic analysis. 1975. URL: <a class="reference external" href="https://www.nber.org/books-and-chapters/housing-markets-and-racial-discrimination-microeconomic-analysis">https://www.nber.org/books-and-chapters/housing-markets-and-racial-discrimination-microeconomic-analysis</a>.</p>
 </dd>
-<dt class="label" id="id20"><span class="brackets">18</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id12">2</a>)</span></dt>
-<dd><p>Scikit-Lego, <a class="reference external" href="https://scikit-lego.netlify.app/fairness.html">“Fairness”</a>,
-2019.</p>
+<dt class="label" id="footcite-carlisle2019racist"><span class="brackets"><a class="fn-backref" href="#id8">7</a></span></dt>
+<dd><p>M Carlisle. Racist data destruction? 2019. URL: <a class="reference external" href="https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8">https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8</a>.</p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id9">19</a></span></dt>
-<dd><p>M Carlisle, <a class="reference external" href="https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8">“racist data destruction?”</a>,
-Medium, 2019.</p>
+<dt class="label" id="footcite-crenshaw1991intersectionality"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
+<dd><p>Kimberlé Crenshaw. Mapping the margins: intersectionality, identity politics, and violence against women of color. <em>Stanford Law Review</em>, 43(6):1241–1299, 1991. URL: <a class="reference external" href="https://www.jstor.org/stable/1229039">https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.jstor.org/stable/1229039">arXiv:https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.2307/1229039">doi:https://doi.org/10.2307/1229039</a>.</p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id2">20</a></span></dt>
-<dd><p>Marshall Hargrave, <a class="reference external" href="https://www.investopedia.com/terms/h/hedonicpricing.asp">“Hedonic Pricing”</a>,
-Investopedia, 2021.</p>
+<dt class="label" id="footcite-scikitlego2019fairness"><span class="brackets">9</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Vincent Warmerdam, Matthijs Brouns, and Scikit-Lego contributors. Fairness. 2019. URL: <a class="reference external" href="https://scikit-lego.netlify.app/fairness.html">https://scikit-lego.netlify.app/fairness.html</a>.</p>
 </dd>
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id3">21</a></span></dt>
-<dd><p><a class="reference external" href="https://www.census.gov/history/www/programs/geography/metropolitan_areas.html">“Metropolitan Areas”,</a>,
-United States Census Bureau.</p>
-</dd>
-<dt class="label" id="id24"><span class="brackets">22</span></dt>
-<dd><p>Kinmberlé Crenshaw, Mapping the margins: Intersectionality, identity politics, and violence against women of color,
-Stanford Law Review, 1993, 43(6), 1241-1299.</p>
+<dt class="label" id="footcite-scikitlearn2022ames"><span class="brackets"><a class="fn-backref" href="#id13">10</a></span></dt>
+<dd><p>Scikit-Learn developers. The ames housing dataset. 2022. URL: <a class="reference external" href="https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_ames_housing.html">https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_ames_housing.html</a>.</p>
 </dd>
 </dl>
 </div>
-</section>
 </section>
 
 
@@ -948,29 +947,41 @@ Stanford Law Review, 1993, 43(6), 1241-1299.</p>
 </div>
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction">
-   Introduction
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Revisiting the Boston Housing Dataset
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     Introduction
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset-origin-and-use">
+     Dataset Origin and Use
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset-issues">
+     Dataset Issues
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fairness-related-harms-assessment">
+     Fairness-related harms assessment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion">
+     Discussion
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-origin-and-use">
-   Dataset Origin and Use
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-issues">
-   Dataset Issues
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fairness-related-harms-assessment">
-   Fairness-related harms assessment
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion">
-   Discussion
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
   </a>
  </li>
 </ul>

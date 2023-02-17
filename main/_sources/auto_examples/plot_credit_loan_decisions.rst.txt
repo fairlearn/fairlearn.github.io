@@ -67,7 +67,7 @@ Package Imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-150
+.. GENERATED FROM PYTHON SOURCE LINES 44-149
 
 Fairness considerations of credit loan decisions
 ------------------------------------------------
@@ -76,16 +76,15 @@ Fairness and credit lending in the US
 =====================================
 
 In 2019, Apple received backlash on social media after its newly launched
-*Apple Card* product appeared to `offer higher credit limits to men compared
-to women
-<https://edition.cnn.com/2019/11/12/business/apple-card-gender-bias/index.html>`_.
+*Apple Card* product appeared to offer higher credit limits to men compared
+to women :footcite:`nedlund2019apple`.
 In multiple cases, married couples found the husband received a credit limit
 that was 10-20x higher than the wife's even when the couple had joint assets.
 
 From a regulatory perspective, financial institutions that operate within
 the United States are subject to *legal regulations* prohibiting
 discrimination on the `basis of race, gender, or other protected classes
-<https://www.govinfo.gov/content/pkg/USCODE-2011-title15/html/USCODE-2011-title15-chap41-subchapIV.htm>`_.
+:footcite:`uscode2011title15chapter41subchapteriv`.
 With the increasing prevalence of automated decision-systems in the financial
 lending space, experts have raised concerns about whether these systems could
 exacerabate existing inequalities in financial lending.
@@ -94,8 +93,8 @@ Although the two concepts are intertwined, algorithmic fairness is not the
 same concept as anti-discrimination law. An AI system can comply with
 anti-discrimination law while exhibiting fairness-related concerns. On the
 other hand, some fairness interventions may be illegal under
-anti-discrimination law. `Xiang and Raji (2019)
-<https://arxiv.org/abs/1912.00761>`_ discuss the compatibilities and
+anti-discrimination law.
+:footcite:cts:`Xiang2019legalcompatibility` discuss the compatibilities and
 disconnects between anti-discrimination law and algorithmic notions of
 fairness. In this case study, we focus on fairness in financial services
 rather than compliance with financial anti-discrimination regulations.
@@ -103,8 +102,8 @@ rather than compliance with financial anti-discrimination regulations.
 Ernst & Young (EY) case study
 -----------------------------
 
-In this case study, we aim to replicate the work done in a `white paper
-<https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Fairlearn-EY_WhitePaper-2020-09-22.pdf>`_,
+In this case study, we aim to replicate the work done in a white paper
+:footcite:`dudik2020assessing`,
 co-authored by *Microsoft* and *EY*, on mitigating gender-related performance
 disparities in financial lending decisions. In their analysis, Microsoft and
 EY demonstrated how Fairlearn could be used to measure and mitigate
@@ -176,7 +175,7 @@ other columns.
 In addition, the target variable :code:`default payment next month` is
 changed to :code:`default` to reduce verbosity.
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-162
+.. GENERATED FROM PYTHON SOURCE LINES 149-161
 
 .. code-block:: default
 
@@ -205,7 +204,7 @@ changed to :code:`default` to reduce verbosity.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-165
+.. GENERATED FROM PYTHON SOURCE LINES 162-164
 
 .. code-block:: default
 
@@ -406,17 +405,16 @@ changed to :code:`default` to reduce verbosity.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-173
+.. GENERATED FROM PYTHON SOURCE LINES 165-171
 
-From the `dataset description
-<https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients>`_,
+From the `dataset description :footcite:`yeh2009comparisons`,
 we see there are three categorical features:
 
 - :code:`SEX`: Sex of the applicant (as a binary feature)
 - :code:`EDUCATION`: Highest level of education achieved by the applicant.
 - :code:`MARRIAGE`: Marital status of the applicant.
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-184
+.. GENERATED FROM PYTHON SOURCE LINES 171-182
 
 .. code-block:: default
 
@@ -438,7 +436,7 @@ we see there are three categorical features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-198
+.. GENERATED FROM PYTHON SOURCE LINES 183-196
 
 Dataset imbalances
 ==================
@@ -454,7 +452,7 @@ our sensitive feature :code:`SEX`. We see that 60% of loan applicants were
 labeled as `female` and 40% as `male`, so we do not need to worry about
 imbalance in this feature.
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-201
+.. GENERATED FROM PYTHON SOURCE LINES 196-199
 
 .. code-block:: default
 
@@ -476,7 +474,7 @@ imbalance in this feature.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-211
+.. GENERATED FROM PYTHON SOURCE LINES 200-209
 
 Next, let's explore the distribution of the *loan default rate* :code:`Y`.
 We see that around 78% of individuals in the dataset do not default on their
@@ -488,7 +486,7 @@ For example, a classifier that predicts an applicant will not default would
 achieve an accuracy of 78%, so we will use the :code:`balanced_accuracy`
 score as our evaluation metric to counteract the label imbalance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-214
+.. GENERATED FROM PYTHON SOURCE LINES 209-212
 
 .. code-block:: default
 
@@ -510,7 +508,7 @@ score as our evaluation metric to counteract the label imbalance.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-241
+.. GENERATED FROM PYTHON SOURCE LINES 213-239
 
 Add synthetic noise that is related to the outcome and sex
 ==========================================================
@@ -539,7 +537,7 @@ To reflect the above reasoning, the :code:`Interest` feature is drawn from a
 This feature is drawn from a *Gaussian distribution* for computational
 simplicity.
 
-.. GENERATED FROM PYTHON SOURCE LINES 241-244
+.. GENERATED FROM PYTHON SOURCE LINES 239-242
 
 .. code-block:: default
 
@@ -553,7 +551,7 @@ simplicity.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-253
+.. GENERATED FROM PYTHON SOURCE LINES 243-251
 
 Check if this will lead to disparity in naive model
 ===================================================
@@ -564,7 +562,7 @@ label :code:`default`.
 We see that for both sexes, the :code:`Interest` feature is higher for
 individuals who defaulted on their loan.
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-275
+.. GENERATED FROM PYTHON SOURCE LINES 251-273
 
 .. code-block:: default
 
@@ -604,11 +602,11 @@ individuals who defaulted on their loan.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7fbfaac536a0>
+    <matplotlib.legend.Legend object at 0x7fdfb8544790>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-282
+.. GENERATED FROM PYTHON SOURCE LINES 274-280
 
 Training an initial model
 =========================
@@ -617,7 +615,7 @@ In this section, we will train a fairness-unaware model on the training
 data. However because of the imbalances in the dataset, we will first
 resample the training data to produce a new balanced training dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 282-307
+.. GENERATED FROM PYTHON SOURCE LINES 280-305
 
 .. code-block:: default
 
@@ -653,7 +651,7 @@ resample the training data to produce a new balanced training dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 308-314
+.. GENERATED FROM PYTHON SOURCE LINES 306-312
 
 .. code-block:: default
 
@@ -670,13 +668,13 @@ resample the training data to produce a new balanced training dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 315-318
+.. GENERATED FROM PYTHON SOURCE LINES 313-316
 
 At this stage, we will train a *gradient-boosted tree classifier* using the
 :code:`lightgbm` package on the balanced training dataset.
 When we evaluate the model, we will use the unbalanced testing dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 318-338
+.. GENERATED FROM PYTHON SOURCE LINES 316-336
 
 .. code-block:: default
 
@@ -722,12 +720,12 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 339-341
+.. GENERATED FROM PYTHON SOURCE LINES 337-339
 
 We compute the *binary predictions* and the *prediction probabilities* for
 the testing data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 341-345
+.. GENERATED FROM PYTHON SOURCE LINES 339-343
 
 .. code-block:: default
 
@@ -742,14 +740,14 @@ the testing data points.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 346-350
+.. GENERATED FROM PYTHON SOURCE LINES 344-348
 
 From the *ROC Score*, we see the model appears to be differentiating
 between *true positives* and *false positives* well.
 This is to be expected given the :code:`INTEREST` feature provides a
 strong discriminant feature for the classification task.
 
-.. GENERATED FROM PYTHON SOURCE LINES 350-353
+.. GENERATED FROM PYTHON SOURCE LINES 348-351
 
 .. code-block:: default
 
@@ -769,7 +767,7 @@ strong discriminant feature for the classification task.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 354-362
+.. GENERATED FROM PYTHON SOURCE LINES 352-360
 
 Feature Importance of the Unmitigated Classifier
 ================================================
@@ -780,7 +778,7 @@ As expected, our synthetic feature :code:`INTEREST` has the highest feature
 importance because it is highly correlated with the target variable,
 by construction.
 
-.. GENERATED FROM PYTHON SOURCE LINES 362-372
+.. GENERATED FROM PYTHON SOURCE LINES 360-370
 
 .. code-block:: default
 
@@ -812,7 +810,7 @@ by construction.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 373-391
+.. GENERATED FROM PYTHON SOURCE LINES 371-389
 
 Fairness assessment of unmitigated model
 ----------------------------------------
@@ -833,15 +831,14 @@ of this notebook, we believe the model may incorrectly predict women will
 default on the credit loan. The system may unfairly allocate less loans to
 women and over-allocate loans to men.
 
-.. GENERATED FROM PYTHON SOURCE LINES 393-469
+.. GENERATED FROM PYTHON SOURCE LINES 391-465
 
 Types of harm experienced
 =========================
 
 When discussing fairness in AI systems, the first step is understanding
-what types of harms we anticipate the system may produce. Using the `harms
-taxonomy in the Fairlearn User Guide
-<https://fairlearn.org/v0.7.0/user_guide/fairness_in_machine_learning.html#types-of-harms>`_,
+what types of harms we anticipate the system may produce. Using the
+:ref:`harms taxonomy in the Fairlearn User Guide <types_of_harms>`,
 we expect this system to produce *harms of allocation*. In addition, we also
 anticipate the long-term impact on an individual's credit score if an
 individual is unable to repay a loan they receive or if they are rejected for
@@ -892,16 +889,15 @@ a business, or pursue some other economic activity that they are not able to
 do otherwise. These outcomes are tied to **false positive error** rates in
 which the model predicts an applicant will default on the loan, but the
 individual would have successfully paid the loan back. In the United States,
-the practice of `redlining
-<https://news.trust.org/item/20200713110849-az14m/>`_, denying mortgage loans
+the practice of redlining :footcite:`peyton2020redlining`, denying mortgage loans
 and other financial services to predominantly Black or other minority
 communites, has resulted in a vast racial wealth gap between white and Black
-Americans. Although the practice of redlining was banned in 1968 with the
-*Fair Housing Act*, the `long-term impact of these practices
-<https://www.washingtonpost.com/news/wonk/wp/2018/03/28/redlining-was-banned-50-years-ago-its-still-hurting-minorities-today/>`_
-is reflected in the lack of economic investment in Black communities, and
-Black applicants are denied loans at a higher rate compared to white
 Americans.
+Although the practice of redlining was banned in 1968 with the
+*Fair Housing Act*, the long-term impact of these practices
+:footcite:`jan2018redlining` is reflected in the lack of economic investment
+in Black communities, and Black applicants are denied loans at a higher rate
+compared to white Americans.
 
 Define fairness metrics based on harms
 --------------------------------------
@@ -912,7 +908,7 @@ will quantify the uncertainty around each metric using *custom functions* to
 compute the *standard error* for each metric at the :math:`\alpha=0.95` confidence
 level.
 
-.. GENERATED FROM PYTHON SOURCE LINES 469-520
+.. GENERATED FROM PYTHON SOURCE LINES 465-516
 
 .. code-block:: default
 
@@ -974,11 +970,11 @@ level.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 521-522
+.. GENERATED FROM PYTHON SOURCE LINES 517-518
 
 Select a subset of metrics to report to avoid information overload
 
-.. GENERATED FROM PYTHON SOURCE LINES 522-528
+.. GENERATED FROM PYTHON SOURCE LINES 518-524
 
 .. code-block:: default
 
@@ -995,7 +991,7 @@ Select a subset of metrics to report to avoid information overload
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 529-536
+.. GENERATED FROM PYTHON SOURCE LINES 525-532
 
 To compute the disaggregated performance metrics, we will use the
 :code:`MetricFrame` object within the Fairlearn library. We will pass in our
@@ -1005,7 +1001,7 @@ and test predictions :code:`Y_pred`. In addition, we pass in the
 
 Instantiate the MetricFrame for the unmitigated model
 
-.. GENERATED FROM PYTHON SOURCE LINES 536-550
+.. GENERATED FROM PYTHON SOURCE LINES 532-546
 
 .. code-block:: default
 
@@ -1039,7 +1035,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 551-595
+.. GENERATED FROM PYTHON SOURCE LINES 547-591
 
 .. code-block:: default
 
@@ -1094,7 +1090,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 596-600
+.. GENERATED FROM PYTHON SOURCE LINES 592-596
 
 .. code-block:: default
 
@@ -1114,7 +1110,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 601-605
+.. GENERATED FROM PYTHON SOURCE LINES 597-601
 
 .. code-block:: default
 
@@ -1134,7 +1130,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 606-610
+.. GENERATED FROM PYTHON SOURCE LINES 602-606
 
 .. code-block:: default
 
@@ -1163,7 +1159,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 611-618
+.. GENERATED FROM PYTHON SOURCE LINES 607-614
 
 Finally, let's compute the :code:`equalized_odds_difference` for this unmitigated
 model. The :code:`equalized_odds_difference` is the maximum of the
@@ -1173,7 +1169,7 @@ lending context, both *false_negative_rate_disparities* and
 we attempt to minimize both of these metrics by minimizing the
 :code:`equalized_odds_difference`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 618-624
+.. GENERATED FROM PYTHON SOURCE LINES 614-620
 
 .. code-block:: default
 
@@ -1190,7 +1186,7 @@ we attempt to minimize both of these metrics by minimizing the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 625-669
+.. GENERATED FROM PYTHON SOURCE LINES 621-666
 
 One key assumption here is we assume that *false positives* and *false
 negatives* have the equally adverse costs to each group. In practice, we would
@@ -1222,12 +1218,13 @@ mitigation strategies:
 Postprocessing mitigations: ThresholdOptimizer
 ==============================================
 In the Fairlearn package, *postprocessing* mitigation is offered through
-the :code:`ThresholdOptimizer` algorithm, following `Hardt, Price, and Srebro (2016)
-<https://arxiv.org/abs/1610.02413>`_. The :code:`ThresholdOptimizer` takes in an
-exisiting (possilbly pre-fit) machine learning model whose predictions acts as
-a scoring function to identify separate thresholds for each *sensitive
-feature* group. The :code:`ThresholdOptimizer` optimizes a specified objective
-metric (in our case, :code:`balanced_accuracy`) subject to some fairness constraint
+the :code:`ThresholdOptimizer` algorithm, following
+:footcite:cts:`hardt2016equality`.
+The :code:`ThresholdOptimizer` takes in an exisiting (possibly pre-fit)
+machine learning model whose predictions acts as a scoring function to
+identify separate thresholds for each *sensitive feature* group.
+The :code:`ThresholdOptimizer` optimizes a specified objective metric
+(in our case, :code:`balanced_accuracy`) subject to some fairness constraint
 (`equalized_odds`), resulting in a thresholded version of the underlying
 machine learning model.
 
@@ -1237,7 +1234,7 @@ disparities and :code:`false_positive_rate` disparities translate into real-worl
 harms in our scenario, we will aim to minimize the :code:`equalized_odds` difference
 as our *fairness constraint*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 669-678
+.. GENERATED FROM PYTHON SOURCE LINES 666-675
 
 .. code-block:: default
 
@@ -1257,17 +1254,17 @@ as our *fairness constraint*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 679-686
+.. GENERATED FROM PYTHON SOURCE LINES 676-683
 
 One key limitation of the :code:`ThresholdOptimizer` is the need for sensitive
 features during training and prediction time. If we do not have access to the
 :code:`sensitive_features` during prediction time, we cannot use the
 :code:`ThresholdOptimizer`.
 
-We pass in :code:`A_train` to the :code:`fit` function with the :code:`sensitive_features`
-parameter.
+We pass in :code:`A_train` to the :code:`fit` function with the
+:code:`sensitive_features` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 686-696
+.. GENERATED FROM PYTHON SOURCE LINES 683-693
 
 .. code-block:: default
 
@@ -1288,13 +1285,13 @@ parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 697-700
+.. GENERATED FROM PYTHON SOURCE LINES 694-697
 
 Fairness assessment of postprocessing model
 ===========================================
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 700-725
+.. GENERATED FROM PYTHON SOURCE LINES 697-722
 
 .. code-block:: default
 
@@ -1330,7 +1327,7 @@ Fairness assessment of postprocessing model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 726-742
+.. GENERATED FROM PYTHON SOURCE LINES 723-739
 
 .. code-block:: default
 
@@ -1366,12 +1363,12 @@ Fairness assessment of postprocessing model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 743-745
+.. GENERATED FROM PYTHON SOURCE LINES 740-742
 
 Now, let's compare the performance of our *thresholded* classifier with the
 original *unmitigated* model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 745-758
+.. GENERATED FROM PYTHON SOURCE LINES 742-755
 
 .. code-block:: default
 
@@ -1409,7 +1406,7 @@ original *unmitigated* model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 759-801
+.. GENERATED FROM PYTHON SOURCE LINES 756-798
 
 We see that the :code:`ThresholdOptimizer` algorithm achieves a much lower
 disparity between the two groups compared to the *unmitigated* model.
@@ -1425,8 +1422,8 @@ satisfy our fairness constraints.
 One key limitation of the :code:`ThresholdOptimizer` is needing access to
 our *sensitive_feature* during prediction time.
 
-In this section, we will use the *reductions* approach of `Agarwal et. al
-(2018) <https://arxiv.org/pdf/1803.02453.pdf>`_ to produce models that satisfy
+In this section, we will use the *reductions* approach of Agarwal et. al
+(2018) :footcite:`agarwal2018reductions` to produce models that satisfy
 the fairness constraint without needing access to the sensitive features at
 deployment time.
 
@@ -1454,7 +1451,7 @@ For example, in the below code,
 maximal difference of :code:`epsilon` between our largest and smallest
 *equalized odds* value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 801-831
+.. GENERATED FROM PYTHON SOURCE LINES 798-828
 
 .. code-block:: default
 
@@ -1495,7 +1492,7 @@ maximal difference of :code:`epsilon` between our largest and smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 832-844
+.. GENERATED FROM PYTHON SOURCE LINES 829-841
 
 Because the *performance-fairness trade-off* learned by the
 :code:`ExponentiatedGradient` model is sensitive to our chosen
@@ -1510,7 +1507,7 @@ the order of the *square root* of the number of samples in the training
 dataset:
 :math:`\dfrac{1}{\sqrt{\text{numberSamples}}} \approx \dfrac{1}{\sqrt{25000}} \approx 0.01`
 
-.. GENERATED FROM PYTHON SOURCE LINES 844-847
+.. GENERATED FROM PYTHON SOURCE LINES 841-844
 
 .. code-block:: default
 
@@ -1524,7 +1521,7 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 848-858
+.. GENERATED FROM PYTHON SOURCE LINES 845-855
 
 .. code-block:: default
 
@@ -1545,7 +1542,7 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 859-865
+.. GENERATED FROM PYTHON SOURCE LINES 856-862
 
 .. code-block:: default
 
@@ -1569,7 +1566,7 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 866-894
+.. GENERATED FROM PYTHON SOURCE LINES 863-891
 
 Here, we can see all the inner models learned for each value of
 :code:`epsilon`.
@@ -1600,7 +1597,7 @@ the models that are outperformed in both of the metrics by some other
 model (we refer to these as *"dominated"* models), and plot just the remaining
 *"undominated"* models.
 
-.. GENERATED FROM PYTHON SOURCE LINES 894-921
+.. GENERATED FROM PYTHON SOURCE LINES 891-918
 
 .. code-block:: default
 
@@ -1638,7 +1635,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 922-941
+.. GENERATED FROM PYTHON SOURCE LINES 919-938
 
 .. code-block:: default
 
@@ -1668,7 +1665,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 942-972
+.. GENERATED FROM PYTHON SOURCE LINES 939-969
 
 .. code-block:: default
 
@@ -1709,7 +1706,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 973-1009
+.. GENERATED FROM PYTHON SOURCE LINES 970-1006
 
 .. code-block:: default
 
@@ -1756,7 +1753,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1010-1012
+.. GENERATED FROM PYTHON SOURCE LINES 1007-1009
 
 .. code-block:: default
 
@@ -1769,7 +1766,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1013-1017
+.. GENERATED FROM PYTHON SOURCE LINES 1010-1014
 
 .. code-block:: default
 
@@ -1784,7 +1781,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1018-1022
+.. GENERATED FROM PYTHON SOURCE LINES 1015-1019
 
 .. code-block:: default
 
@@ -1799,11 +1796,11 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1023-1024
+.. GENERATED FROM PYTHON SOURCE LINES 1020-1021
 
 Now, let's plot the performance trade-offs between all of our models.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1024-1050
+.. GENERATED FROM PYTHON SOURCE LINES 1021-1047
 
 .. code-block:: default
 
@@ -1847,11 +1844,11 @@ Now, let's plot the performance trade-offs between all of our models.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7fbfaf442550>
+    <matplotlib.legend.Legend object at 0x7fdfaffe00a0>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1051-1076
+.. GENERATED FROM PYTHON SOURCE LINES 1048-1073
 
 With the above plot, we can see how the performance of the non-dominated
 inner models compares to the original unmitigated model. In many cases, we see
@@ -1879,7 +1876,7 @@ thresholding based on the :code:`balanced_error` rate of the unmitigated model, 
 we choose the least discriminatory model based on the smallest
 :code:`equalized_odds_difference` value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1076-1113
+.. GENERATED FROM PYTHON SOURCE LINES 1073-1110
 
 .. code-block:: default
 
@@ -1927,7 +1924,7 @@ we choose the least discriminatory model based on the smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1114-1126
+.. GENERATED FROM PYTHON SOURCE LINES 1111-1123
 
 .. code-block:: default
 
@@ -1956,12 +1953,12 @@ we choose the least discriminatory model based on the smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1127-1129
+.. GENERATED FROM PYTHON SOURCE LINES 1124-1126
 
 Now we have selected our best inner model, let's collect the model's
 predictions on the test dataset and compute the relevant performance metrics.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1129-1137
+.. GENERATED FROM PYTHON SOURCE LINES 1126-1134
 
 .. code-block:: default
 
@@ -1980,7 +1977,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1138-1145
+.. GENERATED FROM PYTHON SOURCE LINES 1135-1142
 
 .. code-block:: default
 
@@ -1998,7 +1995,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1146-1154
+.. GENERATED FROM PYTHON SOURCE LINES 1143-1151
 
 .. code-block:: default
 
@@ -2031,7 +2028,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1155-1161
+.. GENERATED FROM PYTHON SOURCE LINES 1152-1158
 
 Discuss Performance and Trade-Offs
 --------------------------------------
@@ -2040,7 +2037,7 @@ Now we have trained two different fairness-aware models using the
 *postprocessing* approach and the *reductions* approach. Let's compare the
 performance of these models to our original fairness-unaware model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1161-1184
+.. GENERATED FROM PYTHON SOURCE LINES 1158-1181
 
 .. code-block:: default
 
@@ -2074,14 +2071,14 @@ performance of these models to our original fairness-unaware model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1185-1189
+.. GENERATED FROM PYTHON SOURCE LINES 1182-1186
 
 Report model performance error bars for metrics
 ===============================================
 
 **Unmitigated model**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1189-1196
+.. GENERATED FROM PYTHON SOURCE LINES 1186-1193
 
 .. code-block:: default
 
@@ -2108,11 +2105,11 @@ Report model performance error bars for metrics
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1197-1198
+.. GENERATED FROM PYTHON SOURCE LINES 1194-1195
 
 **ExponentiatedGradient model**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1198-1203
+.. GENERATED FROM PYTHON SOURCE LINES 1195-1200
 
 .. code-block:: default
 
@@ -2178,11 +2175,11 @@ Report model performance error bars for metrics
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1204-1205
+.. GENERATED FROM PYTHON SOURCE LINES 1201-1202
 
 **ThresholdOptimizer**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1205-1214
+.. GENERATED FROM PYTHON SOURCE LINES 1202-1211
 
 .. code-block:: default
 
@@ -2211,7 +2208,7 @@ Report model performance error bars for metrics
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1215-1269
+.. GENERATED FROM PYTHON SOURCE LINES 1212-1270
 
 We see both of our fairness-aware models yield a slight decrease in the
 *balanced_accuracy* for *male applicants* compared to our fairness-unaware
@@ -2225,13 +2222,12 @@ Conclusion and Discussion
 ----------------------------
 
 In this case study, we walked through the process of assessing a credit
-decision model for gender-related performance disparities. Our analysis
-follows closely the work done in the `Microsoft/EY white paper
-<https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Fairlearn-EY_WhitePaper-2020-09-22.pdf>`_
-where they used the *Fairlearn* toolkit to perform an audit of a
-fairness-unaware tree-based model. We applied a *postprocessing* and
-*reductions* mitigation techniques to mitigate the *equalized odds difference*
-in our model.
+decision model for gender-related performance disparities.
+Our analysis follows closely the work done in the Microsoft/EY white paper
+:footcite:`dudik2020assessing` where they used the *Fairlearn* toolkit to
+perform an audit of a fairness-unaware tree-based model.
+We applied a *postprocessing* and *reductions* mitigation techniques to
+mitigate the *equalized odds difference* in our model.
 
 Through the *reductions* process, we generated a model that reduces the
 *equalized odds difference* of the original model without a drastic increase
@@ -2245,7 +2241,7 @@ Designing a Model Card
 ======================
 
 A key facet of Responsible Machine Learning is responsible documentation
-practices. `Mitchell et al. (2019) <https://arxiv.org/abs/1810.03993>`_
+practices. :footcite:ct:`mitchell2019model`
 proposed the model card framework for documentating and reporting model
 training details and deployment considerations.
 
@@ -2264,14 +2260,19 @@ When proving credit models are compliant with fair lending laws,
 practitoners may run into the issue of not having access to the sensitive
 demographic features. As a result, financial institutions are often tasked
 with proving their models are compliant with fair lending laws by imputing
-these demographics features. However, `Chen et. al (2018)
-<https://arxiv.org/abs/1811.11154>`_ show these imputation methods often
-introduce new fairness-related issues.
+these demographics features. However, :footcite:ct:`chen2019fairness` show
+these imputation methods often introduce new fairness-related issues.
+
+References
+----------
+
+.. footbibliography::
+
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  36.370 seconds)
+   **Total running time of the script:** ( 0 minutes  39.620 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_credit_loan_decisions.py:
