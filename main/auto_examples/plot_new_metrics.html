@@ -1010,8 +1010,8 @@ pass these along:</p>
 <span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grouped_with_weights</span></a><span class="o">.</span><span class="n">overall</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.195051
-fbeta_06              0.683693
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.191562
+fbeta_06              0.693049
 count             14653.000000
 dtype: float64
 </pre></div>
@@ -1053,14 +1053,14 @@ dtype: float64
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.069646</td>
-      <td>0.629018</td>
+      <td>0.068013</td>
+      <td>0.634196</td>
       <td>4838.0</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.256363</td>
-      <td>0.691578</td>
+      <td>0.253265</td>
+      <td>0.701691</td>
       <td>9815.0</td>
     </tr>
   </tbody>
@@ -2083,11 +2083,11 @@ in a cell - <code class="docutils literal notranslate"><span class="pre">member_
 <section id="exporting-from-metricframe">
 <h2>Exporting from MetricFrame<a class="headerlink" href="#exporting-from-metricframe" title="Permalink to this headline">#</a></h2>
 <p>Sometimes, we need to extract our data for use in other tools.
-For this, we can use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv" title="(in pandas v2.0.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.to_csv()</span></code></a> method,
+For this, we can use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv" title="(in pandas v2.0.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.to_csv()</span></code></a> method,
 since the <code class="xref py py-meth docutils literal notranslate"><span class="pre">by_group()</span></code> property
-will be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> (or in a few cases, it will be
-a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, but that has a similar
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.to_csv.html#pandas.Series.to_csv" title="(in pandas v2.0.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_csv()</span></code></a> method):</p>
+will be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> (or in a few cases, it will be
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, but that has a similar
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.to_csv.html#pandas.Series.to_csv" title="(in pandas v2.0.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_csv()</span></code></a> method):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">csv_output</span> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cond_credit_score</span></a><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">to_csv</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">csv_output</span><span class="p">)</span>
 </pre></div>
@@ -2113,13 +2113,13 @@ Medium,White,Female,0.3734567901234568,0.6808811402992107,648.0
 Medium,White,Male,0.40610798036720597,0.700837357443748,5501.0
 </pre></div>
 </div>
-<p>The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv" title="(in pandas v2.0.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.to_csv()</span></code></a> method has a large number of
+<p>The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv" title="(in pandas v2.0.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.to_csv()</span></code></a> method has a large number of
 arguments to control the exported CSV. For example, it can write
 directly to a CSV file, rather than returning a string (as shown
 above).</p>
 <p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">overall()</span></code> property can
 be handled similarly, in the cases that it is not a scalar.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.754 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.866 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ba1f35f924ab04f7de102117c0ff4fb1/plot_new_metrics.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_new_metrics.py</span></code></a></p>
