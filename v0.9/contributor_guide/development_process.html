@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Development process &#8212; Fairlearn 0.9.0.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contributor_guide/development_process';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        </script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing code" href="contributing_code.html" />
+    <link rel="prev" title="Fairlearn Repository Overview" href="fairlearn_repository_overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      main  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ways_to_contribute.html">Ways to contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_talk_about_fairness.html">How to talk and write about fairness in AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn_repository_overview.html">Fairlearn Repository Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Development process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing_code.html">Contributing code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing_example_notebooks.html">Contributing example notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing_documentation.html">Contributing documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn_proposals.html">API and design proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release Process</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributor Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Development process</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="development-process">
+<h1>Development process<a class="headerlink" href="#development-process" title="Permalink to this headline">#</a></h1>
+<p>Development happens against the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch following the
+<a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub flow model</a>.
+Contributors should use their own forks of the repository. In their fork, they
+create feature branches off of <code class="code docutils literal notranslate"><span class="pre">main</span></code>, and their pull requests should
+target the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch. Maintainers are responsible for prompt
+review of pull requests.</p>
+<p>Pull requests against <code class="code docutils literal notranslate"><span class="pre">main</span></code> trigger automated tests that are run
+through Azure DevOps, GitHub Actions, and CircleCI. Additional test suites are
+run periodically. When adding new code paths or features, tests are a
+requirement to complete a pull request. They should be added in the
+<code class="code docutils literal notranslate"><span class="pre">test</span></code> directory.</p>
+<p>Documentation should be provided with pull requests that add or change
+functionality. This includes comments in the code itself, docstrings, and user
+guides. For exceptions to this rule the pull request author should coordinate
+with a maintainer. For changes that fix bugs, add new features, change APIs,
+etc., i.e., for changes that are relevant to developers and/or users please
+also add an entry in CHANGES.md in the section corresponding to the <em>next</em>
+release, since that’s where your change will be included.
+If you’re a new contributor please also add yourself to AUTHORS.md.</p>
+<p>Docstrings should follow
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc format</a>.
+This is a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues/314">recent decision by the community</a>.
+The new policy is to update docstrings that a PR touches, as opposed to
+changing all the docstrings in one PR.</p>
+<section id="advanced-installation-instructions">
+<h2>Advanced installation instructions<a class="headerlink" href="#advanced-installation-instructions" title="Permalink to this headline">#</a></h2>
+<p>While working on Fairlearn itself you may want to install it in editable mode.
+This allows you to test the changed functionality. First, clone the repository
+locally via</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">fairlearn</span><span class="o">/</span><span class="n">fairlearn</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>To install in editable mode using <code class="code docutils literal notranslate"><span class="pre">pip</span></code> run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>from the repository root path.</p>
+<p>To verify that the code works as expected run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">install_requirements</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">pinned</span> <span class="kc">False</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">s</span> <span class="o">./</span><span class="n">test</span><span class="o">/</span><span class="n">unit</span>
+</pre></div>
+</div>
+<p>Fairlearn currently includes plotting functionality that requires the
+<code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code> package to be installed. Since this is for a niche use case
+Fairlearn comes without <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code> by default. To get Fairlearn’s
+plotting capabilities simply run <cite>pip install matplotlib</cite> after installing
+Fairlearn.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">matplotlib</span>
+</pre></div>
+</div>
+<section id="the-requirements-files">
+<h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Permalink to this headline">#</a></h3>
+<p>The prerequisites for Fairlearn are split between three separate files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
+contains the prerequisites for the core Fairlearn package</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a> contains
+the prerequisites for Fairlearn development (such as flake8 and pytest)</p></li>
+</ul>
+</div></blockquote>
+<p>The <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
+file is consumed
+by <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/setup.py">setup.py</a> to specify the dependencies to be
+documented in the wheel files.
+To help simplify installation of the prerequisites, we have the
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/scripts/install_requirements.py">install_requirements.py</a>
+script which runs <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> on both the above files.
+This script will also optionally pin the requirements to any lower bound specified (by changing any
+occurrences of <code class="code docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="code docutils literal notranslate"><span class="pre">==</span></code> in each file).</p>
+</section>
+</section>
+<section id="contributing-a-pull-request">
+<span id="contributing-pull-requests"></span><h2>Contributing a pull request<a class="headerlink" href="#contributing-a-pull-request" title="Permalink to this headline">#</a></h2>
+<p>Follow the steps below to create a pull request.</p>
+<ol class="arabic simple">
+<li><p>Get a <a class="reference external" href="https://github.com/">GitHub account</a></p></li>
+<li><p>Install <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a></p></li>
+<li><p>Look at Fairlearn’s issues on GitHub, specifically the ones marked <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22">“help wanted”</a>. Within this category we’ve marked issues with labels:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22good+first+issue%22">“good first issue”</a> means issues are a good fit for first time contributors including people with no prior experience with coding or GitHub. This is an excellent way to get started!</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22easy%22+">“easy”</a> means the issue is somewhat harder than a “good first issue”, but still quite doable if you have prior experience or you’re willing to spend a little bit of time.</p></li>
+<li><p>Neither of the two above: this means issues haven’t been scoped out properly yet or are more difficult and likely won’t be doable within a day or two. If you’re still interested just let us know and we’ll figure out a way! Once you find an issue you’re interested in comment on the issue with any questions you may have and let us know that you’d like to do it. This helps us avoid duplication and we can help you quicker.</p></li>
+</ul>
+</li>
+<li><p>Whenever questions come up don’t hesitate to reach out (see <a class="reference internal" href="index.html#communication"><span class="std std-ref">Real-time communication</span></a>). We’re here to help!</p></li>
+<li><p>Clone the Fairlearn repository onto your machine using <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/fairlearn/fairlearn.git</span></code></p></li>
+<li><p>Fork the Fairlearn repository (using the “Fork” button on the Fairlearn repo), then run <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">&lt;your-alias&gt;</span> <span class="pre">https://github.com/&lt;your-alias&gt;/fairlearn.git</span></code> while replacing <code class="code docutils literal notranslate"><span class="pre">&lt;your-alias&gt;</span></code> with your actual alias. To check whether it worked run <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code> and it should show both <code class="code docutils literal notranslate"><span class="pre">origin</span></code> pointing to the original fairlearn repo and <code class="code docutils literal notranslate"><span class="pre">&lt;your-alias&gt;</span></code> pointing to your fork. Now you can create a new branch and start changing the world!</p></li>
+<li><p>To check your branch run <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>. Initially it will point to <code class="code docutils literal notranslate"><span class="pre">main</span></code> which is the default. Create a new branch for yourself by running <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">&lt;branch-name&gt;</span></code>. <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> is your way of switching branches, while <code class="code docutils literal notranslate"><span class="pre">-b</span></code> creates a new branch and should only be added the first time you check out a (new) branch. Whenever you are ready to commit your changes run <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">--all</span></code> and <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">--all</span></code> or use the version control functionality of your IDE (e.g., Visual Studio Code). To push the changes to your fork run <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">&lt;your-alias&gt;</span></code>. Note that you cannot push to <code class="code docutils literal notranslate"><span class="pre">origin</span></code> (the main fairlean repository) because it is access-restricted.</p></li>
+<li><p>Build the website following <a class="reference internal" href="contributing_documentation.html#contributing-documentation"><span class="std std-ref">Contributing documentation</span></a></p></li>
+<li><p>To create a pull request go to the <a class="reference external" href="https://github.com/fairlearn/fairlearn/pulls">Fairlearn repo</a> and select “New Pull Request”. Click “compare across forks” and subsequently configure the “compare” branch to be the one you pushed your changes to. Briefly check the file changes in the resulting view and click “create pull request” when you’re confident about your changes. The following view will ask you to add a pull request title and description, and if you created the pull request in response to an issue add <code class="code docutils literal notranslate"><span class="pre">#&lt;issue-number&gt;</span></code> for reference.</p></li>
+<li><p>Celebrate! You did great by participating. If you would like to be a part of the Fairlearn community we’d be thrilled to discuss ways for you to get involved! Check out our communication channels, <a class="reference internal" href="index.html#communication"><span class="std std-ref">Real-time communication</span></a>, for more information.</p></li>
+</ol>
+</section>
+<section id="investigating-automated-test-failures">
+<h2>Investigating automated test failures<a class="headerlink" href="#investigating-automated-test-failures" title="Permalink to this headline">#</a></h2>
+<p>For every pull request to <code class="code docutils literal notranslate"><span class="pre">main</span></code> with automated tests, you can check
+the logs of the tests to find the root cause of failures. Our tests currently
+run through Azure Pipelines with steps for setup, testing, and teardown. The
+<code class="code docutils literal notranslate"><span class="pre">Checks</span></code> tab of a pull request contains a link to the
+<a class="reference external" href="dev.azure.com/responsibleai/fairlearn/_build/results">Azure Pipelines page</a>),
+where you can review the logs by clicking on a specific step in the automated
+test sequence. If you encounter problems with this workflow, please reach out
+through <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues">GitHub issues</a>.</p>
+<p>To run the same tests locally, find the corresponding pipeline definition (a
+<code class="code docutils literal notranslate"><span class="pre">yml</span></code> file) in the <code class="code docutils literal notranslate"><span class="pre">devops</span></code> directory. It either directly contains
+the command to execute the tests (usually starting with
+<code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>) or it refers to a template file with the command.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-installation-instructions">Advanced installation instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-requirements-files">The Requirements Files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-a-pull-request">Contributing a pull request</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#investigating-automated-test-failures">Investigating automated test failures</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

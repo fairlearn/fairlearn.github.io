@@ -1,0 +1,1083 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Revisiting the Boston Housing Dataset &#8212; Fairlearn 0.9.0.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/datasets/boston_housing_data';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        </script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Diabetes 130-Hospitals Dataset" href="diabetes_hospital_data.html" />
+    <link rel="prev" title="ACSIncome" href="acs_income.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      main  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
+            <label class="sr-only">StackOverflow</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fairness_in_machine_learning.html">Fairness in Machine Learning</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../assessment/index.html">Assessment</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/perform_fairness_assessment.html">Performing a Fairness Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/common_fairness_metrics.html">Common fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/plotting.html">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mitigation/index.html">Mitigations</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/reductions.html">Reductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/adversarial.html">Adversarial Mitigation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Datasets</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="adult_data.html">Adult Census Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="acs_income.html">ACSIncome</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Revisiting the Boston Housing Dataset</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installation_and_version_guide/index.html">Installation and version guide</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation_and_version_guide/installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../installation_and_version_guide/version_guide.html">Version guide</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.1.html">v0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.2.0.html">v0.2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.3.0.html">v0.3.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.0.html">v0.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.1.html">v0.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.2.html">v0.4.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.3.html">v0.4.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.4.html">v0.4.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.5.html">v0.4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.6.html">v0.4.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.5.0.html">v0.5.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.0.html">v0.6.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.1.html">v0.6.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.2.html">v0.6.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.7.0.html">v0.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.8.0.html">v0.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.9.0.html">v0.9.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../further_resources.html">Further Resources</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Datasets</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Revisiting the Boston Housing Dataset</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="revisiting-the-boston-housing-dataset">
+<span id="boston-housing-data"></span><h1>Revisiting the Boston Housing Dataset<a class="headerlink" href="#revisiting-the-boston-housing-dataset" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>The Boston Housing dataset is one of the datasets currently callable in <a class="reference internal" href="../../api_reference/index.html#module-fairlearn.datasets" title="fairlearn.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.datasets</span></code></a> module.
+In the past, it has commonly been used for benchmarking in popular machine learning libraries,
+including <a class="reference external" href="https://scikit-learn.org/">scikit-learn</a> and <a class="reference external" href="https://www.openml.org/">OpenML</a>.
+However, as the machine learning community has developed awareness about fairness issues with
+popular benchmarking datasets, the Boston Housing data has been phased out of many libraries.
+We migrated the dataset to Fairlearn after it was phased out of scikit-learn in June 2020.
+The dataset remains in Fairlearn as an example of how systemic racism can occur in data and to
+show the effects of Fairlearn’s unfairness assessment and mitigation tools on real, problematic data.</p>
+<p>We also think this dataset provides an interesting case study of how fairness is fundamentally a
+socio-technical issue by exploring how societal biases manifest in data in ways that can’t
+simply be fixed with technical mitigation approaches (although the harms they engender may be mitigated).
+This article has the following goals:</p>
+<ul class="simple">
+<li><p>Educate users about the history of the dataset and how the variables were constructed</p></li>
+<li><p>Show users how socioeconomic inequities are reflected in the data in ways that
+can potentially lead to fairness-related harms in downstream modelling tasks</p></li>
+<li><p>Suggest alternative benchmarking datasets</p></li>
+</ul>
+</section>
+<section id="dataset-origin-and-use">
+<span id="boston-dataset-origin"></span><h2>Dataset Origin and Use<a class="headerlink" href="#dataset-origin-and-use" title="Permalink to this headline">#</a></h2>
+<p>Harrison and Rubinfeld<a class="footnote-reference brackets" href="#footcite-harrison1978hedonic" id="id1">1</a>
+developed the dataset to illustrate the issues with using housing market data
+to measure consumer willingness to pay for clean air.
+The authors use a
+<a class="reference external" href="https://www.investopedia.com/terms/h/hedonicpricing.asp">hedonic pricing</a>
+approach, which assumes that the price of a good or service can be modeled as
+a function of features both internal and external to the good or service.
+The input to this model was a dataset comprising the Boston Standard
+Metropolitan Statistical Area <a class="footnote-reference brackets" href="#footcite-uscensusbureaumetropolitan" id="id2">2</a>, with the
+nitric oxides concentration (<em>NOX</em>) serving as a proxy for air quality.</p>
+<p>The paper sought to estimate the median value of owner-occupied homes (now
+<em>MEDV</em>), and included the remaining variables to capture other neighborhood
+characteristics.
+Further, the authors took the derivative of their housing
+value equation with respect to nitric oxides concentration
+to measure the “amount of money households were willing to pay
+when purchasing a home with respect to air pollution levels in their census tracts.”
+The variables in the dataset were collected in the early 1970s
+and come from a mixture of surveys, administrative records, and other research
+papers.
+While the paper does define each variable and suggest its impact on
+the housing value equation, it lacks reasoning for including that particular
+set of variables.</p>
+<p>Modern machine learning practitioners have used the Boston Housing dataset as
+a benchmark to assess the performance of emerging supervised learning
+techniques.
+It’s featured in <a class="reference external" href="https://scipy-lectures.org/packages/scikit-learn/auto_examples/plot_boston_prediction.html">scipy lectures</a>,
+indexed in the <a class="reference external" href="https://archive.ics.uci.edu/ml/machine-learning-databases/housing/">University of California-Irvine Machine Learning Repository</a> and in
+Carnegie Mellon University’s <a class="reference external" href="http://lib.stat.cmu.edu/datasets/boston">StatLib</a>,
+and for a time was included as one of scikit-learn’s and tensorflow’s standard toy datasets
+(see <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/datasets/boston_housing" title="(in TensorFlow v2.4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tf.keras.datasets.boston_housing</span></code></a>).
+It has also been the benchmark of choice for many machine learning
+<a class="reference external" href="https://arxiv.org/search/?query=boston+housing&amp;searchtype=all">papers</a>
+<a class="footnote-reference brackets" href="#footcite-al2018comparative" id="id3">3</a>
+<a class="footnote-reference brackets" href="#footcite-shahhosseini2020optimizing" id="id4">4</a>
+<a class="footnote-reference brackets" href="#footcite-tipping1999relevance" id="id5">5</a>.
+In 2020, users brought the dataset’s fairness issues to the scikit-learn
+development team (see scikit-learn issue
+<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/16155">#16155</a>), after
+which the team decided to remove the dataset in scikit-learn version 1.2.</p>
+<p>The dataset contains the following columns:</p>
+<table class="colwidths-given table">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>Column name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>CRIM</p></th>
+<td><p>per capita crime rate by town</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>ZN</p></th>
+<td><p>proportion of residential land zoned for lots over 25,000 sq.ft.</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>INDUS</p></th>
+<td><p>proportion of non-retail business acres per town</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>CHAS</p></th>
+<td><p>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>NOX</p></th>
+<td><p>nitric oxides concentration (parts per 10 million)</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>RM</p></th>
+<td><p>average number of rooms per dwelling</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>AGE</p></th>
+<td><p>proportion of owner-occupied units built prior to 1940</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>DIS</p></th>
+<td><p>weighted distances to five Boston employment centers</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>RAD</p></th>
+<td><p>index of accessibility to radial highways</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>TAX</p></th>
+<td><p>full-value property-tax rate per $10,000</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>PTRATIO</p></th>
+<td><p>pupil-teacher ratio by town</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>B</p></th>
+<td><p>1000(Bk - 0.63)^2 where Bk is the proportion of Black people by town</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>LSTAT</p></th>
+<td><p>% lower status of the population</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>MEDV</p></th>
+<td><p>Median value of owner-occupied homes in $1000’s</p></td>
+</tr>
+</tbody>
+</table>
+<p>The cells below show basic summary statistics about the data, the data types of the
+columns, and the number of missing values.</p>
+<p>Note that the <a class="reference internal" href="../../api_reference/generated/fairlearn.datasets.fetch_boston.html#fairlearn.datasets.fetch_boston" title="fairlearn.datasets.fetch_boston"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.datasets.fetch_boston()</span></code></a> function warns users by
+default that the dataset contains fairness issues.</p>
+<p>Setting <code class="code docutils literal notranslate"><span class="pre">warn=False</span></code> will turn the warning off.</p>
+<p>To return the dataset as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, pass
+<code class="code docutils literal notranslate"><span class="pre">as_frame=True</span></code> and call the <em>data</em> attribute.</p>
+<p>For more information about how to use the <code class="code docutils literal notranslate"><span class="pre">fetch_boston</span></code> function,
+visit <a class="reference internal" href="../../api_reference/index.html#module-fairlearn.datasets" title="fairlearn.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.datasets</span></code></a>.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_boston</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_boston</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">boston_housing</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;expand_frame_repr&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">boston_housing</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">      CRIM    ZN  INDUS CHAS    NOX     RM   AGE     DIS RAD    TAX  PTRATIO       B  LSTAT  MEDV</span>
+<span class="go">0  0.00632  18.0   2.31    0  0.538  6.575  65.2  4.0900   1  296.0     15.3   396.90   4.98  24.0</span>
+<span class="go">1  0.02731   0.0   7.07    0  0.469  6.421  78.9  4.9671   2  242.0     17.8   396.90   9.14  21.6</span>
+<span class="go">2  0.02729   0.0   7.07    0  0.469  7.185  61.1  4.9671   2  242.0     17.8   392.83   4.03  34.7</span>
+<span class="go">3  0.03237   0.0   2.18    0  0.458  6.998  45.8  6.0622   3  222.0     18.7   394.63   2.94  33.4</span>
+<span class="go">4  0.06905   0.0   2.18    0  0.458  7.147  54.2  6.0622   3  222.0     18.7   396.90   5.33  36.2</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-issues">
+<span id="boston-dataset-issues"></span><h2>Dataset Issues<a class="headerlink" href="#dataset-issues" title="Permalink to this headline">#</a></h2>
+<p>While the dataset is widely used, it has significant ethical issues.</p>
+<p>As explained in <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.datasets.load_boston()</span></code>,
+Harrison and Rubenfield developed the feature <em>B</em> (result of the formula <em>1000(B_k - 0.63)^2k</em>)
+under the assumption that racial self-segregation had a positive impact on house prices.
+<em>B</em> then encodes systemic racism as a factor in house pricing.
+Thus, any models trained using this data that do not take special care to process <em>B</em>
+will learn to use mathematically encoded racism as a factor in house price prediction.</p>
+<p>Harrison and Rubenfield describe their projected impact of the <em>B</em> and <em>LSTAT</em>
+variables as follows (note that these descriptions
+are verbatim from their paper). However, many of the authors’ assumptions
+have later been found to be unsubstantiated.</p>
+<ul class="simple">
+<li><p><em>LSTAT</em>: “Proportion of population that is lower status = 0.5 *
+(proportion of adults without some high school education and proportion of
+male workers classified as laborers). The logarithmic specification implies
+that socioeconomic status distinctions mean more in the upper brackets of
+society than in the lower classes.”</p></li>
+<li><p><em>B</em>: “Proportion of population that is Black. At low to moderate levels of B,
+an increase in B should have a negative influence on housing value
+if Black people are regarded as undesirable neighbors by White people. However, market
+discrimination means that housing values are higher at very high levels of B.
+One expects, therefore, a parabolic relationship between proportion Black in
+a neighborhood and housing values.”</p></li>
+</ul>
+<p>To describe the reasoning behind <em>B</em> further, the authors assume that
+self-segregation correlates to higher home values.
+However, other researchers (see <a class="footnote-reference brackets" href="#footcite-kain1975housing" id="id7">6</a>) did not find
+evidence that supports this hypothesis.</p>
+<p>Additionally, though the authors specify a parabolic transformation
+for <em>B</em>, they do not provide evidence that the relationship between <em>B</em> and <em>MEDV</em>
+is parabolic.
+Harrison and Rubenfield set a threshold of 63% as the point in which median house
+prices flip from declining to increasing, but do not provide the basis for
+this threshold.
+An analysis of the dataset <a class="footnote-reference brackets" href="#footcite-carlisle2019racist" id="id8">7</a>
+by M. Carlisle further shows that the Boston Housing dataset suffers from serious
+quality and incompleteness issues, as Carlisle was unable to recover the
+original Census data mapping for all the points in the <em>B</em> variable.</p>
+<p>The definition of the <em>LSTAT</em> variable is also suspect.
+Harrison and Rubenfield define lower status as a function of the proportion
+of adults without some high school education and the proportion of male workers
+classified as laborers. They apply a logarithmic transformation to the variable
+with the assumption that resulting variable distribution reflects their understanding of
+socioeconomic distinctions.
+However, the categorization of a certain level of
+education and job category as indicative of “lower status” is reflective of
+social constructs of class and not objective fact.
+Again, the authors provide no evidence of a proposed relationship between
+<em>LSTAT</em> and <em>MEDV</em> and do not sufficiently justify its inclusion
+in the hedonic pricing model.</p>
+<p>Construct validity (<a class="reference internal" href="../fairness_in_machine_learning.html#id7"><span class="std std-ref">What is construct validity?</span></a>) provides a useful lens through
+which to analyze the construction of this dataset.
+Construct validity refers to the extent to which a given measurement model
+measures the intended construct in way that is meaningful and useful.
+In Harrison and Rubenfield’s analysis, the measurement model involves
+constructing the assumed point at which prejudice against Black people occurs
+and the effect that prejudice has on house values.
+Likewise, another measurement model also constructs membership in
+lower-status classes based on educational attainment
+and labor category.
+It is useful to ask whether the way the authors chose to create
+the measurements accurately represents the phenomenon they
+sought to measure.
+As is discussed above, the authors do not provide justification for their
+variable construction choices beyond the projected impacts described
+in the variable definitions.
+Both measurements fail the test of content validity, a subcategory of
+construct validity, as the variable definitions are subjective and thus
+open to being contested.
+The authors also do not establish convergent validity, another subcategory
+of construct validity, in that they do not show their measurements correlate
+with measurements from measurement models in which construct validity has
+been established.
+However, given the time period in which the paper
+was published there may have been a dearth of related measurement models.</p>
+<p>Intersectionality also requires consideration.
+Intersectionality is defined as the intersection between multiple demographic
+groups. <a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id9">8</a>
+The impacts of a technical system on intersectional groups may be different
+than the impacts experienced by the individual demographic groups (e.g., Black
+people in aggregate and women in aggregate may experience a technical system
+differently than Black women).</p>
+<p>Due to the effects of discriminatory socioeconomic policies,
+including housing policies, in effect at the time the article was written,
+Black people may have been more likely to be categorized as “lower status”
+by the authors’ definition.
+Harrison and Rubenfield do not consider this intersectionality in their analysis.
+When using a linear model,
+intersectionality could be captured via an interaction variable, which combines
+the two fields.
+In the machine learning context, considering each group separately (i.e.,
+considering impacts on <em>B</em> and <em>LSTAT</em> separately) may obscure harms.
+Additionally, including only one of these variables in the analysis is not
+sufficient in removing the signals encoded in the removed variable from the dataset.
+Because these columns are related, one likely can serve as a proxy for the other.
+Thus, we recommend great care be taken to account for intersectionality in data.</p>
+<p>The inclusion of these columns might make sense for an econometric analysis,
+which seeks to understand the causal impact of various factors on a dependent
+variable, but these columns are problematic in the context of a predictive
+analysis.
+Predictive models will learn the patterns of systemic racism and classism
+encoded in the data and will reproduce those patterns in their predictions.
+It’s also important to note that merely excluding these variables from the dataset
+is not sufficient to mitigate these issues.
+However, through careful assessment, the negative effects of these variables
+can be mitigated.</p>
+<p>The next section describes the potential risk in using this dataset in a
+typical machine learning prediction pipeline.</p>
+</section>
+<section id="fairness-related-harms-assessment">
+<span id="boston-harms-assessment"></span><h2>Fairness-related harms assessment<a class="headerlink" href="#fairness-related-harms-assessment" title="Permalink to this headline">#</a></h2>
+<p>As explained above, machine learning models that use the Boston Housing dataset
+are at risk of generating fairness-related harms.
+How does that look in a typical machine learning pipeline?</p>
+<p>We apply a column transformation to the target feature
+to turn this problem into a classification problem.
+The code below maps <em>LSTAT</em> and <em>MEDV</em> to binary values where values greater
+than the median of the column map to TRUE, and otherwise the values are FALSE.
+This methodology follows scikit-lego’s <a class="footnote-reference brackets" href="#footcite-scikitlego2019fairness" id="id10">9</a>
+exploration of the Boston Housing data.
+We also transform <em>B</em> into a binary variable where TRUE values are above the
+value 136.9.
+Observations below this point correspond to the “true” proportion of Black
+people above 63%, at which point the authors assumed that house prices would
+begin to be affected by the racism of others in the community.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fairlearn.metrics</span> <span class="k">as</span> <span class="nn">fm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_clf</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">B</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">136.9</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">LSTAT</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;LSTAT&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;LSTAT&#39;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_clf</span> <span class="o">=</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_clf</span><span class="p">,</span> <span class="n">y_clf</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;liblinear&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">LogisticRegression(random_state=123, solver=&#39;liblinear&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DP_B</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">demographic_parity_difference</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predicted</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DP_LSTAT</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">demographic_parity_difference</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">,</span>
+<span class="gp">... </span>                                         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predicted</span><span class="p">,</span>
+<span class="gp">... </span>                                         <span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;LSTAT&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Demographic parity difference:</span><span class="se">\n</span><span class="s2">B: </span><span class="si">{</span><span class="n">DP_B</span><span class="si">}</span><span class="se">\n</span><span class="s2">LSTAT: </span><span class="si">{</span><span class="n">DP_LSTAT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+<span class="go">Demographic parity difference for:</span>
+<span class="go">B: 0.5470085470085471</span>
+<span class="go">LSTAT: 0.8583829365079365</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">skm</span><span class="o">.</span><span class="n">precision_score</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">skm</span><span class="o">.</span><span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;false positive rate&#39;</span><span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">false_positive_rate</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;true positive rate&#39;</span><span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">true_positive_rate</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;selection rate&#39;</span><span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">selection_rate</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">count</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped_metric</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">y_pred</span><span class="o">=</span><span class="n">predicted</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">sensitive_features</span><span class="o">=</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grouped_metric</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>  
+<span class="go">    accuracy     precision       recall   false positive rate   true positive rate    selection rate  count</span>
+<span class="go">B</span>
+<span class="go">False       1.0           0.0          0.0                   0.0                  0.0               0.0     10</span>
+<span class="go">True   0.837607       0.84375     0.857143              0.185185             0.857143          0.547009    117</span>
+
+<span class="go">[2 rows x 7 columns]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped_metric</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">y_pred</span><span class="o">=</span><span class="n">predicted</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">sensitive_features</span><span class="o">=</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;LSTAT&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grouped_metric</span><span class="o">.</span><span class="n">by_group</span><span class="p">)</span>  
+<span class="go">    accuracy     precision       recall   false positive rate   true positive rate    selection rate  count</span>
+<span class="go">LSTAT</span>
+<span class="go">False   0.84127      0.864407     0.962264                   0.8             0.962264          0.936508     63</span>
+<span class="go">True   0.859375           0.6          0.3              0.037037                  0.3          0.078125     64</span>
+
+<span class="go">[2 rows x 7 columns]</span>
+</pre></div>
+</div>
+<p>The demographic parity differences shows that neither variable has a
+demographic parity at zero, which implies different
+selection rates across groups.
+The vast majority of observations of <em>B</em> fall above the cutoff.
+For the <em>B</em> variable, observations below the cutoff have zero precision
+and recall, but the model has a higher accuracy for
+this group than records where <em>B</em> &gt; 136.9.
+The precision, recall, and selection rate when <em>LSTAT</em> is <cite>True</cite> all are
+lower than when <em>LSTAT</em> is <cite>False</cite>.
+These results indicate that our simple model is worse at predicting
+an outcome for individuals in the “lower status” category.</p>
+</section>
+<section id="discussion">
+<span id="id11"></span><h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">#</a></h2>
+<p>The Boston housing dataset presents many ethical issues, and in general, we
+strongly discourage using it in predictive modelling analyses.
+We’ve kept it in Fairlearn because of its potential as a teaching tool
+for how to deal with ethical issues in a dataset.
+There are ways to remove correlations between sensitive features and the
+remaining columns <a class="footnote-reference brackets" href="#footcite-scikitlego2019fairness" id="id12">9</a>,
+but that is by no means a guarantee that fairness-related harms won’t occur.
+Besides, other benchmark datasets exist that do not present these issues.</p>
+<p>It’s important to keep the differences between the way Harrison and Rubenfield
+used the dataset and the way modern machine learning practicioners have used
+it in focus.
+Harrison and Rubenfield conducted an empirical study,
+the goal of which was to determine the causal impacts of these variables on
+median home value.
+Interpretation of causal models involves looking at model
+coefficients to ascertain the effect of one variable on the dependent variable,
+holding all other factors constant.
+This use case is different than the typical
+supervised learning analysis.
+A machine learning model will pick up on the
+patterns encoded in the data and use those patterns to predict an outcome.
+In the Boston housing dataset, the patterns the authors encoded through
+the <em>B</em> and <em>LSTAT</em> variables include systemic racism and class inequalities,
+respectively.
+Using the Boston housing dataset as a benchmark for a new
+supervised learning model means that the model’s performance is in part due to
+how well it learns and replicates these patterns.</p>
+<p>The Boston Housing dataset raises the more general issue of whether it’s valid to
+port datasets constructed for one specific use case to different use cases (see <a class="reference internal" href="../fairness_in_machine_learning.html#portability-trap"><span class="std std-ref">The Portability Trap</span></a>).
+Using a dataset without considering the context and purposes for which it
+was created can be risky even if the dataset does not carry the possibility of
+generating fairness-related harms.
+Any machine learning model
+developed using a dataset with an opaque data-generating process runs the
+risk of generating spurious or non-meaningful results.
+Construct validity is also relevant here;
+a dataset may not maintain construct validity across
+different types of statistical analyses and different predicted outcomes.</p>
+<p>If you are searching for a house pricing dataset to use for benchmarking
+purposes or to create a hedonic pricing model, scikit-learn recommends the
+California housing dataset (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing" title="(in scikit-learn v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.datasets.fetch_california_housing()</span></code></a>)
+or the Ames housing dataset <a class="footnote-reference brackets" href="#footcite-scikitlearn2022ames" id="id13">10</a>
+in place of the Boston housing dataset, as using these datasets should not
+generate the same fairness-related harms.
+We strongly discourage using the Boston Housing dataset for machine learning
+benchmarking purposes, and hope this article gives
+you pause about using it in the future.</p>
+</section>
+</section>
+<section id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
+<div class="docutils container" id="id14">
+<dl class="footnote brackets">
+<dt class="label" id="footcite-harrison1978hedonic"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>David Harrison, Jr and Daniel L Rubinfeld. Hedonic housing prices and the demand for clean air. <em>Journal of environmental economics and management</em>, 5(1):81–102, 1978. URL: <a class="reference external" href="https://deepblue.lib.umich.edu/bitstream/handle/2027.42/22636/0000186.pdf?sequence=1&amp;isAllowed=y">https://deepblue.lib.umich.edu/bitstream/handle/2027.42/22636/0000186.pdf?sequence=1&amp;isAllowed=y</a>.</p>
+</dd>
+<dt class="label" id="footcite-uscensusbureaumetropolitan"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>United States Census Bureau. Metropolitan areas. URL: <a class="reference external" href="https://www.census.gov/history/www/programs/geography/metropolitan_areas.html">https://www.census.gov/history/www/programs/geography/metropolitan_areas.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-al2018comparative"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Ali Al Bataineh and Devinder Kaur. A comparative study of different curve fitting algorithms in artificial neural network using housing dataset. In <em>Naecon 2018-ieee national aerospace and electronics conference</em>, 174–178. IEEE, 2018. URL: <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8556738">https://ieeexplore.ieee.org/abstract/document/8556738</a>.</p>
+</dd>
+<dt class="label" id="footcite-shahhosseini2020optimizing"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Mohsen Shahhosseini, Guiping Hu, and Hieu Pham. Optimizing ensemble weights for machine learning models: a case study for housing price prediction. In <em>Smart Service Systems, Operations Management, and Analytics: Proceedings of the 2019 INFORMS International Conference on Service Science</em>, 87–97. Springer, 2020. URL: <a class="reference external" href="https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1187&amp;context=imse_conf">https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1187&amp;context=imse_conf</a>.</p>
+</dd>
+<dt class="label" id="footcite-tipping1999relevance"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Michael Tipping. The relevance vector machine. <em>Advances in neural information processing systems</em>, 1999. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/1999/file/f3144cefe89a60d6a1afaf7859c5076b-Paper.pdf">https://proceedings.neurips.cc/paper/1999/file/f3144cefe89a60d6a1afaf7859c5076b-Paper.pdf</a>.</p>
+</dd>
+<dt class="label" id="footcite-kain1975housing"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>John F. Kain and John M. Quigley. Housing markets and racial discrimination: a microeconomic analysis. 1975. URL: <a class="reference external" href="https://www.nber.org/books-and-chapters/housing-markets-and-racial-discrimination-microeconomic-analysis">https://www.nber.org/books-and-chapters/housing-markets-and-racial-discrimination-microeconomic-analysis</a>.</p>
+</dd>
+<dt class="label" id="footcite-carlisle2019racist"><span class="brackets"><a class="fn-backref" href="#id8">7</a></span></dt>
+<dd><p>M Carlisle. Racist data destruction? 2019. URL: <a class="reference external" href="https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8">https://medium.com/&#64;docintangible/racist-data-destruction-113e3eff54a8</a>.</p>
+</dd>
+<dt class="label" id="footcite-crenshaw1991intersectionality"><span class="brackets"><a class="fn-backref" href="#id9">8</a></span></dt>
+<dd><p>Kimberlé Crenshaw. Mapping the margins: intersectionality, identity politics, and violence against women of color. <em>Stanford Law Review</em>, 43(6):1241–1299, 1991. URL: <a class="reference external" href="https://www.jstor.org/stable/1229039">https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.jstor.org/stable/1229039">arXiv:https://www.jstor.org/stable/1229039</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.2307/1229039">doi:https://doi.org/10.2307/1229039</a>.</p>
+</dd>
+<dt class="label" id="footcite-scikitlego2019fairness"><span class="brackets">9</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Vincent Warmerdam, Matthijs Brouns, and Scikit-Lego contributors. Fairness. 2019. URL: <a class="reference external" href="https://scikit-lego.netlify.app/fairness.html">https://scikit-lego.netlify.app/fairness.html</a>.</p>
+</dd>
+<dt class="label" id="footcite-scikitlearn2022ames"><span class="brackets"><a class="fn-backref" href="#id13">10</a></span></dt>
+<dd><p>Scikit-Learn developers. The ames housing dataset. 2022. URL: <a class="reference external" href="https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_ames_housing.html">https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_ames_housing.html</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Revisiting the Boston Housing Dataset</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-origin-and-use">Dataset Origin and Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-issues">Dataset Issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness-related-harms-assessment">Fairness-related harms assessment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
