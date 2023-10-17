@@ -663,6 +663,9 @@ and useful way. It is important to ensure that the proxy is suitable
 for the social context of the problem you seek to solve.
 In particular, be careful of falling into one of the
 <a class="reference internal" href="../fairness_in_machine_learning.html#abstraction-traps"><span class="std std-ref">abstraction traps</span></a>.</p>
+</section>
+<section id="disaggregated-metrics">
+<span id="assessment-disaggregated-metrics"></span><h2>Disaggregated metrics<a class="headerlink" href="#disaggregated-metrics" title="Permalink to this headline">#</a></h2>
 <p>The centerpiece of fairness assessment in Fairlearn are disaggregated metrics,
 which are metrics evaluated on slices of data.
 For example, to measure gender-based harms due to errors, we would begin by
@@ -670,6 +673,15 @@ evaluating the errors separately for males, females and nonbinary persons
 in our dataset.
 If we found that males were experiencing errors at a much lower rate than
 females and nonbinary persons, we would flag this as a potential fairness harm.</p>
+<p>Note that by “errors” here, we are referring to the methods we use to
+assess the performance of the machine learning model overall, for
+example accuracy or precision in the classification case.
+We distiniguish these model performance metrics from fairness metrics,
+which operationalize different definitions of fairness
+(such as demographic parity or equal opportunity).
+We will review those metrics in a subsequent section of the User Guide.
+For more information on fairness metrics,
+review <a class="reference internal" href="common_fairness_metrics.html#common-fairness-metrics"><span class="std std-ref">Common fairness metrics</span></a>.</p>
 <p>Fairlearn provides the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> class to help
 with this quantification.
 Suppose we have some ‘true’ values, some predictions from a model, and also
@@ -738,6 +750,13 @@ These are accessed through the <a class="reference internal" href="../../api_ref
 </pre></div>
 </div>
 <p>All of these values can be checked against the original arrays above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> is intended for analyzing the disparities
+between groups with regard to a base metric, and consequently cannot take
+predefined fairness metrics, such as <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_difference()</span></code></a>,
+as input to the <cite>metrics</cite> parameter.</p>
+</div>
 </section>
 <section id="compare-quantified-harms-across-the-groups">
 <span id="assessment-compare-harms"></span><h2>Compare quantified harms across the groups<a class="headerlink" href="#compare-quantified-harms-across-the-groups" title="Permalink to this headline">#</a></h2>
@@ -805,6 +824,70 @@ overall values for the data:</p>
 </div>
 <p>In every case, the <em>largest</em> difference and <em>smallest</em> ratio are returned.</p>
 </section>
+<section id="predefined-fairness-metrics">
+<span id="assessment-predefined-fairness-metrics"></span><h2>Predefined fairness metrics<a class="headerlink" href="#predefined-fairness-metrics" title="Permalink to this headline">#</a></h2>
+<p>In addition to the disaggregated analysis of base metrics enabled by
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, Fairlearn also provides a set of predefined fairness
+metrics that output a single score. These metrics take as input
+<cite>sensitive_features</cite> to compute the maximum difference or ratio between
+subgroups of a sensitive variable. The predefined fairness metrics offered
+by Fairlearn are <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_difference()</span></code></a>,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_ratio.html#fairlearn.metrics.demographic_parity_ratio" title="fairlearn.metrics.demographic_parity_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_ratio()</span></code></a>, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_difference.html#fairlearn.metrics.equalized_odds_difference" title="fairlearn.metrics.equalized_odds_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_difference()</span></code></a>,
+and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a>.
+The ratio and difference can be calculated <cite>between_groups</cite>
+or <cite>to_overall</cite>, but <cite>to_overall</cite> results in more than 1 value being
+returned (when the <cite>control_features</cite> parameter is not <cite>None</cite>.
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can also calculate differences and ratios between
+groups. For more information on available method of computing
+ratios or differences, view the documentation for <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>
+and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a>, respectively.
+Note that because these metrics are calculated using
+aggregations between groups, they are meant to be
+called directly, rather than used within the instantiation of a MetricFrame.</p>
+<p>Below, we show an example of calculating demographic parity ratio using the
+sample data defined above.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
+<span class="go">0.66666...</span>
+</pre></div>
+</div>
+<p>It is also possible to define custom fairness metrics based on any
+standard performance metric (e.g., the false positive rate or AUC)
+using :func:make_derived_metric.
+Under the hood, the fairness assessment metrics
+also use <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> to compute a particular base rate across
+sensitive groups and subsequently perform an aggregation (the difference
+or ratio) on the base metric values across groups. For example,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> uses both the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_positive_rate()</span></code></a> and
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.false_negative_rate.html#fairlearn.metrics.false_negative_rate" title="fairlearn.metrics.false_negative_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_negative_rate()</span></code></a> within a <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> on the backend
+to generate an output. As demonstrated below,
+using <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> method
+produces the same outcome.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_metrics</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;tpr&#39;</span> <span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;fpr&#39;</span> <span class="p">:</span> <span class="n">false_positive_rate</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">metrics</span><span class="o">=</span><span class="n">my_metrics</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">))</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="common_fairness_metrics.html#common-fairness-metrics"><span class="std std-ref">Common fairness metrics</span></a> provides an overview of common metrics used
+in fairness analyses. For a deep dive into how to extend the capabilities of
+fairness metrics provided by Fairlearn, review <a class="reference internal" href="custom_fairness_metrics.html#custom-fairness-metrics"><span class="std std-ref">Defining custom fairness metrics</span></a>.</p>
+</section>
 </section>
 
 
@@ -827,7 +910,9 @@ overall values for the data:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-types-of-harms">Identify types of harms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-the-groups-that-might-be-harmed">Identify the groups that might be harmed</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantify-harms">Quantify harms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregated-metrics">Disaggregated metrics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-quantified-harms-across-the-groups">Compare quantified harms across the groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predefined-fairness-metrics">Predefined fairness metrics</a></li>
 </ul>
   </nav></div>
 
