@@ -144,7 +144,7 @@ and after the CorrelationRemover.
 The code is from  the
 `matplotlib docs <https://matplotlib.org/devdocs/gallery/images_contours_and_fields/image_annotated_heatmap.html>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-126
+.. GENERATED FROM PYTHON SOURCE LINES 90-128
 
 .. code-block:: default
 
@@ -159,8 +159,10 @@ The code is from  the
         ax.imshow(round(df.corr(), 2), cmap="coolwarm")
 
         # Show all ticks and label them with the respective list entries
-        ax.set_xticks(np.arange(len(cols)), labels=cols)
-        ax.set_yticks(np.arange(len(cols)), labels=cols)
+        ax.set_xticks(np.arange(len(cols)))
+        ax.set_xticklabels(cols)
+        ax.set_yticks(np.arange(len(cols)))
+        ax.set_yticklabels(cols)
 
         # Rotate the tick labels and set their alignment.
         plt.setp(ax.get_xticklabels(), rotation=15, ha="right", rotation_mode="anchor")
@@ -215,7 +217,7 @@ The code is from  the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-132
+.. GENERATED FROM PYTHON SOURCE LINES 129-134
 
 Even though there was not a high amount of correlation to begin with,
 the CorrelationRemover successfully removed all correlation between
@@ -226,7 +228,7 @@ not all the correlation being projected away.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.098 seconds)
+   **Total running time of the script:** (0 minutes 4.128 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_correlationremover_before_after.py:
