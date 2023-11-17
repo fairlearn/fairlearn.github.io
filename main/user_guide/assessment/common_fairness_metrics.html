@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Common fairness metrics &#8212; Fairlearn 0.10.0.dev0 documentation</title>
   
@@ -19,44 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/documentation_options.js?v=c7dae347"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/assessment/common_fairness_metrics';</script>
     <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Defining custom fairness metrics" href="custom_fairness_metrics.html" />
     <link rel="prev" title="Performing a Fairness Assessment" href="perform_fairness_assessment.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -65,6 +66,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -105,7 +115,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
    
@@ -130,11 +141,11 @@
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
-    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      main  <!-- this text may get changed later by javascript -->
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
-    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
     <!-- dropdown will be populated by javascript on page load -->
     </div>
   </div>
@@ -142,7 +153,6 @@ document.write(`
 </script></div>
     
   </div>
-  
   
   <div class="col-lg-9 navbar-header-items">
     
@@ -217,10 +227,10 @@ document.write(`
         <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -236,8 +246,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -248,8 +258,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
         <li class="nav-item">
           
@@ -260,8 +270,8 @@ document.write(`
           
           
           
-          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
-            <label class="sr-only">StackOverflow</label></a>
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
         </li>
         <li class="nav-item">
           
@@ -272,8 +282,8 @@ document.write(`
           
           
           
-          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
-            <label class="sr-only">Discord</label></a>
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
         </li>
 </ul></div>
       
@@ -284,7 +294,7 @@ document.write(`
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -373,10 +383,10 @@ document.write(`
           <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -392,8 +402,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -404,8 +414,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
         <li class="nav-item">
           
@@ -416,8 +426,8 @@ document.write(`
           
           
           
-          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
-            <label class="sr-only">StackOverflow</label></a>
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
         </li>
         <li class="nav-item">
           
@@ -428,8 +438,8 @@ document.write(`
           
           
           
-          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
-            <label class="sr-only">Discord</label></a>
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
         </li>
 </ul></div>
         
@@ -465,6 +475,7 @@ document.write(`
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Common fairness metrics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
@@ -543,8 +554,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
@@ -557,7 +568,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Assessment</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Common fairness metrics</li>
+    <li class="breadcrumb-item active" aria-current="page">Common...</li>
   </ul>
 </nav>
 </div>
@@ -575,7 +586,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="common-fairness-metrics">
-<span id="id1"></span><h1>Common fairness metrics<a class="headerlink" href="#common-fairness-metrics" title="Permalink to this headline">#</a></h1>
+<span id="id1"></span><h1>Common fairness metrics<a class="headerlink" href="#common-fairness-metrics" title="Link to this heading">#</a></h1>
 <p>In the sections below, we review the most common fairness metrics, as well
 as their underlying assumptions and suggestions for use. Each metric requires
 that some aspects of the predictor behavior be comparable across groups.</p>
@@ -586,14 +597,14 @@ one very common misuse in the
 <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">section on the Four-Fifths Rule</span></a></p>
 </div>
 <p>In the code examples presented below, we will use the following input arrays:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sf_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
 <span class="gp">... </span>           <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="demographic-parity">
-<span id="assessment-demographic-parity"></span><h2>Demographic parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">#</a></h2>
+<span id="assessment-demographic-parity"></span><h2>Demographic parity<a class="headerlink" href="#demographic-parity" title="Link to this heading">#</a></h2>
 <p>Demographic parity is a fairness metric whose goal is to ensure a machine
 learning model’s predictions are independent of membership in a sensitive
 group. In other words, demographic parity is achieved when the probability
@@ -607,12 +618,12 @@ set of equations.
 A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution
 over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
 independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>.
-Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2">1</a> show that this is equivalent to
+Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> show that this is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.</p>
 <p>In the case of regression, a predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies demographic parity
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
 of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>.
-Agarwal, Dudík, and Wu<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id3">2</a> show that this is equivalent to
+Agarwal, Dudík, and Wu<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> show that this is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
 Another way to think of demographic parity in a
 regression scenario is to compare the average predicted value across groups.
@@ -652,7 +663,7 @@ demographic parity may not be well-suited for this purpose because
 it does not place requirements on the exact distribution of predictions with
 respect to other important variables. To understand this concept further,
 consider an example from the Fairness in Machine Learning textbook
-by Barocas, Hardt, and Narayanan<a class="footnote-reference brackets" href="#footcite-barocas2019fairness" id="id4">3</a>:</p>
+by Barocas, Hardt, and Narayanan<a class="footnote-reference brackets" href="#footcite-barocas2019fairness" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>:</p>
 <blockquote>
 <div><p>“However, decisions based on a classifier that satisfies independence can
 have undesirable properties (and similar arguments apply to other
@@ -668,7 +679,7 @@ performed worse than members of <em>group A</em>, thus establishing a negative
 track record for group B.”</p>
 </div></blockquote>
 <p>It’s also worth considering whether the assumptions underlying demographic
-parity maintain construct validity (see <a class="reference internal" href="../fairness_in_machine_learning.html#id7"><span class="std std-ref">What is construct validity?</span></a>).
+parity maintain construct validity (see <a class="reference internal" href="../fairness_in_machine_learning.html#id8"><span class="std std-ref">What is construct validity?</span></a>).
 Construct validity is a concept in the social sciences that assesses the
 extent to which the ways we choose to measure abstract
 phenomena are valid. For demographic parity, one relevant question would be
@@ -681,7 +692,7 @@ but that trend may disappear or reverse when groups are combined. Known as
 <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s Paradox</a>, this
 outcome may appear when observing disparate outcomes across groups. A
 famous example of Simpson’s Paradox is a study of 1973 graduate school
-admissions to the University of California, Berkley <a class="footnote-reference brackets" href="#footcite-bickel1975biasinadmissions" id="id5">4</a>.
+admissions to the University of California, Berkley <a class="footnote-reference brackets" href="#footcite-bickel1975biasinadmissions" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.
 The study showed that when observing admissions by gender, men applying were
 more likely than women to be accepted. However, drilling down into admissions
 by department revealed that women tended to apply to departments with more
@@ -696,7 +707,7 @@ demographic parity may be different when calculated at an aggregate level and
 within more granular categories. In the case of demographic parity, we might
 need to review
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, D=d] = \E[h(X) \given D=d] \quad \forall a\)</span>
-where <span class="math notranslate nohighlight">\(D\)</span> represents the feature(s) within <span class="math notranslate nohighlight">\(X\)</span> across which
+where <span class="math notranslate nohighlight">\(D\)</span> represents the feature(s) within <span class="math notranslate nohighlight">\(X`\)</span> across which
 members of the groups within <span class="math notranslate nohighlight">\(A\)</span> are distributed.
 Demographic parity would then require that the prediction of the target
 variable is statistically independent of sensitive attributes conditional
@@ -734,7 +745,7 @@ This metric can potentially be used to implement the ‘Four-Fifths’ Rule,
 but <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">read our discussion below</span></a> to understand whether this is an appropriate metric for your use case.
 As with any fairness metric, achieving demographic parity does <em>not</em> automatically mean
 that the classifier is fair!</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_difference</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_difference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_difference</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                                    <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                                    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -748,7 +759,7 @@ that the classifier is fair!</p>
 </div>
 </section>
 <section id="equalized-odds">
-<span id="assessment-equalized-odds"></span><h2>Equalized odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">#</a></h2>
+<span id="assessment-equalized-odds"></span><h2>Equalized odds<a class="headerlink" href="#equalized-odds" title="Link to this heading">#</a></h2>
 <p>The goal of the equalized odds fairness metric is to ensure a machine
 learning model performs equally well for different groups. It is stricter
 than demographic parity because it requires that the machine learning
@@ -769,7 +780,7 @@ odds under a distribution over <span class="math notranslate nohighlight">\((X, 
 prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
 <span class="math notranslate nohighlight">\(Y\)</span>.
-Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id6">1</a> show that this is equivalent to
+Agarwal, Beygelzimer, Dudík, Langford, and Wallach<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> show that this is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
 Equalized odds requires that the true
 positive rate, <span class="math notranslate nohighlight">\(\P(h(X)=1 | Y=1\)</span>, and the false positive rate,
@@ -796,7 +807,7 @@ well for different groups. Another way to think about equalized odds is to
 contrast it with demographic parity. While demographic parity assesses the
 allocation of resources generally, equalized odds focuses on the allocation
 of resources that were actually distributed to
-members of that group (indicated by the positive target variable <span class="math notranslate nohighlight">\(Y=1\)</span>).
+members of that group (indicated by the positive target variable <span class="math notranslate nohighlight">\(Y=1`\)</span>).
 However, equalized odds makes the assumption
 that the target variable <span class="math notranslate nohighlight">\(Y\)</span> is a good measurement of the phenomena
 being modeled, but that assumption may not hold if the measurement does not
@@ -808,11 +819,11 @@ However, since equalized odds is based on both the true positive and
 false positive rates, there is an extra step in order to return
 a single scalar result.
 For <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_difference.html#fairlearn.metrics.equalized_odds_difference" title="fairlearn.metrics.equalized_odds_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_difference()</span></code></a>, we first calculate the
-true positive rate difference and the true negative rate difference
+true positive rate difference and the false positive rate difference
 separately.
 We then return the larger of these two differences.
 <em>Mutatis mutandis</em>, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> works similarly.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_difference</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_difference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_difference</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                                <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                                <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -826,10 +837,10 @@ We then return the larger of these two differences.
 </div>
 </section>
 <section id="equal-opportunity">
-<span id="assessment-equal-opportunity"></span><h2>Equal opportunity<a class="headerlink" href="#equal-opportunity" title="Permalink to this headline">#</a></h2>
+<span id="assessment-equal-opportunity"></span><h2>Equal opportunity<a class="headerlink" href="#equal-opportunity" title="Link to this heading">#</a></h2>
 <p>Equal opportunity is a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id7">5</a>
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>
 Another way of thinking about this metric is
 requiring equal outcomes only within the subset of records belonging to the
 positive class. In the hiring example, equal opportunity requires that the
@@ -840,7 +851,7 @@ positive rates are equivalent across groups, equal opportunity does not
 capture the costs of missclassification disparities.</p>
 </section>
 <section id="the-four-fifths-rule-often-misapplied">
-<span id="assessment-four-fifths"></span><h2>The Four Fifths Rule: Often Misapplied<a class="headerlink" href="#the-four-fifths-rule-often-misapplied" title="Permalink to this headline">#</a></h2>
+<span id="assessment-four-fifths"></span><h2>The Four Fifths Rule: Often Misapplied<a class="headerlink" href="#the-four-fifths-rule-often-misapplied" title="Link to this heading">#</a></h2>
 <p>In the literature around fairness in machine learning, one will often find
 the so-called “four fifths rule” or “80% rule” used to assess whether a model
 (or mitigation technique) has produced a ‘fair’ result.
@@ -860,7 +871,7 @@ Given the origin of the ‘four-fifths rule’ (which we will discuss next), its
 application may also give an unjustified feeling of legal invulnerability by
 conflating fairness with legality.
 In reality, ‘fairness’ is not always identical to ‘legally allowable,’ and
-the former may not even be a strict subset of the latter. <a class="footnote-reference brackets" href="#f1" id="id8">8</a></p>
+the former may not even be a strict subset of the latter. <a class="footnote-reference brackets" href="#f1" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a></p>
 <p>The ‘four fifths rule’ has its origins in a specific area of US
 federal employment law.
 It is a limit for
@@ -886,17 +897,17 @@ not be appropriate in most cases.
 Even in cases where it is applicable, the rule does not automatically
 avoid legal jeopardy, much less ensure that results are fair.
 The use of the ‘four fifths rule’ in this manner is an indefensible
-example of epistemic trespassing. <a class="footnote-reference brackets" href="#f2" id="id9">9</a>
+example of epistemic trespassing. <a class="footnote-reference brackets" href="#f2" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>
 It is for this reason that we try to avoid the use of legal
 terminology in our documentation.</p>
 <p>For a much deeper discussion of the issues involved, we suggest
-Watkins <em>et al.</em><a class="footnote-reference brackets" href="#footcite-watkins2022fourfifths" id="id10">6</a>.
+Watkins <em>et al.</em><a class="footnote-reference brackets" href="#footcite-watkins2022fourfifths" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.
 A higher level look at how legal concepts of fairness can collide
 with mathematical measures of disparity, see
-Xiang and Raji<a class="footnote-reference brackets" href="#footcite-xiang2019legalcompatibility" id="id11">7</a>.</p>
+Xiang and Raji<a class="footnote-reference brackets" href="#footcite-xiang2019legalcompatibility" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>We have introduced three commonly used fairness metrics in this section,
 which can be summed up as follows:</p>
 <ul>
@@ -948,53 +959,65 @@ situation.
 In particular, <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">demographic parity is often misapplied</span></a>.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id12">
-<dl class="footnote brackets">
-<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id6">2</a>)</span></dt>
-<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
-</dd>
-<dt class="label" id="footcite-agarwal2019fair"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
-</dd>
-<dt class="label" id="footcite-barocas2019fairness"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
-<dd><p>Solon Barocas, Moritz Hardt, and Arvind Narayanan. <em>Fairness and Machine Learning</em>. fairmlbook.org, 2019. URL: <a class="reference external" href="http://www.fairmlbook.org/">http://www.fairmlbook.org/</a>.</p>
-</dd>
-<dt class="label" id="footcite-bickel1975biasinadmissions"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
-<dd><p>P.J. Bickel, E.A. Hammel, and E.W. and O’Connell. Sex bias in graduate admissions: data from berkeley. <em>Science</em>, 187(4175):398–404, 1975. URL: <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">https://doi.org/10.1126%2Fscience.187.4175.398</a>, <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">doi:10.1126%2Fscience.187.4175.398</a>.</p>
-</dd>
-<dt class="label" id="footcite-hardt2016equality"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
-<dd><p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
-</dd>
-<dt class="label" id="footcite-watkins2022fourfifths"><span class="brackets"><a class="fn-backref" href="#id10">6</a></span></dt>
-<dd><p>Elizabeth Anne Watkins, Michael McKenna, and Jiahao Chen. The four-fifths rule is not disparate impact: a woeful tale of epistemic trespassing in algorithmic fairness. 2022. URL: <a class="reference external" href="https://arxiv.org/abs/2202.09519">https://arxiv.org/abs/2202.09519</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.2202.09519">doi:10.48550/ARXIV.2202.09519</a>.</p>
-</dd>
-<dt class="label" id="footcite-xiang2019legalcompatibility"><span class="brackets"><a class="fn-backref" href="#id11">7</a></span></dt>
-<dd><p>Alice Xiang and Inioluwa Deborah Raji. On the legal compatibility of fairness definitions. 2019. URL: <a class="reference external" href="https://arxiv.org/abs/1912.00761">https://arxiv.org/abs/1912.00761</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1912.00761">doi:10.48550/ARXIV.1912.00761</a>.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-agarwal2018reductions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-agarwal2019fair" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-barocas2019fairness" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>Solon Barocas, Moritz Hardt, and Arvind Narayanan. <em>Fairness and Machine Learning</em>. fairmlbook.org, 2019. URL: <a class="reference external" href="http://www.fairmlbook.org/">http://www.fairmlbook.org/</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-bickel1975biasinadmissions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
+<p>P.J. Bickel, E.A. Hammel, and E.W. and O’Connell. Sex bias in graduate admissions: data from berkeley. <em>Science</em>, 187(4175):398–404, 1975. URL: <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">https://doi.org/10.1126%2Fscience.187.4175.398</a>, <a class="reference external" href="https://doi.org/10.1126%2Fscience.187.4175.398">doi:10.1126%2Fscience.187.4175.398</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-hardt2016equality" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">5</a><span class="fn-bracket">]</span></span>
+<p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-watkins2022fourfifths" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">6</a><span class="fn-bracket">]</span></span>
+<p>Elizabeth Anne Watkins, Michael McKenna, and Jiahao Chen. The four-fifths rule is not disparate impact: a woeful tale of epistemic trespassing in algorithmic fairness. 2022. URL: <a class="reference external" href="https://arxiv.org/abs/2202.09519">https://arxiv.org/abs/2202.09519</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.2202.09519">doi:10.48550/ARXIV.2202.09519</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-xiang2019legalcompatibility" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">7</a><span class="fn-bracket">]</span></span>
+<p>Alice Xiang and Inioluwa Deborah Raji. On the legal compatibility of fairness definitions. 2019. URL: <a class="reference external" href="https://arxiv.org/abs/1912.00761">https://arxiv.org/abs/1912.00761</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1912.00761">doi:10.48550/ARXIV.1912.00761</a>.</p>
+</aside>
+</aside>
 </div>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
-<dd><p>For a related example, see the discussion on ‘law’ and ‘justice’ in
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
+<p>For a related example, see the discussion on ‘law’ and ‘justice’ in
 <em>The Caves of Steel</em> (Asimov, 1953)</p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
-<dd><p>Epistemic trespassing is the process of taking expertise in one field and
+</aside>
+<aside class="footnote brackets" id="f2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
+<p>Epistemic trespassing is the process of taking expertise in one field and
 applying it to another in which one does not have an equivalent (or any)
 competence.
 This is not an intrinsically bad thing - one could label all
 interdisciplinary research a form of epistemic trespassing.
 However, doing so successfully requires a willingness to learn the subtleties
 of the new field.</p>
-</dd>
-</dl>
+</aside>
+</aside>
 </section>
 </section>
 
 
                 </article>
+              
+              
               
               
               
@@ -1032,8 +1055,8 @@ of the new field.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1051,7 +1074,7 @@ of the new field.</p>
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -1059,10 +1082,11 @@ of the new field.</p>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>

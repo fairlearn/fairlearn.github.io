@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Reductions &#8212; Fairlearn 0.10.0.dev0 documentation</title>
   
@@ -19,44 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/documentation_options.js?v=c7dae347"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/mitigation/reductions';</script>
     <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Adversarial Mitigation" href="adversarial.html" />
     <link rel="prev" title="Postprocessing" href="postprocessing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -65,6 +66,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -105,7 +115,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
    
@@ -130,11 +141,11 @@
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
-    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      main  <!-- this text may get changed later by javascript -->
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
-    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
     <!-- dropdown will be populated by javascript on page load -->
     </div>
   </div>
@@ -142,7 +153,6 @@ document.write(`
 </script></div>
     
   </div>
-  
   
   <div class="col-lg-9 navbar-header-items">
     
@@ -217,10 +227,10 @@ document.write(`
         <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -236,8 +246,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -248,8 +258,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
         <li class="nav-item">
           
@@ -260,8 +270,8 @@ document.write(`
           
           
           
-          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
-            <label class="sr-only">StackOverflow</label></a>
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
         </li>
         <li class="nav-item">
           
@@ -272,8 +282,8 @@ document.write(`
           
           
           
-          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
-            <label class="sr-only">Discord</label></a>
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
         </li>
 </ul></div>
       
@@ -284,7 +294,7 @@ document.write(`
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -373,10 +383,10 @@ document.write(`
           <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -392,8 +402,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -404,8 +414,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
         <li class="nav-item">
           
@@ -416,8 +426,8 @@ document.write(`
           
           
           
-          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow"></i></span>
-            <label class="sr-only">StackOverflow</label></a>
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
         </li>
         <li class="nav-item">
           
@@ -428,8 +438,8 @@ document.write(`
           
           
           
-          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord"></i></span>
-            <label class="sr-only">Discord</label></a>
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
         </li>
 </ul></div>
         
@@ -465,6 +475,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../assessment/common_fairness_metrics.html">Common fairness metrics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assessment/custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assessment/intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assessment/advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assessment/plotting.html">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assessment/saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
@@ -543,8 +554,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
@@ -575,7 +586,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="reductions">
-<span id="id1"></span><h1>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">#</a></h1>
+<span id="id1"></span><h1>Reductions<a class="headerlink" href="#reductions" title="Link to this heading">#</a></h1>
 <p>On a high level, the reduction algorithms within Fairlearn
 enable unfairness mitigation for an arbitrary machine learning model with
 respect to user-provided fairness constraints. All of the constraints currently supported
@@ -593,7 +604,7 @@ sociotechnical challenge and how to view Fairlearn in this context refer to
 </div>
 <p>The reductions approach for classification seeks to reduce binary
 classification subject to fairness constraints to a sequence of weighted
-classification problems (see <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2">1</a>), and similarly for regression (see <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id3">2</a>).
+classification problems (see <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>), and similarly for regression (see <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).
 As a result, the reduction algorithms
 in Fairlearn only require a wrapper access to any “base” learning algorithm.
 By this we mean that the “base” algorithm only needs to implement <code class="code docutils literal notranslate"><span class="pre">fit</span></code> and
@@ -619,7 +630,7 @@ are expressed as objects inheriting from the base class <code class="code docuti
 current set of predictions through its <code class="code docutils literal notranslate"><span class="pre">gamma</span></code> function as well as to
 provide <code class="code docutils literal notranslate"><span class="pre">signed_weights</span></code> that are used to relabel and reweight samples.</p>
 <section id="fairness-constraints-for-binary-classification">
-<span id="constraints-binary-classification"></span><h2>Fairness constraints for binary classification<a class="headerlink" href="#fairness-constraints-for-binary-classification" title="Permalink to this headline">#</a></h2>
+<span id="constraints-binary-classification"></span><h2>Fairness constraints for binary classification<a class="headerlink" href="#fairness-constraints-for-binary-classification" title="Link to this heading">#</a></h2>
 <p>All supported fairness constraints for binary classification inherit from
 <code class="code docutils literal notranslate"><span class="pre">UtilityParity</span></code>. They are based on some underlying metric called
 <em>utility</em>, which can be evaluated on individual data points and is averaged
@@ -688,7 +699,7 @@ bound the ratio between the pairs of groups, but such a bound is implied.</p>
 <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> for the same constraint object.</p>
 </div>
 <section id="demographic-parity">
-<span id="id4"></span><h3>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">#</a></h3>
+<span id="id4"></span><h3>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Link to this heading">#</a></h3>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>demographic parity</em> if</p>
 <div class="math notranslate nohighlight">
 \[\P[h(X) = 1 \given A = a] = \P[h(X) = 1] \quad \forall a\]</div>
@@ -716,7 +727,7 @@ the constructor and the mitigation algorithm itself then invokes <code class="co
 The example below uses <code class="code docutils literal notranslate"><span class="pre">load_data</span></code> to illustrate how <code class="code docutils literal notranslate"><span class="pre">DemographicParity</span></code>
 instantiates inequalities from <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>.</p>
 </div>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">DemographicParity</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">DemographicParity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">selection_rate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -751,7 +762,7 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 <div class="math notranslate nohighlight">
 \[r \leq \dfrac{\P[h(X) = 1 \given A = a]}{\P[h(X) = 1]} \leq \dfrac{1}{r} \quad \forall a\]</div>
 <p>Revisiting the same example as above we get</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="n">DemographicParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="go">sign  event  group_id</span>
@@ -771,7 +782,7 @@ r \cdot \text{utility}_{b,*} - \text{utility}_* = 0.9 \times 0.2 - 0.4 = -0.22 \
 - \text{utility}_{b,*} + r \cdot \text{utility}_* = - 0.2 + 0.9 \times 0.4 = 0.16 \\\end{split}\]</div>
 </section>
 <section id="true-positive-rate-parity-and-false-positive-rate-parity">
-<span id="false-positive-rate-parity"></span><span id="true-positive-rate-parity"></span><h3>True Positive Rate Parity and False Positive Rate Parity<a class="headerlink" href="#true-positive-rate-parity-and-false-positive-rate-parity" title="Permalink to this headline">#</a></h3>
+<span id="false-positive-rate-parity"></span><span id="true-positive-rate-parity"></span><h3>True Positive Rate Parity and False Positive Rate Parity<a class="headerlink" href="#true-positive-rate-parity-and-false-positive-rate-parity" title="Link to this heading">#</a></h3>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>true positive rate parity</em> if</p>
 <div class="math notranslate nohighlight">
 \[\P[h(X) = 1 \given A = a, Y = 1] = \P[h(X) = 1 \given Y = 1] \quad \forall a\]</div>
@@ -784,7 +795,7 @@ Refer to <a class="reference internal" href="#equalized-odds"><span class="std s
 enforce both true positive rate parity and false positive rate parity
 by considering both events <span class="math notranslate nohighlight">\(Y=0\)</span> and <span class="math notranslate nohighlight">\(Y=1\)</span>.</p>
 <p>In practice this can be used in a difference-based relaxation as follows:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">TruePositiveRateParity</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">TruePositiveRateParity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">true_positive_rate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span> <span class="o">=</span> <span class="n">TruePositiveRateParity</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
@@ -822,7 +833,7 @@ The example uses <code class="code docutils literal notranslate"><span class="pr
 instantiates inequalities from <a class="reference internal" href="#constraints-binary-classification"><span class="std std-ref">Fairness constraints for binary classification</span></a>.</p>
 </div>
 <p>Alternatively, a ratio-based relaxation is also available:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span> <span class="o">=</span> <span class="n">TruePositiveRateParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span> <span class="o">=</span> <span class="n">TruePositiveRateParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tprp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="go">sign  event    group_id</span>
@@ -835,14 +846,14 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 </div>
 </section>
 <section id="equalized-odds">
-<span id="id5"></span><h3>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">#</a></h3>
+<span id="id5"></span><h3>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Link to this heading">#</a></h3>
 <p>A binary classifier <span class="math notranslate nohighlight">\(h(X)\)</span> satisfies <em>equalized odds</em> if it satisfies both
 <em>true positive rate parity</em> and <em>false positive rate parity</em>, i.e.,</p>
 <div class="math notranslate nohighlight">
 \[\P[h(X) = 1 \given A = a, Y = y] = \P[h(X) = 1 \given Y = y] \quad \forall a, y\]</div>
 <p>The constraints represent the union of constraints for true positive rate
 and false positive rate.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">EqualizedOdds</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">EqualizedOdds</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span> <span class="o">=</span> <span class="n">EqualizedOdds</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eo</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -860,7 +871,7 @@ and false positive rate.</p>
 </div>
 </section>
 <section id="error-rate-parity">
-<span id="id6"></span><h3>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Permalink to this headline">#</a></h3>
+<span id="id6"></span><h3>Error Rate Parity<a class="headerlink" href="#error-rate-parity" title="Link to this heading">#</a></h3>
 <p>The <em>error rate parity</em> requires that the error rates should be
 the same across all groups. For a classifier <span class="math notranslate nohighlight">\(h(X)\)</span>
 this means that</p>
@@ -871,7 +882,7 @@ this means that</p>
 to poor outcomes. The difference-based relaxation specifies that
 the error rate of any given group should not deviate from
 the overall error rate by more than the value of <code class="code docutils literal notranslate"><span class="pre">difference_bound</span></code>.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_summary</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
@@ -907,7 +918,7 @@ instantiates inequalities from <a class="reference internal" href="#constraints-
 \[r \leq \dfrac{\P[h(X) \ne Y \given A = a]}{\P[h(X) \ne Y]} \leq \dfrac{1}{r} \quad \forall a\]</div>
 <p>with a <code class="code docutils literal notranslate"><span class="pre">ratio_bound</span></code> <span class="math notranslate nohighlight">\(r\)</span>. The usage is identical with other
 constraints:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ErrorRateParity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span> <span class="o">=</span> <span class="n">ErrorRateParity</span><span class="p">(</span><span class="n">ratio_bound</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ratio_bound_slack</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">erp</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -921,7 +932,7 @@ constraints:</p>
 </div>
 </section>
 <section id="control-features">
-<h3>Control features<a class="headerlink" href="#control-features" title="Permalink to this headline">#</a></h3>
+<h3>Control features<a class="headerlink" href="#control-features" title="Link to this heading">#</a></h3>
 <p>The above examples of <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> (<a class="reference internal" href="#demographic-parity"><span class="std std-ref">Demographic Parity</span></a>,
 <a class="reference internal" href="#true-positive-rate-parity"><span class="std std-ref">True and False Positive Rate Parity</span></a>,
 <a class="reference internal" href="#equalized-odds"><span class="std std-ref">Equalized Odds</span></a> and <a class="reference internal" href="#error-rate-parity"><span class="std std-ref">Error Rate Parity</span></a>) all support the concept
@@ -948,18 +959,18 @@ The equation given above for Demographic Parity will become:</p>
 </section>
 </section>
 <section id="fairness-constraints-for-multiclass-classification">
-<span id="constraints-multi-class-classification"></span><h2>Fairness constraints for multiclass classification<a class="headerlink" href="#fairness-constraints-for-multiclass-classification" title="Permalink to this headline">#</a></h2>
+<span id="constraints-multi-class-classification"></span><h2>Fairness constraints for multiclass classification<a class="headerlink" href="#fairness-constraints-for-multiclass-classification" title="Link to this heading">#</a></h2>
 <p>Reductions approaches do not support multiclass classification yet at this
 point. If this is an important scenario for you please let us know!</p>
 </section>
 <section id="fairness-constraints-for-regression">
-<span id="constraints-regression"></span><h2>Fairness constraints for regression<a class="headerlink" href="#fairness-constraints-for-regression" title="Permalink to this headline">#</a></h2>
+<span id="constraints-regression"></span><h2>Fairness constraints for regression<a class="headerlink" href="#fairness-constraints-for-regression" title="Link to this heading">#</a></h2>
 <p>The performance objective in the regression scenario is to minimize the
 loss of our regressor <span class="math notranslate nohighlight">\(h\)</span>. The loss can be expressed as
 <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.SquareLoss.html#fairlearn.reductions.SquareLoss" title="fairlearn.reductions.SquareLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">SquareLoss</span></code></a> or <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.AbsoluteLoss.html#fairlearn.reductions.AbsoluteLoss" title="fairlearn.reductions.AbsoluteLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbsoluteLoss</span></code></a>. Both take constructor arguments
 <code class="code docutils literal notranslate"><span class="pre">min_val</span></code> and <code class="code docutils literal notranslate"><span class="pre">max_val</span></code> that define the value range within which
 the loss is evaluated. Values outside of the value range get clipped.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">SquareLoss</span><span class="p">,</span> <span class="n">AbsoluteLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">SquareLoss</span><span class="p">,</span> <span class="n">AbsoluteLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>   <span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>   <span class="mf">0.9</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">SquareLoss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -981,7 +992,7 @@ specify the type of loss by passing the corresponding loss object when
 instantiating the object that represents our fairness constraint. The only
 supported type of constraint at this point is <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.BoundedGroupLoss.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoundedGroupLoss</span></code></a>.</p>
 <section id="bounded-group-loss">
-<span id="id7"></span><h3>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Permalink to this headline">#</a></h3>
+<span id="id7"></span><h3>Bounded Group Loss<a class="headerlink" href="#bounded-group-loss" title="Link to this heading">#</a></h3>
 <p><em>Bounded group loss</em> requires the loss of each group to be below a
 user-specified amount <span class="math notranslate nohighlight">\(\zeta\)</span>. If <span class="math notranslate nohighlight">\(\zeta\)</span> is chosen reasonably
 small the losses of all groups are very similar.
@@ -993,7 +1004,7 @@ Formally, a predictor <span class="math notranslate nohighlight">\(h\)</span> sa
 <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ZeroOneLoss.html#fairlearn.reductions.ZeroOneLoss" title="fairlearn.reductions.ZeroOneLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">ZeroOneLoss</span></code></a> on two groups <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> and <code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>.
 Group <code class="code docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> has an average loss of <span class="math notranslate nohighlight">\(0.05\)</span>, while group
 <code class="code docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>’s average loss is <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">BoundedGroupLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">BoundedGroupLoss</span><span class="p">,</span> <span class="n">ZeroOneLoss</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bgl</span> <span class="o">=</span> <span class="n">BoundedGroupLoss</span><span class="p">(</span><span class="n">ZeroOneLoss</span><span class="p">(),</span> <span class="n">upper_bound</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>                  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
@@ -1029,22 +1040,26 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 </section>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id8">
-<dl class="footnote brackets">
-<dt class="label" id="footcite-agarwal2018reductions"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
-</dd>
-<dt class="label" id="footcite-agarwal2019fair"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-agarwal2018reductions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-agarwal2019fair" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
+</aside>
+</aside>
 </div>
 </section>
 </section>
 
 
                 </article>
+              
+              
               
               
               
@@ -1090,8 +1105,8 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1109,7 +1124,7 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
       
         <div class="footer-item">
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
   </p>
 </div>
@@ -1117,10 +1132,11 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
 </p></div>
       
     </div>
