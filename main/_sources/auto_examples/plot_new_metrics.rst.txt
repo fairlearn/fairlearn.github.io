@@ -70,7 +70,7 @@ We start with some uncontroversial `import` statements:
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-69
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import functools
@@ -101,7 +101,7 @@ Next, we import the data:
 
 .. GENERATED FROM PYTHON SOURCE LINES 71-76
 
-.. code-block:: default
+.. code-block:: Python
 
 
     data = fetch_adult()
@@ -122,7 +122,7 @@ three unique values:
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-92
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -165,7 +165,7 @@ illustrative purposes.
 
 .. GENERATED FROM PYTHON SOURCE LINES 97-129
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -344,7 +344,7 @@ any transforms or scaling:
 
 .. GENERATED FROM PYTHON SOURCE LINES 135-152
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -384,7 +384,7 @@ have poorer data quality.
 
 .. GENERATED FROM PYTHON SOURCE LINES 162-179
 
-.. code-block:: default
+.. code-block:: Python
 
 
     numeric_transformer = Pipeline(
@@ -417,7 +417,7 @@ new pipeline which includes an Estimator:
 
 .. GENERATED FROM PYTHON SOURCE LINES 182-190
 
-.. code-block:: default
+.. code-block:: Python
 
 
     unmitigated_predictor = Pipeline(
@@ -442,7 +442,7 @@ from the test data.
 
 .. GENERATED FROM PYTHON SOURCE LINES 194-199
 
-.. code-block:: default
+.. code-block:: Python
 
 
     unmitigated_predictor.fit(X_train, y_train)
@@ -477,7 +477,7 @@ We can evaluate these metrics directly:
 
 .. GENERATED FROM PYTHON SOURCE LINES 216-220
 
-.. code-block:: default
+.. code-block:: Python
 
 
     print("Selection Rate:", selection_rate(y_test, y_pred))
@@ -508,7 +508,7 @@ its capabilities:
 
 .. GENERATED FROM PYTHON SOURCE LINES 227-236
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fbeta_06 = functools.partial(skm.fbeta_score, beta=0.6, zero_division=1)
@@ -552,7 +552,7 @@ same values calculated above:
 
 .. GENERATED FROM PYTHON SOURCE LINES 258-263
 
-.. code-block:: default
+.. code-block:: Python
 
 
     assert grouped_on_sex.overall["selection_rate"] == selection_rate(y_test, y_pred)
@@ -585,7 +585,7 @@ data points in each subgroup. In this case, we have results for males and female
 
 .. GENERATED FROM PYTHON SOURCE LINES 269-272
 
-.. code-block:: default
+.. code-block:: Python
 
 
     grouped_on_sex.by_group
@@ -657,7 +657,7 @@ using race as the sensitive feature:
 
 .. GENERATED FROM PYTHON SOURCE LINES 278-283
 
-.. code-block:: default
+.. code-block:: Python
 
 
     grouped_on_race = MetricFrame(
@@ -677,7 +677,7 @@ The ``overall`` property is unchanged:
 
 .. GENERATED FROM PYTHON SOURCE LINES 285-287
 
-.. code-block:: default
+.. code-block:: Python
 
     assert (grouped_on_sex.overall == grouped_on_race.overall).all()
 
@@ -695,7 +695,7 @@ column:
 
 .. GENERATED FROM PYTHON SOURCE LINES 290-292
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.by_group
 
@@ -789,7 +789,7 @@ pass these along:
 
 .. GENERATED FROM PYTHON SOURCE LINES 314-331
 
-.. code-block:: default
+.. code-block:: Python
 
 
     random_weights = np.random.rand(len(y_test))
@@ -821,7 +821,7 @@ We can inspect the overall values, and check they are as expected:
 
 .. GENERATED FROM PYTHON SOURCE LINES 333-341
 
-.. code-block:: default
+.. code-block:: Python
 
     assert grouped_with_weights.overall["selection_rate"] == selection_rate(
         y_test, y_pred, sample_weight=random_weights
@@ -839,8 +839,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate        0.191310
-    fbeta_06              0.678519
+    selection_rate        0.194850
+    fbeta_06              0.678902
     count             14653.000000
     dtype: float64
 
@@ -853,7 +853,7 @@ We can also see the effect on the metric being evaluated on the subgroups:
 
 .. GENERATED FROM PYTHON SOURCE LINES 343-345
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_with_weights.by_group
 
@@ -897,14 +897,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.066907</td>
-          <td>0.609356</td>
+          <td>0.069442</td>
+          <td>0.620442</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.252258</td>
-          <td>0.688339</td>
+          <td>0.257955</td>
+          <td>0.687504</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -936,7 +936,7 @@ of less than 0.6." We can evaluate the minimum values easily:
 
 .. GENERATED FROM PYTHON SOURCE LINES 363-365
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.group_min()
 
@@ -965,7 +965,7 @@ For this, we provide the method ``difference(method='between_groups)``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 370-372
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.difference(method="between_groups")
 
@@ -993,7 +993,7 @@ result is always positive:
 
 .. GENERATED FROM PYTHON SOURCE LINES 376-378
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.difference(method="to_overall")
 
@@ -1021,7 +1021,7 @@ We can take the ratios between the minimum and maximum values of each metric:
 
 .. GENERATED FROM PYTHON SOURCE LINES 382-384
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.ratio(method="between_groups")
 
@@ -1049,7 +1049,7 @@ metric. Analogous to the differences, the ratios are always in the range
 
 .. GENERATED FROM PYTHON SOURCE LINES 388-390
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race.ratio(method="to_overall")
 
@@ -1088,7 +1088,7 @@ constructor:
 
 .. GENERATED FROM PYTHON SOURCE LINES 405-413
 
-.. code-block:: default
+.. code-block:: Python
 
 
     grouped_on_race_and_sex = MetricFrame(
@@ -1112,7 +1112,7 @@ shows the intersections between subgroups:
 
 .. GENERATED FROM PYTHON SOURCE LINES 416-419
 
-.. code-block:: default
+.. code-block:: Python
 
     assert (grouped_on_race_and_sex.overall == grouped_on_race.overall).all()
     grouped_on_race_and_sex.by_group
@@ -1213,7 +1213,7 @@ fact):
 
 .. GENERATED FROM PYTHON SOURCE LINES 425-427
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race_and_sex.group_min()
 
@@ -1241,7 +1241,7 @@ the ``by_group`` table):
 
 .. GENERATED FROM PYTHON SOURCE LINES 431-433
 
-.. code-block:: default
+.. code-block:: Python
 
     grouped_on_race_and_sex.ratio(method="between_groups")
 
@@ -1280,7 +1280,7 @@ argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
 .. GENERATED FROM PYTHON SOURCE LINES 448-456
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_credit_score = MetricFrame(
         metrics=metric_fns,
@@ -1305,7 +1305,7 @@ unique value of the control feature:
 
 .. GENERATED FROM PYTHON SOURCE LINES 460-462
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_credit_score.overall
 
@@ -1378,7 +1378,7 @@ The ``by_group`` property is similarly expanded:
 
 .. GENERATED FROM PYTHON SOURCE LINES 464-466
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_credit_score.by_group
 
@@ -1558,7 +1558,7 @@ by the control feature:
 
 .. GENERATED FROM PYTHON SOURCE LINES 469-471
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_credit_score.group_min()
 
@@ -1631,7 +1631,7 @@ And:
 
 .. GENERATED FROM PYTHON SOURCE LINES 473-475
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_credit_score.ratio(method="between_groups")
 
@@ -1708,7 +1708,7 @@ We can continue adding more control features:
 
 .. GENERATED FROM PYTHON SOURCE LINES 481-489
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_both = MetricFrame(
         metrics=metric_fns,
@@ -1731,7 +1731,7 @@ The ``overall`` property now splits into more values:
 
 .. GENERATED FROM PYTHON SOURCE LINES 491-493
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_both.overall
 
@@ -1827,7 +1827,7 @@ indicate that there were no samples in the cell:
 
 .. GENERATED FROM PYTHON SOURCE LINES 496-498
 
-.. code-block:: default
+.. code-block:: Python
 
     cond_both.by_group
 
@@ -2131,7 +2131,7 @@ with under-populated intersections. Consider:
 
 .. GENERATED FROM PYTHON SOURCE LINES 501-518
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -2219,7 +2219,7 @@ a :class:`pandas.Series`, but that has a similar
 
 .. GENERATED FROM PYTHON SOURCE LINES 532-536
 
-.. code-block:: default
+.. code-block:: Python
 
 
     csv_output = cond_credit_score.by_group.to_csv()
@@ -2270,7 +2270,7 @@ be handled similarly, in the cases that it is not a scalar.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.643 seconds)
+   **Total running time of the script:** (0 minutes 2.741 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
@@ -2279,16 +2279,13 @@ be handled similarly, in the cases that it is not a scalar.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: plot_new_metrics.ipynb <plot_new_metrics.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_new_metrics.py <plot_new_metrics.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: plot_new_metrics.ipynb <plot_new_metrics.ipynb>`
 
 
 .. only:: html

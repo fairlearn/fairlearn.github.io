@@ -51,7 +51,7 @@ to use:
 
 .. GENERATED FROM PYTHON SOURCE LINES 34-51
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import pandas as pd
@@ -83,7 +83,7 @@ We can now load and inspect the data by using the `fairlearn.datasets` module:
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-59
 
-.. code-block:: default
+.. code-block:: Python
 
 
     data = fetch_adult()
@@ -339,7 +339,7 @@ a format suitable for the ML algorithms
 
 .. GENERATED FROM PYTHON SOURCE LINES 65-77
 
-.. code-block:: default
+.. code-block:: Python
 
 
     A = X_raw["sex"]
@@ -366,7 +366,7 @@ Finally, we split the data into training and test sets:
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-90
 
-.. code-block:: default
+.. code-block:: Python
 
 
     X_train, X_test, Y_train, Y_test, A_train, A_test = train_test_split(
@@ -396,7 +396,7 @@ simple :class:`sklearn.linear_model.LogisticRegression` class:
 
 .. GENERATED FROM PYTHON SOURCE LINES 96-101
 
-.. code-block:: default
+.. code-block:: Python
 
 
     unmitigated_predictor = LogisticRegression(solver="liblinear", fit_intercept=True)
@@ -422,7 +422,7 @@ We can start to assess the predictor's fairness using the `MetricFrame`:
 
 .. GENERATED FROM PYTHON SOURCE LINES 103-123
 
-.. code-block:: default
+.. code-block:: Python
 
     metric_frame = MetricFrame(
         metrics={
@@ -504,7 +504,7 @@ simplicity; in general, the appropriate fairness metric will not be obvious.
 
 .. GENERATED FROM PYTHON SOURCE LINES 151-158
 
-.. code-block:: default
+.. code-block:: Python
 
 
     sweep = GridSearch(
@@ -532,7 +532,7 @@ After :code:`fit()` completes, we extract the full set of predictors from the
 
 .. GENERATED FROM PYTHON SOURCE LINES 166-171
 
-.. code-block:: default
+.. code-block:: Python
 
 
     sweep.fit(X_train, Y_train, sensitive_features=A_train)
@@ -559,7 +559,7 @@ error and disparity (of the given sensitive feature).
 
 .. GENERATED FROM PYTHON SOURCE LINES 180-207
 
-.. code-block:: default
+.. code-block:: Python
 
 
     errors, disparities = [], []
@@ -668,7 +668,7 @@ Finally, we can evaluate the dominant models along with the unmitigated model.
 
 .. GENERATED FROM PYTHON SOURCE LINES 209-241
 
-.. code-block:: default
+.. code-block:: Python
 
 
     predictions = {"unmitigated": unmitigated_predictor.predict(X_test)}
@@ -741,7 +741,7 @@ Fairlearn also provides functionality to compare models much more easily.
 
 .. GENERATED FROM PYTHON SOURCE LINES 260-272
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Plot model comparison
@@ -777,7 +777,7 @@ Fairlearn also provides functionality to compare models much more easily.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 19.467 seconds)
+   **Total running time of the script:** (1 minutes 21.082 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_grid_search_census.py:
@@ -786,16 +786,13 @@ Fairlearn also provides functionality to compare models much more easily.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: plot_grid_search_census.ipynb <plot_grid_search_census.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_grid_search_census.py <plot_grid_search_census.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: plot_grid_search_census.ipynb <plot_grid_search_census.ipynb>`
 
 
 .. only:: html

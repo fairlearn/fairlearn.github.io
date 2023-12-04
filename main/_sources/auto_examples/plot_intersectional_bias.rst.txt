@@ -535,7 +535,7 @@ data set.
 
 .. GENERATED FROM PYTHON SOURCE LINES 522-564
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Import relevant libraries
@@ -601,7 +601,7 @@ Exploring the data
 
 .. GENERATED FROM PYTHON SOURCE LINES 570-572
 
-.. code-block:: default
+.. code-block:: Python
 
     train.head()
 
@@ -810,7 +810,7 @@ Keeping this caveat in mind, let's plot some graphs to better visualize the data
 
 .. GENERATED FROM PYTHON SOURCE LINES 610-628
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Format graphs
@@ -863,7 +863,7 @@ First, we distinguish our outcome or label (diagnosis) from the training feature
 
 .. GENERATED FROM PYTHON SOURCE LINES 647-655
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Split the data into x (features) and y (diagnosis)
@@ -888,7 +888,7 @@ mind that preprocessing real-world hospital record data is typically much more l
 
 .. GENERATED FROM PYTHON SOURCE LINES 661-688
 
-.. code-block:: default
+.. code-block:: Python
 
     from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 
@@ -940,7 +940,7 @@ internals.
 
 .. GENERATED FROM PYTHON SOURCE LINES 702-708
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Defining a logistic regression model
@@ -962,7 +962,7 @@ We train the model and apply it to generate predictions on our test set.
 
 .. GENERATED FROM PYTHON SOURCE LINES 713-725
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Training the model with all available features
@@ -997,7 +997,7 @@ performance of the model further by looking at a confusion matrix.
 
 .. GENERATED FROM PYTHON SOURCE LINES 730-751
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -1217,7 +1217,7 @@ groups, with a focus on evaluating false positive rate ratio.
 
 .. GENERATED FROM PYTHON SOURCE LINES 925-951
 
-.. code-block:: default
+.. code-block:: Python
 
     from fairlearn.metrics import MetricFrame, false_positive_rate
 
@@ -1330,7 +1330,7 @@ To do this with Fairlearn, we define sensitive features as the intersection of r
 
 .. GENERATED FROM PYTHON SOURCE LINES 980-1002
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -1446,7 +1446,7 @@ frequency of diagnoses, stratified by intersectional groups.
 
 .. GENERATED FROM PYTHON SOURCE LINES 1019-1023
 
-.. code-block:: default
+.. code-block:: Python
 
 
     m = sns.FacetGrid(train, row="Sex", col="Race")
@@ -1466,7 +1466,7 @@ frequency of diagnoses, stratified by intersectional groups.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x7f404a1fdf50>
+    <seaborn.axisgrid.FacetGrid object at 0x7f6e944366d0>
 
 
 
@@ -1494,7 +1494,7 @@ Define and drop race-related variables
 
 .. GENERATED FROM PYTHON SOURCE LINES 1042-1046
 
-.. code-block:: default
+.. code-block:: Python
 
     race_cat = ["Race_Asian", "Race_Black", "Race_Hispanic", "Race_White"]
     trainx_norace = trainx.drop(race_cat, axis=1)
@@ -1514,7 +1514,7 @@ first one, except it no longer uses Race as a feature.
 
 .. GENERATED FROM PYTHON SOURCE LINES 1051-1062
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Define and train a second model
@@ -1551,7 +1551,7 @@ of our change, so let's perform another bias assessment.
 
 .. GENERATED FROM PYTHON SOURCE LINES 1070-1072
 
-.. code-block:: default
+.. code-block:: Python
 
     f(testy, predictions)
 
@@ -1618,7 +1618,7 @@ Does intersectional fairness show a similar trend?
 
 .. GENERATED FROM PYTHON SOURCE LINES 1079-1082
 
-.. code-block:: default
+.. code-block:: Python
 
 
     intersectionalf(testy, predictions)
@@ -1804,7 +1804,7 @@ Gets the weights associated with each feature, and scales them from 0-100
 
 .. GENERATED FROM PYTHON SOURCE LINES 1185-1193
 
-.. code-block:: default
+.. code-block:: Python
 
 
     weights = pd.DataFrame(model.coef_[0], trainx.columns, columns=["Weight"])
@@ -1850,83 +1850,83 @@ Gets the weights associated with each feature, and scales them from 0-100
         </tr>
         <tr>
           <th>Housing_Unstable</th>
-          <td>90.859544</td>
+          <td>90.859368</td>
         </tr>
         <tr>
           <th>Tension</th>
-          <td>87.331197</td>
+          <td>87.331149</td>
         </tr>
         <tr>
           <th>Race_White</th>
-          <td>82.567045</td>
+          <td>82.567125</td>
         </tr>
         <tr>
           <th>Delusion</th>
-          <td>55.672122</td>
+          <td>55.672062</td>
         </tr>
         <tr>
           <th>Unusual_Thought</th>
-          <td>53.261941</td>
+          <td>53.261944</td>
         </tr>
         <tr>
           <th>Suspicious</th>
-          <td>45.994297</td>
+          <td>45.994334</td>
         </tr>
         <tr>
           <th>Concentration</th>
-          <td>45.473822</td>
+          <td>45.473952</td>
         </tr>
         <tr>
           <th>Anhedonia</th>
-          <td>41.976216</td>
+          <td>41.976275</td>
         </tr>
         <tr>
           <th>Tired</th>
-          <td>41.872733</td>
+          <td>41.872789</td>
         </tr>
         <tr>
           <th>Delay_Yes</th>
-          <td>41.833916</td>
+          <td>41.833863</td>
         </tr>
         <tr>
           <th>Sex_Female</th>
-          <td>38.435620</td>
+          <td>38.435602</td>
         </tr>
         <tr>
           <th>Psychomotor</th>
-          <td>29.892861</td>
+          <td>29.892899</td>
         </tr>
         <tr>
           <th>Dep_Mood</th>
-          <td>26.117152</td>
+          <td>26.117187</td>
         </tr>
         <tr>
           <th>Withdrawal</th>
-          <td>18.919443</td>
+          <td>18.919542</td>
         </tr>
         <tr>
           <th>Race_Black</th>
-          <td>10.113478</td>
+          <td>10.113510</td>
         </tr>
         <tr>
           <th>Race_Asian</th>
-          <td>5.349568</td>
+          <td>5.349664</td>
         </tr>
         <tr>
           <th>Sleep</th>
-          <td>5.186782</td>
+          <td>5.186848</td>
         </tr>
         <tr>
           <th>Housing_Stable</th>
-          <td>2.545842</td>
+          <td>2.545998</td>
         </tr>
         <tr>
           <th>Passive</th>
-          <td>0.532426</td>
+          <td>0.532431</td>
         </tr>
         <tr>
           <th>Appetite</th>
-          <td>0.057211</td>
+          <td>0.057131</td>
         </tr>
         <tr>
           <th>Sex_Male</th>
@@ -1961,7 +1961,7 @@ stratified by intersectional group.
 
 .. GENERATED FROM PYTHON SOURCE LINES 1205-1239
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Reloading the data for analysis
@@ -2037,7 +2037,7 @@ defined by intersecting features of sex and race, as compared to schizophrenia.
 
 .. GENERATED FROM PYTHON SOURCE LINES 1258-1274
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, axs = plt.subplots(2, 1, figsize=(8, 10))
@@ -2139,7 +2139,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.808 seconds)
+   **Total running time of the script:** (0 minutes 6.371 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_intersectional_bias.py:
@@ -2148,16 +2148,13 @@ References
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: plot_intersectional_bias.ipynb <plot_intersectional_bias.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_intersectional_bias.py <plot_intersectional_bias.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: plot_intersectional_bias.ipynb <plot_intersectional_bias.ipynb>`
 
 
 .. only:: html
