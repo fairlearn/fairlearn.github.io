@@ -1,0 +1,1118 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Postprocessing &#8212; Fairlearn 0.10.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../../_static/documentation_options.js?v=7e54ce6f"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/mitigation/postprocessing';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reductions" href="reductions.html" />
+    <link rel="prev" title="Preprocessing" href="preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fairness_in_machine_learning.html">Fairness in Machine Learning</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../assessment/index.html">Assessment</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/perform_fairness_assessment.html">Performing a Fairness Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/common_fairness_metrics.html">Common fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Mitigations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Postprocessing</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="reductions.html">Reductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarial.html">Adversarial Mitigation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datasets/adult_data.html">Adult Census Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datasets/acs_income.html">ACSIncome</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/boston_housing_data.html">Revisiting the Boston Housing Dataset</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../datasets/diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installation_and_version_guide/index.html">Installation and version guide</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation_and_version_guide/installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../installation_and_version_guide/version_guide.html">Version guide</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.1.html">v0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.10.0.html">v0.10.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.2.0.html">v0.2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.3.0.html">v0.3.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.0.html">v0.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.1.html">v0.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.2.html">v0.4.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.3.html">v0.4.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.4.html">v0.4.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.5.html">v0.4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.6.html">v0.4.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.5.0.html">v0.5.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.0.html">v0.6.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.1.html">v0.6.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.2.html">v0.6.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.7.0.html">v0.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.8.0.html">v0.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.9.0.html">v0.9.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../further_resources.html">Further Resources</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Mitigations</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Postprocessing</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="postprocessing">
+<span id="id1"></span><h1>Postprocessing<a class="headerlink" href="#postprocessing" title="Link to this heading">#</a></h1>
+<p>Fairlearn currently supports one postprocessing technique,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a>.</p>
+<section id="threshold-optimizer">
+<span id="id2"></span><h2>Threshold optimizer<a class="headerlink" href="#threshold-optimizer" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> is based on the paper
+<em>Equality of Opportunity in Supervised Learning</em>
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+Unlike other mitigation techniques <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> is built to
+satisfy the specified fairness criteria exactly and with no remaining
+disparity.
+In many cases this comes at the expense of performance, for example, with
+significantly lower accuracy.
+Regardless, it provides an interesting data point for comparison with other
+models.
+Importantly, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> requires the sensitive features to be
+available at deployment time (i.e., for the <code class="code docutils literal notranslate"><span class="pre">predict</span></code> method).</p>
+<p>For each sensitive feature value, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> creates separate
+thresholds and applies them to the predictions of the user-provided
+<code class="code docutils literal notranslate"><span class="pre">estimator</span></code>.
+To decide on the thresholds it generates all possible thresholds and selects
+the best combination in terms of the <code class="code docutils literal notranslate"><span class="pre">objective</span></code> and the fairness
+<code class="code docutils literal notranslate"><span class="pre">constraints</span></code>.
+This process is visualized below using
+<a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.plot_threshold_optimizer.html#fairlearn.postprocessing.plot_threshold_optimizer" title="fairlearn.postprocessing.plot_threshold_optimizer"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.postprocessing.plot_threshold_optimizer()</span></code></a>.
+To ensure that the fairness constraint is upheld <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a>
+simultaneously walks along all the curves while monitoring the objective
+value, and picks the spot on the x-axis with the optimal objective weighed by
+the sizes of the groups corresponding to each sensitive feature value.
+The selected point is marked by the dashed blue line.
+The intersections with the curves are represented through interpolation of the
+thresholds we used to create the plot.
+To achieve an exact match between the sensitive feature groups in terms of the
+constraint, one typically needs to randomize between two thresholds.</p>
+<p>To illustrate its behavior, let’s examine what this looks like with
+true positive rate parity as the fairness constraint.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_selector</span> <span class="k">as</span> <span class="n">selector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.postprocessing</span> <span class="kn">import</span> <span class="n">ThresholdOptimizer</span><span class="p">,</span> <span class="n">plot_threshold_optimizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">DemographicParity</span><span class="p">,</span> <span class="n">ExponentiatedGradient</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Drop 3 rows of Unknown gender since it&#39;s not representative of that group.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># In a real application, this would be a red flag to investigate data collection.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keep_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Male&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Female&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_columns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;discharge_disposition_id&#39;</span><span class="p">,</span> <span class="s1">&#39;admission_source_id&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;medical_specialty&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;readmitted&#39;</span><span class="p">,</span> <span class="s1">&#39;max_glu_serum&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;A1Cresult&#39;</span><span class="p">,</span> <span class="s1">&#39;insulin&#39;</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="s1">&#39;diabetesMed&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Remove readmission columns from data as they would leak the target information.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readmitted&quot;</span><span class="p">,</span> <span class="s2">&quot;readmit_binary&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">A_train</span><span class="p">,</span> <span class="n">A_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_train</span> <span class="o">=</span> <span class="n">A_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_test</span> <span class="o">=</span> <span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numeric_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;impute&quot;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">()),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="c1"># (&quot;impute&quot;, SimpleImputer(strategy=&quot;most_frequent&quot;)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;ohe&quot;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="n">numeric_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_exclude</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="n">categorical_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span>
+<span class="gp">... </span>            <span class="s2">&quot;classifier&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;true_positive_rate_parity&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
+<span class="go">ThresholdOptimizer(constraints=&#39;true_positive_rate_parity&#39;,</span>
+<span class="go">                   estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
+<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">                                                                                                SimpleImputer()),</span>
+<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                                StandardScaler())]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
+<span class="go">                                                                              (&#39;cat&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;)])),</span>
+<span class="go">                                             (&#39;classifier&#39;,</span>
+<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
+<span class="go">                   objective=&#39;balanced_accuracy_score&#39;,</span>
+<span class="go">                   predict_method=&#39;predict_proba&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+<span class="go">array([0, 0, 0, ..., 0, 1, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_rules_by_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">threshold_rules_by_group</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">    &quot;Female&quot;: {</span>
+<span class="go">        &quot;p0&quot;: 0.628...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.110...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.371...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.096...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Male&quot;: {</span>
+<span class="go">        &quot;p0&quot;: 0.997...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.104...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.002...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.099...]&quot;</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../../_images/postprocessing-1.png" class="plot-directive" src="../../_images/postprocessing-1.png" />
+</figure>
+<p>When calling <code class="code docutils literal notranslate"><span class="pre">predict</span></code>, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> uses one of the</p>
+<p>thresholds at random based on the probabilities <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span>.
+The results can be interpreted as follows based on the following formula for
+the probability to predict label 1:</p>
+<div class="math notranslate nohighlight">
+\[p_0 \cdot \text{operation}_0(\text{score}) + p_1 \cdot \text{operation}_1(\text{score})\]</div>
+<ul class="simple">
+<li><p>“Female: <span class="math notranslate nohighlight">\(0.628 \cdot \mathbb{I}(\text{score}&gt;0.110) + 0.371 \cdot \mathbb{I}(\text{score}&gt;0.096)\)</span></p>
+<ul>
+<li><p>if the score is above <span class="math notranslate nohighlight">\(0.110\)</span> predict 1</p></li>
+<li><p>if the score is between <span class="math notranslate nohighlight">\(0.110\)</span> and <span class="math notranslate nohighlight">\(0.096\)</span> predict 1 with
+probability <span class="math notranslate nohighlight">\(0.371\)</span></p></li>
+</ul>
+</li>
+<li><p>“Male”: <span class="math notranslate nohighlight">\(0.997 \cdot \mathbb{I}(\text{score}&gt;0.104) + 0.002 \cdot \mathbb{I}(\text{score}&gt;0.099)\)</span></p>
+<ul>
+<li><p>if the score is above <span class="math notranslate nohighlight">\(0.104\)</span> predict 1</p></li>
+<li><p>if the score is between <span class="math notranslate nohighlight">\(0.104\)</span> and <span class="math notranslate nohighlight">\(0.099\)</span> predict 1 with
+probability <span class="math notranslate nohighlight">\(0.002\)</span></p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">flip</span></code> argument on the constructor indicates whether flipped
+thresholds can be used. Flipped constraints such as <cite>“&lt;0.6”</cite>
+indicate that the underlying estimator’s scores do not exhibit the
+expected monotonicity and any such instance should be inspected.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> expects an estimator that provides it with
+scores.
+While the output of <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> is binary, the
+input is not limited to scores derived from binary classifiers.
+In fact, real valued input, e.g. from a regressor,
+provides it with many more options to create thresholds.
+For <span class="math notranslate nohighlight">\(n\)</span> input data points with <span class="math notranslate nohighlight">\(m \leq n\)</span> different score
+values it has <span class="math notranslate nohighlight">\(m+1\)</span> different thresholds.
+At each threshold one can create one of two thresholding rules, i.e.,
+functions that indicate which data points get label <code class="code docutils literal notranslate"><span class="pre">1</span></code> based on
+their score.</p>
+</div>
+<p>The following combinations of fairness criteria and objectives are available:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head stub"><p>fairness criteria</p></th>
+<th class="head"><p>objectives</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">equalized_odds</span></code></p></th>
+<td><p><code class="code docutils literal notranslate"><span class="pre">accuracy_score</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">balanced_accuracy_score</span></code></p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p><code class="code docutils literal notranslate"><span class="pre">demographic_parity</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">false_positive_rate_parity</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">false_negative_rate_parity</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">true_positive_rate_parity</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">true_negative_rate_parity</span></code></p></th>
+<td><p><code class="code docutils literal notranslate"><span class="pre">selection_rate</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">true_positive_rate</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">true_negative_rate</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">accuracy_score</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">balanced_accuracy_score</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<section id="thresholdoptimizer-for-equalized-odds">
+<span id="threshold-optimizer-equalized-odds"></span><h3><cite>ThresholdOptimizer</cite> for equalized odds<a class="headerlink" href="#thresholdoptimizer-for-equalized-odds" title="Link to this heading">#</a></h3>
+<p>For equalized odds the behavior is somewhat different because it requires two
+metrics to be equal across all groups (true and false positive rate).
+The code below visualizes the threshold selection process with an ROC curve.
+The ROC curves consist of the true and false positive rates for each
+of the thresholding rules, with separate ones per sensitive feature value.
+Note that the plot omits points that are within the convex hull of points.
+Also note that we use race as the sensitive feature here to illustrate
+ROC curves that are somewhat different from each other.
+Using gender as we did above would result in very similar curves for the
+two groups.</p>
+<div class="doctest highlight-default notranslate" id="printed-thresholds"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">A_train</span><span class="p">,</span> <span class="n">A_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_train</span> <span class="o">=</span> <span class="n">A_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_test</span> <span class="o">=</span> <span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;equalized_odds&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
+<span class="go">ThresholdOptimizer(constraints=&#39;equalized_odds&#39;,</span>
+<span class="go">                   estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
+<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">                                                                                                SimpleImputer()),</span>
+<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                                StandardScaler())]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
+<span class="go">                                                                              (&#39;cat&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;)])),</span>
+<span class="go">                                             (&#39;classifier&#39;,</span>
+<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
+<span class="go">                   objective=&#39;balanced_accuracy_score&#39;,</span>
+<span class="go">                   predict_method=&#39;predict_proba&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_rules_by_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">threshold_rules_by_group</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">    &quot;AfricanAmerican&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.107...,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.987...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.093...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.012...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.081...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Asian&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.445...,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.921...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.084...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.078...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.066...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Caucasian&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.071...,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.708...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.097...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.291...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.088...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Hispanic&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.311...,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.864...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.084...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.135...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.080...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Other&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.0,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.373...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.113...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.626...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.069...]&quot;</span>
+<span class="go">    },</span>
+<span class="go">    &quot;Unknown&quot;: {</span>
+<span class="go">        &quot;p_ignore&quot;: 0.000...,</span>
+<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
+<span class="go">        &quot;p0&quot;: 0.183...,</span>
+<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.094...]&quot;,</span>
+<span class="go">        &quot;p1&quot;: 0.816...,</span>
+<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.065...]&quot;</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../../_images/postprocessing-2.png" class="plot-directive" src="../../_images/postprocessing-2.png" />
+</figure>
+<p>The printed thresholding rules influence the predictions, so we need to first
+understand the formula that puts all the parts together.
+As before, to reach the optimal solution we have to interpolate between
+points by creating the linear combination of the two thresholds as
+<span class="math notranslate nohighlight">\(p_0 \cdot \text{operation}_0(\text{score}) + p_1 \cdot \text{operation}_1(\text{score})\)</span>.
+The goal in this case with equalized odds is to reach equal true and false
+positive rates, which are conveniently plotted on the y- and x-axes,
+while optimizing the objective value.
+It follows that they’d be equal at any spot where the two curves intersect.
+We can relax this a little bit since in many cases one lies strictly above
+the other, just like in this example.
+Imagine the diagonal of the ROC plot from <span class="math notranslate nohighlight">\((0,0)\)</span> to <span class="math notranslate nohighlight">\((1,1)\)</span>.
+It is usually not considered as useful since we could achieve the same result
+with random classifiers with probabilities to get label 1 ranging from 0 to 1.
+If we have one curve strictly below the other, we can still get their true and
+false positive rates to match by “pulling” the higher one towards the
+diagonal. In reality we consider the overlap, so only the points on the lower
+curve are available to us. From those points we choose the one with the best
+value in terms of the overall objective (not per group).
+Stepping below the Pareto curve for any sensitive feature group means
+introducing a probability (<code class="code docutils literal notranslate"><span class="pre">p_ignore</span></code>) that we need to toss a biased
+coin whose bias is indicated by <code class="code docutils literal notranslate"><span class="pre">prediction_constant</span></code>.</p>
+<p>Mathematically, the following formula represents this interpretation of the
+chart, where <span class="math notranslate nohighlight">\(c\)</span> represents the <cite>prediction_constant</cite> from the printed
+dictionary above.</p>
+<div class="math notranslate nohighlight">
+\[p_{\text{ignore}} \cdot c + (1-p_{\text{ignore}}) \cdot \left(p_0 \cdot \text{operation}_0(\text{score}) + p_1 \cdot \text{operation}_1(\text{score})\right)\]</div>
+<p>In other words, we create a linear combination of the binary thresholding rule
+outputs. <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span> indicate how close we are to the points
+representing the two thresholding rules, and <span class="math notranslate nohighlight">\(p_0+p_1=1\)</span>.
+<span class="math notranslate nohighlight">\(p_{\text{ignore}}\)</span> is <span class="math notranslate nohighlight">\(0\)</span> if the curve does not need to be “pulled”
+towards the diagonal, i.e., when the selected solution lies on the curve
+itself as opposed to below.
+Above, the curve for “Asian” is strictly above the other curves, so
+<span class="math notranslate nohighlight">\(p_{\text{ignore}}\)</span> is highest for “Asian” and lower for other groups.</p>
+<p>Importantly, <span class="math notranslate nohighlight">\(p_{\text{ignore}}\)</span> is only required for equalized odds.
+We want to stress on the fact that it is crucial to understand the
+implications of such a result.
+Predictions of the resulting <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> model are determined
+randomly based on the probabilities to predict label 1 that the formula
+produces.
+Another important implication is that using randomized thresholds in this way
+results in what philosophers refer to as “leveling down”, i.e., decreasing
+performance for the better-off group without making the worse-off group any
+better off in absolute terms. <a class="footnote-reference brackets" href="#footcite-weerts2022does" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#footcite-mittelstadt2023unfairness" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p>
+<p>In some cases, one of the thresholds are defined to always be true or false
+(e.g., <cite>&gt;-infty</cite> or <cite>&lt;infty</cite>) resulting in base probabilities for getting a 0
+or 1 regardless of the features.
+In our example above, this might mean that members of one group might have a
+base probability of being predicted to be readmitted that is higher than
+the base probability for members of another group.
+We want to emphasize that a non-zero probability to get label 1 is not
+acceptable in some application contexts, so it needs to be carefully evaluated
+whether <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> should be used.</p>
+<p>Due to the separate thresholding rules per sensitive feature value, one might
+argue that this constitutes
+<a class="reference external" href="https://en.wikipedia.org/wiki/Disparate_treatment">disparate treatment</a>
+under US anti-discrimination law or direct discrimination under
+EU non-discrimination law in contexts covered by these laws.</p>
+</section>
+<section id="using-a-pre-trained-estimator">
+<h3>Using a pre-trained estimator<a class="headerlink" href="#using-a-pre-trained-estimator" title="Link to this heading">#</a></h3>
+<p>By default, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> trains the passed estimator using its
+<code class="code docutils literal notranslate"><span class="pre">fit()</span></code> method. If <code class="code docutils literal notranslate"><span class="pre">prefit</span></code> is set to <code class="code docutils literal notranslate"><span class="pre">True</span></code>,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> does not call <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> on the estimator and
+assumes that it is already trained.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;preprocessor&#39;,</span>
+<span class="go">                 ColumnTransformer(transformers=[(&#39;num&#39;,</span>
+<span class="go">                                                  Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">                                                                   SimpleImputer()),</span>
+<span class="go">                                                                  (&#39;scaler&#39;,</span>
+<span class="go">                                                                   StandardScaler())]),</span>
+<span class="go">                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...),</span>
+<span class="go">                                                 (&#39;cat&#39;,</span>
+<span class="go">                                                  Pipeline(steps=[(&#39;ohe&#39;,</span>
+<span class="go">                                                                   OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...)])),</span>
+<span class="go">                (&#39;classifier&#39;, LogisticRegression(solver=&#39;liblinear&#39;))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;demographic_parity&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;accuracy_score&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
+<span class="go">ThresholdOptimizer(estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
+<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">                                                                                                SimpleImputer()),</span>
+<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                                StandardScaler())]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
+<span class="go">                                                                              (&#39;cat&#39;,</span>
+<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...)])),</span>
+<span class="go">                                             (&#39;classifier&#39;,</span>
+<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
+<span class="go">                   prefit=True)</span>
+</pre></div>
+</div>
+<p>If it detects that the estimator may not be fitted as defined by
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.validation.check_is_fitted.html">scikit-learn’s check</a>
+it prints a warning, but still proceeds with the assumption that the user
+knows what they are doing. Not every machine learning package adheres to
+scikit-learn’s convention of setting all members with trailing underscore
+during <code class="code docutils literal notranslate"><span class="pre">fit()</span></code>, so this is unfortunately an imperfect check.</p>
+</section>
+</section>
+</section>
+<section id="references">
+<h1>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h1>
+<div class="docutils container" id="id6">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-hardt2016equality" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-weerts2022does" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p>Hilde Weerts, Lambèr Royakkers, and Mykola Pechenizkiy. Does the end justify the means? on the moral justification of fairness-aware machine learning. <em>arXiv preprint arXiv:2202.08536</em>, 2022.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-mittelstadt2023unfairness" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">3</a><span class="fn-bracket">]</span></span>
+<p>Brent Mittelstadt, Sandra Wachter, and Chris Russell. The unfairness of fair machine learning: levelling down and strict egalitarianism by default. <em>arXiv preprint arXiv:2302.02404</em>, 2023.</p>
+</aside>
+</aside>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Postprocessing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-optimizer">Threshold optimizer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thresholdoptimizer-for-equalized-odds"><cite>ThresholdOptimizer</cite> for equalized odds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-pre-trained-estimator">Using a pre-trained estimator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

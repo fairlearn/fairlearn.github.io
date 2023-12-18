@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fairlearn.reductions.LossMoment &#8212; Fairlearn 0.10.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../../_static/documentation_options.js?v=7e54ce6f"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/generated/fairlearn.reductions.LossMoment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="fairlearn.reductions.Moment" href="fairlearn.reductions.Moment.html" />
+    <link rel="prev" title="fairlearn.reductions.GridSearch" href="fairlearn.reductions.GridSearch.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_acs_income.html">fairlearn.datasets.fetch_acs_income</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_adult.html">fairlearn.datasets.fetch_adult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_bank_marketing.html">fairlearn.datasets.fetch_bank_marketing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_boston.html">fairlearn.datasets.fetch_boston</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_credit_card.html">fairlearn.datasets.fetch_credit_card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_diabetes_hospital.html">fairlearn.datasets.fetch_diabetes_hospital</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.count.html">fairlearn.metrics.count</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_difference.html">fairlearn.metrics.demographic_parity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_ratio.html">fairlearn.metrics.demographic_parity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_difference.html">fairlearn.metrics.equalized_odds_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_ratio.html">fairlearn.metrics.equalized_odds_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_negative_rate.html">fairlearn.metrics.false_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_positive_rate.html">fairlearn.metrics.false_positive_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.make_derived_metric.html">fairlearn.metrics.make_derived_metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.mean_prediction.html">fairlearn.metrics.mean_prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.plot_model_comparison.html">fairlearn.metrics.plot_model_comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.selection_rate.html">fairlearn.metrics.selection_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_negative_rate.html">fairlearn.metrics.true_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_positive_rate.html">fairlearn.metrics.true_positive_rate</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.MetricFrame.html">fairlearn.metrics.MetricFrame</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.ThresholdOptimizer.html">fairlearn.postprocessing.ThresholdOptimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.plot_threshold_optimizer.html">fairlearn.postprocessing.plot_threshold_optimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.preprocessing.CorrelationRemover.html">fairlearn.preprocessing.CorrelationRemover</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.AbsoluteLoss.html">fairlearn.reductions.AbsoluteLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ClassificationMoment.html">fairlearn.reductions.ClassificationMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.DemographicParity.html">fairlearn.reductions.DemographicParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.EqualizedOdds.html">fairlearn.reductions.EqualizedOdds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRate.html">fairlearn.reductions.ErrorRate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRateParity.html">fairlearn.reductions.ErrorRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ExponentiatedGradient.html">fairlearn.reductions.ExponentiatedGradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.TruePositiveRateParity.html">fairlearn.reductions.TruePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.FalsePositiveRateParity.html">fairlearn.reductions.FalsePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.UtilityParity.html">fairlearn.reductions.UtilityParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.GridSearch.html">fairlearn.reductions.GridSearch</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">fairlearn.reductions.LossMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.Moment.html">fairlearn.reductions.Moment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.SquareLoss.html">fairlearn.reductions.SquareLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ZeroOneLoss.html">fairlearn.reductions.ZeroOneLoss</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessClassifier.html">fairlearn.adversarial.AdversarialFairnessClassifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessRegressor.html">fairlearn.adversarial.AdversarialFairnessRegressor</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics._plotter.plot_metric_frame.html">fairlearn.metrics._plotter.plot_metric_frame</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Docs</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fairlearn.re...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="fairlearn-reductions-lossmoment">
+<h1>fairlearn.reductions.LossMoment<a class="headerlink" href="#fairlearn-reductions-lossmoment" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">LossMoment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/__init__.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment" title="Link to this definition">#</a></dt>
+<dd><p>Moment that can be expressed as weighted loss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#fairlearn.reductions.LossMoment.total_samples" title="fairlearn.reductions.LossMoment.total_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_samples</span></code></a></dt><dd><p>Return the number of samples in the data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.LossMoment.bound" title="fairlearn.reductions.LossMoment.bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code></a>()</p></td>
+<td><p>Return vector of fairness bound constraint the length of gamma.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.LossMoment.gamma" title="fairlearn.reductions.LossMoment.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a>(predictor)</p></td>
+<td><p>Calculate the degree to which constraints are currently violated by the predictor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.LossMoment.load_data" title="fairlearn.reductions.LossMoment.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a>(X, y, *[, sensitive_features])</p></td>
+<td><p>Load a set of data for use by this object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.LossMoment.project_lambda" title="fairlearn.reductions.LossMoment.project_lambda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project_lambda</span></code></a>(lambda_vec)</p></td>
+<td><p>Return the projected lambda values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.LossMoment.signed_weights" title="fairlearn.reductions.LossMoment.signed_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signed_weights</span></code></a>(lambda_vec)</p></td>
+<td><p>Return the signed weights.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.bound">
+<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/_moments/moment.py#L67-L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment.bound" title="Link to this definition">#</a></dt>
+<dd><p>Return vector of fairness bound constraint the length of gamma.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/_moments/moment.py#L63-L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment.gamma" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the degree to which constraints are currently violated by the predictor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/_moments/moment.py#L30-L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment.load_data" title="Link to this definition">#</a></dt>
+<dd><p>Load a set of data for use by this object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em>) – The feature array</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The label vector</p></li>
+<li><p><strong>sensitive_features</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The sensitive feature vector (default None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.project_lambda">
+<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/_moments/moment.py#L71-L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment.project_lambda" title="Link to this definition">#</a></dt>
+<dd><p>Return the projected lambda values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.signed_weights">
+<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/v0.10.0/fairlearn/reductions/_moments/moment.py#L75-L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.LossMoment.signed_weights" title="Link to this definition">#</a></dt>
+<dd><p>Return the signed weights.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.reductions.LossMoment.total_samples">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_samples</span></span><a class="headerlink" href="#fairlearn.reductions.LossMoment.total_samples" title="Link to this definition">#</a></dt>
+<dd><p>Return the number of samples in the data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment"><code class="docutils literal notranslate"><span class="pre">LossMoment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.bound"><code class="docutils literal notranslate"><span class="pre">LossMoment.bound()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.gamma"><code class="docutils literal notranslate"><span class="pre">LossMoment.gamma()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.load_data"><code class="docutils literal notranslate"><span class="pre">LossMoment.load_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.project_lambda"><code class="docutils literal notranslate"><span class="pre">LossMoment.project_lambda()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.signed_weights"><code class="docutils literal notranslate"><span class="pre">LossMoment.signed_weights()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.LossMoment.total_samples"><code class="docutils literal notranslate"><span class="pre">LossMoment.total_samples</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

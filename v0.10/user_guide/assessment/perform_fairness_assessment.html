@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Performing a Fairness Assessment &#8212; Fairlearn 0.10.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../../_static/documentation_options.js?v=7e54ce6f"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/assessment/perform_fairness_assessment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Common fairness metrics" href="common_fairness_metrics.html" />
+    <link rel="prev" title="Assessment" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fairness_in_machine_learning.html">Fairness in Machine Learning</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Assessment</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Performing a Fairness Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_fairness_metrics.html">Common fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mitigation/index.html">Mitigations</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/postprocessing.html">Postprocessing</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/reductions.html">Reductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/adversarial.html">Adversarial Mitigation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datasets/adult_data.html">Adult Census Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datasets/acs_income.html">ACSIncome</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/boston_housing_data.html">Revisiting the Boston Housing Dataset</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../datasets/diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installation_and_version_guide/index.html">Installation and version guide</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation_and_version_guide/installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../installation_and_version_guide/version_guide.html">Version guide</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.1.html">v0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.10.0.html">v0.10.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.2.0.html">v0.2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.3.0.html">v0.3.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.0.html">v0.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.1.html">v0.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.2.html">v0.4.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.3.html">v0.4.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.4.html">v0.4.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.5.html">v0.4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.6.html">v0.4.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.5.0.html">v0.5.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.0.html">v0.6.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.1.html">v0.6.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.2.html">v0.6.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.7.0.html">v0.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.8.0.html">v0.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.9.0.html">v0.9.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../further_resources.html">Further Resources</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Assessment</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Performing...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="performing-a-fairness-assessment">
+<span id="perform-fairness-assessment"></span><h1>Performing a Fairness Assessment<a class="headerlink" href="#performing-a-fairness-assessment" title="Link to this heading">#</a></h1>
+<p>The goal of fairness assessment is to answer the question: Which groups of
+people may be disproportionately negatively impacted by an AI system and in
+what ways?</p>
+<p>The steps of the assessment are as follows:</p>
+<ol class="arabic simple">
+<li><p>Identify types of harms</p></li>
+<li><p>Identify the groups that might be harmed</p></li>
+<li><p>Quantify harms</p></li>
+<li><p>Compare quantified harms across the groups</p></li>
+</ol>
+<p>We next examine these four steps in more detail.</p>
+<section id="identify-types-of-harms">
+<h2>Identify types of harms<a class="headerlink" href="#identify-types-of-harms" title="Link to this heading">#</a></h2>
+<p>See <a class="reference internal" href="../fairness_in_machine_learning.html#types-of-harms"><span class="std std-ref">Types of harms</span></a> for a guide to types of fairness-related harms.
+The Fairlearn package is particularly suitable for measuring:</p>
+<ul class="simple">
+<li><p><em>Allocation Harms</em> occur when a system unfairly extends or witholds
+opportunities, resources, or information.
+Common (but by no means exhaustive) examples are hiring for jobs, student
+admissions and loan origination.</p></li>
+<li><p><em>Quality of Service Harms</em> occur when a system works much better for
+one group than another.
+For example, facial recognition and speech-to-text systems may have
+substantially different performance for different ethnicities.</p></li>
+</ul>
+<p>Note that one system can lead to multiple harms, and different types of
+harms are not mutually exclusive.
+For more information, review Fairlearn’s
+<a class="reference external" href="https://github.com/fairlearn/talks/blob/main/2021_scipy_tutorial/overview.pdf">2021 SciPy tutorial</a>.</p>
+</section>
+<section id="identify-the-groups-that-might-be-harmed">
+<h2>Identify the groups that might be harmed<a class="headerlink" href="#identify-the-groups-that-might-be-harmed" title="Link to this heading">#</a></h2>
+<p>In most applications, we consider demographic groups including historically
+marginalized groups (e.g., based on gender, race, ethnicity). We should also
+consider groups that are relevant to a particular use case or deployment context. For example, for
+speech-to-text transcription, this might include groups who speak a regional dialect or people who are a
+native or a non-native speaker.</p>
+<p>It is also important to consider group intersections, for example, in addition
+to considering groups according to gender and groups according to race, it is
+also important to consider their intersections (e.g., Black women, Latinx
+nonbinary people, etc.). Crenshaw<a class="footnote-reference brackets" href="#footcite-crenshaw1991intersectionality" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+offers a thorough background on the topic of intersectionality.
+See <a class="reference internal" href="intersecting_groups.html#assessment-intersecting-groups"><span class="std std-ref">this section</span></a> of our user guide for
+details of how Fairlearn can compute metrics for intersections.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have assumed that every sensitive feature is representable by a
+discrete variable.
+This is not always the case: for example, the melanin content of a
+person’s skin (important for tasks such as facial recognition) will
+not be taken from a small number of fixed values.
+Features like this have to be binned, and the choice of bins
+could obscure fairness issues.</p>
+</div>
+</section>
+<section id="quantify-harms">
+<span id="assessment-quantify-harms"></span><h2>Quantify harms<a class="headerlink" href="#quantify-harms" title="Link to this heading">#</a></h2>
+<p>Define metrics that quantify harms or benefits:</p>
+<ul class="simple">
+<li><p>In a job screening scenario, we need to quantify the number of candidates
+that are classified as “negative” (not recommended for the job), but whose
+true label is “positive” (they are “qualified”). One possible metric is
+the false negative rate: fraction of qualified candidates that are
+screened out. Note that before we attempt to classify candidates, we need
+to determine the construct validity of the “qualified” status; more
+information on construct validity can be found in <a class="reference internal" href="../fairness_in_machine_learning.html#id8"><span class="std std-ref">What is construct validity?</span></a></p></li>
+<li><p>For a speech-to-text application, the harm could be measured by disparities
+in the word error rate for different group, measured by the number of
+mistakes in a transcript divided by the overall number of words.</p></li>
+</ul>
+<p>Note that in some cases, the outcome we seek to measure is not
+directly available.
+Occasionally, another variable in our dataset provides a close
+approximation to the phenomenon we seek to measure.
+In these cases, we might choose to use that closely related variable,
+often called a “proxy”, to stand in for the missing variable.
+For example, suppose that in the job screening scenario,
+we have data on whether the candidate passes the first two stages,
+but not if they are ultimately recommended for the job.</p>
+<p>As an alternative to the unobserved final recommendation, we could
+therefore measure the harm using the proxy variable indicating whether
+the candidate passes the first stage of the screen.
+If you choose to use a proxy variable to
+represent the harm, check the proxy variable regularly to ensure it
+remains useful over time. Our section on
+<a class="reference internal" href="../fairness_in_machine_learning.html#id8"><span class="std std-ref">construct validity</span></a>
+describes how to determine whether a
+proxy variable measures the intended construct in a meaningful
+and useful way. It is important to ensure that the proxy is suitable
+for the social context of the problem you seek to solve.
+In particular, be careful of falling into one of the
+<a class="reference internal" href="../fairness_in_machine_learning.html#abstraction-traps"><span class="std std-ref">abstraction traps</span></a>.</p>
+</section>
+<section id="disaggregated-metrics">
+<span id="assessment-disaggregated-metrics"></span><h2>Disaggregated metrics<a class="headerlink" href="#disaggregated-metrics" title="Link to this heading">#</a></h2>
+<p>The centerpiece of fairness assessment in Fairlearn are disaggregated metrics,
+which are metrics evaluated on slices of data.
+For example, to measure gender-based harms due to errors, we would begin by
+evaluating the errors separately for males, females and nonbinary persons
+in our dataset.
+If we found that males were experiencing errors at a much lower rate than
+females and nonbinary persons, we would flag this as a potential fairness harm.</p>
+<p>Note that by “errors” here, we are referring to the methods we use to
+assess the performance of the machine learning model overall, for
+example accuracy or precision in the classification case.
+We distiniguish these model performance metrics from fairness metrics,
+which operationalize different definitions of fairness
+(such as demographic parity or equal opportunity).
+We will review those metrics in a subsequent section of the User Guide.
+For more information on fairness metrics,
+review <a class="reference internal" href="common_fairness_metrics.html#common-fairness-metrics"><span class="std std-ref">Common fairness metrics</span></a>.</p>
+<p>Fairlearn provides the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a> class to help
+with this quantification.
+Suppose we have some ‘true’ values, some predictions from a model, and also
+a sensitive feature recorded for each.
+The sensitive feature, denoted by <code class="code docutils literal notranslate"><span class="pre">sf_data</span></code>, can take on one of
+three values:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf_data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now, suppose we have determined that the metrics we are interested in are the
+selection rate (<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">selection_rate()</span></code></a>), recall (a.k.a. true positive rate
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score" title="(in scikit-learn v1.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.recall_score()</span></code></a>) and false positive rate
+(<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_positive_rate()</span></code></a>).
+For completeness (and to help identify subgroups for which random noise might be
+significant), we should also include the counts (<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">count()</span></code></a>).
+We can use <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> to evaluate these metrics on our data:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">count</span><span class="p">,</span> \
+<span class="gp">... </span>                              <span class="n">false_positive_rate</span><span class="p">,</span> \
+<span class="gp">... </span>                              <span class="n">selection_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Construct a function dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_metrics</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;tpr&#39;</span> <span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;fpr&#39;</span> <span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;sel&#39;</span> <span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span> <span class="p">:</span> <span class="n">count</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Construct a MetricFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">metrics</span><span class="o">=</span><span class="n">my_metrics</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now interrogate this <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> to find the values for
+our chosen metrics.
+First, the metrics evaluated on the entire dataset (disregarding the
+sensitive feature), accessed via the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>
+property:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">overall</span>
+<span class="go">tpr       0.500000</span>
+<span class="go">fpr       0.666667</span>
+<span class="go">sel       0.555556</span>
+<span class="go">count    18.000000</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>Next, we can see the metrics evaluated on each of the groups identified by
+the <code class="code docutils literal notranslate"><span class="pre">sf_data</span></code> column.
+These are accessed through the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">                     tpr       fpr   sel  count</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">a                    0.5  1.000000  0.75    4.0</span>
+<span class="go">b                    0.6  0.000000  0.50    6.0</span>
+<span class="go">c                    0.4  0.666667  0.50    8.0</span>
+</pre></div>
+</div>
+<p>All of these values can be checked against the original arrays above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> is intended for analyzing the disparities
+between groups with regard to a base metric, and consequently cannot take
+predefined fairness metrics, such as <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_difference()</span></code></a>,
+as input to the <cite>metrics</cite> parameter.</p>
+</div>
+</section>
+<section id="compare-quantified-harms-across-the-groups">
+<span id="assessment-compare-harms"></span><h2>Compare quantified harms across the groups<a class="headerlink" href="#compare-quantified-harms-across-the-groups" title="Link to this heading">#</a></h2>
+<p>To summarize the disparities in errors (or other metrics), we may want to
+report quantities such as the difference or ratio of the metric values between
+the best and the worst groups identified by the sensitive feature(s).
+In settings where the goal is to guarantee certain minimum quality of service
+across all groups (such as speech recognition), it is also meaningful to
+report the worst performance across all considered groups.</p>
+<p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> class provides several methods for comparing
+the computed metrics.
+For example, the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a> and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a>
+methods show the smallest and largest values for each metric:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">group_min</span><span class="p">()</span>
+<span class="go">tpr      0.4</span>
+<span class="go">fpr      0.0</span>
+<span class="go">sel      0.5</span>
+<span class="go">count    4.0</span>
+<span class="go">dtype: object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">group_max</span><span class="p">()</span>
+<span class="go">tpr       0.6</span>
+<span class="go">fpr       1.0</span>
+<span class="go">sel      0.75</span>
+<span class="go">count     8.0</span>
+<span class="go">dtype: object</span>
+</pre></div>
+</div>
+<p>We can also compute differences and ratios between groups for all of the
+metrics.
+These are available via the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> and
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> methods respectively.
+The absolute difference will always be returned, and the ratios will be chosen
+to be less than one.
+By default, the computations are done between the maximum and minimum
+values for the groups:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">difference</span><span class="p">()</span>
+<span class="go">tpr      0.20</span>
+<span class="go">fpr      1.00</span>
+<span class="go">sel      0.25</span>
+<span class="go">count    4.00</span>
+<span class="go">dtype: float64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">ratio</span><span class="p">()</span>
+<span class="go">tpr      0.666667</span>
+<span class="go">fpr      0.000000</span>
+<span class="go">sel      0.666667</span>
+<span class="go">count    0.500000</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>However, the differences and ratios can also be computed relative to the
+overall values for the data:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;to_overall&#39;</span><span class="p">)</span>
+<span class="go">tpr       0.100000</span>
+<span class="go">fpr       0.666667</span>
+<span class="go">sel       0.194444</span>
+<span class="go">count    14.000000</span>
+<span class="go">dtype: float64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;to_overall&#39;</span><span class="p">)</span>
+<span class="go">tpr      0.800000</span>
+<span class="go">fpr      0.000000</span>
+<span class="go">sel      0.740741</span>
+<span class="go">count    0.222222</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>In every case, the <em>largest</em> difference and <em>smallest</em> ratio are returned.</p>
+</section>
+<section id="predefined-fairness-metrics">
+<span id="assessment-predefined-fairness-metrics"></span><h2>Predefined fairness metrics<a class="headerlink" href="#predefined-fairness-metrics" title="Link to this heading">#</a></h2>
+<p>In addition to the disaggregated analysis of base metrics enabled by
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a>, Fairlearn also provides a set of predefined fairness
+metrics that output a single score. These metrics take as input
+<cite>sensitive_features</cite> to compute the maximum difference or ratio between
+subgroups of a sensitive variable. The predefined fairness metrics offered
+by Fairlearn are <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_difference()</span></code></a>,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.demographic_parity_ratio.html#fairlearn.metrics.demographic_parity_ratio" title="fairlearn.metrics.demographic_parity_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">demographic_parity_ratio()</span></code></a>, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_difference.html#fairlearn.metrics.equalized_odds_difference" title="fairlearn.metrics.equalized_odds_difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_difference()</span></code></a>,
+and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a>.
+The ratio and difference can be calculated <cite>between_groups</cite>
+or <cite>to_overall</cite>, but <cite>to_overall</cite> results in more than 1 value being
+returned (when the <cite>control_features</cite> parameter is not <cite>None</cite>.
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> can also calculate differences and ratios between
+groups. For more information on available method of computing
+ratios or differences, view the documentation for <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>
+and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a>, respectively.
+Note that because these metrics are calculated using
+aggregations between groups, they are meant to be
+called directly, rather than used within the instantiation of a MetricFrame.</p>
+<p>Below, we show an example of calculating demographic parity ratio using the
+sample data defined above.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
+<span class="go">0.66666...</span>
+</pre></div>
+</div>
+<p>It is also possible to define custom fairness metrics based on any
+standard performance metric (e.g., the false positive rate or AUC)
+using :func:make_derived_metric.
+Under the hood, the fairness assessment metrics
+also use <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> to compute a particular base rate across
+sensitive groups and subsequently perform an aggregation (the difference
+or ratio) on the base metric values across groups. For example,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> uses both the <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_positive_rate()</span></code></a> and
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.false_negative_rate.html#fairlearn.metrics.false_negative_rate" title="fairlearn.metrics.false_negative_rate"><code class="xref py py-func docutils literal notranslate"><span class="pre">false_negative_rate()</span></code></a> within a <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> on the backend
+to generate an output. As demonstrated below,
+using <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> method
+produces the same outcome.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_metrics</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;tpr&#39;</span> <span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;fpr&#39;</span> <span class="p">:</span> <span class="n">false_positive_rate</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">metrics</span><span class="o">=</span><span class="n">my_metrics</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;between_groups&quot;</span><span class="p">))</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="common_fairness_metrics.html#common-fairness-metrics"><span class="std std-ref">Common fairness metrics</span></a> provides an overview of common metrics used
+in fairness analyses. For a deep dive into how to extend the capabilities of
+fairness metrics provided by Fairlearn, review <a class="reference internal" href="custom_fairness_metrics.html#custom-fairness-metrics"><span class="std std-ref">Defining custom fairness metrics</span></a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-types-of-harms">Identify types of harms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-the-groups-that-might-be-harmed">Identify the groups that might be harmed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantify-harms">Quantify harms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregated-metrics">Disaggregated metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-quantified-harms-across-the-groups">Compare quantified harms across the groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predefined-fairness-metrics">Predefined fairness metrics</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

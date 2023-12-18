@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>v0.4.6 &#8212; Fairlearn 0.10.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=8f29ad4c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../../_static/documentation_options.js?v=7e54ce6f"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/installation_and_version_guide/v0.4.6';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="v0.5.0" href="v0.5.0.html" />
+    <link rel="prev" title="v0.4.5" href="v0.4.5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api_reference/index.html">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fairness_in_machine_learning.html">Fairness in Machine Learning</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../assessment/index.html">Assessment</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/perform_fairness_assessment.html">Performing a Fairness Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/common_fairness_metrics.html">Common fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mitigation/index.html">Mitigations</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/postprocessing.html">Postprocessing</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/reductions.html">Reductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mitigation/adversarial.html">Adversarial Mitigation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datasets/adult_data.html">Adult Census Dataset</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datasets/acs_income.html">ACSIncome</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/boston_housing_data.html">Revisiting the Boston Housing Dataset</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../datasets/diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Installation and version guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="version_guide.html">Version guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="v0.1.html">v0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.10.0.html">v0.10.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.2.0.html">v0.2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.3.0.html">v0.3.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.0.html">v0.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.1.html">v0.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.2.html">v0.4.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.3.html">v0.4.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.4.html">v0.4.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.4.5.html">v0.4.5</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">v0.4.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.5.0.html">v0.5.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.6.0.html">v0.6.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.6.1.html">v0.6.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.6.2.html">v0.6.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.7.0.html">v0.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.8.0.html">v0.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v0.9.0.html">v0.9.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../further_resources.html">Further Resources</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="version_guide.html" class="nav-link">Version guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">v0.4.6</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="v0-4-6">
+<h1>v0.4.6<a class="headerlink" href="#v0-4-6" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Handle case where reductions relabeling results in a single class</p></li>
+<li><p>Refactor metrics:</p>
+<ul>
+<li><p>Remove <code class="code docutils literal notranslate"><span class="pre">GroupMetricResult</span></code> type in favor of a <cite>Bunch</cite>.</p></li>
+<li><p>Rename and slightly update signatures:
+* <code class="code docutils literal notranslate"><span class="pre">metric_by_group</span></code> changed to <code class="code docutils literal notranslate"><span class="pre">group_summary</span></code>
+* <code class="code docutils literal notranslate"><span class="pre">make_group_metric</span></code> changed to <code class="code docutils literal notranslate"><span class="pre">make_metric_group_summary</span></code></p></li>
+<li><p>Add group summary transformers
+<code class="code docutils literal notranslate"><span class="pre">{difference,ratio,group_min,group_max}_from_group_summary</span></code>.</p></li>
+<li><p>Add factory <code class="code docutils literal notranslate"><span class="pre">make_derived_metric</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Add new metrics:</p>
+<ul>
+<li><p>base metrics <code class="code docutils literal notranslate"><span class="pre">{true,false}_{positive,negative}_rate</span></code></p></li>
+<li><p>group summary metrics <code class="code docutils literal notranslate"><span class="pre">&lt;metric&gt;_group_summary</span></code></p></li>
+<li><p>derived metrics <code class="code docutils literal notranslate"><span class="pre">&lt;metric&gt;_{difference,ratio,group_min,group_max}</span></code></p></li>
+<li><p>disparity metrics
+<code class="code docutils literal notranslate"><span class="pre">{demographic_parity,equalized_odds}_{difference,ratio}</span></code></p></li>
+</ul>
+</li>
+<li><p>Remove metrics:</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">fallout_rate</span></code> in favor of <code class="code docutils literal notranslate"><span class="pre">false_positive_rate</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">miss_rate</span></code> in favor of <code class="code docutils literal notranslate"><span class="pre">false_negative_rate</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">specificity_score</span></code> in favor of <code class="code docutils literal notranslate"><span class="pre">true_negative_rate</span></code></p></li>
+</ul>
+</li>
+<li><p>Change from public to private:</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">mean_{over,under}prediction</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">{balanced_,}root_mean_squared_error</span></code>
+changed to the versions with a leading underscore</p></li>
+</ul>
+</li>
+<li><p>Fix warning due to changing default <code class="code docutils literal notranslate"><span class="pre">dtype</span></code> when creating an empty
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>.</p></li>
+<li><p>Enable <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code></a> for more than two sensitive
+features values.</p></li>
+<li><p>Add new disparity constraints for reductions methods as moments in
+<a class="reference internal" href="../../api_reference/index.html#module-fairlearn.reductions" title="fairlearn.reductions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.reductions</span></code></a> including:</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">TruePositiveRateDifference</span></code></p></li>
+<li><p>ratio options for all existing constraints in addition to the default,
+i.e., difference between groups w.r.t. the relevant metric.</p></li>
+</ul>
+</li>
+<li><p>Make <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> require 0-1 labels for classification
+problems, pending a better solution for Issue 339.</p></li>
+</ul>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

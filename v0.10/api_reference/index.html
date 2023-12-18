@@ -1,0 +1,894 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Docs &#8212; Fairlearn 0.10.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=8f29ad4c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../_static/documentation_options.js?v=7e54ce6f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fairlearn.datasets.fetch_acs_income" href="generated/fairlearn.datasets.fetch_acs_income.html" />
+    <link rel="prev" title="Further Resources" href="../user_guide/further_resources.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+   
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/fairlearn_full_color.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/fairlearn_full_color.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../quickstart.html">
+                        Get Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        API Docs
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../auto_examples/index.html">
+                        Example Notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributor_guide/index.html">
+                        Contributor Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../about/index.html">
+                        About Us
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/fairlearn" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_acs_income.html">fairlearn.datasets.fetch_acs_income</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_adult.html">fairlearn.datasets.fetch_adult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_bank_marketing.html">fairlearn.datasets.fetch_bank_marketing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_boston.html">fairlearn.datasets.fetch_boston</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_credit_card.html">fairlearn.datasets.fetch_credit_card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.datasets.fetch_diabetes_hospital.html">fairlearn.datasets.fetch_diabetes_hospital</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.count.html">fairlearn.metrics.count</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.demographic_parity_difference.html">fairlearn.metrics.demographic_parity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.demographic_parity_ratio.html">fairlearn.metrics.demographic_parity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.equalized_odds_difference.html">fairlearn.metrics.equalized_odds_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.equalized_odds_ratio.html">fairlearn.metrics.equalized_odds_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.false_negative_rate.html">fairlearn.metrics.false_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.false_positive_rate.html">fairlearn.metrics.false_positive_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.make_derived_metric.html">fairlearn.metrics.make_derived_metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.mean_prediction.html">fairlearn.metrics.mean_prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.plot_model_comparison.html">fairlearn.metrics.plot_model_comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.selection_rate.html">fairlearn.metrics.selection_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.true_negative_rate.html">fairlearn.metrics.true_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.true_positive_rate.html">fairlearn.metrics.true_positive_rate</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics.MetricFrame.html">fairlearn.metrics.MetricFrame</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.postprocessing.ThresholdOptimizer.html">fairlearn.postprocessing.ThresholdOptimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.postprocessing.plot_threshold_optimizer.html">fairlearn.postprocessing.plot_threshold_optimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.preprocessing.CorrelationRemover.html">fairlearn.preprocessing.CorrelationRemover</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.AbsoluteLoss.html">fairlearn.reductions.AbsoluteLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.ClassificationMoment.html">fairlearn.reductions.ClassificationMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.DemographicParity.html">fairlearn.reductions.DemographicParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.EqualizedOdds.html">fairlearn.reductions.EqualizedOdds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.ErrorRate.html">fairlearn.reductions.ErrorRate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.ErrorRateParity.html">fairlearn.reductions.ErrorRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.ExponentiatedGradient.html">fairlearn.reductions.ExponentiatedGradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.TruePositiveRateParity.html">fairlearn.reductions.TruePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.FalsePositiveRateParity.html">fairlearn.reductions.FalsePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.UtilityParity.html">fairlearn.reductions.UtilityParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.GridSearch.html">fairlearn.reductions.GridSearch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.LossMoment.html">fairlearn.reductions.LossMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.Moment.html">fairlearn.reductions.Moment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.SquareLoss.html">fairlearn.reductions.SquareLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.reductions.ZeroOneLoss.html">fairlearn.reductions.ZeroOneLoss</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.adversarial.AdversarialFairnessClassifier.html">fairlearn.adversarial.AdversarialFairnessClassifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.adversarial.AdversarialFairnessRegressor.html">fairlearn.adversarial.AdversarialFairnessRegressor</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="generated/fairlearn.metrics._plotter.plot_metric_frame.html">fairlearn.metrics._plotter.plot_metric_frame</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">API Docs</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="api-docs">
+<span id="api-reference"></span><h1>API Docs<a class="headerlink" href="#api-docs" title="Link to this heading">#</a></h1>
+</section>
+<section id="module-fairlearn.datasets">
+<span id="fairlearn-datasets"></span><h1>fairlearn.datasets<a class="headerlink" href="#module-fairlearn.datasets" title="Link to this heading">#</a></h1>
+<p>This module contains datasets that can be used for benchmarking and education.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_acs_income.html#fairlearn.datasets.fetch_acs_income" title="fairlearn.datasets.fetch_acs_income"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_acs_income</span></code></a></p></td>
+<td><p>Load the ACS Income dataset (regression).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_adult</span></code></a></p></td>
+<td><p>Load the UCI Adult dataset (binary classification).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_bank_marketing.html#fairlearn.datasets.fetch_bank_marketing" title="fairlearn.datasets.fetch_bank_marketing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_bank_marketing</span></code></a></p></td>
+<td><p>Load the UCI bank marketing dataset (binary classification).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_boston.html#fairlearn.datasets.fetch_boston" title="fairlearn.datasets.fetch_boston"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_boston</span></code></a></p></td>
+<td><p>Load the boston housing dataset (regression).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_credit_card.html#fairlearn.datasets.fetch_credit_card" title="fairlearn.datasets.fetch_credit_card"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_credit_card</span></code></a></p></td>
+<td><p>Load the 'Default of Credit Card clients' dataset (binary classification).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.datasets.fetch_diabetes_hospital.html#fairlearn.datasets.fetch_diabetes_hospital" title="fairlearn.datasets.fetch_diabetes_hospital"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datasets.fetch_diabetes_hospital</span></code></a></p></td>
+<td><p>Load the preprocessed Diabetes 130-Hospitals dataset (binary classification).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.metrics">
+<span id="fairlearn-metrics"></span><h1>fairlearn.metrics<a class="headerlink" href="#module-fairlearn.metrics" title="Link to this heading">#</a></h1>
+<p>Functionality for computing metrics, with a particular focus on disaggregated metrics.</p>
+<p>For our purpose, a metric is a function with signature
+<code class="docutils literal notranslate"><span class="pre">f(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">....)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">y_true</span></code> are the set of true values and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> are
+values predicted by a machine learning algorithm. Other
+arguments may be present (most often sample weights), which will
+affect how the metric is calculated.</p>
+<p>This module provides the concept of a <em>disaggregated metric</em>.
+This is a metric where in addition to <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>
+values, the user provides information about group membership
+for each sample.
+For example, a user could provide a ‘Gender’ column, and the
+disaggregated metric would contain separate results for the subgroups
+‘male’, ‘female’ and ‘nonbinary’ indicated by that column.
+The underlying metric function is evaluated for each of these three
+subgroups.
+This extends to multiple grouping columns, calculating the metric
+for each combination of subgroups.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.count</span></code></a></p></td>
+<td><p>Calculate the number of data points in each group when working with <cite>MetricFrame</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.demographic_parity_difference</span></code></a></p></td>
+<td><p>Calculate the demographic parity difference.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.demographic_parity_ratio.html#fairlearn.metrics.demographic_parity_ratio" title="fairlearn.metrics.demographic_parity_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.demographic_parity_ratio</span></code></a></p></td>
+<td><p>Calculate the demographic parity ratio.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.equalized_odds_difference.html#fairlearn.metrics.equalized_odds_difference" title="fairlearn.metrics.equalized_odds_difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.equalized_odds_difference</span></code></a></p></td>
+<td><p>Calculate the equalized odds difference.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.equalized_odds_ratio</span></code></a></p></td>
+<td><p>Calculate the equalized odds ratio.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.false_negative_rate.html#fairlearn.metrics.false_negative_rate" title="fairlearn.metrics.false_negative_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.false_negative_rate</span></code></a></p></td>
+<td><p>Calculate the false negative rate (also called miss rate).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.false_positive_rate</span></code></a></p></td>
+<td><p>Calculate the false positive rate (also called fall-out).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.make_derived_metric.html#fairlearn.metrics.make_derived_metric" title="fairlearn.metrics.make_derived_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.make_derived_metric</span></code></a></p></td>
+<td><p>Create a scalar returning metric function based on aggregation of a disaggregated metric.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.mean_prediction.html#fairlearn.metrics.mean_prediction" title="fairlearn.metrics.mean_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.mean_prediction</span></code></a></p></td>
+<td><p>Calculate the (weighted) mean prediction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.plot_model_comparison</span></code></a></p></td>
+<td><p>Create a scatter plot comparing multiple models along two metrics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.selection_rate</span></code></a></p></td>
+<td><p>Calculate the fraction of predicted labels matching the 'good' outcome.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.metrics.true_negative_rate.html#fairlearn.metrics.true_negative_rate" title="fairlearn.metrics.true_negative_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.true_negative_rate</span></code></a></p></td>
+<td><p>Calculate the true negative rate (also called specificity or selectivity).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.true_positive_rate.html#fairlearn.metrics.true_positive_rate" title="fairlearn.metrics.true_positive_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.true_positive_rate</span></code></a></p></td>
+<td><p>Calculate the true positive rate (also called sensitivity, recall, or hit rate).</p></td>
+</tr>
+</tbody>
+</table>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics.MetricFrame</span></code></a></p></td>
+<td><p>Collection of disaggregated metric values.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.postprocessing">
+<span id="fairlearn-postprocessing"></span><h1>fairlearn.postprocessing<a class="headerlink" href="#module-fairlearn.postprocessing" title="Link to this heading">#</a></h1>
+<p>This module contains methods which operate on a predictor, rather than an estimator.</p>
+<p>The predictor’s output is adjusted to fulfill specified parity constraints. The postprocessors
+learn how to adjust the predictor’s output from the training data.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">postprocessing.ThresholdOptimizer</span></code></a></p></td>
+<td><p>A classifier based on the threshold optimization approach.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.postprocessing.plot_threshold_optimizer.html#fairlearn.postprocessing.plot_threshold_optimizer" title="fairlearn.postprocessing.plot_threshold_optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">postprocessing.plot_threshold_optimizer</span></code></a></p></td>
+<td><p>Plot the chosen solution of the threshold optimizer.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.preprocessing">
+<span id="fairlearn-preprocessing"></span><h1>fairlearn.preprocessing<a class="headerlink" href="#module-fairlearn.preprocessing" title="Link to this heading">#</a></h1>
+<p>Preprocessing tools to help deal with sensitive attributes.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.preprocessing.CorrelationRemover.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocessing.CorrelationRemover</span></code></a></p></td>
+<td><p>A component that filters out sensitive correlations in a dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.reductions">
+<span id="fairlearn-reductions"></span><h1>fairlearn.reductions<a class="headerlink" href="#module-fairlearn.reductions" title="Link to this heading">#</a></h1>
+<p>This module contains algorithms implementing the reductions approach to disparity mitigation.</p>
+<p>In this approach, disparity constraints are cast as Lagrange multipliers, which cause the
+reweighting and relabelling of the input data. This <em>reduces</em> the problem back to standard machine
+learning training.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.AbsoluteLoss.html#fairlearn.reductions.AbsoluteLoss" title="fairlearn.reductions.AbsoluteLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.AbsoluteLoss</span></code></a></p></td>
+<td><p>Class to evaluate absolute loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.BoundedGroupLoss.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.BoundedGroupLoss</span></code></a></p></td>
+<td><p>Moment for constraining the worst-case loss by a group.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.ClassificationMoment.html#fairlearn.reductions.ClassificationMoment" title="fairlearn.reductions.ClassificationMoment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.ClassificationMoment</span></code></a></p></td>
+<td><p>Moment that can be expressed as weighted classification error.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.DemographicParity.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.DemographicParity</span></code></a></p></td>
+<td><p>Implementation of demographic parity as a moment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.EqualizedOdds.html#fairlearn.reductions.EqualizedOdds" title="fairlearn.reductions.EqualizedOdds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.EqualizedOdds</span></code></a></p></td>
+<td><p>Implementation of equalized odds as a moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.ErrorRate</span></code></a></p></td>
+<td><p>Misclassification error as a moment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.ErrorRateParity.html#fairlearn.reductions.ErrorRateParity" title="fairlearn.reductions.ErrorRateParity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.ErrorRateParity</span></code></a></p></td>
+<td><p>Implementation of error rate parity as a moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.ExponentiatedGradient</span></code></a></p></td>
+<td><p>An Estimator which implements the exponentiated gradient reduction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.TruePositiveRateParity.html#fairlearn.reductions.TruePositiveRateParity" title="fairlearn.reductions.TruePositiveRateParity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.TruePositiveRateParity</span></code></a></p></td>
+<td><p>Implementation of true positive rate parity as a moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.FalsePositiveRateParity.html#fairlearn.reductions.FalsePositiveRateParity" title="fairlearn.reductions.FalsePositiveRateParity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.FalsePositiveRateParity</span></code></a></p></td>
+<td><p>Implementation of false positive rate parity as a moment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.UtilityParity.html#fairlearn.reductions.UtilityParity" title="fairlearn.reductions.UtilityParity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.UtilityParity</span></code></a></p></td>
+<td><p>A generic moment for parity in utilities (or costs) under classification.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.GridSearch</span></code></a></p></td>
+<td><p>Estimator to perform a grid search given a blackbox estimator algorithm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.LossMoment.html#fairlearn.reductions.LossMoment" title="fairlearn.reductions.LossMoment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.LossMoment</span></code></a></p></td>
+<td><p>Moment that can be expressed as weighted loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.Moment</span></code></a></p></td>
+<td><p>Generic moment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.BoundedGroupLoss.html#fairlearn.reductions.BoundedGroupLoss" title="fairlearn.reductions.BoundedGroupLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.BoundedGroupLoss</span></code></a></p></td>
+<td><p>Moment for constraining the worst-case loss by a group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.reductions.SquareLoss.html#fairlearn.reductions.SquareLoss" title="fairlearn.reductions.SquareLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.SquareLoss</span></code></a></p></td>
+<td><p>Class to evaluate the square loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.reductions.ZeroOneLoss.html#fairlearn.reductions.ZeroOneLoss" title="fairlearn.reductions.ZeroOneLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reductions.ZeroOneLoss</span></code></a></p></td>
+<td><p>Class to evaluate a zero-one loss.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.adversarial">
+<span id="fairlearn-adversarial"></span><h1>fairlearn.adversarial<a class="headerlink" href="#module-fairlearn.adversarial" title="Link to this heading">#</a></h1>
+<p>Adversarial techniques to help mitigate unfairness.</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.adversarial.AdversarialFairnessClassifier.html#fairlearn.adversarial.AdversarialFairnessClassifier" title="fairlearn.adversarial.AdversarialFairnessClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adversarial.AdversarialFairnessClassifier</span></code></a></p></td>
+<td><p>Train PyTorch or TensorFlow classifiers while mitigating unfairness.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/fairlearn.adversarial.AdversarialFairnessRegressor.html#fairlearn.adversarial.AdversarialFairnessRegressor" title="fairlearn.adversarial.AdversarialFairnessRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adversarial.AdversarialFairnessRegressor</span></code></a></p></td>
+<td><p>Train PyTorch or TensorFlow regressors while mitigating unfairness.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-fairlearn.experimental">
+<span id="fairlearn-experimental"></span><h1>fairlearn.experimental<a class="headerlink" href="#module-fairlearn.experimental" title="Link to this heading">#</a></h1>
+<p>Enables experimental functionality that may be migrated to other modules at a later point.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Anything can break from version to version without further warning.</p>
+</div>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/fairlearn.metrics._plotter.plot_metric_frame.html#fairlearn.metrics._plotter.plot_metric_frame" title="fairlearn.metrics._plotter.plot_metric_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics._plotter.plot_metric_frame</span></code></a></p></td>
+<td><p>Visualization for metrics with and without confidence intervals.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">API Docs</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.datasets">fairlearn.datasets</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.metrics">fairlearn.metrics</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.postprocessing">fairlearn.postprocessing</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.preprocessing">fairlearn.preprocessing</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.reductions">fairlearn.reductions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.adversarial">fairlearn.adversarial</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#module-fairlearn.experimental">fairlearn.experimental</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018 - 2023, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
