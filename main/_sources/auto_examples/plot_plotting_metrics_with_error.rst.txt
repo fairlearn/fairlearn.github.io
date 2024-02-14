@@ -96,7 +96,7 @@ We use a pipeline to preprocess the data then use a
     categorical_transformer = Pipeline(
         [
             ("impute", SimpleImputer(strategy="most_frequent")),
-            ("ohe", OneHotEncoder(handle_unknown="ignore", sparse=False)),
+            ("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
         ]
     )
 
@@ -124,13 +124,6 @@ We use a pipeline to preprocess the data then use a
 
 
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-      warnings.warn(
 
 
 
@@ -484,7 +477,7 @@ Customizing plots
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.288 seconds)
+   **Total running time of the script:** (0 minutes 1.176 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_plotting_metrics_with_error.py:
