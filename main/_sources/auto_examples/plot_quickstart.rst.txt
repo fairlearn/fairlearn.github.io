@@ -22,14 +22,15 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-15
+.. GENERATED FROM PYTHON SOURCE LINES 9-16
 
 .. code-block:: Python
 
 
     import pandas as pd
-    from fairlearn.datasets import fetch_adult
+    from fairlearn.datasets import fetch_diabetes_hospital
     from sklearn.metrics import accuracy_score, precision_score
+    from sklearn.model_selection import train_test_split
     from sklearn.tree import DecisionTreeClassifier
 
 
@@ -39,7 +40,7 @@ MetricFrame visualizations
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-98
+.. GENERATED FROM PYTHON SOURCE LINES 17-104
 
 .. code-block:: Python
 
@@ -51,14 +52,19 @@ MetricFrame visualizations
         selection_rate,
     )
 
-    data = fetch_adult()
-    X = pd.get_dummies(data.data)
-    y_true = (data.target == ">50K") * 1
-    sex = data.data["sex"]
+    data = fetch_diabetes_hospital(as_frame=True)
+    X = data.data
+    X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
+    y_true = data.target
+    X_ohe = pd.get_dummies(X)
+    race = X['race']
+
+    X_train, X_test, y_train, y_test, \
+        A_train, A_test = train_test_split(X_ohe, y_true, race, random_state=123)
 
     classifier = DecisionTreeClassifier(min_samples_leaf=10, max_depth=4)
-    classifier.fit(X, y_true)
-    y_pred = classifier.predict(X)
+    classifier.fit(X_train, y_train)
+    y_pred = classifier.predict(X_test)
 
     # Analyze metrics using MetricFrame
     metrics = {
@@ -70,7 +76,7 @@ MetricFrame visualizations
         "count": count,
     }
     metric_frame = MetricFrame(
-        metrics=metrics, y_true=y_true, y_pred=y_pred, sensitive_features=sex
+        metrics=metrics, y_true=y_test, y_pred=y_pred, sensitive_features=A_test
     )
     metric_frame.by_group.plot.bar(
         subplots=True,
@@ -167,13 +173,31 @@ MetricFrame visualizations
          :class: sphx-glr-multi-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/tmp-fairlearn/examples/plot_quickstart.py:27: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame
+
+    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+      X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
+    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.572 seconds)
+   **Total running time of the script:** (0 minutes 2.822 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:
