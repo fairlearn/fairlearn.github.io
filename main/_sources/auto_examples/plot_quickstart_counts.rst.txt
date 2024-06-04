@@ -44,7 +44,7 @@ Value counts
     fig, ax = plt.subplots()
 
     data = fetch_diabetes_hospital(as_frame=True)
-    X = data.data
+    X = data.data.copy()
     X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
     y_true = data.target
     race = X["race"]
@@ -66,23 +66,13 @@ Value counts
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/tmp-fairlearn/examples/plot_quickstart_counts.py:18: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame
-
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.368 seconds)
+   **Total running time of the script:** (0 minutes 17.421 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart_counts.py:

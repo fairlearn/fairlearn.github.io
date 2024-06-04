@@ -105,7 +105,7 @@ Next, we import the data:
 
 
     data = fetch_adult()
-    X_raw = data.data
+    X_raw = data.data.copy()
     y = (data.target == ">50K") * 1
 
 
@@ -145,12 +145,6 @@ three unique values:
 
  .. code-block:: none
 
-    /home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:89: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      X_raw["race"] = X_raw["race"].map(race_transform).fillna("Other").astype("category")
     ['Black' 'Other' 'White']
 
 
@@ -194,145 +188,17 @@ illustrative purposes.
     col_loan_size = X_raw["occupation"].map(occupation_transform).fillna("Small")
     col_loan_size.name = "Loan Size"
 
-    A = X_raw[["race", "sex"]]
+    A = X_raw[["race", "sex"]].copy()
     A["Credit Score"] = col_credit
     A["Loan Size"] = col_loan_size
-    A
 
 
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:125: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      A["Credit Score"] = col_credit
-    /home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:126: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      A["Loan Size"] = col_loan_size
 
 
-.. raw:: html
 
-    <div class="output_subarea output_html rendered_html output_result">
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>race</th>
-          <th>sex</th>
-          <th>Credit Score</th>
-          <th>Loan Size</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>0</th>
-          <td>Black</td>
-          <td>Male</td>
-          <td>Low</td>
-          <td>Large</td>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>White</td>
-          <td>Male</td>
-          <td>Medium</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>White</td>
-          <td>Male</td>
-          <td>Medium</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>Black</td>
-          <td>Male</td>
-          <td>Medium</td>
-          <td>Large</td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td>White</td>
-          <td>Female</td>
-          <td>Low</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>...</th>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-          <td>...</td>
-        </tr>
-        <tr>
-          <th>48837</th>
-          <td>White</td>
-          <td>Female</td>
-          <td>Medium</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>48838</th>
-          <td>White</td>
-          <td>Male</td>
-          <td>Medium</td>
-          <td>Large</td>
-        </tr>
-        <tr>
-          <th>48839</th>
-          <td>White</td>
-          <td>Female</td>
-          <td>High</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>48840</th>
-          <td>White</td>
-          <td>Male</td>
-          <td>Low</td>
-          <td>Small</td>
-        </tr>
-        <tr>
-          <th>48841</th>
-          <td>White</td>
-          <td>Female</td>
-          <td>Medium</td>
-          <td>Small</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>48842 rows × 4 columns</p>
-    </div>
-    </div>
-    <br />
-    <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 130-135
 
@@ -837,8 +703,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate        0.192812
-    fbeta_06              0.680490
+    selection_rate        0.192100
+    fbeta_06              0.684675
     count             14653.000000
     dtype: float64
 
@@ -895,14 +761,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.070848</td>
-          <td>0.631467</td>
+          <td>0.067120</td>
+          <td>0.624101</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.253356</td>
-          <td>0.687854</td>
+          <td>0.254792</td>
+          <td>0.693368</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -2268,7 +2134,7 @@ be handled similarly, in the cases that it is not a scalar.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.844 seconds)
+   **Total running time of the script:** (0 minutes 2.938 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:

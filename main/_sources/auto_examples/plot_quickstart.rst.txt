@@ -22,10 +22,12 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-17
+.. GENERATED FROM PYTHON SOURCE LINES 9-19
 
 .. code-block:: Python
 
+
+    from functools import partial
 
     import pandas as pd
     from sklearn.metrics import accuracy_score, precision_score
@@ -41,7 +43,7 @@ MetricFrame visualizations
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-106
+.. GENERATED FROM PYTHON SOURCE LINES 20-110
 
 .. code-block:: Python
 
@@ -54,7 +56,7 @@ MetricFrame visualizations
     )
 
     data = fetch_diabetes_hospital(as_frame=True)
-    X = data.data
+    X = data.data.copy()
     X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
     y_true = data.target
     X_ohe = pd.get_dummies(X)
@@ -68,10 +70,12 @@ MetricFrame visualizations
     classifier.fit(X_train, y_train)
     y_pred = classifier.predict(X_test)
 
+    zero_div_precision_score = partial(precision_score, zero_division=0)
+
     # Analyze metrics using MetricFrame
     metrics = {
         "accuracy": accuracy_score,
-        "precision": precision_score,
+        "precision": zero_div_precision_score,
         "false positive rate": false_positive_rate,
         "false negative rate": false_negative_rate,
         "selection rate": selection_rate,
@@ -175,31 +179,13 @@ MetricFrame visualizations
          :class: sphx-glr-multi-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/tmp-fairlearn/examples/plot_quickstart.py:28: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame
-
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
-    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1517: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
-      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
-    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1517: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
-      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
-    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1517: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
-      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
-    /home/circleci/.pyenv/versions/3.11.5/lib/python3.11/site-packages/sklearn/metrics/_classification.py:1517: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
-      _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.765 seconds)
+   **Total running time of the script:** (0 minutes 2.863 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:

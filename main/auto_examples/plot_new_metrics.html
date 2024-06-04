@@ -470,8 +470,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="plot_quickstart_counts.html">Value counts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plot_quickstart.html">MetricFrame visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_correlationremover_before_after.html">CorrelationRemover visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_quickstart.html">MetricFrame visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_mitigation_pipeline.html">Passing pipelines to mitigation techniques</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_metricframe_beyond_binary_classification.html">MetricFrame: Beyond Binary Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_make_derived_metric.html">Making Derived Metrics</a></li>
@@ -600,7 +600,7 @@ We start with some uncontroversial <cite>import</cite> statements:</p>
 </div>
 <p>Next, we import the data:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a><span class="p">()</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">data</span></a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.copy.html#pandas.DataFrame.copy" title="pandas.DataFrame.copy" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span><span class="o">.</span><span class="n">target</span></a> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -618,13 +618,7 @@ three unique values:</p>
 <span class="nb">print</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:89: SettingWithCopyWarning:
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  X_raw[&quot;race&quot;] = X_raw[&quot;race&quot;].map(race_transform).fillna(&quot;Other&quot;).astype(&quot;category&quot;)
-[&#39;Black&#39; &#39;Other&#39; &#39;White&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;Black&#39; &#39;Other&#39; &#39;White&#39;]
 </pre></div>
 </div>
 <p>Now, we manufacture the columns for the credit score band and
@@ -656,136 +650,12 @@ illustrative purposes.</p>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_loan_size</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[</span><span class="s2">&quot;occupation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">occupation_transform</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;Small&quot;</span><span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.name.html#pandas.Series.name" title="pandas.Series.name" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-property"><span class="n">col_loan_size</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <span class="s2">&quot;Loan Size&quot;</span>
 
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]]</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_raw</span></a><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">[</span><span class="s2">&quot;Credit Score&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_credit</span></a>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a><span class="p">[</span><span class="s2">&quot;Loan Size&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">col_loan_size</span></a>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A</span></a>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:125: SettingWithCopyWarning:
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  A[&quot;Credit Score&quot;] = col_credit
-/home/circleci/tmp-fairlearn/examples/plot_new_metrics.py:126: SettingWithCopyWarning:
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  A[&quot;Loan Size&quot;] = col_loan_size
-</pre></div>
-</div>
-<div class="output_subarea output_html rendered_html output_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>race</th>
-      <th>sex</th>
-      <th>Credit Score</th>
-      <th>Loan Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Black</td>
-      <td>Male</td>
-      <td>Low</td>
-      <td>Large</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>White</td>
-      <td>Male</td>
-      <td>Medium</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>White</td>
-      <td>Male</td>
-      <td>Medium</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Black</td>
-      <td>Male</td>
-      <td>Medium</td>
-      <td>Large</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>White</td>
-      <td>Female</td>
-      <td>Low</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>48837</th>
-      <td>White</td>
-      <td>Female</td>
-      <td>Medium</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>48838</th>
-      <td>White</td>
-      <td>Male</td>
-      <td>Medium</td>
-      <td>Large</td>
-    </tr>
-    <tr>
-      <th>48839</th>
-      <td>White</td>
-      <td>Female</td>
-      <td>High</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>48840</th>
-      <td>White</td>
-      <td>Male</td>
-      <td>Low</td>
-      <td>Small</td>
-    </tr>
-    <tr>
-      <th>48841</th>
-      <td>White</td>
-      <td>Female</td>
-      <td>Medium</td>
-      <td>Small</td>
-    </tr>
-  </tbody>
-</table>
-<p>48842 rows × 4 columns</p>
-</div>
-</div>
-<br />
-<br /><p>Now that we have imported our dataset and manufactured a few features, we
+<p>Now that we have imported our dataset and manufactured a few features, we
 can perform some more conventional processing. To avoid the problem of
 <a class="reference external" href="https://en.wikipedia.org/wiki/Leakage_(machine_learning)">data leakage</a>,
 we need to split the data into training and test sets before applying
@@ -1088,8 +958,8 @@ pass these along:</p>
 <span class="nb">print</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-property"><span class="n">grouped_with_weights</span><span class="o">.</span><span class="n">overall</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.192812
-fbeta_06              0.680490
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>selection_rate        0.192100
+fbeta_06              0.684675
 count             14653.000000
 dtype: float64
 </pre></div>
@@ -1131,14 +1001,14 @@ dtype: float64
   <tbody>
     <tr>
       <th>Female</th>
-      <td>0.070848</td>
-      <td>0.631467</td>
+      <td>0.067120</td>
+      <td>0.624101</td>
       <td>4838.0</td>
     </tr>
     <tr>
       <th>Male</th>
-      <td>0.253356</td>
-      <td>0.687854</td>
+      <td>0.254792</td>
+      <td>0.693368</td>
       <td>9815.0</td>
     </tr>
   </tbody>
@@ -2197,7 +2067,7 @@ directly to a CSV file, rather than returning a string (as shown
 above).</p>
 <p>The <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overall()</span></code></a> property can
 be handled similarly, in the cases that it is not a scalar.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.844 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.938 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-new-metrics-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b355a6ca8d918912b67fb280e7d7bbce/plot_new_metrics.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_new_metrics.ipynb</span></code></a></p>
