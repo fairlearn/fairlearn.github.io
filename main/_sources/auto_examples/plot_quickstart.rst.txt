@@ -22,17 +22,17 @@
 MetricFrame visualizations
 ==========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-16
+.. GENERATED FROM PYTHON SOURCE LINES 9-17
 
 .. code-block:: Python
 
 
     import pandas as pd
-    from fairlearn.datasets import fetch_diabetes_hospital
     from sklearn.metrics import accuracy_score, precision_score
     from sklearn.model_selection import train_test_split
     from sklearn.tree import DecisionTreeClassifier
 
+    from fairlearn.datasets import fetch_diabetes_hospital
 
 
 
@@ -40,7 +40,8 @@ MetricFrame visualizations
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-104
+
+.. GENERATED FROM PYTHON SOURCE LINES 18-106
 
 .. code-block:: Python
 
@@ -57,10 +58,11 @@ MetricFrame visualizations
     X.drop(columns=["readmitted", "readmit_binary"], inplace=True)
     y_true = data.target
     X_ohe = pd.get_dummies(X)
-    race = X['race']
+    race = X["race"]
 
-    X_train, X_test, y_train, y_test, \
-        A_train, A_test = train_test_split(X_ohe, y_true, race, random_state=123)
+    X_train, X_test, y_train, y_test, A_train, A_test = train_test_split(
+        X_ohe, y_true, race, random_state=123
+    )
 
     classifier = DecisionTreeClassifier(min_samples_leaf=10, max_depth=4)
     classifier.fit(X_train, y_train)
@@ -177,7 +179,7 @@ MetricFrame visualizations
 
  .. code-block:: none
 
-    /home/circleci/tmp-fairlearn/examples/plot_quickstart.py:27: SettingWithCopyWarning: 
+    /home/circleci/tmp-fairlearn/examples/plot_quickstart.py:28: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame
 
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -197,7 +199,7 @@ MetricFrame visualizations
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.614 seconds)
+   **Total running time of the script:** (0 minutes 2.765 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_quickstart.py:

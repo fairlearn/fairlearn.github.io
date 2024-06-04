@@ -45,9 +45,9 @@ We start with some`import` statements:
 .. code-block:: Python
 
 
+    import matplotlib.pyplot as plt
     import numpy as np
     import pandas as pd
-    import matplotlib.pyplot as plt
 
     from fairlearn.datasets import fetch_diabetes_hospital
     from fairlearn.preprocessing import CorrelationRemover
@@ -111,16 +111,14 @@ We are now going to fit the CorrelationRemover to the data,
 and transform it. The transformed array will be placed back
 in a Pandas DataFrame, for plotting purposes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-85
+.. GENERATED FROM PYTHON SOURCE LINES 70-83
 
 .. code-block:: Python
 
 
     cr = CorrelationRemover(sensitive_feature_ids=["race_AfricanAmerican"])
     X_cr = cr.fit_transform(X_raw)
-    X_cr = pd.DataFrame(
-        X_cr, columns=["time_in_hospital", "had_inpatient_days_True", "medicare_True"]
-    )
+    X_cr = pd.DataFrame(X_cr, columns=["time_in_hospital", "had_inpatient_days_True", "medicare_True"])
     X_cr["race_AfricanAmerican"] = X_raw["race_AfricanAmerican"]
 
     cr_alpha = CorrelationRemover(sensitive_feature_ids=["race_AfricanAmerican"], alpha=0.5)
@@ -137,14 +135,14 @@ in a Pandas DataFrame, for plotting purposes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-90
+.. GENERATED FROM PYTHON SOURCE LINES 84-88
 
 We can now plot the correlation matrices before
 and after the CorrelationRemover.
 The code is from  the
 `matplotlib docs <https://matplotlib.org/devdocs/gallery/images_contours_and_fields/image_annotated_heatmap.html>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-128
+.. GENERATED FROM PYTHON SOURCE LINES 88-126
 
 .. code-block:: Python
 
@@ -217,7 +215,7 @@ The code is from  the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 127-132
 
 Even though there was not a high amount of correlation to begin with,
 the CorrelationRemover successfully removed all correlation between
@@ -228,7 +226,7 @@ not all the correlation being projected away.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.313 seconds)
+   **Total running time of the script:** (0 minutes 1.364 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_correlationremover_before_after.py:

@@ -347,8 +347,8 @@ To show that the returned function also works with sample weights:
 
  .. code-block:: none
 
-    From MetricFrame: 0.8135046982806101
-    From function   : 0.8135046982806101
+    From MetricFrame: 0.810525943753366
+    From function   : 0.810525943753366
 
 
 
@@ -388,7 +388,7 @@ First we evaluate this with a :class:`fairlearn.metrics.MetricFrame`:
 
  .. code-block:: none
 
-    From frame: 0.042751044400394456
+    From frame: 0.016475094016289882
 
 
 
@@ -426,7 +426,7 @@ we do not need to use :func:`functools.partial` to bind the
 
  .. code-block:: none
 
-    From function: 0.042751044400394456
+    From function: 0.016475094016289882
 
 
 
@@ -441,7 +441,7 @@ common use cases. For example, we provide a
 :code:`accuracy_score_group_min()` function to
 find the minimum over the accuracy scores:
 
-.. GENERATED FROM PYTHON SOURCE LINES 252-263
+.. GENERATED FROM PYTHON SOURCE LINES 252-261
 
 .. code-block:: Python
 
@@ -449,9 +449,7 @@ find the minimum over the accuracy scores:
 
     from_myacc = my_acc(y_test, y_pred, sensitive_features=A_test["race"])
 
-    from_pregen = accuracy_score_group_min(
-        y_test, y_pred, sensitive_features=A_test["race"]
-    )
+    from_pregen = accuracy_score_group_min(y_test, y_pred, sensitive_features=A_test["race"])
 
     print("From my function :", from_myacc)
     print("From pregenerated:", from_pregen)
@@ -473,7 +471,7 @@ find the minimum over the accuracy scores:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.133 seconds)
+   **Total running time of the script:** (0 minutes 1.115 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_make_derived_metric.py:

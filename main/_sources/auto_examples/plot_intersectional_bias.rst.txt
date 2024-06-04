@@ -534,18 +534,23 @@ Let's build our first machine learning model. First, we need to import the requi
 data set.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 523-565
+.. GENERATED FROM PYTHON SOURCE LINES 523-570
 
 .. code-block:: Python
 
 
+    import matplotlib.pyplot as plt
+
     # Import relevant libraries
     import numpy as np
     import pandas as pd
-    import matplotlib.pyplot as plt
-    import sklearn.metrics as skm
     import seaborn as sns
+    import sklearn.metrics as skm
     from sklearn.datasets import fetch_openml
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+
+    from fairlearn.metrics import MetricFrame, false_positive_rate
 
     # Read in dataset
     data_openml = fetch_openml(data_id=45040)
@@ -587,13 +592,13 @@ data set.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 566-569
+.. GENERATED FROM PYTHON SOURCE LINES 571-574
 
 Exploring the data
 ~~~~~~~~~~~~~~~~~~
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 571-573
+.. GENERATED FROM PYTHON SOURCE LINES 576-578
 
 .. code-block:: Python
 
@@ -764,7 +769,7 @@ Exploring the data
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 574-609
+.. GENERATED FROM PYTHON SOURCE LINES 579-614
 
 By examining the first few cases, we can broadly get a sense of what the data looks like:
 
@@ -802,7 +807,7 @@ important ideas.
 Keeping this caveat in mind, let's plot some graphs to better visualize the data.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 611-629
+.. GENERATED FROM PYTHON SOURCE LINES 616-634
 
 .. code-block:: Python
 
@@ -836,7 +841,7 @@ Keeping this caveat in mind, let's plot some graphs to better visualize the data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 630-646
+.. GENERATED FROM PYTHON SOURCE LINES 635-651
 
 These plots show that the train and test sets have similar proportions of data across
 diagnosis, sex, and race, so the way our data is partitioned seems fine.
@@ -855,7 +860,7 @@ Preprocessing
 First, we distinguish our outcome or label (diagnosis) from the training features.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 648-656
+.. GENERATED FROM PYTHON SOURCE LINES 653-661
 
 .. code-block:: Python
 
@@ -874,17 +879,16 @@ First, we distinguish our outcome or label (diagnosis) from the training feature
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 657-660
+.. GENERATED FROM PYTHON SOURCE LINES 662-665
 
 Next, we do some minimal preprocessing to one hot encode the categorical variables, bearing in
 mind that preprocessing real-world hospital record data is typically much more laborious.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 662-689
+.. GENERATED FROM PYTHON SOURCE LINES 667-693
 
 .. code-block:: Python
 
-    from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
 
     # Perform one hot encoding
     categories = ["Sex", "Race", "Housing", "Delay"]  # Categorial variables
@@ -918,7 +922,7 @@ mind that preprocessing real-world hospital record data is typically much more l
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 690-701
+.. GENERATED FROM PYTHON SOURCE LINES 694-705
 
 Training
 ~~~~~~~~
@@ -932,13 +936,12 @@ This is in contrast to some model-specific fairness approaches that require acce
 internals.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 703-709
+.. GENERATED FROM PYTHON SOURCE LINES 707-712
 
 .. code-block:: Python
 
 
     # Defining a logistic regression model
-    from sklearn.linear_model import LogisticRegression
 
     model = LogisticRegression(penalty="elasticnet", max_iter=1000, solver="saga", l1_ratio=1)
 
@@ -949,12 +952,12 @@ internals.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 710-712
+.. GENERATED FROM PYTHON SOURCE LINES 713-715
 
 We train the model and apply it to generate predictions on our test set.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 714-726
+.. GENERATED FROM PYTHON SOURCE LINES 717-729
 
 .. code-block:: Python
 
@@ -984,12 +987,12 @@ We train the model and apply it to generate predictions on our test set.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 727-729
+.. GENERATED FROM PYTHON SOURCE LINES 730-732
 
 We notice that the train and test accuracy are all fairly good. We can visualize the
 performance of the model further by looking at a confusion matrix.
 
-.. GENERATED FROM PYTHON SOURCE LINES 731-752
+.. GENERATED FROM PYTHON SOURCE LINES 734-755
 
 .. code-block:: Python
 
@@ -1035,7 +1038,7 @@ performance of the model further by looking at a confusion matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 753-924
+.. GENERATED FROM PYTHON SOURCE LINES 756-927
 
 Again, we notice very solid performance. The model is correctly identifying positive cases
 (Sensitivity), while rejecting negative ones (Specificity). The hospital executives probably took
@@ -1209,11 +1212,10 @@ we should carefully consider which group we use as a reference and the implicati
 Here, we apply Fairlearn to compare performance in the test set among the different racial
 groups, with a focus on evaluating false positive rate ratio.
 
-.. GENERATED FROM PYTHON SOURCE LINES 926-952
+.. GENERATED FROM PYTHON SOURCE LINES 929-954
 
 .. code-block:: Python
 
-    from fairlearn.metrics import MetricFrame, false_positive_rate
 
 
     def f(truelabels, predictions):
@@ -1293,7 +1295,7 @@ groups, with a focus on evaluating false positive rate ratio.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 953-979
+.. GENERATED FROM PYTHON SOURCE LINES 955-981
 
 In the table above, the first row shows the metric (false positive rates), while the second
 row shows the ratio of the metric between specified group and reference. These values are all
@@ -1322,7 +1324,7 @@ Let's repeat this assessment then.
 
 To do this with Fairlearn, we define sensitive features as the intersection of race and sex.
 
-.. GENERATED FROM PYTHON SOURCE LINES 981-1003
+.. GENERATED FROM PYTHON SOURCE LINES 983-1005
 
 .. code-block:: Python
 
@@ -1421,7 +1423,7 @@ To do this with Fairlearn, we define sensitive features as the intersection of r
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1004-1018
+.. GENERATED FROM PYTHON SOURCE LINES 1006-1020
 
 What do we notice?
 
@@ -1438,7 +1440,7 @@ What do we notice?
 We can take a look at the data to get an idea about what might be going on. First, we examine the
 frequency of diagnoses, stratified by intersectional groups.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1020-1024
+.. GENERATED FROM PYTHON SOURCE LINES 1022-1026
 
 .. code-block:: Python
 
@@ -1460,11 +1462,11 @@ frequency of diagnoses, stratified by intersectional groups.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x7f8dd3294a10>
+    <seaborn.axisgrid.FacetGrid object at 0x7f1c5e261b50>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1025-1040
+.. GENERATED FROM PYTHON SOURCE LINES 1027-1042
 
 We see that the frequency of the two diagnoses (of affective disorder or 0 and schizophrenia
 or 1) are fairly similar among all intersectional subgroups, except Black men, who have a much
@@ -1482,11 +1484,11 @@ This is an approach that is commonly termed **fairness through unawareness.** Sp
 refers to the notion that a model that does not have access to a given feature when making
 predictions cannot be unfair with respect to that feature.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1042-1043
+.. GENERATED FROM PYTHON SOURCE LINES 1044-1045
 
 Define and drop race-related variables
 
-.. GENERATED FROM PYTHON SOURCE LINES 1043-1047
+.. GENERATED FROM PYTHON SOURCE LINES 1045-1049
 
 .. code-block:: Python
 
@@ -1501,12 +1503,12 @@ Define and drop race-related variables
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1048-1050
+.. GENERATED FROM PYTHON SOURCE LINES 1050-1052
 
 Now that we've dropped the variables, we'll train a second model that is identical to the
 first one, except it no longer uses Race as a feature.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1052-1063
+.. GENERATED FROM PYTHON SOURCE LINES 1054-1065
 
 .. code-block:: Python
 
@@ -1535,7 +1537,7 @@ first one, except it no longer uses Race as a feature.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1064-1069
+.. GENERATED FROM PYTHON SOURCE LINES 1066-1071
 
 We'll note that the accuracy is still solid. It has decreased slightly, which makes sense
 given that our model has access to fewer features with which to maximize predictive accuracy.
@@ -1543,7 +1545,7 @@ given that our model has access to fewer features with which to maximize predict
 That said, our most important objective is to analyze whether fairness has increased as a result
 of our change, so let's perform another bias assessment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1071-1073
+.. GENERATED FROM PYTHON SOURCE LINES 1073-1075
 
 .. code-block:: Python
 
@@ -1603,14 +1605,14 @@ of our change, so let's perform another bias assessment.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1074-1078
+.. GENERATED FROM PYTHON SOURCE LINES 1076-1080
 
 Oh yikes - by removing race from our model, the FPR for the Black population has increased to
 3.8x that of our reference group.
 
 Does intersectional fairness show a similar trend?
 
-.. GENERATED FROM PYTHON SOURCE LINES 1080-1083
+.. GENERATED FROM PYTHON SOURCE LINES 1082-1085
 
 .. code-block:: Python
 
@@ -1690,7 +1692,7 @@ Does intersectional fairness show a similar trend?
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1084-1183
+.. GENERATED FROM PYTHON SOURCE LINES 1086-1185
 
 If we analyze this problem through an intersectional lens, we notice that the relative FPR has
 increased even further, and Black men are now being misdiagnosed at a rate that is 7x higher than
@@ -1792,11 +1794,11 @@ empirical observation (or both). In our case, we'll use the first few features i
 being important for prediction in our ML model.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1185-1186
+.. GENERATED FROM PYTHON SOURCE LINES 1187-1188
 
 Gets the weights associated with each feature, and scales them from 0-100
 
-.. GENERATED FROM PYTHON SOURCE LINES 1186-1194
+.. GENERATED FROM PYTHON SOURCE LINES 1188-1196
 
 .. code-block:: Python
 
@@ -1844,83 +1846,83 @@ Gets the weights associated with each feature, and scales them from 0-100
         </tr>
         <tr>
           <th>Housing_Unstable</th>
-          <td>90.860430</td>
+          <td>90.856684</td>
         </tr>
         <tr>
           <th>Tension</th>
-          <td>87.331132</td>
+          <td>87.331179</td>
         </tr>
         <tr>
           <th>Race_White</th>
-          <td>82.567101</td>
+          <td>82.567275</td>
         </tr>
         <tr>
           <th>Delusion</th>
-          <td>55.672113</td>
+          <td>55.672070</td>
         </tr>
         <tr>
           <th>Unusual_Thought</th>
-          <td>53.261898</td>
+          <td>53.262012</td>
         </tr>
         <tr>
           <th>Suspicious</th>
-          <td>45.994265</td>
+          <td>45.994343</td>
         </tr>
         <tr>
           <th>Concentration</th>
-          <td>45.473863</td>
+          <td>45.473946</td>
         </tr>
         <tr>
           <th>Anhedonia</th>
-          <td>41.976266</td>
+          <td>41.976243</td>
         </tr>
         <tr>
           <th>Tired</th>
-          <td>41.872649</td>
+          <td>41.872602</td>
         </tr>
         <tr>
           <th>Delay_Yes</th>
-          <td>41.833810</td>
+          <td>41.833975</td>
         </tr>
         <tr>
           <th>Sex_Female</th>
-          <td>38.435600</td>
+          <td>38.435505</td>
         </tr>
         <tr>
           <th>Psychomotor</th>
-          <td>29.892929</td>
+          <td>29.892867</td>
         </tr>
         <tr>
           <th>Dep_Mood</th>
-          <td>26.117207</td>
+          <td>26.117127</td>
         </tr>
         <tr>
           <th>Withdrawal</th>
-          <td>18.919555</td>
+          <td>18.919541</td>
         </tr>
         <tr>
           <th>Race_Black</th>
-          <td>10.113480</td>
+          <td>10.113540</td>
         </tr>
         <tr>
           <th>Race_Asian</th>
-          <td>5.349755</td>
+          <td>5.349627</td>
         </tr>
         <tr>
           <th>Sleep</th>
-          <td>5.186914</td>
+          <td>5.186898</td>
         </tr>
         <tr>
           <th>Housing_Stable</th>
-          <td>2.544905</td>
+          <td>2.548480</td>
         </tr>
         <tr>
           <th>Passive</th>
-          <td>0.532316</td>
+          <td>0.532449</td>
         </tr>
         <tr>
           <th>Appetite</th>
-          <td>0.057194</td>
+          <td>0.057142</td>
         </tr>
         <tr>
           <th>Sex_Male</th>
@@ -1941,7 +1943,7 @@ Gets the weights associated with each feature, and scales them from 0-100
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1195-1204
+.. GENERATED FROM PYTHON SOURCE LINES 1197-1206
 
 When we examine features that are most important for prediction in our first model (i.e., the
 model that included race), it indeed shows that although race is among the important features,
@@ -1953,7 +1955,7 @@ affective disorder by examining how these features are related to diagnosis in t
 Then, we will compare individuals with affective disorder on these features in the test set,
 stratified by intersectional group.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1206-1240
+.. GENERATED FROM PYTHON SOURCE LINES 1208-1251
 
 .. code-block:: Python
 
@@ -1985,7 +1987,16 @@ stratified by intersectional group.
         y="Rumination",
         data=test.loc[test.Diagnosis == 0],
         ax=axs[1],
-        order=["BlackF", "WhiteF", "HispanicF", "AsianF", "BlackM", "WhiteM", "HispanicM", "AsianM"],
+        order=[
+            "BlackF",
+            "WhiteF",
+            "HispanicF",
+            "AsianF",
+            "BlackM",
+            "WhiteM",
+            "HispanicM",
+            "AsianM",
+        ],
     )
     axs[1].set_title("Rumination vs Intersect across groups with AD (test)")
 
@@ -2003,7 +2014,7 @@ stratified by intersectional group.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1241-1257
+.. GENERATED FROM PYTHON SOURCE LINES 1252-1268
 
 The first graph (left) shows average rumination scores stratified by diagnosis. Rumination is a
 cognitive feature of depression, referring to repetitive, persistent thinking about the
@@ -2022,7 +2033,7 @@ Another important feature is tension, which is a symptom of schizophrenia. We ca
 similar exploration to examine how tension is reported by individuals with affective disorder
 defined by intersecting features of sex and race, as compared to schizophrenia.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1259-1275
+.. GENERATED FROM PYTHON SOURCE LINES 1270-1295
 
 .. code-block:: Python
 
@@ -2036,7 +2047,16 @@ defined by intersecting features of sex and race, as compared to schizophrenia.
         y="Tension",
         data=test.loc[test.Diagnosis == 0],
         ax=axs[1],
-        order=["BlackF", "WhiteF", "HispanicF", "AsianF", "BlackM", "WhiteM", "HispanicM", "AsianM"],
+        order=[
+            "BlackF",
+            "WhiteF",
+            "HispanicF",
+            "AsianF",
+            "BlackM",
+            "WhiteM",
+            "HispanicM",
+            "AsianM",
+        ],
     )
     axs[1].set_title("Tension vs Intersect across groups with AD (test)")
 
@@ -2054,7 +2074,7 @@ defined by intersecting features of sex and race, as compared to schizophrenia.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1276-1342
+.. GENERATED FROM PYTHON SOURCE LINES 1296-1362
 
 In the training set, people with schizophrenia are more likely to report tension at their
 clinical assessment (left graph). Again, looking at how Black men with affective disorder compare
@@ -2126,7 +2146,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 20.676 seconds)
+   **Total running time of the script:** (0 minutes 9.478 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_intersectional_bias.py:

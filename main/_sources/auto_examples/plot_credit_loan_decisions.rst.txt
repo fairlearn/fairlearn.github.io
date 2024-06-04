@@ -27,33 +27,32 @@ Credit Loan Decisions
 Package Imports
 ---------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-43
+.. GENERATED FROM PYTHON SOURCE LINES 14-42
 
 .. code-block:: Python
 
 
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
+    import warnings
 
     import lightgbm as lgb
-    from sklearn.metrics import balanced_accuracy_score, roc_auc_score
-    from sklearn.metrics import confusion_matrix
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import pandas as pd
+    from sklearn.metrics import balanced_accuracy_score, confusion_matrix, roc_auc_score
+    from sklearn.model_selection import train_test_split
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import StandardScaler
-    from fairlearn.metrics import MetricFrame
+
     from fairlearn.metrics import (
+        MetricFrame,
         count,
-        selection_rate,
         equalized_odds_difference,
-        false_positive_rate,
         false_negative_rate,
+        false_positive_rate,
+        selection_rate,
     )
     from fairlearn.postprocessing import ThresholdOptimizer
-    from fairlearn.reductions import ExponentiatedGradient
-    from fairlearn.reductions import EqualizedOdds
-    from sklearn.model_selection import train_test_split
-    import warnings
+    from fairlearn.reductions import EqualizedOdds, ExponentiatedGradient
 
     warnings.simplefilter("ignore")
 
@@ -67,7 +66,7 @@ Package Imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-149
+.. GENERATED FROM PYTHON SOURCE LINES 43-148
 
 Fairness considerations of credit loan decisions
 ------------------------------------------------
@@ -175,7 +174,7 @@ other columns.
 In addition, the target variable :code:`default payment next month` is
 changed to :code:`default` to reduce verbosity.
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-161
+.. GENERATED FROM PYTHON SOURCE LINES 148-158
 
 .. code-block:: Python
 
@@ -184,9 +183,7 @@ changed to :code:`default` to reduce verbosity.
     dataset = (
         pd.read_excel(io=data_url, header=1)
         .drop(columns=["ID"])
-        .rename(
-            columns={"PAY_0": "PAY_1", "default payment next month": "default"}
-        )
+        .rename(columns={"PAY_0": "PAY_1", "default payment next month": "default"})
     )
 
     dataset.shape
@@ -204,7 +201,7 @@ changed to :code:`default` to reduce verbosity.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-164
+.. GENERATED FROM PYTHON SOURCE LINES 159-161
 
 .. code-block:: Python
 
@@ -405,7 +402,7 @@ changed to :code:`default` to reduce verbosity.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-171
+.. GENERATED FROM PYTHON SOURCE LINES 162-168
 
 From the `dataset description :footcite:`yeh2009comparisons`,
 we see there are three categorical features:
@@ -414,7 +411,7 @@ we see there are three categorical features:
 - :code:`EDUCATION`: Highest level of education achieved by the applicant.
 - :code:`MARRIAGE`: Marital status of the applicant.
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-182
+.. GENERATED FROM PYTHON SOURCE LINES 168-179
 
 .. code-block:: Python
 
@@ -436,7 +433,7 @@ we see there are three categorical features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-196
+.. GENERATED FROM PYTHON SOURCE LINES 180-193
 
 Dataset imbalances
 ==================
@@ -452,7 +449,7 @@ our sensitive feature :code:`SEX`. We see that 60% of loan applicants were
 labeled as `female` and 40% as `male`, so we do not need to worry about
 imbalance in this feature.
 
-.. GENERATED FROM PYTHON SOURCE LINES 196-199
+.. GENERATED FROM PYTHON SOURCE LINES 193-196
 
 .. code-block:: Python
 
@@ -475,7 +472,7 @@ imbalance in this feature.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-209
+.. GENERATED FROM PYTHON SOURCE LINES 197-206
 
 Next, let's explore the distribution of the *loan default rate* :code:`Y`.
 We see that around 78% of individuals in the dataset do not default on their
@@ -487,7 +484,7 @@ For example, a classifier that predicts an applicant will not default would
 achieve an accuracy of 78%, so we will use the :code:`balanced_accuracy`
 score as our evaluation metric to counteract the label imbalance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-212
+.. GENERATED FROM PYTHON SOURCE LINES 206-209
 
 .. code-block:: Python
 
@@ -510,7 +507,7 @@ score as our evaluation metric to counteract the label imbalance.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 213-239
+.. GENERATED FROM PYTHON SOURCE LINES 210-236
 
 Add synthetic noise that is related to the outcome and sex
 ==========================================================
@@ -539,7 +536,7 @@ To reflect the above reasoning, the :code:`Interest` feature is drawn from a
 This feature is drawn from a *Gaussian distribution* for computational
 simplicity.
 
-.. GENERATED FROM PYTHON SOURCE LINES 239-242
+.. GENERATED FROM PYTHON SOURCE LINES 236-239
 
 .. code-block:: Python
 
@@ -553,7 +550,7 @@ simplicity.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 243-251
+.. GENERATED FROM PYTHON SOURCE LINES 240-248
 
 Check if this will lead to disparity in naive model
 ===================================================
@@ -564,20 +561,16 @@ label :code:`default`.
 We see that for both sexes, the :code:`Interest` feature is higher for
 individuals who defaulted on their loan.
 
-.. GENERATED FROM PYTHON SOURCE LINES 251-273
+.. GENERATED FROM PYTHON SOURCE LINES 248-266
 
 .. code-block:: Python
 
 
-    fig, (ax_1, ax_2) = plt.subplots(
-        ncols=2, figsize=(10, 4), sharex=True, sharey=True
-    )
+    fig, (ax_1, ax_2) = plt.subplots(ncols=2, figsize=(10, 4), sharex=True, sharey=True)
     X["Interest"][(A == 1) & (Y == 0)].plot(
         kind="kde", label="Payment on Time", ax=ax_1, title="INTEREST for Men"
     )
-    X["Interest"][(A == 1) & (Y == 1)].plot(
-        kind="kde", label="Payment Default", ax=ax_1
-    )
+    X["Interest"][(A == 1) & (Y == 1)].plot(kind="kde", label="Payment Default", ax=ax_1)
     X["Interest"][(A == 2) & (Y == 0)].plot(
         kind="kde",
         label="Payment on Time",
@@ -604,11 +597,11 @@ individuals who defaulted on their loan.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7f8dd3223450>
+    <matplotlib.legend.Legend object at 0x7f1c5e612ed0>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 274-280
+.. GENERATED FROM PYTHON SOURCE LINES 267-273
 
 Training an initial model
 =========================
@@ -617,9 +610,10 @@ In this section, we will train a fairness-unaware model on the training
 data. However because of the imbalances in the dataset, we will first
 resample the training data to produce a new balanced training dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 280-305
+.. GENERATED FROM PYTHON SOURCE LINES 273-297
 
 .. code-block:: Python
+
 
 
     def resample_training_data(X_train, Y_train, A_train):
@@ -636,9 +630,7 @@ resample the training data to produce a new balanced training dataset.
         """
         negative_ids = Y_train[Y_train == 0].index
         positive_ids = Y_train[Y_train == 1].index
-        balanced_ids = positive_ids.union(
-            np.random.choice(a=negative_ids, size=len(positive_ids))
-        )
+        balanced_ids = positive_ids.union(np.random.choice(a=negative_ids, size=len(positive_ids)))
 
         X_train = X_train.loc[balanced_ids, :]
         Y_train = Y_train.loc[balanced_ids]
@@ -653,7 +645,7 @@ resample the training data to produce a new balanced training dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 306-312
+.. GENERATED FROM PYTHON SOURCE LINES 298-304
 
 .. code-block:: Python
 
@@ -670,13 +662,13 @@ resample the training data to produce a new balanced training dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 313-316
+.. GENERATED FROM PYTHON SOURCE LINES 305-308
 
 At this stage, we will train a *gradient-boosted tree classifier* using the
 :code:`lightgbm` package on the balanced training dataset.
 When we evaluate the model, we will use the unbalanced testing dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 316-336
+.. GENERATED FROM PYTHON SOURCE LINES 308-328
 
 .. code-block:: Python
 
@@ -1126,12 +1118,12 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 337-339
+.. GENERATED FROM PYTHON SOURCE LINES 329-331
 
 We compute the *binary predictions* and the *prediction probabilities* for
 the testing data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 339-343
+.. GENERATED FROM PYTHON SOURCE LINES 331-335
 
 .. code-block:: Python
 
@@ -1146,14 +1138,14 @@ the testing data points.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 344-348
+.. GENERATED FROM PYTHON SOURCE LINES 336-340
 
 From the *ROC Score*, we see the model appears to be differentiating
 between *true positives* and *false positives* well.
 This is to be expected given the :code:`INTEREST` feature provides a
 strong discriminant feature for the classification task.
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-351
+.. GENERATED FROM PYTHON SOURCE LINES 340-343
 
 .. code-block:: Python
 
@@ -1173,7 +1165,7 @@ strong discriminant feature for the classification task.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 352-360
+.. GENERATED FROM PYTHON SOURCE LINES 344-352
 
 Feature Importance of the Unmitigated Classifier
 ================================================
@@ -1184,7 +1176,7 @@ As expected, our synthetic feature :code:`INTEREST` has the highest feature
 importance because it is highly correlated with the target variable,
 by construction.
 
-.. GENERATED FROM PYTHON SOURCE LINES 360-370
+.. GENERATED FROM PYTHON SOURCE LINES 352-362
 
 .. code-block:: Python
 
@@ -1216,7 +1208,7 @@ by construction.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 371-389
+.. GENERATED FROM PYTHON SOURCE LINES 363-381
 
 Fairness assessment of unmitigated model
 ----------------------------------------
@@ -1237,7 +1229,7 @@ of this notebook, we believe the model may incorrectly predict women will
 default on the credit loan. The system may unfairly allocate less loans to
 women and over-allocate loans to men.
 
-.. GENERATED FROM PYTHON SOURCE LINES 391-465
+.. GENERATED FROM PYTHON SOURCE LINES 383-457
 
 Types of harm experienced
 =========================
@@ -1314,9 +1306,10 @@ will quantify the uncertainty around each metric using *custom functions* to
 compute the *standard error* for each metric at the :math:`\alpha=0.95` confidence
 level.
 
-.. GENERATED FROM PYTHON SOURCE LINES 465-516
+.. GENERATED FROM PYTHON SOURCE LINES 457-505
 
 .. code-block:: Python
+
 
 
     def compute_error_metric(metric_value, sample_size):
@@ -1331,11 +1324,7 @@ level.
         The standard error of the metric
         """
         metric_value = metric_value / sample_size
-        return (
-            1.96
-            * np.sqrt(metric_value * (1.0 - metric_value))
-            / np.sqrt(sample_size)
-        )
+        return 1.96 * np.sqrt(metric_value * (1.0 - metric_value)) / np.sqrt(sample_size)
 
 
     def false_positive_error(y_true, y_pred):
@@ -1352,9 +1341,9 @@ level.
 
     def balanced_accuracy_error(y_true, y_pred):
         """Compute the standard error for the balanced accuracy estimate."""
-        fpr_error, fnr_error = false_positive_error(
+        fpr_error, fnr_error = false_positive_error(y_true, y_pred), false_negative_error(
             y_true, y_pred
-        ), false_negative_error(y_true, y_pred)
+        )
         return np.sqrt(fnr_error**2 + fpr_error**2) / 2
 
 
@@ -1376,11 +1365,11 @@ level.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 517-518
+.. GENERATED FROM PYTHON SOURCE LINES 506-507
 
 Select a subset of metrics to report to avoid information overload
 
-.. GENERATED FROM PYTHON SOURCE LINES 518-524
+.. GENERATED FROM PYTHON SOURCE LINES 507-513
 
 .. code-block:: Python
 
@@ -1397,7 +1386,7 @@ Select a subset of metrics to report to avoid information overload
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 525-532
+.. GENERATED FROM PYTHON SOURCE LINES 514-521
 
 To compute the disaggregated performance metrics, we will use the
 :code:`MetricFrame` object within the Fairlearn library. We will pass in our
@@ -1407,7 +1396,7 @@ and test predictions :code:`Y_pred`. In addition, we pass in the
 
 Instantiate the MetricFrame for the unmitigated model
 
-.. GENERATED FROM PYTHON SOURCE LINES 532-546
+.. GENERATED FROM PYTHON SOURCE LINES 521-535
 
 .. code-block:: Python
 
@@ -1441,7 +1430,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 547-591
+.. GENERATED FROM PYTHON SOURCE LINES 536-578
 
 .. code-block:: Python
 
@@ -1470,9 +1459,7 @@ Instantiate the MetricFrame for the unmitigated model
         lower_bounds = point_estimates - error_bars
         upper_bounds = point_estimates + error_bars
 
-        x_axis_names = [
-            str(name) for name in error_bars.index.to_flat_index().tolist()
-        ]
+        x_axis_names = [str(name) for name in error_bars.index.to_flat_index().tolist()]
         plt.vlines(
             x_axis_names,
             lower_bounds,
@@ -1496,7 +1483,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 592-596
+.. GENERATED FROM PYTHON SOURCE LINES 579-583
 
 .. code-block:: Python
 
@@ -1516,7 +1503,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 597-601
+.. GENERATED FROM PYTHON SOURCE LINES 584-588
 
 .. code-block:: Python
 
@@ -1536,7 +1523,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 602-606
+.. GENERATED FROM PYTHON SOURCE LINES 589-593
 
 .. code-block:: Python
 
@@ -1565,7 +1552,7 @@ Instantiate the MetricFrame for the unmitigated model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 607-614
+.. GENERATED FROM PYTHON SOURCE LINES 594-601
 
 Finally, let's compute the :code:`equalized_odds_difference` for this unmitigated
 model. The :code:`equalized_odds_difference` is the maximum of the
@@ -1575,15 +1562,13 @@ lending context, both *false_negative_rate_disparities* and
 we attempt to minimize both of these metrics by minimizing the
 :code:`equalized_odds_difference`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 614-620
+.. GENERATED FROM PYTHON SOURCE LINES 601-605
 
 .. code-block:: Python
 
 
     balanced_accuracy_unmitigated = balanced_accuracy_score(y_test, Y_pred)
-    equalized_odds_unmitigated = equalized_odds_difference(
-        y_test, Y_pred, sensitive_features=A_test
-    )
+    equalized_odds_unmitigated = equalized_odds_difference(y_test, Y_pred, sensitive_features=A_test)
 
 
 
@@ -1592,7 +1577,7 @@ we attempt to minimize both of these metrics by minimizing the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 621-666
+.. GENERATED FROM PYTHON SOURCE LINES 606-651
 
 One key assumption here is we assume that *false positives* and *false
 negatives* have the equally adverse costs to each group. In practice, we would
@@ -1640,7 +1625,7 @@ disparities and :code:`false_positive_rate` disparities translate into real-worl
 harms in our scenario, we will aim to minimize the :code:`equalized_odds` difference
 as our *fairness constraint*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 666-675
+.. GENERATED FROM PYTHON SOURCE LINES 651-660
 
 .. code-block:: Python
 
@@ -1660,7 +1645,7 @@ as our *fairness constraint*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 676-683
+.. GENERATED FROM PYTHON SOURCE LINES 661-668
 
 One key limitation of the :code:`ThresholdOptimizer` is the need for sensitive
 features during training and prediction time. If we do not have access to the
@@ -1670,7 +1655,7 @@ features during training and prediction time. If we do not have access to the
 We pass in :code:`A_train` to the :code:`fit` function with the
 :code:`sensitive_features` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 683-693
+.. GENERATED FROM PYTHON SOURCE LINES 668-676
 
 .. code-block:: Python
 
@@ -1679,9 +1664,7 @@ We pass in :code:`A_train` to the :code:`fit` function with the
 
     postprocess_pred = postprocess_est.predict(X_test, sensitive_features=A_test)
 
-    postprocess_pred_proba = postprocess_est._pmf_predict(
-        X_test, sensitive_features=A_test
-    )
+    postprocess_pred_proba = postprocess_est._pmf_predict(X_test, sensitive_features=A_test)
 
 
 
@@ -1691,15 +1674,16 @@ We pass in :code:`A_train` to the :code:`fit` function with the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 694-697
+.. GENERATED FROM PYTHON SOURCE LINES 677-680
 
 Fairness assessment of postprocessing model
 ===========================================
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 697-722
+.. GENERATED FROM PYTHON SOURCE LINES 680-706
 
 .. code-block:: Python
+
 
 
     def compare_metricframe_results(mframe_1, mframe_2, metrics, names):
@@ -1733,7 +1717,7 @@ Fairness assessment of postprocessing model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 723-739
+.. GENERATED FROM PYTHON SOURCE LINES 707-723
 
 .. code-block:: Python
 
@@ -1769,12 +1753,12 @@ Fairness assessment of postprocessing model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 740-742
+.. GENERATED FROM PYTHON SOURCE LINES 724-726
 
 Now, let's compare the performance of our *thresholded* classifier with the
 original *unmitigated* model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 742-755
+.. GENERATED FROM PYTHON SOURCE LINES 726-739
 
 .. code-block:: Python
 
@@ -1812,7 +1796,7 @@ original *unmitigated* model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 756-798
+.. GENERATED FROM PYTHON SOURCE LINES 740-782
 
 We see that the :code:`ThresholdOptimizer` algorithm achieves a much lower
 disparity between the two groups compared to the *unmitigated* model.
@@ -1857,14 +1841,13 @@ For example, in the below code,
 maximal difference of :code:`epsilon` between our largest and smallest
 *equalized odds* value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 798-828
+.. GENERATED FROM PYTHON SOURCE LINES 782-811
 
 .. code-block:: Python
 
 
-    def get_expgrad_models_per_epsilon(
-        estimator, epsilon, X_train, y_train, A_train
-    ):
+
+    def get_expgrad_models_per_epsilon(estimator, epsilon, X_train, y_train, A_train):
         """Instantiate and train an ExponentiatedGradient model on the
         balanced training dataset.
 
@@ -1882,7 +1865,7 @@ maximal difference of :code:`epsilon` between our largest and smallest
         """
         exp_grad_est = ExponentiatedGradient(
             estimator=estimator,
-            sample_weight_name='classifier__sample_weight',
+            sample_weight_name="classifier__sample_weight",
             constraints=EqualizedOdds(difference_bound=epsilon),
         )
         # Is this an issue - Re-runs
@@ -1898,7 +1881,7 @@ maximal difference of :code:`epsilon` between our largest and smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 829-841
+.. GENERATED FROM PYTHON SOURCE LINES 812-824
 
 Because the *performance-fairness trade-off* learned by the
 :code:`ExponentiatedGradient` model is sensitive to our chosen
@@ -1913,7 +1896,7 @@ the order of the *square root* of the number of samples in the training
 dataset:
 :math:`\dfrac{1}{\sqrt{\text{numberSamples}}} \approx \dfrac{1}{\sqrt{25000}} \approx 0.01`
 
-.. GENERATED FROM PYTHON SOURCE LINES 841-844
+.. GENERATED FROM PYTHON SOURCE LINES 824-827
 
 .. code-block:: Python
 
@@ -1927,7 +1910,7 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 845-855
+.. GENERATED FROM PYTHON SOURCE LINES 828-838
 
 .. code-block:: Python
 
@@ -1948,14 +1931,12 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 856-862
+.. GENERATED FROM PYTHON SOURCE LINES 839-843
 
 .. code-block:: Python
 
     for epsilon, models in all_models.items():
-        print(
-            f"For epsilon {epsilon}, ExponentiatedGradient learned {len(models)} inner models"
-        )
+        print(f"For epsilon {epsilon}, ExponentiatedGradient learned {len(models)} inner models")
 
 
 
@@ -1972,7 +1953,7 @@ dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 863-891
+.. GENERATED FROM PYTHON SOURCE LINES 844-872
 
 Here, we can see all the inner models learned for each value of
 :code:`epsilon`.
@@ -2003,9 +1984,10 @@ the models that are outperformed in both of the metrics by some other
 model (we refer to these as *"dominated"* models), and plot just the remaining
 *"undominated"* models.
 
-.. GENERATED FROM PYTHON SOURCE LINES 891-918
+.. GENERATED FROM PYTHON SOURCE LINES 872-898
 
 .. code-block:: Python
+
 
 
     def is_pareto_efficient(points):
@@ -2027,9 +2009,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
         is_efficient = np.ones(n, dtype=bool)
         for i, c in enumerate(points):
             if is_efficient[i]:
-                is_efficient[is_efficient] = np.any(
-                    points[is_efficient] < c, axis=1
-                )
+                is_efficient[is_efficient] = np.any(points[is_efficient] < c, axis=1)
                 is_efficient[i] = True
         return is_efficient
 
@@ -2041,7 +2021,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 919-938
+.. GENERATED FROM PYTHON SOURCE LINES 899-918
 
 .. code-block:: Python
 
@@ -2071,13 +2051,11 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 939-969
+.. GENERATED FROM PYTHON SOURCE LINES 919-944
 
 .. code-block:: Python
 
-    def aggregate_predictor_performances(
-        predictors, metric, X_test, Y_test, A_test=None
-    ):
+    def aggregate_predictor_performances(predictors, metric, X_test, Y_test, A_test=None):
         """Compute the specified metric for all classifiers in predictors.
         If no sensitive features are present, the metric is computed without
         disaggregation.
@@ -2097,10 +2075,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
         """
         all_predictions = [predictor.predict(X_test) for predictor in predictors]
         if A_test is not None:
-            return [
-                metric(Y_test, Y_sweep, sensitive_features=A_test)
-                for Y_sweep in all_predictions
-            ]
+            return [metric(Y_test, Y_sweep, sensitive_features=A_test) for Y_sweep in all_predictions]
         else:
             return [metric(Y_test, Y_sweep) for Y_sweep in all_predictions]
 
@@ -2112,7 +2087,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 970-1006
+.. GENERATED FROM PYTHON SOURCE LINES 945-981
 
 .. code-block:: Python
 
@@ -2136,14 +2111,14 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
         performance metrics
         """
         performances = []
-        for (eps, models) in models_dict.items():
+        for eps, models in models_dict.items():
             eq_odds_difference = aggregate_predictor_performances(
                 models, equalized_odds_difference, X_test, y_test, A_test
             )
             bal_acc_score = aggregate_predictor_performances(
                 models, balanced_accuracy_score, X_test, y_test
             )
-            for (i, score) in enumerate(eq_odds_difference):
+            for i, score in enumerate(eq_odds_difference):
                 performances.append((eps, i, score, (1 - bal_acc_score[i])))
         performances_df = pd.DataFrame.from_records(
             performances,
@@ -2159,7 +2134,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1007-1009
+.. GENERATED FROM PYTHON SOURCE LINES 982-984
 
 .. code-block:: Python
 
@@ -2172,13 +2147,11 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1010-1014
+.. GENERATED FROM PYTHON SOURCE LINES 985-987
 
 .. code-block:: Python
 
-    performance_subset = performance_df.loc[
-        :, ["equalized_odds", "balanced_error"]
-    ]
+    performance_subset = performance_df.loc[:, ["equalized_odds", "balanced_error"]]
 
 
 
@@ -2187,7 +2160,7 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1015-1019
+.. GENERATED FROM PYTHON SOURCE LINES 988-992
 
 .. code-block:: Python
 
@@ -2202,11 +2175,11 @@ model (we refer to these as *"dominated"* models), and plot just the remaining
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1020-1021
+.. GENERATED FROM PYTHON SOURCE LINES 993-994
 
 Now, let's plot the performance trade-offs between all of our models.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1021-1047
+.. GENERATED FROM PYTHON SOURCE LINES 994-1016
 
 .. code-block:: Python
 
@@ -2214,9 +2187,7 @@ Now, let's plot the performance trade-offs between all of our models.
     for index, row in performance_df_masked.iterrows():
         bal_error, eq_odds_diff = row["balanced_error"], row["equalized_odds"]
         epsilon_, index_ = row["epsilon"], row["index"]
-        plt.scatter(
-            bal_error, eq_odds_diff, color="green", label="ExponentiatedGradient"
-        )
+        plt.scatter(bal_error, eq_odds_diff, color="green", label="ExponentiatedGradient")
         plt.text(
             bal_error + 0.001,
             eq_odds_diff + 0.0001,
@@ -2228,9 +2199,7 @@ Now, let's plot the performance trade-offs between all of our models.
         equalized_odds_unmitigated,
         label="UnmitigatedModel",
     )
-    plt.scatter(
-        1.0 - bal_acc_postprocess, eq_odds_postprocess, label="PostProcess"
-    )
+    plt.scatter(1.0 - bal_acc_postprocess, eq_odds_postprocess, label="PostProcess")
     plt.xlabel("Weighted Error Rate")
     plt.ylabel("Equalized Odds")
     plt.legend(bbox_to_anchor=(1.85, 1))
@@ -2250,11 +2219,11 @@ Now, let's plot the performance trade-offs between all of our models.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7f8dd31d5090>
+    <matplotlib.legend.Legend object at 0x7f1c5e15d910>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1048-1073
+.. GENERATED FROM PYTHON SOURCE LINES 1017-1042
 
 With the above plot, we can see how the performance of the non-dominated
 inner models compares to the original unmitigated model. In many cases, we see
@@ -2282,9 +2251,10 @@ thresholding based on the :code:`balanced_error` rate of the unmitigated model, 
 we choose the least discriminatory model based on the smallest
 :code:`equalized_odds_difference` value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1073-1110
+.. GENERATED FROM PYTHON SOURCE LINES 1042-1080
 
 .. code-block:: Python
+
 
 
     def filter_models_by_unmitigiated_score(
@@ -2330,7 +2300,7 @@ we choose the least discriminatory model based on the smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1111-1123
+.. GENERATED FROM PYTHON SOURCE LINES 1081-1093
 
 .. code-block:: Python
 
@@ -2359,12 +2329,12 @@ we choose the least discriminatory model based on the smallest
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1124-1126
+.. GENERATED FROM PYTHON SOURCE LINES 1094-1096
 
 Now we have selected our best inner model, let's collect the model's
 predictions on the test dataset and compute the relevant performance metrics.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1126-1134
+.. GENERATED FROM PYTHON SOURCE LINES 1096-1102
 
 .. code-block:: Python
 
@@ -2372,9 +2342,7 @@ predictions on the test dataset and compute the relevant performance metrics.
     y_pred_inprocess = inprocess_model.predict(X_test)
 
     bal_acc_inprocess = balanced_accuracy_score(y_test, y_pred_inprocess)
-    eq_odds_inprocess = equalized_odds_difference(
-        y_test, y_pred_inprocess, sensitive_features=A_test
-    )
+    eq_odds_inprocess = equalized_odds_difference(y_test, y_pred_inprocess, sensitive_features=A_test)
 
 
 
@@ -2383,7 +2351,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1135-1142
+.. GENERATED FROM PYTHON SOURCE LINES 1103-1110
 
 .. code-block:: Python
 
@@ -2401,7 +2369,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1143-1151
+.. GENERATED FROM PYTHON SOURCE LINES 1111-1119
 
 .. code-block:: Python
 
@@ -2434,7 +2402,7 @@ predictions on the test dataset and compute the relevant performance metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1152-1158
+.. GENERATED FROM PYTHON SOURCE LINES 1120-1126
 
 Discuss Performance and Trade-Offs
 --------------------------------------
@@ -2443,7 +2411,7 @@ Now we have trained two different fairness-aware models using the
 *postprocessing* approach and the *reductions* approach. Let's compare the
 performance of these models to our original fairness-unaware model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 1158-1181
+.. GENERATED FROM PYTHON SOURCE LINES 1126-1145
 
 .. code-block:: Python
 
@@ -2457,13 +2425,9 @@ performance of these models to our original fairness-unaware model.
 
     def create_metricframe_w_errors(mframe, metrics_to_report, metric_error_pair):
         mframe_by_group = mframe.by_group.copy()
-        for (metric_name, error_name) in metric_error_pair:
-            mframe_by_group[metric_name] = mframe_by_group[metric_name].apply(
-                lambda x: f"{x:.3f}"
-            )
-            mframe_by_group[error_name] = mframe_by_group[error_name].apply(
-                lambda x: f"{x:.3f}"
-            )
+        for metric_name, error_name in metric_error_pair:
+            mframe_by_group[metric_name] = mframe_by_group[metric_name].apply(lambda x: f"{x:.3f}")
+            mframe_by_group[error_name] = mframe_by_group[error_name].apply(lambda x: f"{x:.3f}")
             mframe_by_group[metric_name] = mframe_by_group[metric_name].str.cat(
                 mframe_by_group[error_name], sep="±"
             )
@@ -2477,21 +2441,19 @@ performance of these models to our original fairness-unaware model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1182-1186
+.. GENERATED FROM PYTHON SOURCE LINES 1146-1150
 
 Report model performance error bars for metrics
 ===============================================
 
 **Unmitigated model**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1186-1193
+.. GENERATED FROM PYTHON SOURCE LINES 1150-1155
 
 .. code-block:: Python
 
 
-    create_metricframe_w_errors(
-        metricframe_unmitigated, metrics_to_report, metric_error_pairs
-    )
+    create_metricframe_w_errors(metricframe_unmitigated, metrics_to_report, metric_error_pairs)
 
     metricframe_unmitigated.overall[metrics_to_report]
 
@@ -2511,18 +2473,16 @@ Report model performance error bars for metrics
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1194-1195
+.. GENERATED FROM PYTHON SOURCE LINES 1156-1157
 
 **ExponentiatedGradient model**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1195-1200
+.. GENERATED FROM PYTHON SOURCE LINES 1157-1160
 
 .. code-block:: Python
 
 
-    create_metricframe_w_errors(
-        metricframe_inprocess, metrics_to_report, metric_error_pairs
-    )
+    create_metricframe_w_errors(metricframe_inprocess, metrics_to_report, metric_error_pairs)
 
 
 
@@ -2581,20 +2541,18 @@ Report model performance error bars for metrics
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1201-1202
+.. GENERATED FROM PYTHON SOURCE LINES 1161-1162
 
 **ThresholdOptimizer**
 
-.. GENERATED FROM PYTHON SOURCE LINES 1202-1211
+.. GENERATED FROM PYTHON SOURCE LINES 1162-1169
 
 .. code-block:: Python
 
 
     metricframe_inprocess.overall[metrics_to_report]
 
-    create_metricframe_w_errors(
-        metricframe_postprocess, metrics_to_report, metric_error_pairs
-    )
+    create_metricframe_w_errors(metricframe_postprocess, metrics_to_report, metric_error_pairs)
 
     metricframe_postprocess.overall[metrics_to_report]
 
@@ -2614,7 +2572,7 @@ Report model performance error bars for metrics
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 1212-1270
+.. GENERATED FROM PYTHON SOURCE LINES 1170-1228
 
 We see both of our fairness-aware models yield a slight decrease in the
 *balanced_accuracy* for *male applicants* compared to our fairness-unaware
@@ -2678,7 +2636,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 36.572 seconds)
+   **Total running time of the script:** (0 minutes 36.327 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_credit_loan_decisions.py:

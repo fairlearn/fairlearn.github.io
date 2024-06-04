@@ -367,7 +367,7 @@ we need to compare two lists of bounding boxes. For the sake of
 simplicity, we will return the mean value of 'iou' for the
 two lists, but this is by no means the only choice:
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-189
+.. GENERATED FROM PYTHON SOURCE LINES 175-188
 
 .. code-block:: Python
 
@@ -378,8 +378,7 @@ two lists, but this is by no means the only choice:
             raise ValueError("Array size mismatch")
 
         all_iou = [
-            bounding_box_iou(y_true, y_pred)
-            for y_true, y_pred in zip(true_boxes, predicted_boxes)
+            bounding_box_iou(y_true, y_pred) for y_true, y_pred in zip(true_boxes, predicted_boxes)
         ]
 
         return np.mean(all_iou)
@@ -392,12 +391,12 @@ two lists, but this is by no means the only choice:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-192
+.. GENERATED FROM PYTHON SOURCE LINES 189-191
 
 We need to generate some input data, so first create a function to
 generate a single random bounding box:
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-201
+.. GENERATED FROM PYTHON SOURCE LINES 191-200
 
 .. code-block:: Python
 
@@ -417,12 +416,12 @@ generate a single random bounding box:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-204
+.. GENERATED FROM PYTHON SOURCE LINES 201-203
 
 Now use this to create sample `y_true` and `y_pred` arrays of
 bounding boxes:
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-213
+.. GENERATED FROM PYTHON SOURCE LINES 203-212
 
 .. code-block:: Python
 
@@ -442,11 +441,11 @@ bounding boxes:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 214-215
+.. GENERATED FROM PYTHON SOURCE LINES 213-214
 
 Finally, we can use these in a :class:`~fairlearn.metrics.MetricFrame`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-228
+.. GENERATED FROM PYTHON SOURCE LINES 214-227
 
 .. code-block:: Python
 
@@ -485,7 +484,7 @@ Finally, we can use these in a :class:`~fairlearn.metrics.MetricFrame`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 229-243
+.. GENERATED FROM PYTHON SOURCE LINES 228-242
 
 The individual entries in the `y_true` and `y_pred` arrays
 can be arbitrarily complex. It is the metric functions
@@ -502,7 +501,7 @@ will be complex is natural language processing,
 where each row of the input could be an entire sentence,
 possibly with complex word embeddings included.
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-256
+.. GENERATED FROM PYTHON SOURCE LINES 244-255
 
 Conclusion
 ==========
@@ -519,7 +518,7 @@ work).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.089 seconds)
+   **Total running time of the script:** (0 minutes 0.087 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_metricframe_beyond_binary_classification.py:
