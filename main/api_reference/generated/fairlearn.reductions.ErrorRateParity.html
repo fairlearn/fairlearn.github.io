@@ -612,47 +612,16 @@ However, in this scenario, g = abs(h(x)-y), rather than g = h(x)</p>
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/mitigation/reductions.html#error-rate-parity"><span class="std std-ref">User Guide</span></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.total_samples" title="fairlearn.reductions.ErrorRateParity.total_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_samples</span></code></a></dt><dd><p>Return the number of samples in the data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.bound" title="fairlearn.reductions.ErrorRateParity.bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code></a>()</p></td>
-<td><p>Return bound vector.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.default_objective" title="fairlearn.reductions.ErrorRateParity.default_objective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_objective</span></code></a>()</p></td>
-<td><p>Return the default objective for moments of this kind.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.gamma" title="fairlearn.reductions.ErrorRateParity.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a>(predictor)</p></td>
-<td><p>Calculate the degree to which constraints are currently violated by the predictor.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.load_data" title="fairlearn.reductions.ErrorRateParity.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a>(X, y, *, sensitive_features[, ...])</p></td>
-<td><p>Load the specified data into the object.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.project_lambda" title="fairlearn.reductions.ErrorRateParity.project_lambda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project_lambda</span></code></a>(lambda_vec)</p></td>
-<td><p>Return the projected lambda values.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ErrorRateParity.signed_weights" title="fairlearn.reductions.ErrorRateParity.signed_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signed_weights</span></code></a>(lambda_vec)</p></td>
-<td><p>Compute the signed weights.</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.ErrorRateParity.bound">
 <span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L225-L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ErrorRateParity.bound" title="Link to this definition">#</a></dt>
 <dd><p>Return bound vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>a vector of bound values corresponding to all constraints</p>
+<dd class="field-odd"><dl class="simple">
+<dt>pandas.Series</dt><dd><p>a vector of bound values corresponding to all constraints</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -692,9 +661,12 @@ in Section 3.2 of Agarwal <em>et al.</em><a class="footnote-reference brackets" 
 in the ‘best response of the Q-player’ subsection to compute the
 signed weights to be applied to the data by the next call to the underlying
 estimator.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lambda_vec</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The vector of Lagrange multipliers indexed by <cite>index</cite></p>
+<dd class="field-odd"><dl>
+<dt><strong>lambda_vec</strong><span class="classifier"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></span></dt><dd><p>The vector of Lagrange multipliers indexed by <cite>index</cite></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

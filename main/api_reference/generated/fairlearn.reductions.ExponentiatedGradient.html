@@ -596,28 +596,31 @@ document.write(`
 <dd><p>An Estimator which implements the exponentiated gradient reduction.</p>
 <p>The exponentiated gradient algorithm is described in detail by
 Agarwal <em>et al.</em><a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
-<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<p>Read more in <a class="reference internal" href="../../auto_examples/plot_mitigation_pipeline.html#sphx-glr-auto-examples-plot-mitigation-pipeline-py"><span class="std std-ref">Passing pipelines to mitigation techniques</span></a>.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.3.0: </span>Was a function before, not a class</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.4.6: </span>Requires 0-1 labels for classification problems</p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>estimator</strong> (<em>estimator</em>) – An estimator implementing methods <code class="code docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y,</span> <span class="pre">sample_weight)</span></code> and
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">estimator</span></dt><dd><p>An estimator implementing methods <code class="code docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y,</span> <span class="pre">sample_weight)</span></code> and
 <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code>, where <cite>X</cite> is the matrix of features, <cite>y</cite> is the
 vector of labels (binary classification) or continuous values
 (regression), and <cite>sample_weight</cite> is a vector of weights.
 In binary classification labels <cite>y</cite> and predictions returned by
 <code class="code docutils literal notranslate"><span class="pre">predict(X)</span></code> are either 0 or 1.
-In regression values <cite>y</cite> and predictions are continuous.</p></li>
-<li><p><strong>constraints</strong> (<a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><em>fairlearn.reductions.Moment</em></a>) – The fairness constraints expressed as a <a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a>.</p></li>
-<li><p><strong>objective</strong> (<a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><em>fairlearn.reductions.Moment</em></a>) – The objective expressed as a <a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a>. The default is
+In regression values <cite>y</cite> and predictions are continuous.</p>
+</dd>
+<dt><strong>constraints</strong><span class="classifier">fairlearn.reductions.Moment</span></dt><dd><p>The fairness constraints expressed as a <a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a>.</p>
+</dd>
+<dt><strong>objective</strong><span class="classifier">fairlearn.reductions.Moment</span></dt><dd><p>The objective expressed as a <a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a>. The default is
 <code class="code docutils literal notranslate"><span class="pre">ErrorRate()</span></code> for binary classification and
-<code class="code docutils literal notranslate"><span class="pre">MeanLoss(...)</span></code> for regression.</p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – <p>Allowed fairness constraint violation; the solution is guaranteed to
+<code class="code docutils literal notranslate"><span class="pre">MeanLoss(...)</span></code> for regression.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float</span></dt><dd><p>Allowed fairness constraint violation; the solution is guaranteed to
 have the error within <code class="code docutils literal notranslate"><span class="pre">2*best_gap</span></code> of the best error under
 constraint <cite>eps</cite>; the constraint violation is at most
 <code class="code docutils literal notranslate"><span class="pre">2*(eps+best_gap)</span></code>.</p>
@@ -625,69 +628,49 @@ constraint <cite>eps</cite>; the constraint violation is at most
 <p><span class="versionmodified changed">Changed in version 0.5.0: </span><code class="code docutils literal notranslate"><span class="pre">eps</span></code> is now only responsible for setting the L1 norm bound
 in the optimization</p>
 </div>
-</p></li>
-<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>Maximum number of iterations</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int</span></dt><dd><p>Maximum number of iterations</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.5.0: </span>Used to be <code class="code docutils literal notranslate"><span class="pre">T</span></code></p>
 </div>
-</p></li>
-<li><p><strong>nu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Convergence threshold for the duality gap, corresponding to a
+</dd>
+<dt><strong>nu</strong><span class="classifier">float</span></dt><dd><p>Convergence threshold for the duality gap, corresponding to a
 conservative automatic setting based on the statistical uncertainty
-in measuring classification error</p></li>
-<li><p><strong>eta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – <p>Initial setting of the learning rate</p>
+in measuring classification error</p>
+</dd>
+<dt><strong>eta0</strong><span class="classifier">float</span></dt><dd><p>Initial setting of the learning rate</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.5.0: </span>Used to be <code class="code docutils literal notranslate"><span class="pre">eta_mul</span></code></p>
 </div>
-</p></li>
-<li><p><strong>run_linprog_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – <p>if True each step of exponentiated gradient is followed by the saddle
+</dd>
+<dt><strong>run_linprog_step</strong><span class="classifier">bool</span></dt><dd><p>if True each step of exponentiated gradient is followed by the saddle
 point optimization over the convex hull of classifiers returned so
 far; default True</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.5.0.</span></p>
 </div>
-</p></li>
-<li><p><strong>sample_weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
+</dd>
+<dt><strong>sample_weight_name</strong><span class="classifier">str</span></dt><dd><p>Name of the argument to <cite>estimator.fit()</cite> which supplies the sample weights
 (defaults to <cite>sample_weight</cite>)</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.5.0.</span></p>
 </div>
-</p></li>
-</ul>
 </dd>
 </dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="fairlearn.reductions.ExponentiatedGradient.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X, y, **kwargs)</p></td>
-<td><p>Return a fair classifier under specified fairness constraints.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.get_metadata_routing" title="fairlearn.reductions.ExponentiatedGradient.get_metadata_routing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metadata_routing</span></code></a>()</p></td>
-<td><p>Get metadata routing of this object.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.get_params" title="fairlearn.reductions.ExponentiatedGradient.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a>([deep])</p></td>
-<td><p>Get parameters for this estimator.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.predict" title="fairlearn.reductions.ExponentiatedGradient.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(X[, random_state])</p></td>
-<td><p>Provide predictions for the given input data.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.set_params" title="fairlearn.reductions.ExponentiatedGradient.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a>(**params)</p></td>
-<td><p>Set the parameters of this estimator.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.ExponentiatedGradient.set_predict_request" title="fairlearn.reductions.ExponentiatedGradient.set_predict_request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_predict_request</span></code></a>(*[, random_state])</p></td>
-<td><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method.</p></td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.ExponentiatedGradient.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_exponentiated_gradient/exponentiated_gradient.py#L123-L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.ExponentiatedGradient.fit" title="Link to this definition">#</a></dt>
 <dd><p>Return a fair classifier under specified fairness constraints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – Feature data</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><em>pandas.Series</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Label vector</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">numpy.ndarray or pandas.DataFrame</span></dt><dd><p>Feature data</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">numpy.ndarray, pandas.DataFrame, pandas.Series, or list</span></dt><dd><p>Label vector</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -700,11 +683,11 @@ far; default True</p>
 mechanism works.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>routing</strong> – A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.metadata_routing.MetadataRequest.html#sklearn.utils.metadata_routing.MetadataRequest" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataRequest</span></code></a> encapsulating
+<dd class="field-odd"><dl class="simple">
+<dt><strong>routing</strong><span class="classifier">MetadataRequest</span></dt><dd><p>A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.metadata_routing.MetadataRequest.html#sklearn.utils.metadata_routing.MetadataRequest" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataRequest</span></code></a> encapsulating
 routing information.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>MetadataRequest</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -715,14 +698,17 @@ routing information.</p>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=True</em>) – If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>params</strong> – Parameter names mapped to their values.</p>
+</dl>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -735,6 +721,24 @@ contained subobjects that are estimators.</p>
 the same feature data may yield different output. This
 non-deterministic behavior is intended and stems from the nature of
 the exponentiated gradient algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">numpy.ndarray or pandas.DataFrame</span></dt><dd><p>Feature data</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int or RandomState instance, default=None</span></dt><dd><p>Controls random numbers used for randomized predictions. Pass an
+int for reproducible output across multiple function calls.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Scalar or vector</dt><dd><p>The prediction. If <cite>X</cite> represents the data for a single example
+the result will be a scalar. Otherwise the result will be a vector</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>A fitted ExponentiatedGradient has an attribute <cite>predictors_</cite>, an
 array of predictors, and an attribute <cite>weights_</cite>, an array of
@@ -743,22 +747,6 @@ The prediction on each data point in <cite>X</cite> is obtained by first picking
 a random predictor according to the probabilities in <cite>weights_</cite> and
 then applying it. Different predictors can be chosen on different data
 points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em> or </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – Feature data</p></li>
-<li><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>RandomState instance</em><em>, </em><em>default=None</em>) – Controls random numbers used for randomized predictions. Pass an
-int for reproducible output across multiple function calls.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The prediction. If <cite>X</cite> represents the data for a single example
-the result will be a scalar. Otherwise the result will be a vector</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Scalar or vector</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -771,13 +759,16 @@ parameters of the form <code class="docutils literal notranslate"><span class="p
 possible to update each component of a nested object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Estimator parameters.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – Estimator instance.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>estimator instance</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -811,13 +802,16 @@ sub-estimator of a meta-estimator, e.g. used inside a
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">random_state</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>random_state</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">random_state</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>self</strong> – The updated object.</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>The updated object.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)">object</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>

@@ -600,34 +600,47 @@ and metric errors and a <cite>conf_intervals</cite> array to interpret the colum
 of the <a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>.</p>
 <p>The items at each index of the given <cite>metrics</cite> array and given <cite>errors</cite> or <cite>conf_intervals</cite>
 array should correspond to a pair of the same metric and metric error, respectively.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>metric_frame</strong> (<a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><em>fairlearn.metrics.MetricFrame</em></a>) – The collection of disaggregated metric values, along with the metric errors.</p></li>
-<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>default=&quot;point&quot;</em>) – The type of plot to display, e.g., “point”, “bar”, “line”, etc.
-The supported values are “point” and those listed in <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a></p></li>
-<li><p><strong>metrics</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the metrics to plot.
-Should match columns from the given <a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>.</p></li>
-<li><p><strong>conf_intervals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>The name of the confidence intervals to plot.
+<dd class="field-odd"><dl>
+<dt><strong>metric_frame</strong><span class="classifier">fairlearn.metrics.MetricFrame</span></dt><dd><p>The collection of disaggregated metric values, along with the metric errors.</p>
+</dd>
+<dt><strong>kind</strong><span class="classifier">str, default=”point”</span></dt><dd><p>The type of plot to display, e.g., “point”, “bar”, “line”, etc.
+The supported values are “point” and those listed in <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a></p>
+</dd>
+<dt><strong>metrics</strong><span class="classifier">str or list of str</span></dt><dd><p>The name of the metrics to plot.
+Should match columns from the given <a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>.</p>
+</dd>
+<dt><strong>conf_intervals</strong><span class="classifier">str or list of str</span></dt><dd><p>The name of the confidence intervals to plot.
 Should match columns from the given <a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a>.</p>
 <dl class="simple">
 <dt>Note:</dt><dd><p>The return of the error function should be an array of the lower
 and upper bounds. e.g. <code class="code docutils literal notranslate"><span class="pre">[0.59,</span> <span class="pre">0.62]</span></code></p>
 </dd>
 </dl>
-</p></li>
-<li><p><strong>subplots</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether or not to plot metrics on separate subplots</p></li>
-<li><p><strong>plot_ci_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=False</em>) – Whether or not to plot numerical labels for the confidence intervals</p></li>
-<li><p><strong>ci_labels_precision</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>default=4</em>) – The number of digits of precision to show for confidence interval labels</p></li>
-<li><p><strong>ci_labels_fontsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>default=8</em>) – The font size to use for confidence interval labels</p></li>
-<li><p><strong>ci_labels_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>default=&quot;black&quot;</em>) – The font color to use for confidence interval labels</p></li>
-<li><p><strong>ci_labels_ha</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>default=&quot;center&quot;</em>) – The horizontal alignment modifier to use for confidence interval labels</p></li>
-<li><p><strong>ci_labels_legend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>default=&quot;Conf. Intervals&quot;</em>) – The label corresponding to the confidence interval bars</p></li>
-<li><p><strong>**kwargs</strong> – Keyword arguments that are passed in to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a></p></li>
-</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> of them</p>
+<dt><strong>subplots</strong><span class="classifier">bool, default=True</span></dt><dd><p>Whether or not to plot metrics on separate subplots</p>
+</dd>
+<dt><strong>plot_ci_labels</strong><span class="classifier">bool, default=False</span></dt><dd><p>Whether or not to plot numerical labels for the confidence intervals</p>
+</dd>
+<dt><strong>ci_labels_precision</strong><span class="classifier">int, default=4</span></dt><dd><p>The number of digits of precision to show for confidence interval labels</p>
+</dd>
+<dt><strong>ci_labels_fontsize</strong><span class="classifier">int, default=8</span></dt><dd><p>The font size to use for confidence interval labels</p>
+</dd>
+<dt><strong>ci_labels_color</strong><span class="classifier">str, default=”black”</span></dt><dd><p>The font color to use for confidence interval labels</p>
+</dd>
+<dt><strong>ci_labels_ha</strong><span class="classifier">str, default=”center”</span></dt><dd><p>The horizontal alignment modifier to use for confidence interval labels</p>
+</dd>
+<dt><strong>ci_labels_legend</strong><span class="classifier">str, default=”Conf. Intervals”</span></dt><dd><p>The label corresponding to the confidence interval bars</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>Keyword arguments that are passed in to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html#pandas.DataFrame.plot" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.plot()</span></code></a></p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> of them</dt><dd></dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

@@ -616,27 +616,33 @@ details.
 A <a class="reference internal" href="../../auto_examples/plot_make_derived_metric.html#sphx-glr-auto-examples-plot-make-derived-metric-py"><span class="std std-ref">sample notebook</span></a> is
 also available.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>metric</strong> (<em>callable</em>) – The metric function from which the new function should be derived</p></li>
-<li><p><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Selects the transformation aggregation the resultant function should use.
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">callable</span></dt><dd><p>The metric function from which the new function should be derived</p>
+</dd>
+<dt><strong>transform</strong><span class="classifier">str</span></dt><dd><p>Selects the transformation aggregation the resultant function should use.
 The list of possible options is:
-[‘difference’, ‘group_min’, ‘group_max’, ‘ratio’].</p></li>
-<li><p><strong>sample_param_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – A list of parameters names of the underlying <code class="code docutils literal notranslate"><span class="pre">metric</span></code> which should
+[‘difference’, ‘group_min’, ‘group_max’, ‘ratio’].</p>
+</dd>
+<dt><strong>sample_param_names</strong><span class="classifier">List[str]</span></dt><dd><p>A list of parameters names of the underlying <code class="code docutils literal notranslate"><span class="pre">metric</span></code> which should
 be treated as sample parameters (i.e. the same leading dimension as the
 <code class="code docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code> parameters). This defaults to a list with
 a single entry of <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> (as used by many SciKit-Learn
 metrics). If <code class="code docutils literal notranslate"><span class="pre">None</span></code> or an empty list is supplied, then no parameters
-will be treated as sample parameters.</p></li>
-</ul>
+will be treated as sample parameters.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Function with the same signature as the <code class="code docutils literal notranslate"><span class="pre">metric</span></code> but with additional
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>callable</dt><dd><p>Function with the same signature as the <code class="code docutils literal notranslate"><span class="pre">metric</span></code> but with additional
 <code class="code docutils literal notranslate"><span class="pre">sensitive_features=</span></code> and <code class="code docutils literal notranslate"><span class="pre">method=</span></code> arguments, to enable the
 required computation</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>callable</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>

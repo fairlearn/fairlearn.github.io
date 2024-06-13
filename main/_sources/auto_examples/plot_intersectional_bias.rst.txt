@@ -200,8 +200,8 @@ This raises some interesting questions and issues.
 The issues
 ~~~~~~~~~~
 
-  **"For a star, the location of the mean referred to the location of a singular real object,
-  whereas for a population, the location of a population mean **depended on how the population was
+  **"For a start, the location of the mean referred to the location of a singular real object,
+  whereas for a population, the location of a population mean depended on how the population was
   defined."**
 
 We could define a population as all those who are human, or perhaps all those who are of a
@@ -1462,7 +1462,7 @@ frequency of diagnoses, stratified by intersectional groups.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x7f2dfeee9110>
+    <seaborn.axisgrid.FacetGrid object at 0x7ff042abdc50>
 
 
 
@@ -1692,7 +1692,7 @@ Does intersectional fairness show a similar trend?
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 1086-1185
+.. GENERATED FROM PYTHON SOURCE LINES 1086-1136
 
 If we analyze this problem through an intersectional lens, we notice that the relative FPR has
 increased even further, and Black men are now being misdiagnosed at a rate that is 7x higher than
@@ -1745,53 +1745,65 @@ they still rated the black men as having increased psychotic symptoms.
 
 **So what is going on here?**
 
-It’s likely that race is **associated with other factors that are relevant to misdiagnosis.** The
-diagnostic bias (or a tendency to overemphasize symptoms of schizophrenia and under-emphasize
-depressive symptoms) may be related to socio-environmental factors, for example, Black men with
-depression facing more barriers to receiving mental healthcare, which results in more severe
-illness when finally assessed. Growing up in low-income or stressful environments, or early
-exposure to malnourishment and trauma, can also lead to more severe impairment in daily and
-cognitive functioning. Black patients may additionally face racialization and poor treatment in
-health settings, leading them to exhibit paranoia, tension, or distrust at assessment (especially
-if being assessed by a white clinician). The diagnostic instruments we have are also likely
-culturally biased, having been developed on mostly white populations, making it difficult to pick
-up on symptoms of depression in Black patients or men, in particular. (This article
-:footcite:ct:`herbst2022schizophrenia`presents a nice overview of these various concerns)
+.. GENERATED FROM PYTHON SOURCE LINES 1136-1186
 
-Unfortunately then, it’s not as simple as removing race from the equation, because of these
-**persisting systemic biases which are related to misdiagnosis.** And these biases are reflected
-in the training data, since the socio-environmental and clinical factors relevant for
-misdiagnosis are also associated with race. The model is picking up on these associations,
-despite not having access to the race of each patient.
+.. code-block:: Python
 
-Now that we have evidence for intersectional bias in our model, we could explore some of the
-training features that might underlie this bias. In fact, there is a very recent study by
-:footcite:ct:`banerjee2021readiang` which takes this point a bit further. In this study,
-researchers found that deep learning models trained on medical images, like chest X-rays,
-performed well at predicting the patient’s race, despite not having access to any racial
-information. The researchers examined some reasonable explanations for how this was even
-possible, such as minor anatomical differences between racial groups, cumulative effects of
-racialization or stress, and even image quality between health systems, and none were supported.
-So there must be some way that models pick up on race that not even us humans can understand.
 
-Feature evaluation
-~~~~~~~~~~~~~~~~~~
+    # It’s likely that race is **associated with other factors that are relevant to misdiagnosis**. The
+    # diagnostic bias (or a tendency to overemphasize symptoms of schizophrenia and under-emphasize
+    # depressive symptoms) may be related to socio-environmental factors, for example, Black men with
+    # depression facing more barriers to receiving mental healthcare, which results in more severe
+    # illness when finally assessed. Growing up in low-income or stressful environments, or early
+    # exposure to malnourishment and trauma, can also lead to more severe impairment in daily and
+    # cognitive functioning. Black patients may additionally face racialization and poor treatment in
+    # health settings, leading them to exhibit paranoia, tension, or distrust at assessment (especially
+    # if being assessed by a white clinician). The diagnostic instruments we have are also likely
+    # culturally biased, having been developed on mostly white populations, making it difficult to pick
+    # up on symptoms of depression in Black patients or men, in particular. (This article
+    # :footcite:ct:`herbst2022schizophrenia`presents a nice overview of these various concerns)
+    #
+    # Unfortunately then, it’s not as simple as removing race from the equation, because of these
+    # **persisting systemic biases which are related to misdiagnosis.** And these biases are reflected
+    # in the training data, since the socio-environmental and clinical factors relevant for
+    # misdiagnosis are also associated with race. The model is picking up on these associations,
+    # despite not having access to the race of each patient.
+    #
+    # Now that we have evidence for intersectional bias in our model, we could explore some of the
+    # training features that might underlie this bias. In fact, there is a very recent study by
+    # :footcite:ct:`banerjee2021readiang` which takes this point a bit further. In this study,
+    # researchers found that deep learning models trained on medical images, like chest X-rays,
+    # performed well at predicting the patient’s race, despite not having access to any racial
+    # information. The researchers examined some reasonable explanations for how this was even
+    # possible, such as minor anatomical differences between racial groups, cumulative effects of
+    # racialization or stress, and even image quality between health systems, and none were supported.
+    # So there must be some way that models pick up on race that not even us humans can understand.
+    #
+    # Feature evaluation
+    # ~~~~~~~~~~~~~~~~~~
+    #
+    # In sum, the tendency for Black men to be misdiagnosed with schizophrenia is not simply a result
+    # of clinician or interpersonal bias, but likely reflects systemic factors (e.g., barriers to care
+    # leading to severe illness at assessment, expression of emotional and cognitive symptoms of
+    # depression, experiences of racialization leading to greater paranoia or distrust).
+    #
+    # These factors may be reflected in other features in the simulated data, which are related to
+    # race, and contribute to bias.
+    #
+    # We can explore relations among the features in different ways, but one option is to see how
+    # various features are related to schizophrenia in the training set, and then explore these
+    # features in groups with affective disorder in the test set.
+    #
+    # The choice of which features to consider is subjective and can be based on existing research or
+    # empirical observation (or both). In our case, we'll use the first few features identified as
+    # being important for prediction in our ML model.
+    #
 
-In sum, the tendency for Black men to be misdiagnosed with schizophrenia is not simply a result
-of clinician or interpersonal bias, but likely reflects systemic factors (e.g., barriers to care
-leading to severe illness at assessment, expression of emotional and cognitive symptoms of
-depression, experiences of racialization leading to greater paranoia or distrust).
 
-These factors may be reflected in other features in the simulated data, which are related to
-race, and contribute to bias.
 
-We can explore relations among the features in different ways, but one option is to see how
-various features are related to schizophrenia in the training set, and then explore these
-features in groups with affective disorder in the test set.
 
-The choice of which features to consider is subjective and can be based on existing research or
-empirical observation (or both). In our case, we'll use the first few features identified as
-being important for prediction in our ML model.
+
+
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 1187-1188
@@ -1846,83 +1858,83 @@ Gets the weights associated with each feature, and scales them from 0-100
         </tr>
         <tr>
           <th>Housing_Unstable</th>
-          <td>90.863818</td>
+          <td>90.860156</td>
         </tr>
         <tr>
           <th>Tension</th>
-          <td>87.330937</td>
+          <td>87.331145</td>
         </tr>
         <tr>
           <th>Race_White</th>
-          <td>82.566454</td>
+          <td>82.566970</td>
         </tr>
         <tr>
           <th>Delusion</th>
-          <td>55.671923</td>
+          <td>55.672120</td>
         </tr>
         <tr>
           <th>Unusual_Thought</th>
-          <td>53.261938</td>
+          <td>53.262008</td>
         </tr>
         <tr>
           <th>Suspicious</th>
-          <td>45.994139</td>
+          <td>45.994351</td>
         </tr>
         <tr>
           <th>Concentration</th>
-          <td>45.473665</td>
+          <td>45.473799</td>
         </tr>
         <tr>
           <th>Anhedonia</th>
-          <td>41.976345</td>
+          <td>41.976227</td>
         </tr>
         <tr>
           <th>Tired</th>
-          <td>41.872740</td>
+          <td>41.872721</td>
         </tr>
         <tr>
           <th>Delay_Yes</th>
-          <td>41.833733</td>
+          <td>41.833886</td>
         </tr>
         <tr>
           <th>Sex_Female</th>
-          <td>38.435698</td>
+          <td>38.435605</td>
         </tr>
         <tr>
           <th>Psychomotor</th>
-          <td>29.893042</td>
+          <td>29.892854</td>
         </tr>
         <tr>
           <th>Dep_Mood</th>
-          <td>26.117385</td>
+          <td>26.117129</td>
         </tr>
         <tr>
           <th>Withdrawal</th>
-          <td>18.919430</td>
+          <td>18.919493</td>
         </tr>
         <tr>
           <th>Race_Black</th>
-          <td>10.113099</td>
+          <td>10.113489</td>
         </tr>
         <tr>
           <th>Race_Asian</th>
-          <td>5.350169</td>
+          <td>5.349757</td>
         </tr>
         <tr>
           <th>Sleep</th>
-          <td>5.186677</td>
+          <td>5.186797</td>
         </tr>
         <tr>
           <th>Housing_Stable</th>
-          <td>2.541893</td>
+          <td>2.545309</td>
         </tr>
         <tr>
           <th>Passive</th>
-          <td>0.532238</td>
+          <td>0.532427</td>
         </tr>
         <tr>
           <th>Appetite</th>
-          <td>0.057420</td>
+          <td>0.057168</td>
         </tr>
         <tr>
           <th>Sex_Male</th>
@@ -2146,7 +2158,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.097 seconds)
+   **Total running time of the script:** (0 minutes 26.121 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_intersectional_bias.py:

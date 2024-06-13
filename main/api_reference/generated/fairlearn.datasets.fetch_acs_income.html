@@ -620,14 +620,16 @@ document.write(`
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.8.0.</span></p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=True</em>) – Whether to cache downloaded datasets using joblib.</p></li>
-<li><p><strong>data_home</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>default=None</em>) – Specify another download and cache folder for the datasets.
+<dd class="field-odd"><dl>
+<dt><strong>cache</strong><span class="classifier">bool, default=True</span></dt><dd><p>Whether to cache downloaded datasets using joblib.</p>
+</dd>
+<dt><strong>data_home</strong><span class="classifier">str, default=None</span></dt><dd><p>Specify another download and cache folder for the datasets.
 By default, all fairlearn data is stored in ‘~/.fairlearn-data’
-subfolders.</p></li>
-<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=True</em>) – <p>If True, the data is a pandas DataFrame including columns with
+subfolders.</p>
+</dd>
+<dt><strong>as_frame</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, the data is a pandas DataFrame including columns with
 appropriate dtypes (numeric, string or categorical). The target is
 a pandas DataFrame or Series depending on the number of target_columns.
 The Bunch will contain a <code class="docutils literal notranslate"><span class="pre">frame</span></code> attribute with the target and the
@@ -636,19 +638,21 @@ DataFrames or Series as describe above.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.9.0: </span>Default value changed to True.</p>
 </div>
-</p></li>
-<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>default=False</em>) – If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
-object.</p></li>
-<li><p><strong>states</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>default=None</em>) – List containing two letter (capitalized) state abbreviations.
+</dd>
+<dt><strong>return_X_y</strong><span class="classifier">bool, default=False</span></dt><dd><p>If True, returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code> instead of a Bunch
+object.</p>
+</dd>
+<dt><strong>states: list, default=None</strong></dt><dd><p>List containing two letter (capitalized) state abbreviations.
 If None, data from all 50 US states and Puerto Rico will be returned.
 Note that Puerto Rico is the only US territory included in this dataset.
 The state abbreviations and codes can be found on page 1 of the data
-dictionary at ACS PUMS <a class="footnote-reference brackets" href="#footcite-census2019pums" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
-</ul>
+dictionary at ACS PUMS <a class="footnote-reference brackets" href="#footcite-census2019pums" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul>
-<li><p><strong>dataset</strong> (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a>) – Dictionary-like object, with the following attributes.</p>
+<dd class="field-even"><dl>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
 <dl class="simple">
 <dt>data<span class="classifier">ndarray, shape (1664500, 10)</span></dt><dd><p>Each row corresponding to the 10 feature values in order.
 If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a pandas object.</p>
@@ -668,10 +672,9 @@ value encoded as i is ith in the list. If <code class="docutils literal notransl
 <dt>frame<span class="classifier">pandas DataFrame</span></dt><dd><p>Only present when <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True. DataFrame with <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
 </dd>
 </dl>
-</li>
-<li><p><strong>(data, target)</strong> (tuple if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True)</p></li>
-</ul>
-</p>
+</dd>
+<dt><strong>(data, target)</strong><span class="classifier">tuple if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is True</span></dt><dd></dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Notes</p>

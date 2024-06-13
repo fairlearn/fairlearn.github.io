@@ -600,34 +600,6 @@ of <a class="reference internal" href="#fairlearn.reductions.Moment" title="fair
 and the fairness constraints
 imposed on the solution. This is an abstract class for all such objects.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/mitigation/reductions.html#reductions"><span class="std std-ref">User Guide</span></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><a class="reference internal" href="#fairlearn.reductions.Moment.total_samples" title="fairlearn.reductions.Moment.total_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">total_samples</span></code></a></dt><dd><p>Return the number of samples in the data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.Moment.bound" title="fairlearn.reductions.Moment.bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code></a>()</p></td>
-<td><p>Return vector of fairness bound constraint the length of gamma.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.Moment.gamma" title="fairlearn.reductions.Moment.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a>(predictor)</p></td>
-<td><p>Calculate the degree to which constraints are currently violated by the predictor.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.Moment.load_data" title="fairlearn.reductions.Moment.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a>(X, y, *[, sensitive_features])</p></td>
-<td><p>Load a set of data for use by this object.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.reductions.Moment.project_lambda" title="fairlearn.reductions.Moment.project_lambda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project_lambda</span></code></a>(lambda_vec)</p></td>
-<td><p>Return the projected lambda values.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.reductions.Moment.signed_weights" title="fairlearn.reductions.Moment.signed_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signed_weights</span></code></a>(lambda_vec)</p></td>
-<td><p>Return the signed weights.</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.Moment.bound">
 <span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/moment.py#L67-L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.Moment.bound" title="Link to this definition">#</a></dt>
@@ -644,13 +616,16 @@ imposed on the solution. This is an abstract class for all such objects.</p>
 <dt class="sig sig-object py" id="fairlearn.reductions.Moment.load_data">
 <span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/moment.py#L30-L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.Moment.load_data" title="Link to this definition">#</a></dt>
 <dd><p>Load a set of data for use by this object.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em>) – The feature array</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The label vector</p></li>
-<li><p><strong>sensitive_features</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>) – The sensitive feature vector (default None)</p></li>
-</ul>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">array</span></dt><dd><p>The feature array</p>
+</dd>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></span></dt><dd><p>The label vector</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></span></dt><dd><p>The sensitive feature vector (default None)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

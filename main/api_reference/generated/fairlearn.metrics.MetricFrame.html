@@ -621,10 +621,10 @@ aggregations produce a result for each subgroup identified by the control
 feature(s). The name ‘control features’ refers to the statistical practice
 of ‘controlling’ for a variable.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/index.html#assessment"><span class="std std-ref">User Guide</span></a>.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>metrics</strong> (<em>callable</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – <p>The underlying metric functions which are to be calculated. This
+<dd class="field-odd"><dl>
+<dt><strong>metrics</strong><span class="classifier">callable or dict</span></dt><dd><p>The underlying metric functions which are to be calculated. This
 can either be a single metric function or a dictionary of functions.
 These functions must be callable as
 <code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">**sample_params)</span></code>.
@@ -635,15 +635,18 @@ If there are any other arguments required (such as <code class="docutils literal
 based on whether this argument is a callable or a dictionary of
 callables. This distinction remains <em>even if</em> the dictionary only
 contains a single entry.</p>
-</p></li>
-<li><p><strong>y_true</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – The ground-truth labels (for classification) or target values (for regression).</p></li>
-<li><p><strong>y_pred</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – The predictions.</p></li>
-<li><p><strong>sensitive_features</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> of </em><em>1d arrays</em><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – The sensitive features which should be used to create the subgroups.
+</dd>
+<dt><strong>y_true</strong><span class="classifier">List, pandas.Series, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The ground-truth labels (for classification) or target values (for regression).</p>
+</dd>
+<dt><strong>y_pred</strong><span class="classifier">List, pandas.Series, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The predictions.</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier">List, pandas.Series, dict of 1d arrays, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The sensitive features which should be used to create the subgroups.
 At least one sensitive feature must be provided.
 All names (whether on pandas objects or dictionary keys) must be strings.
 We also forbid DataFrames with column names of <code class="docutils literal notranslate"><span class="pre">None</span></code>.
-For cases where no names are provided we generate names <code class="docutils literal notranslate"><span class="pre">sensitive_feature_[n]</span></code>.</p></li>
-<li><p><strong>control_features</strong> (<em>List</em><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><em>pandas.Series</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> of </em><em>1d arrays</em><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a>) – <p>Control features are similar to sensitive features, in that they
+For cases where no names are provided we generate names <code class="docutils literal notranslate"><span class="pre">sensitive_feature_[n]</span></code>.</p>
+</dd>
+<dt><strong>control_features</strong><span class="classifier">List, pandas.Series, dict of 1d arrays, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>Control features are similar to sensitive features, in that they
 divide the input data into subgroups.
 Unlike the sensitive features, aggregations are not performed
 across the control features - for example, the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property
@@ -656,21 +659,25 @@ See the <a class="reference internal" href="../../user_guide/assessment/intersec
 in the User Guide to learn how to use control levels.</p>
 <p><strong>Note</strong> the types returned by members of the class vary based on whether
 control features are present.</p>
-</p></li>
-<li><p><strong>sample_params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Parameters for the metric function(s). If there is only one metric function,
+</dd>
+<dt><strong>sample_params</strong><span class="classifier">dict</span></dt><dd><p>Parameters for the metric function(s). If there is only one metric function,
 then this is a dictionary of strings and array-like objects, which are split
 alongside the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays, and passed to the metric function.
 If there are multiple metric functions (passed as a dictionary), then this is
 a nested dictionary, with the first set of string keys identifying the
-metric function name, with the values being the string-to-array-like dictionaries.</p></li>
-<li><p><strong>n_boot</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em>) – If set to a postive integer, generate this number of bootstrap samples of the
+metric function name, with the values being the string-to-array-like dictionaries.</p>
+</dd>
+<dt><strong>n_boot</strong><span class="classifier">Optional[int]</span></dt><dd><p>If set to a postive integer, generate this number of bootstrap samples of the
 supplied data, and use to estimate confidence intervals for all of the metrics.
-Must be set with <cite>ci_quantiles</cite>.</p></li>
-<li><p><strong>ci_quantiles</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>]</em><em>]</em>) – A list of confidence interval quantiles to extract from the bootstrap samples.
+Must be set with <cite>ci_quantiles</cite>.</p>
+</dd>
+<dt><strong>ci_quantiles</strong><span class="classifier">Optional[List[float]]</span></dt><dd><p>A list of confidence interval quantiles to extract from the bootstrap samples.
 For example, the list <cite>[0.159, 0.5, 0.841]</cite> would extract the median and
-standard deviations.</p></li>
-<li><p><strong>random_state</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>np.random.RandomState</em><em>]</em><em>]</em>) – Used to control the generation of the bootstrap samples</p></li>
-</ul>
+standard deviations.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">Optional[Union[int, np.random.RandomState]]</span></dt><dd><p>Used to control the generation of the bootstrap samples</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -744,55 +751,6 @@ across the groups are then all pandas Series, for example:</p>
 </div>
 <p>More information about plotting metrics can be found in the
 <a class="reference internal" href="../../user_guide/assessment/plotting.html#plot-metricframe"><span class="std std-ref">plotting section</span></a> of the User Guide.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">by_group</span></code></a></dt><dd><p>Return the collection of metrics evaluated for each subgroup.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group_ci" title="fairlearn.metrics.MetricFrame.by_group_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">by_group_ci</span></code></a></dt><dd><p>Return the confidence intervals for the metrics, evaluated on each subgroup.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.ci_quantiles" title="fairlearn.metrics.MetricFrame.ci_quantiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ci_quantiles</span></code></a></dt><dd><p>Return the quantiles specified for bootstrapping.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.control_levels" title="fairlearn.metrics.MetricFrame.control_levels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_levels</span></code></a></dt><dd><p>Return a list of feature names which are produced by control features.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overall</span></code></a></dt><dd><p>Return the underlying metrics evaluated on the whole dataset.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall_ci" title="fairlearn.metrics.MetricFrame.overall_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overall_ci</span></code></a></dt><dd><p>Return the underlying bootstrapped metrics evaluated on the whole dataset.</p>
-</dd>
-<dt><a class="reference internal" href="#fairlearn.metrics.MetricFrame.sensitive_levels" title="fairlearn.metrics.MetricFrame.sensitive_levels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensitive_levels</span></code></a></dt><dd><p>Return a list of the feature names which are produced by sensitive features.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a>([method, errors])</p></td>
-<td><p>Return the maximum absolute difference between groups for each metric.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference_ci" title="fairlearn.metrics.MetricFrame.difference_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference_ci</span></code></a>([method])</p></td>
-<td><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_max</span></code></a>([errors])</p></td>
-<td><p>Return the maximum value of the metric over the sensitive features.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max_ci" title="fairlearn.metrics.MetricFrame.group_max_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_max_ci</span></code></a>()</p></td>
-<td><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.group_max</span></code></a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_min</span></code></a>([errors])</p></td>
-<td><p>Return the maximum value of the metric over the sensitive features.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min_ci" title="fairlearn.metrics.MetricFrame.group_min_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_min_ci</span></code></a>()</p></td>
-<td><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.group_min</span></code></a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio</span></code></a>([method, errors])</p></td>
-<td><p>Return the minimum ratio between groups for each metric.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio_ci" title="fairlearn.metrics.MetricFrame.ratio_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio_ci</span></code></a>([method])</p></td>
-<td><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>.</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference">
 <span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L746-L793"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Link to this definition">#</a></dt>
@@ -813,18 +771,23 @@ features, then <a class="reference internal" href="#fairlearn.metrics.MetricFram
 The result is the absolute maximum of these values.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p></li>
-<li><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'coerce'</em>) – if ‘raise’, then invalid parsing will raise an exception
-if ‘coerce’, then invalid parsing will be set as NaN</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
-</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+</dd>
+<dt><strong>errors: {‘raise’, ‘coerce’}, default ‘coerce’</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -860,16 +823,22 @@ whether control features are present, and whether the metric functions
 were specified as a single callable or a dictionary.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'raise'</em>) – if ‘raise’, then invalid parsing will raise an exception
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>errors: {‘raise’, ‘coerce’}, default ‘raise’</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
 if ‘coerce’, then invalid parsing will be set as NaN</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The maximum value over sensitive features. The exact type
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The maximum value over sensitive features. The exact type
 follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -905,16 +874,22 @@ whether control features are present, and whether the metric functions
 were specified as a single callable or a dictionary.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'raise'</em>) – if ‘raise’, then invalid parsing will raise an exception
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>errors: {‘raise’, ‘coerce’}, default ‘raise’</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
 if ‘coerce’, then invalid parsing will be set as NaN</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The maximum value over sensitive features. The exact type
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The maximum value over sensitive features. The exact type
 follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -960,18 +935,23 @@ expressing the ratio as a number less than 1.
 The result is the minimum of these values.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p></li>
-<li><p><strong>errors</strong> (<em>{'raise'</em><em>, </em><em>'coerce'}</em><em>, </em><em>default 'coerce'</em>) – if ‘raise’, then invalid parsing will raise an exception
-if ‘coerce’, then invalid parsing will be set as NaN</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
-</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>How to compute the aggregate. Default is <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></p>
+</dd>
+<dt><strong>errors: {‘raise’, ‘coerce’}, default ‘coerce’</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -1003,9 +983,10 @@ a bootstrapped <a class="reference internal" href="#fairlearn.metrics.MetricFram
 sensitive and control features. The exact type depends on
 the specification of the metric function.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p>When a callable is supplied to the constructor, the result is
+<dd class="field-odd"><dl>
+<dt>pandas.Series or pandas.DataFrame</dt><dd><p>When a callable is supplied to the constructor, the result is
 a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, indexed by the combinations of subgroups
 in the sensitive and control features.</p>
 <p>When the metric functions were specified with a dictionary (even
@@ -1016,10 +997,8 @@ in the sensitive and control features.</p>
 <p>If a particular combination of subgroups was not present in the dataset
 (likely to occur as more sensitive and control features
 are specified), then the corresponding entry will be NaN.</p>
-</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -1051,11 +1030,11 @@ property have a <a class="reference external" href="https://pandas.pydata.org/pa
 identifies which elements of that index are control features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of names, which can be used in calls to
+<dd class="field-odd"><dl class="simple">
+<dt>List[str] or None</dt><dd><p>List of names, which can be used in calls to
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>] or None</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -1065,9 +1044,10 @@ identifies which elements of that index are control features.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)"><span class="pre">Series</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><span class="pre">DataFrame</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.overall" title="Link to this definition">#</a></dt>
 <dd><p>Return the underlying metrics evaluated on the whole dataset.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p>The exact type varies based on whether control featuers were
+<dd class="field-odd"><dl>
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type varies based on whether control featuers were
 provided and how the metric functions were specified.</p>
 <table class="table">
 <thead>
@@ -1103,10 +1083,8 @@ of conditional feature(s)</p></td>
 single metric function. This is to allow for a consistent
 interface when calling programatically, while also reducing
 typing for those using Fairlearn interactively.</p>
-</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.2)">pandas.Series</a> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)">pandas.DataFrame</a></p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -1132,11 +1110,11 @@ index, this identifies which elements of the index are sensitive features.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of names, which can be used in calls to
+<dd class="field-odd"><dl class="simple">
+<dt>List[str]</dt><dd><p>List of names, which can be used in calls to
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
