@@ -599,7 +599,7 @@ prediction task.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readmitted&quot;</span><span class="p">,</span> <span class="s2">&quot;readmit_binary&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_ohe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -637,7 +637,7 @@ we can evaluate metrics for subgroups within the data as below:</p>
 <span class="go">DecisionTreeClassifier(...)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">overall</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">overall</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="go">0.514...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">race</span>
@@ -664,7 +664,7 @@ individuals who in reality would be readmitted to the hospital, but
 the model does not predict that outcome.</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">false_negative_rate</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">false_negative_rate</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">overall</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">overall</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="go">0.309...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">race</span>
@@ -725,7 +725,7 @@ as the objective, leading to a vastly reduced difference in accuracy:</p>
 <span class="go">ExponentiatedGradient(...)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred_mitigated</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred_mitigated</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span><span class="o">.</span><span class="n">overall</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span><span class="o">.</span><span class="n">overall</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="go">0.5251...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span><span class="o">.</span><span class="n">by_group</span>
 <span class="go">race</span>
