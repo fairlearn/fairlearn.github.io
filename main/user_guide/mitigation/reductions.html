@@ -1038,6 +1038,78 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 </div>
 </section>
 </section>
+<section id="exponentiated-gradient">
+<h2>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> algorithm in Fairlearn is used to produce models that
+satisfy fairness constraints without needing access to sensitive features at deployment time.
+This algorithm creates a sequence of re-weighted datasets and retrains the
+wrapped classifier on each of these datasets.
+To instantiate an <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> model, we need to pass in a base estimator
+and fairness constraints. The fairness constraints are typically specified by providing
+an upper bound on the difference (or the ratio) between the largest and the smallest
+value of some statistic (like a false positive rate) across all groups. This bound is
+often referred to as epsilon.</p>
+<p>Here is an example of how to instantiate an <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> model:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_adult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">plot_model_comparison</span><span class="p">,</span> <span class="n">equal_opportunity_difference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <span class="n">ExponentiatedGradient</span><span class="p">,</span> <span class="n">EqualizedOdds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span>  <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fetch and preprocess the data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Identify features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numeric_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create preprocessor for X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="n">numeric_features</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">),</span> <span class="n">categorical_features</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Transform y to numerical values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a pipeline with the preprocessor and estimator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimator</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Split the data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">A_train</span><span class="p">,</span> <span class="n">A_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Train and evaluate the base model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span> <span class="c1">#variable assignment only there to prevent large output</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred_base</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a list of ExponentiatedGradient models with different epsilons</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp_grad_models</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">epsilons</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">exp_grad_est</span> <span class="o">=</span> <span class="n">ExponentiatedGradient</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">estimator</span><span class="o">=</span><span class="n">estimator</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">constraints</span><span class="o">=</span><span class="n">EqualizedOdds</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="n">eps</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">sample_weight_name</span><span class="o">=</span><span class="s2">&quot;classifier__sample_weight&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">exp_grad_est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span> <span class="c1">#variable assignment only there to prevent large output</span>
+<span class="gp">... </span>    <span class="n">exp_grad_models</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ExpGrad (ε=</span><span class="si">{</span><span class="n">eps</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_grad_est</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add the base model predictions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exp_grad_models</span><span class="p">[</span><span class="s2">&quot;Base Model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_base</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the comparison</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_model_comparison</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">x_axis_metric</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_axis_metric</span><span class="o">=</span><span class="n">equal_opportunity_difference</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">y_preds</span><span class="o">=</span><span class="n">exp_grad_models</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">point_labels</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&lt;Axes: xlabel=&#39;accuracy score&#39;, ylabel=&#39;equal opportunity difference&#39;&gt;</span>
+</pre></div>
+</div>
+<p>The performance-fairness trade-off learned by the ExponentiatedGradient model is
+sensitive to the chosen epsilon value, so epsilon can be treated as a hyperparameter
+and iterated over a range of potential values.</p>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id8">
@@ -1091,6 +1163,7 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounded-group-loss">Bounded Group Loss</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiated-gradient">Exponentiated Gradient</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
