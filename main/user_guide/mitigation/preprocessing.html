@@ -597,23 +597,35 @@ class, meaning that they can <code class="code docutils literal notranslate"><sp
 By applying the <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code>, these correlations are projected away
 while details from the original data are retained as much as possible (as measured
 by the least-squares error). The user can control the level of projection via the
-<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter. In mathematical terms, assume we have the original dataset
-<span class="math notranslate nohighlight">\(X\)</span> which contains a set of sensitive attributes <span class="math notranslate nohighlight">\(S\)</span> and a set of
-non-sensitive attributes <span class="math notranslate nohighlight">\(Z\)</span>. The removal of correlation is then
-described as:</p>
+<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter.</p>
+<p>In mathematical terms, assume we have the original dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, which
+contains a set of <strong>sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> and a set of
+<strong>non-sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>. The goal is to remove
+correlations between the sensitive features and the non-sensitive features.</p>
+<p>Let <span class="math notranslate nohighlight">\(m_s\)</span> and <span class="math notranslate nohighlight">\(m_{ns}\)</span> denote the number of sensitive and non-sensitive
+features, respectively.
+Let <span class="math notranslate nohighlight">\(\bar{\mathbf{s}}\)</span> represent the mean of the sensitive features, <em>i.e.</em>,
+<span class="math notranslate nohighlight">\(\bar{\mathbf{s}} = [\bar{s}_1, \dots, \bar{s}_{m_s}]^\top\)</span>, where
+<span class="math notranslate nohighlight">\(\bar{s}_j\)</span> is the mean of the <span class="math notranslate nohighlight">\(j\text{-th}\)</span> sensitive feature.</p>
+<p>For each non-sensitive feature <span class="math notranslate nohighlight">\(\mathbf{z}_j\in\mathbb{R}^n\)</span>, where <span class="math notranslate nohighlight">\(j=1,\dotsc,m_{ns}\)</span>,
+we compute an optimal weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_j^* \in \mathbb{R}^{m_s}\)</span> that minimizes the
+following least squares objective:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\min _{\mathbf{z}_{1}, \ldots, \mathbf{z}_{n}} \sum_{i=1}^{n}\left\|\mathbf{z}_{i}
--\mathbf{x}_{i}\right\|^{2} \\
-\text{subject to} \\
-\frac{1}{n} \sum_{i=1}^{n} \mathbf{z}_{i}\left(\mathbf{s}_{i}-\overline{\mathbf{s}}
-\right)^{T}=\mathbf{0}\end{split}\]</div>
-<p>The solution to this problem is found by centering sensitive features, fitting a
-linear regression model to the non-sensitive features and reporting the residual.
-The columns in <span class="math notranslate nohighlight">\(S\)</span> will be dropped from the dataset <span class="math notranslate nohighlight">\(X\)</span>.
-The amount of correlation that is removed can be controlled using the
-<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter. This is described as follows:</p>
+\[\min _{\mathbf{w}} \| \mathbf{z}_j - (\mathbf{S}-\mathbf{1}_n\times\bar{\mathbf{s}}^\top) \mathbf{w} \|_2^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{1}_n\)</span> is the all-one vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>In other words, <span class="math notranslate nohighlight">\(\mathbf{w}_j^*\)</span> is the solution to a linear regression problem where we
+project <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> onto the centered sensitive features. The weight matrix
+<span class="math notranslate nohighlight">\(\mathbf{W}^* = (\mathbf{w}_1^*, \dots, \mathbf{w}_{m_{ns}}^*)\)</span> is thus obtained by solving
+this regression for each non-sensitive feature.</p>
+<p>Once we have the optimal weight matrix <span class="math notranslate nohighlight">\(\mathbf{W}^*\)</span>, we compute the <strong>residual
+non-sensitive features</strong> <span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> as follows:</p>
 <div class="math notranslate nohighlight">
-\[X_{\text{tfm}} = \alpha X_{\text{filtered}} + (1-\alpha) X_{\text{orig}}\]</div>
+\[\mathbf{Z}^* = \mathbf{Z} - (\mathbf{S}-\mathbf{1}_n\times\bar{\mathbf{s}}^\top) \mathbf{W}^*\]</div>
+<p>The columns in <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> will be dropped from the dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, and
+<span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> will replace the original non-sensitive features <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, but the
+hyper parameter <span class="math notranslate nohighlight">\(\alpha\)</span> does allow you to tweak the amount of filtering that gets applied:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{\text{tfm}} = \alpha \mathbf{X}_{\text{filtered}} + (1-\alpha) \mathbf{X}_{\text{orig}}\]</div>
 <p>Note that the lack of correlation does not imply anything about statistical dependence.
 In particular, since correlation measures linear relationships, it might still be
 possible that non-linear relationships exist in the data. Therefore, we expect this
@@ -644,12 +656,12 @@ The <code class="code docutils literal notranslate"><span class="pre">Correlatio
 </div>
 <p>In the visualization below, we see the correlation values in the
 original dataset. We are particularly interested in the correlations
-between the ‘race_AfricanAmerican’ column and the three non-sensitive attributes
+between the ‘race_AfricanAmerican’ column and the three non-sensitive features
 ‘time_in_hospital’, ‘had_inpatient_days’ and ‘medicare_True’. The target
 variable is also included in these visualization for completeness, and it is
 defined as a binary feature which indicated whether the readmission of a patient
 occurred within 30 days of the release. We see that ‘race_AfricanAmerican’ is
-not highly correlated with the three mentioned attributes, but we want to remove
+not highly correlated with the three mentioned features, but we want to remove
 these correlations nonetheless. The code for generating the correlation matrix
 can be found in
 <a class="reference external" href="../../auto_examples/plot_correlationremover_before_after.html">this example notebook</a>.</p>

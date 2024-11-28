@@ -588,7 +588,7 @@
 <h1>fairlearn.preprocessing.CorrelationRemover<a class="headerlink" href="#fairlearn-preprocessing-correlationremover" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairlearn.preprocessing.</span></span><span class="sig-name descname"><span class="pre">CorrelationRemover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_feature_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L13-L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairlearn.preprocessing.</span></span><span class="sig-name descname"><span class="pre">CorrelationRemover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_feature_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L13-L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover" title="Link to this definition">#</a></dt>
 <dd><p>A component that filters out sensitive correlations in a dataset.</p>
 <p>CorrelationRemover applies a linear transformation to the non-sensitive feature columns
 in order to remove their correlation with the sensitive feature columns while retaining
@@ -608,21 +608,38 @@ all information while for alpha=0.0 we don’t apply any.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>This method will change the original dataset by removing all correlation with sensitive
-values. To describe that mathematically, let’s assume in the original dataset <span class="math notranslate nohighlight">\(X\)</span>
-we’ve got a set of sensitive attributes <span class="math notranslate nohighlight">\(S\)</span> and a set of non-sensitive attributes
-<span class="math notranslate nohighlight">\(Z\)</span>. Mathematically this method will be solving the following problem.</p>
+values. In mathematical terms, assume we have the original dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, which
+contains a set of <strong>sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> and a set of
+<strong>non-sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>. The goal is to remove
+correlations between the sensitive features and the non-sensitive features.</p>
+<p>Let <span class="math notranslate nohighlight">\(m_s\)</span> and <span class="math notranslate nohighlight">\(m_{ns}\)</span> denote the number of sensitive and non-sensitive
+features, respectively.
+Let <span class="math notranslate nohighlight">\(\bar{\mathbf{s}}\)</span> represent the mean of the sensitive features, <em>i.e.</em>,
+<span class="math notranslate nohighlight">\(\bar{\mathbf{s}} = [\bar{s}_1, \dots, \bar{s}_{m_s}]^\top\)</span>, where
+<span class="math notranslate nohighlight">\(\bar{s}_j\)</span> is the mean of the <span class="math notranslate nohighlight">\(j\text{-th}\)</span> sensitive feature.</p>
+<p>For each non-sensitive feature <span class="math notranslate nohighlight">\(\mathbf{z}_j\in\mathbb{R}^n\)</span>, where
+<span class="math notranslate nohighlight">\(j=1,\dotsc,m_{ns}\)</span>, we compute an optimal weight vector
+<span class="math notranslate nohighlight">\(\mathbf{w}_j^* \in \mathbb{R}^{m_s}\)</span> that minimizes the following least squares
+objective:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\min _{\mathbf{z}_{1}, \ldots, \mathbf{z}_{n}} \sum_{i=1}^{n}\left\|\mathbf{z}_{i}
--\mathbf{x}_{i}\right\|^{2} \\
-\text{subject to} \\
-\frac{1}{n} \sum_{i=1}^{n} \mathbf{z}_{i}\left(\mathbf{s}_{i}-\overline{\mathbf{s}}
-\right)^{T}=\mathbf{0}\end{split}\]</div>
-<p>The solution to this problem is found by centering sensitive features, fitting a
-linear regression model to the non-sensitive features and reporting the residual.</p>
-<p>The columns in <span class="math notranslate nohighlight">\(S\)</span> will be dropped but the hyper parameter <span class="math notranslate nohighlight">\(\alpha\)</span>
-does allow you to tweak the amount of filtering that gets applied.</p>
+\[\min _{\mathbf{w}} \| \mathbf{z}_j - (\mathbf{S}-\mathbf{1}_n\times\bar{\mathbf{s}}^\top) \mathbf{w} \|_2^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{1}_n\)</span> is the all-one vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>In other words, <span class="math notranslate nohighlight">\(\mathbf{w}_j^*\)</span> is the solution to a linear regression problem where
+we project <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> onto the centered sensitive features. The weight matrix
+<span class="math notranslate nohighlight">\(\mathbf{W}^* = (\mathbf{w}_1^*, \dots, \mathbf{w}_{m_{ns}}^*)\)</span> is thus obtained by
+solving this regression for each non-sensitive feature.</p>
+<p>Once we have the optimal weight matrix <span class="math notranslate nohighlight">\(\mathbf{W}^*\)</span>, we compute the <strong>residual
+non-sensitive features</strong> <span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> as follows:</p>
 <div class="math notranslate nohighlight">
-\[X_{\text{tfm}} = \alpha X_{\text{filtered}} + (1-\alpha) X_{\text{orig}}\]</div>
+\[\]</div>
+<p>mathbf{Z}^* = mathbf{Z} - (mathbf{S}-mathbf{1}_ntimesbar{mathbf{s}}^top) mathbf{W}^*</p>
+<p>The columns in <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> will be dropped from the dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, and
+<span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> will replace the original non-sensitive features <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, but
+the hyper parameter <span class="math notranslate nohighlight">\(\alpha\)</span> does allow you to tweak the amount of filtering that gets
+applied:</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<p>mathbf{X}_{text{tfm}} = alpha mathbf{X}_{text{filtered}} + (1-alpha) mathbf{X}_{text{orig}}</p>
 <p>Note that the lack of correlation does not imply anything about statistical dependence.
 Therefore, we expect this to be most appropriate as a preprocessing step for
 (generalized) linear models.</p>
@@ -631,7 +648,7 @@ Therefore, we expect this to be most appropriate as a preprocessing step for
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L87-L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.fit" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L106-L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.fit" title="Link to this definition">#</a></dt>
 <dd><p>Learn the projection required to make the dataset uncorrelated with sensitive columns.</p>
 </dd></dl>
 
@@ -756,7 +773,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L103-L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.transform" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L122-L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.transform" title="Link to this definition">#</a></dt>
 <dd><p>Transform X by applying the correlation remover.</p>
 </dd></dl>
 
