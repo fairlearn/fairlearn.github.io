@@ -663,7 +663,6 @@ true positive rate parity as the fairness constraint.</p>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="p">[</span>
-<span class="gp">... </span>        <span class="c1"># (&quot;impute&quot;, SimpleImputer(strategy=&quot;most_frequent&quot;)),</span>
 <span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;ohe&quot;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)),</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
@@ -730,14 +729,14 @@ true positive rate parity as the fairness constraint.</p>
 <figure class="align-default">
 <img alt="../../_images/postprocessing-1.png" class="plot-directive" src="../../_images/postprocessing-1.png" />
 </figure>
-<p>When calling <code class="code docutils literal notranslate"><span class="pre">predict</span></code>, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> uses one of the</p>
-<p>thresholds at random based on the probabilities <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span>.
+<p>When calling <code class="code docutils literal notranslate"><span class="pre">predict</span></code>, <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> uses one of the
+thresholds at random based on the probabilities <span class="math notranslate nohighlight">\(p_0\)</span> and <span class="math notranslate nohighlight">\(p_1\)</span>.
 The results can be interpreted as follows based on the following formula for
 the probability to predict label 1:</p>
 <div class="math notranslate nohighlight">
 \[p_0 \cdot \text{operation}_0(\text{score}) + p_1 \cdot \text{operation}_1(\text{score})\]</div>
 <ul class="simple">
-<li><p>“Female: <span class="math notranslate nohighlight">\(0.628 \cdot \mathbb{I}(\text{score}&gt;0.110) + 0.371 \cdot \mathbb{I}(\text{score}&gt;0.096)\)</span></p>
+<li><p>“Female”: <span class="math notranslate nohighlight">\(0.628 \cdot \mathbb{I}(\text{score}&gt;0.110) + 0.371 \cdot \mathbb{I}(\text{score}&gt;0.096)\)</span></p>
 <ul>
 <li><p>if the score is above <span class="math notranslate nohighlight">\(0.110\)</span> predict 1</p></li>
 <li><p>if the score is between <span class="math notranslate nohighlight">\(0.110\)</span> and <span class="math notranslate nohighlight">\(0.096\)</span> predict 1 with
