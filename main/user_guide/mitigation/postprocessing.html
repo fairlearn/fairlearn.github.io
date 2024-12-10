@@ -707,7 +707,7 @@ true positive rate parity as the fairness constraint.</p>
 <span class="go">                   objective=&#39;balanced_accuracy_score&#39;,</span>
 <span class="go">                   predict_method=&#39;predict_proba&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
-<span class="go">array([0, 0, 0, ..., 0, 1, 0])</span>
+<span class="go">array([0, 0, 0, ..., 0, 1, 0], shape=(30529,))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_rules_by_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">threshold_rules_by_group</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 <span class="go">{</span>
