@@ -52,7 +52,7 @@
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5280298d"></script>
     <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contributor_guide/release';</script>
     <script>
@@ -539,8 +539,10 @@ The following steps assume git remote’s <code class="code docutils literal not
 <ol class="arabic">
 <li><p>Ensure the maintainers listed in <code class="code docutils literal notranslate"><span class="pre">scripts/generate_maintainers_table.py</span></code>
 are up to date. Run the command below from the repository root directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>scripts/generate_maintainers_table.py</span>
-</pre></div></div><p>If the generated file <code class="code docutils literal notranslate"><span class="pre">docs/about/maintainers.rst</span></code> does not change
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>scripts/generate_maintainers_table.py
+</pre></div>
+</div>
+<p>If the generated file <code class="code docutils literal notranslate"><span class="pre">docs/about/maintainers.rst</span></code> does not change
 you can proceed with the next step. Otherwise, create a PR to update
 the generated maintainers file on the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch. Proceed only
 when the PR is merged.</p>
@@ -554,13 +556,17 @@ for this and merge it before proceeding.</p></li>
 <div><ol class="arabic">
 <li><p>Create a new branch:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release/v&lt;x.y&gt;.X</span>
-</pre></div></div></div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release/v&lt;x.y&gt;.X
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 <li><p>Push the branch to GitHub:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>release/v&lt;x.y&gt;.X</span>
-</pre></div></div></div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>release/v&lt;x.y&gt;.X
+</pre></div>
+</div>
+</div></blockquote>
 <p>You may need to temporarily add an exception to the
 <a class="reference external" href="https://github.com/fairlearn/fairlearn/settings/branches">branch protection rules</a>
 by adding a new branch protection rule for <code class="code docutils literal notranslate"><span class="pre">release/v&lt;x.y&gt;.X</span></code>.</p>
@@ -580,13 +586,17 @@ to <code class="code docutils literal notranslate"><span class="pre">x.y.z</span
 <ol class="arabic">
 <li><p>On the release branch, place an annotated tag:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v&lt;x.y.z&gt;<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;v&lt;x.y.z&gt; release&quot;</span></span>
-</pre></div></div></div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v&lt;x.y.z&gt;<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;v&lt;x.y.z&gt; release&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 <li><p>Push the tag to GitHub:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v&lt;x.y.z&gt;</span>
-</pre></div></div></div></blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v&lt;x.y.z&gt;
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 <li><p>On <a class="reference external" href="https://github.com/fairlearn/fairlearn/releases">GitHub’s release page</a>,
 draft a new release. Choose the new tag, title the release <cite>v&lt;x.y.z&gt;</cite>,

@@ -52,7 +52,7 @@
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5280298d"></script>
     <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contributor_guide/contributing_documentation';</script>
     <script>
@@ -539,34 +539,40 @@ extensions.
 Specifically, the website is available for all our releases to allow users to
 check the documentation of the version of the package that they are using.</p>
 <p>To contribute, make sure to install sphinx and its add-ons by running</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
-span.prompt1:before {
-  content: "$ ";
-}
-</style><span class="prompt1">python<span class="w"> </span>scripts/install_requirements.py<span class="w"> </span>--pinned<span class="w"> </span>False</span>
-</pre></div></div><p>in the repository root directory.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>scripts/install_requirements.py<span class="w"> </span>--pinned<span class="w"> </span>False
+</pre></div>
+</div>
+<p>in the repository root directory.
 You may also need to <a class="reference external" href="https://pandoc.org/installing.html">install Pandoc</a>.</p>
 <p>Since plotting is an optional addition to Fairlearn, you may also need to
 install matplotlib</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib&gt;<span class="o">=</span><span class="m">3</span>.2.1</span>
-</pre></div></div><p>You can contribute updates to existing documentation by navigating to the
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib&gt;<span class="o">=</span><span class="m">3</span>.2.1
+</pre></div>
+</div>
+<p>You can contribute updates to existing documentation by navigating to the
 relevant part of the repository (typically in the <cite>docs</cite> directory), and
 editing the restructured text files (<cite>.rst</cite>) corresponding to your updates.</p>
 <p>To build the webpage run the following command from the repository root
 directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>sphinx<span class="w"> </span>-v<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>-n<span class="w"> </span>-j<span class="w"> </span>auto<span class="w"> </span>docs<span class="w"> </span>docs/_build/html</span>
-</pre></div></div><p>or use the shortcut</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make<span class="w"> </span>doc</span>
-</pre></div></div><p>This will generate the website in the directory mentioned at the end of the
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>sphinx<span class="w"> </span>-v<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>-n<span class="w"> </span>-j<span class="w"> </span>auto<span class="w"> </span>docs<span class="w"> </span>docs/_build/html
+</pre></div>
+</div>
+<p>or use the shortcut</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>doc
+</pre></div>
+</div>
+<p>This will generate the website in the directory mentioned at the end of the
 command. Rerunning this after making changes to individual files only
 rebuilds the changed pages, so the build time should be a lot shorter.</p>
 <p>You can check that the document(s) render properly by inspecting the HTML with
 the following commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">start<span class="w"> </span>docs/_build/html/index.html</span>
-<span class="prompt1">start<span class="w"> </span>docs/_build/html/quickstart.html</span>
-<span class="prompt1">...</span>
-<span class="prompt1">start<span class="w"> </span>docs/_build/html/auto_examples/plot_*.html</span>
-</pre></div></div><div class="line-block">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>start<span class="w"> </span>docs/_build/html/index.html
+$<span class="w"> </span>start<span class="w"> </span>docs/_build/html/quickstart.html
+...
+$<span class="w"> </span>start<span class="w"> </span>docs/_build/html/auto_examples/plot_*.html
+</pre></div>
+</div>
+<div class="line-block">
 <div class="line">The above code block works for Windows users.</div>
 <div class="line">For MacOS users, use <code class="code docutils literal notranslate"><span class="pre">open</span> <span class="pre">docs/_build/html/index.html</span></code>.</div>
 <div class="line">For Linux users, use <code class="code docutils literal notranslate"><span class="pre">xdg-open</span> <span class="pre">docs/_build/html/index.html</span></code>.</div>

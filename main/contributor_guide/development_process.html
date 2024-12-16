@@ -52,7 +52,7 @@
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5280298d"></script>
     <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contributor_guide/development_process';</script>
     <script>
@@ -563,17 +563,25 @@ changing all the docstrings in one PR.</p>
 <p>While working on Fairlearn itself you may want to install it in editable mode.
 This allows you to test the changed functionality. First, clone the repository
 locally via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>git@github.com:fairlearn/fairlearn.git</span>
-</pre></div></div><p>To install in editable mode, from the repository root path run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.</span>
-</pre></div></div><p>To verify that the code works as expected run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>./scripts/install_requirements.py<span class="w"> </span>--pinned<span class="w"> </span>False</span>
-<span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>./test/unit</span>
-</pre></div></div><p>Fairlearn currently includes plotting functionality provided by
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:fairlearn/fairlearn.git
+</pre></div>
+</div>
+<p>To install in editable mode, from the repository root path run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>To verify that the code works as expected run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>./scripts/install_requirements.py<span class="w"> </span>--pinned<span class="w"> </span>False
+$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>./test/unit
+</pre></div>
+</div>
+<p>Fairlearn currently includes plotting functionality provided by
 <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>. This is for a niche use case, so it isn’t a default requirement. To install run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.</span>
-<span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib</span>
-</pre></div></div><section id="the-requirements-files">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+<section id="the-requirements-files">
 <h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Link to this heading">#</a></h3>
 <p>The prerequisites for Fairlearn are split between three separate files:</p>
 <blockquote>
@@ -622,14 +630,18 @@ For more details on how to fork a
 repository see <a class="reference external" href="https://help.github.com/articles/fork-a-repo/">this guide</a>.</p></li>
 <li><p>Clone your fork of the fairlern repo from your GitHub account to your
 local machine:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>git@github.com:YourLogin/fairlearn.git<span class="w">  </span><span class="c1"># add --depth 1 if your connection is slow</span></span>
-<span class="prompt1"><span class="nb">cd</span><span class="w"> </span>fairlearn</span>
-</pre></div></div></li>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:YourLogin/fairlearn.git<span class="w">  </span><span class="c1"># add --depth 1 if your connection is slow</span>
+<span class="nb">cd</span><span class="w"> </span>fairlearn
+</pre></div>
+</div>
+</li>
 <li><p>Add the <code class="docutils literal notranslate"><span class="pre">upstream</span></code> remote. This saves a reference to the main
 fairlearn repository, which you can use to keep your repository
 synchronized with the latest changes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>git@github.com:fairlearn/fairlearn.git</span>
-</pre></div></div></li>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>git@github.com:fairlearn/fairlearn.git
+</pre></div>
+</div>
+</li>
 <li><p>Check that the <code class="code docutils literal notranslate"><span class="pre">upstream</span></code> and <code class="code docutils literal notranslate"><span class="pre">origin</span></code> remote aliases are configured correctly
 by running</p>
 <p><code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code> which should display:</p>
@@ -641,9 +653,12 @@ upstream        git@github.com:fairlearn/fairlearn.git (push)
 </div>
 </li>
 <li><p>(Optional) Install <a class="reference external" href="https://pre-commit.com/#install">pre-commit</a> to run code style checks before each commit:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>pre-commit</span>
-<span class="prompt1">pre-commit<span class="w"> </span>install</span>
-</pre></div></div><p>Pre-commit checks can be disabled for a particular commit with <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-n</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>$ pip install pre-commit
+$ pre-commit install</p>
+<p>Pre-commit checks can be disabled for a particular commit with <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-n</span></code>.</p>
 </li>
 <li><p>To contribute, you will need to create a branch on your forked repository and make a pull request to the original fairlearn repository.
 Detailed description of this process you can find here:</p>
