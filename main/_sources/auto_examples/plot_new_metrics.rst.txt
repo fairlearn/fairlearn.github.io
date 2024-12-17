@@ -703,8 +703,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate        0.195979
-    fbeta_06              0.679572
+    selection_rate        0.194376
+    fbeta_06              0.685289
     count             14653.000000
     dtype: float64
 
@@ -761,14 +761,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.070949</td>
-          <td>0.636152</td>
+          <td>0.066965</td>
+          <td>0.639513</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.257289</td>
-          <td>0.685976</td>
+          <td>0.257172</td>
+          <td>0.691728</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -942,7 +942,7 @@ So far we have only considered a single sensitive feature at a time,
 and we have already found some serious issues in our example data.
 However, sometimes serious issues can be hiding in intersections of
 features. For example, the
-`Gender Shades project <https://www.media.mit.edu/projects/gender-shades/overview/>`_
+Gender Shades project :footcite:`buolamwini2018gender`
 found that facial recognition algorithms performed worse for blacks
 than whites, and also worse for women than men (despite overall high
 accuracy score). Moreover, performance on black females was *terrible*.
@@ -950,10 +950,9 @@ We can examine the intersections of sensitive features by passing
 multiple columns to the :class:`fairlearn.metrics.MetricFrame`
 constructor:
 
-.. GENERATED FROM PYTHON SOURCE LINES 403-411
+.. GENERATED FROM PYTHON SOURCE LINES 403-410
 
 .. code-block:: Python
-
 
     grouped_on_race_and_sex = MetricFrame(
         metrics=metric_fns,
@@ -969,12 +968,12 @@ constructor:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 412-414
+.. GENERATED FROM PYTHON SOURCE LINES 411-413
 
 The overall values are unchanged, but the ``by_group`` table now
 shows the intersections between subgroups:
 
-.. GENERATED FROM PYTHON SOURCE LINES 414-417
+.. GENERATED FROM PYTHON SOURCE LINES 413-416
 
 .. code-block:: Python
 
@@ -1067,7 +1066,7 @@ shows the intersections between subgroups:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 418-423
+.. GENERATED FROM PYTHON SOURCE LINES 417-422
 
 The aggregations are still performed across all subgroups for each metric,
 so each continues to reduce to a single value. If we look at the
@@ -1075,7 +1074,7 @@ so each continues to reduce to a single value. If we look at the
 ``fbeta_score()`` suggested above (for females with a race of 'Other' in
 fact):
 
-.. GENERATED FROM PYTHON SOURCE LINES 423-425
+.. GENERATED FROM PYTHON SOURCE LINES 422-424
 
 .. code-block:: Python
 
@@ -1097,13 +1096,13 @@ fact):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 426-429
+.. GENERATED FROM PYTHON SOURCE LINES 425-428
 
 Looking at the ``ratio()`` method, we see that the disparity is worse
 (specifically between white males and black females, if we check in
 the ``by_group`` table):
 
-.. GENERATED FROM PYTHON SOURCE LINES 429-431
+.. GENERATED FROM PYTHON SOURCE LINES 428-430
 
 .. code-block:: Python
 
@@ -1125,7 +1124,7 @@ the ``by_group`` table):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 432-446
+.. GENERATED FROM PYTHON SOURCE LINES 431-445
 
 Control Features
 ================
@@ -1142,7 +1141,7 @@ we have the concept of *control features*.
 Control features are introduced by the ``control_features=``
 argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
-.. GENERATED FROM PYTHON SOURCE LINES 446-454
+.. GENERATED FROM PYTHON SOURCE LINES 445-453
 
 .. code-block:: Python
 
@@ -1161,13 +1160,13 @@ argument to the :class:`fairlearn.metrics.MetricFrame` object:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 455-458
+.. GENERATED FROM PYTHON SOURCE LINES 454-457
 
 This has an immediate effect on the ``overall`` property. Instead
 of having one value for each metric, we now have a value for each
 unique value of the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 458-460
+.. GENERATED FROM PYTHON SOURCE LINES 457-459
 
 .. code-block:: Python
 
@@ -1236,11 +1235,11 @@ unique value of the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 461-462
+.. GENERATED FROM PYTHON SOURCE LINES 460-461
 
 The ``by_group`` property is similarly expanded:
 
-.. GENERATED FROM PYTHON SOURCE LINES 462-464
+.. GENERATED FROM PYTHON SOURCE LINES 461-463
 
 .. code-block:: Python
 
@@ -1415,12 +1414,12 @@ The ``by_group`` property is similarly expanded:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 465-467
+.. GENERATED FROM PYTHON SOURCE LINES 464-466
 
 The aggregates are also evaluated once for each group identified
 by the control feature:
 
-.. GENERATED FROM PYTHON SOURCE LINES 467-469
+.. GENERATED FROM PYTHON SOURCE LINES 466-468
 
 .. code-block:: Python
 
@@ -1489,11 +1488,11 @@ by the control feature:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 470-471
+.. GENERATED FROM PYTHON SOURCE LINES 469-470
 
 And:
 
-.. GENERATED FROM PYTHON SOURCE LINES 471-473
+.. GENERATED FROM PYTHON SOURCE LINES 470-472
 
 .. code-block:: Python
 
@@ -1562,7 +1561,7 @@ And:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 474-479
+.. GENERATED FROM PYTHON SOURCE LINES 473-478
 
 In our data, we see that we have a dearth of positive results
 for high income non-whites, which significantly affects the
@@ -1570,7 +1569,7 @@ aggregates.
 
 We can continue adding more control features:
 
-.. GENERATED FROM PYTHON SOURCE LINES 479-487
+.. GENERATED FROM PYTHON SOURCE LINES 478-486
 
 .. code-block:: Python
 
@@ -1589,11 +1588,11 @@ We can continue adding more control features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 488-489
+.. GENERATED FROM PYTHON SOURCE LINES 487-488
 
 The ``overall`` property now splits into more values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 489-491
+.. GENERATED FROM PYTHON SOURCE LINES 488-490
 
 .. code-block:: Python
 
@@ -1684,12 +1683,12 @@ The ``overall`` property now splits into more values:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 492-494
+.. GENERATED FROM PYTHON SOURCE LINES 491-493
 
 As does the ``by_groups`` property, where ``NaN`` values
 indicate that there were no samples in the cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 494-496
+.. GENERATED FROM PYTHON SOURCE LINES 493-495
 
 .. code-block:: Python
 
@@ -1988,12 +1987,12 @@ indicate that there were no samples in the cell:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 497-499
+.. GENERATED FROM PYTHON SOURCE LINES 496-498
 
 The aggregates behave similarly. By this point, we are having significant issues
 with under-populated intersections. Consider:
 
-.. GENERATED FROM PYTHON SOURCE LINES 499-516
+.. GENERATED FROM PYTHON SOURCE LINES 498-515
 
 .. code-block:: Python
 
@@ -2064,13 +2063,11 @@ with under-populated intersections. Consider:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 517-519
+.. GENERATED FROM PYTHON SOURCE LINES 516-528
 
 Recall that ``NaN`` indicates that there were no individuals
 in a cell - ``member_counts()`` will not even have been called.
-
-.. GENERATED FROM PYTHON SOURCE LINES 521-530
-
+%%
 Exporting from MetricFrame
 ==========================
 
@@ -2081,7 +2078,7 @@ will be a :class:`pandas.DataFrame` (or in a few cases, it will be
 a :class:`pandas.Series`, but that has a similar
 :py:meth:`~pandas.Series.to_csv` method):
 
-.. GENERATED FROM PYTHON SOURCE LINES 530-534
+.. GENERATED FROM PYTHON SOURCE LINES 528-532
 
 .. code-block:: Python
 
@@ -2121,7 +2118,7 @@ a :class:`pandas.Series`, but that has a similar
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 535-542
+.. GENERATED FROM PYTHON SOURCE LINES 533-546
 
 The :py:meth:`pandas.DataFrame.to_csv` method has a large number of
 arguments to control the exported CSV. For example, it can write
@@ -2131,10 +2128,16 @@ above).
 The :meth:`~fairlearn.metrics.MetricFrame.overall` property can
 be handled similarly, in the cases that it is not a scalar.
 
+References
+----------
+
+.. footbibliography::
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.746 seconds)
+   **Total running time of the script:** (0 minutes 2.822 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:

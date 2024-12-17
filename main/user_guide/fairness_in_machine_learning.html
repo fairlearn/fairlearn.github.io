@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
@@ -43,10 +43,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=8f29ad4c" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../_static/documentation_options.js?v=323ffc05"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
@@ -58,10 +58,11 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/fairness_in_machine_learning';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
     <link rel="icon" href="../_static/fairlearn-favicon.ico"/>
     <link rel="search" title="Search" href="../search.html" />
@@ -535,9 +536,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -604,8 +610,7 @@ the words <em>bias</em> or <em>debiasing</em> in describing the functionality of
 </section>
 <section id="types-of-harms">
 <span id="id2"></span><h2>Types of harms<a class="headerlink" href="#types-of-harms" title="Link to this heading">#</a></h2>
-<p>There are many types of harms (see, e.g., the
-<a class="reference external" href="https://www.youtube.com/watch?v=fMym_BKWQzk">keynote by K. Crawford at NeurIPS 2017</a>).
+<p>There are many types of harms <a class="footnote-reference brackets" href="#footcite-barocas2017problem" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 Some of these are:</p>
 <ul class="simple">
 <li><p><em>Allocation harms</em> can occur when AI systems extend or withhold
@@ -619,7 +624,7 @@ face recognition, document search, or product recommendation.</p></li>
 perpetuate stereotypes.
 These are often seen when search engines propose completions to partially
 typed queries.
-See Umoja Noble<a class="footnote-reference brackets" href="#footcite-umojanoble2018algorithmsoppression" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for an in-depth
+See Umoja Noble<a class="footnote-reference brackets" href="#footcite-umojanoble2018algorithmsoppression" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> for an in-depth
 look at this issue.
 Note that even stereotypes which are nominally positive are also
 problematic, since they still create expectations based on outward
@@ -644,7 +649,7 @@ The Fairlearn package is most applicable to allocation and quality of service ha
 since these are easiest to measure.</p>
 </section>
 <section id="concept-glossary">
-<span id="id4"></span><h2>Concept glossary<a class="headerlink" href="#concept-glossary" title="Link to this heading">#</a></h2>
+<span id="id5"></span><h2>Concept glossary<a class="headerlink" href="#concept-glossary" title="Link to this heading">#</a></h2>
 <p>The concepts outlined in this glossary are relevant to sociotechnical contexts.</p>
 <section id="construct-validity">
 <h3>Construct validity<a class="headerlink" href="#construct-validity" title="Link to this heading">#</a></h3>
@@ -653,7 +658,7 @@ Which target variable do we intend to predict?
 What features will be included?
 What (fairness) constraints do we consider?
 Many of these decisions boil down to what social scientists refer to as measurement: the way we measure (abstract) phenomena.</p>
-<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.
+<p>The concepts outlined in this glossary give an introduction into the language of measurement modeling - as described in Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
 This framework can be a useful tool to test the validity of (implicit) assumptions of a problem formulation.
 In this way, it can help to mitigate fairness-related harms that can arise from mismatches between the formulation and the real-world context of an application.</p>
 <section id="key-terms">
@@ -672,18 +677,18 @@ In this way, it can help to mitigate fairness-related harms that can arise from 
 <li><p><strong>Fairness</strong> is an example of an unobservable theoretical construct. Several measurement models exist for measuring fairness, including demographic parity. These measurements may come together to form a measurement model, where several measurements are combined to ultimately measure fairness.See <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> for more examples of measurement models for measuring fairness.</p></li>
 <li><p><strong>Teacher effectiveness</strong> is an example of an unobservable theoretical construct. Common measurement models include student performance on standardized exams and qualitative feedback for the teacher’s students.</p></li>
 <li><p><strong>Socioeconomic status</strong> is an example of an unobservable theoretical construct. A common measurement model includes annual household income.</p></li>
-<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#footcite-obermeyer2019dissecting" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> for a related example.</p></li>
+<li><p><strong>Patient benefit</strong> is an example of an unobservable theoretical construct. A common measurement model involves patient care costs. See <a class="footnote-reference brackets" href="#footcite-obermeyer2019dissecting" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> for a related example.</p></li>
 </ul>
 <p><strong>Note:</strong>
 We cite several examples of unobservable theoretical constructs and measurement models for the purpose of explaining the key terms outlined above.
-Please reference Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> for more detailed examples.</p>
+Please reference Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> for more detailed examples.</p>
 </section>
 <section id="what-is-construct-validity">
-<span id="id8"></span><h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Link to this heading">#</a></h4>
-<p>Though Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> explore both construct reliability and construct validity, we focus our
+<span id="id9"></span><h4>What is construct validity?<a class="headerlink" href="#what-is-construct-validity" title="Link to this heading">#</a></h4>
+<p>Though Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> explore both construct reliability and construct validity, we focus our
 exploration below on construct Validity.
 We note that both play an important role in understanding fairness in sociotechnical contexts.
-With that said, Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> offers a fairness-oriented conceptualization of construct validity, that
+With that said, Jacobs and Wallach<a class="footnote-reference brackets" href="#footcite-jacobs2021measurement" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> offers a fairness-oriented conceptualization of construct validity, that
 is helpful in thinking about fairness in sociotechnical contexts.
 We capture the idea in seven key parts that when combined  can serve as a framework for analyzing an AI task and attempting to establish construct validity:</p>
 <ol class="arabic simple">
@@ -740,7 +745,7 @@ that define specific <em>protected classes</em>. Since we seek to apply group
 fairness in a wider range of settings, we avoid this term.</p>
 </section>
 <section id="parity-constraints">
-<span id="id11"></span><h3>Parity constraints<a class="headerlink" href="#parity-constraints" title="Link to this heading">#</a></h3>
+<span id="id12"></span><h3>Parity constraints<a class="headerlink" href="#parity-constraints" title="Link to this heading">#</a></h3>
 <p>Group fairness is typically formalized by a set of constraints on the behavior
 of the predictor called <strong>parity constraints</strong> (also called criteria). Parity
 constraints require that some aspect (or aspects) of the predictor behavior be
@@ -756,16 +761,16 @@ For example, in Fairlearn, we consider the following types of parity constraints
 <span class="math notranslate nohighlight">\(h\)</span> satisfies demographic parity under a distribution over
 <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is statistically
 independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
-<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.  <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></li>
+<span class="math notranslate nohighlight">\(\E[h(X) \given A=a] = \E[h(X)] \quad \forall a\)</span>.  <a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></li>
 <li><p><em>Equalized odds</em>: A classifier <span class="math notranslate nohighlight">\(h\)</span> satisfies equalized odds under a
 distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if its prediction <span class="math notranslate nohighlight">\(h(X)\)</span> is
 conditionally independent of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span> given the label
 <span class="math notranslate nohighlight">\(Y\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\E[h(X) \given A=a, Y=y] = \E[h(X) \given Y=y] \quad \forall a, y\)</span>.
-<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></li>
+<a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></li>
 <li><p><em>Equal opportunity</em>: a relaxed version of equalized odds that only considers
 conditional expectations with respect to positive labels, i.e., <span class="math notranslate nohighlight">\(Y=1\)</span>.
-<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></li>
+<a class="footnote-reference brackets" href="#footcite-hardt2016equality" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></li>
 </ul>
 <p><em>Regression</em>:</p>
 <ul class="simple">
@@ -773,10 +778,10 @@ conditional expectations with respect to positive labels, i.e., <span class="mat
 under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if <span class="math notranslate nohighlight">\(f(X)\)</span> is independent
 of the sensitive feature <span class="math notranslate nohighlight">\(A\)</span>. This is equivalent to
 <span class="math notranslate nohighlight">\(\P[f(X) \geq z \given A=a] = \P[f(X) \geq z] \quad \forall a, z\)</span>.
-<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></li>
+<a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></li>
 <li><p><em>Bounded group loss</em>: A predictor <span class="math notranslate nohighlight">\(f\)</span> satisfies bounded group loss at
 level <span class="math notranslate nohighlight">\(\zeta\)</span> under a distribution over <span class="math notranslate nohighlight">\((X, A, Y)\)</span> if
-<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></li>
+<span class="math notranslate nohighlight">\(\E[loss(Y, f(X)) \given A=a] \leq \zeta \quad \forall a\)</span>. <a class="footnote-reference brackets" href="#footcite-agarwal2019fair" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></li>
 </ul>
 <p>Above, demographic parity seeks to mitigate allocation harms, whereas bounded
 group loss primarily seeks to mitigate quality-of-service harms. Equalized
@@ -816,7 +821,7 @@ However, by abstracting away the social context they are at risk of falling into
 are interrelated.</p>
 <p>In this section, we explain what those traps are, and give some suggestions on
 how we can avoid them.</p>
-<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>
+<p>In “Fairness and Abstraction in Sociotechnical Systems,” Selbst <em>et al.</em><a class="footnote-reference brackets" href="#footcite-selbst2019fairness" id="id18" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>
 identify failure modes that can arise from abstracting away the social context
 when modeling. They identify them as:</p>
 <ul class="simple">
@@ -963,37 +968,41 @@ the algorithm may impact the intended outcomes of a given model.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id18">
+<div class="docutils container" id="id19">
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footcite-umojanoble2018algorithmsoppression" role="doc-footnote">
+<aside class="footnote brackets" id="footcite-barocas2017problem" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>Solon Barocas, Kate Crawford, Aaron Shapiro, and Hanna Wallach. The problem with bias: allocative versus representational harms in machine learning. In <em>9th Annual conference of the special interest group for computing, information and society</em>. 2017.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-umojanoble2018algorithmsoppression" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
 <p>Safiya Umoja Noble. <em>Algorithms of Oppression</em>. NYU Press, 2018. <a class="reference external" href="http://algorithmsofoppression.com/">http://algorithmsofoppression.com/</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-jacobs2021measurement" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id7">2</a>,<a role="doc-backlink" href="#id9">3</a>,<a role="doc-backlink" href="#id10">4</a>)</span>
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id6">1</a>,<a role="doc-backlink" href="#id8">2</a>,<a role="doc-backlink" href="#id10">3</a>,<a role="doc-backlink" href="#id11">4</a>)</span>
 <p>Abigail Z. Jacobs and Hanna Wallach. Measurement and fairness. In <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</em>, FAccT ‘21, 375–385. New York, NY, USA, 2021. Association for Computing Machinery. URL: <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">https://doi.org/10.1145/3442188.3445901</a>, <a class="reference external" href="https://doi.org/10.1145/3442188.3445901">doi:10.1145/3442188.3445901</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-obermeyer2019dissecting" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">3</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">4</a><span class="fn-bracket">]</span></span>
 <p>Ziad Obermeyer, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. Dissecting racial bias in an algorithm used to manage the health of populations. <em>Science</em>, 366(6464):447–453, 2019. URL: <a class="reference external" href="https://www.science.org/doi/abs/10.1126/science.aax2342">https://www.science.org/doi/abs/10.1126/science.aax2342</a>, <a class="reference external" href="https://arxiv.org/abs/https://www.science.org/doi/pdf/10.1126/science.aax2342">arXiv:https://www.science.org/doi/pdf/10.1126/science.aax2342</a>, <a class="reference external" href="https://doi.org/10.1126/science.aax2342">doi:10.1126/science.aax2342</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-agarwal2018reductions" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id12">1</a>,<a role="doc-backlink" href="#id13">2</a>)</span>
+<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id13">1</a>,<a role="doc-backlink" href="#id14">2</a>)</span>
 <p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-hardt2016equality" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">5</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">6</a><span class="fn-bracket">]</span></span>
 <p>Moritz Hardt, Eric Price, and Nati Srebro. Equality of opportunity in supervised learning. In <em>NeurIPS</em>, 3315–3323. 2016. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html">https://proceedings.neurips.cc/paper/2016/hash/9d2682367c3935defcb1f9e247a97c0d-Abstract.html</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-agarwal2019fair" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id15">1</a>,<a role="doc-backlink" href="#id16">2</a>)</span>
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id16">1</a>,<a role="doc-backlink" href="#id17">2</a>)</span>
 <p>Alekh Agarwal, Miroslav Dudík, and Zhiwei Steven Wu. Fair regression: quantitative definitions and reduction-based algorithms. In <em>ICML</em>, volume 97 of Proceedings of Machine Learning Research, 120–129. PMLR, 2019. URL: <a class="reference external" href="http://proceedings.mlr.press/v97/agarwal19d.html">http://proceedings.mlr.press/v97/agarwal19d.html</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-selbst2019fairness" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">7</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">8</a><span class="fn-bracket">]</span></span>
 <p>Andrew D. Selbst, danah boyd, Sorelle A. Friedler, Suresh Venkatasubramanian, and Janet Vertesi. Fairness and abstraction in sociotechnical systems. In <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, FAT* ‘19, 59–68. New York, NY, USA, 2019. Association for Computing Machinery. URL: <a class="reference external" href="https://dl.acm.org/doi/10.1145/3287560.3287598">https://dl.acm.org/doi/10.1145/3287560.3287598</a>.</p>
 </aside>
 </aside>
@@ -1070,8 +1079,8 @@ the algorithm may impact the intended outcomes of a given model.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1104,7 +1113,8 @@ the algorithm may impact the intended outcomes of a given model.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
