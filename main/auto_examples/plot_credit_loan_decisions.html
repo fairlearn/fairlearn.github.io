@@ -30,11 +30,11 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -553,18 +553,18 @@ to download the full example code. or to run this example in your browser via Ju
 <span id="sphx-glr-auto-examples-plot-credit-loan-decisions-py"></span><h1>Credit Loan Decisions<a class="headerlink" href="#credit-loan-decisions" title="Link to this heading">#</a></h1>
 <section id="package-imports">
 <h2>Package Imports<a class="headerlink" href="#package-imports" title="Link to this heading">#</a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
-<span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="sklearn.metrics.balanced_accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">balanced_accuracy_score</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">confusion_matrix</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_auc_score</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class"><span class="n">Pipeline</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html#sklearn.metrics.balanced_accuracy_score" title="sklearn.metrics.balanced_accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">balanced_accuracy_score</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">confusion_matrix</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_auc_score</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class"><span class="n">Pipeline</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
 
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.equalized_odds_difference.html#fairlearn.metrics.equalized_odds_difference" title="fairlearn.metrics.equalized_odds_difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">equalized_odds_difference</span></a><span class="p">,</span>
@@ -572,8 +572,8 @@ to download the full example code. or to run this example in your browser via Ju
     <a href="../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">false_positive_rate</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">fairlearn.postprocessing</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer" class="sphx-glr-backref-module-fairlearn-postprocessing sphx-glr-backref-type-py-class"><span class="n">ThresholdOptimizer</span></a>
-<span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.reductions.EqualizedOdds.html#fairlearn.reductions.EqualizedOdds" title="fairlearn.reductions.EqualizedOdds" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">EqualizedOdds</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ExponentiatedGradient</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.postprocessing</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer" class="sphx-glr-backref-module-fairlearn-postprocessing sphx-glr-backref-type-py-class"><span class="n">ThresholdOptimizer</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.reductions</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.reductions.EqualizedOdds.html#fairlearn.reductions.EqualizedOdds" title="fairlearn.reductions.EqualizedOdds" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">EqualizedOdds</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ExponentiatedGradient</span></a>
 
 <a href="https://docs.python.org/3/library/warnings.html#warnings.simplefilter" title="warnings.simplefilter" class="sphx-glr-backref-module-warnings sphx-glr-backref-type-py-function"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span></a><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
@@ -996,7 +996,7 @@ individuals who defaulted on their loan.</p>
 <span class="p">)</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_credit_loan_decisions_001.png" srcset="../_images/sphx_glr_plot_credit_loan_decisions_001.png" alt="INTEREST for Men, INTEREST for Women" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7d01747d0bc0&gt;
+<img src="../_images/sphx_glr_plot_credit_loan_decisions_001.png" srcset="../_images/sphx_glr_plot_credit_loan_decisions_001.png" alt="INTEREST for Men, INTEREST for Women" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x78f76f4d69c0&gt;
 </pre></div>
 </div>
 </section>
@@ -1005,7 +1005,7 @@ individuals who defaulted on their loan.</p>
 <p>In this section, we will train a fairness-unaware model on the training
 data. However because of the imbalances in the dataset, we will first
 resample the training data to produce a new balanced training dataset.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample_training_data</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">resample_training_data</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Down-sample the majority class in the training dataset to produce a</span>
 <span class="sd">    balanced dataset with a 50/50 split in the predictive labels.</span>
 
@@ -1609,7 +1609,7 @@ experience, we can define our fairness metrics. In addition to the metrics, we
 will quantify the uncertainty around each metric using <em>custom functions</em> to
 compute the <em>standard error</em> for each metric at the <span class="math notranslate nohighlight">\(\alpha=0.95\)</span> confidence
 level.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_error_metric</span><span class="p">(</span><span class="n">metric_value</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_error_metric</span><span class="p">(</span><span class="n">metric_value</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute standard error of a given metric based on the assumption of</span>
 <span class="sd">    normal distribution.</span>
 
@@ -1624,19 +1624,19 @@ level.</p>
     <span class="k">return</span> <span class="mf">1.96</span> <span class="o">*</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">metric_value</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">metric_value</span><span class="p">))</span> <span class="o">/</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">false_positive_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">false_positive_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the standard error for the false positive rate estimate.&quot;&quot;&quot;</span>
     <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">confusion_matrix</span></a><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">compute_error_metric</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">false_negative_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">false_negative_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the standard error for the false negative rate estimate.&quot;&quot;&quot;</span>
     <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">confusion_matrix</span></a><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">compute_error_metric</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">fn</span> <span class="o">+</span> <span class="n">tp</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">balanced_accuracy_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">balanced_accuracy_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the standard error for the balanced accuracy estimate.&quot;&quot;&quot;</span>
     <span class="n">fpr_error</span><span class="p">,</span> <span class="n">fnr_error</span> <span class="o">=</span> <span class="n">false_positive_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">false_negative_error</span><span class="p">(</span>
         <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span>
@@ -1690,7 +1690,7 @@ false_negative_rate    0.188980
 dtype: float64
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_group_metrics_with_error_bars</span><span class="p">(</span><span class="n">metricframe</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">error_name</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_group_metrics_with_error_bars</span><span class="p">(</span><span class="n">metricframe</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">error_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the disaggregated metric for each group with an associated</span>
 <span class="sd">    error bar. Both metric and the error bar are provided as columns in the</span>
 <span class="sd">    provided MetricFrame.</span>
@@ -1832,7 +1832,7 @@ features during training and prediction time. If we do not have access to the
 </section>
 <section id="fairness-assessment-of-postprocessing-model">
 <h3>Fairness assessment of postprocessing model<a class="headerlink" href="#fairness-assessment-of-postprocessing-model" title="Link to this heading">#</a></h3>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare_metricframe_results</span><span class="p">(</span><span class="n">mframe_1</span><span class="p">,</span> <span class="n">mframe_2</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compare_metricframe_results</span><span class="p">(</span><span class="n">mframe_1</span><span class="p">,</span> <span class="n">mframe_2</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Concatenate the results of two MetricFrames along a subset of metrics.</span>
 
 <span class="sd">    Parameters</span>
@@ -1938,7 +1938,7 @@ For example, in the below code,
 <code class="code docutils literal notranslate"><span class="pre">EqualizedOdds</span></code> as our fairness constraint, and we will allow a
 maximal difference of <code class="code docutils literal notranslate"><span class="pre">epsilon</span></code> between our largest and smallest
 <em>equalized odds</em> value.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_expgrad_models_per_epsilon</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_expgrad_models_per_epsilon</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_train</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Instantiate and train an ExponentiatedGradient model on the</span>
 <span class="sd">    balanced training dataset.</span>
 
@@ -2024,7 +2024,7 @@ Since our focus is on these two metrics, we will filter out
 the models that are outperformed in both of the metrics by some other
 model (we refer to these as <em>“dominated”</em> models), and plot just the remaining
 <em>“undominated”</em> models.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_pareto_efficient</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_pareto_efficient</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Filter a NumPy Matrix to remove rows that are strictly dominated by</span>
 <span class="sd">    another row in the matrix. Strictly dominated means the all the row values</span>
 <span class="sd">    are greater than the values of another row.</span>
@@ -2048,7 +2048,7 @@ model (we refer to these as <em>“dominated”</em> models), and plot just the 
     <span class="k">return</span> <span class="n">is_efficient</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_dominated_rows</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">filter_dominated_rows</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove rows from a DataFrame that are monotonically dominated by</span>
 <span class="sd">    another row in the DataFrame.</span>
 
@@ -2067,7 +2067,7 @@ model (we refer to these as <em>“dominated”</em> models), and plot just the 
     <span class="k">return</span> <span class="n">pareto_mask</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pareto_mask</span><span class="p">,</span> <span class="p">:]</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aggregate_predictor_performances</span><span class="p">(</span><span class="n">predictors</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">aggregate_predictor_performances</span><span class="p">(</span><span class="n">predictors</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the specified metric for all classifiers in predictors.</span>
 <span class="sd">    If no sensitive features are present, the metric is computed without</span>
 <span class="sd">    disaggregation.</span>
@@ -2092,7 +2092,7 @@ model (we refer to these as <em>“dominated”</em> models), and plot just the 
         <span class="k">return</span> <span class="p">[</span><span class="n">metric</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">Y_sweep</span><span class="p">)</span> <span class="k">for</span> <span class="n">Y_sweep</span> <span class="ow">in</span> <span class="n">all_predictions</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model_performance_sweep</span><span class="p">(</span><span class="n">models_dict</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">model_performance_sweep</span><span class="p">(</span><span class="n">models_dict</span><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the equalized_odds_difference and balanced_error_rate for a</span>
 <span class="sd">    given list of inner models learned by the ExponentiatedGradient algorithm.</span>
 <span class="sd">    Return a DataFrame containing the epsilon level of the model, the index</span>
@@ -2161,7 +2161,7 @@ model (we refer to these as <em>“dominated”</em> models), and plot just the 
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_credit_loan_decisions_007.png" srcset="../_images/sphx_glr_plot_credit_loan_decisions_007.png" alt="plot credit loan decisions" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7d01747fba40&gt;
+<img src="../_images/sphx_glr_plot_credit_loan_decisions_007.png" srcset="../_images/sphx_glr_plot_credit_loan_decisions_007.png" alt="plot credit loan decisions" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x78f76edf4c20&gt;
 </pre></div>
 </div>
 <p>With the above plot, we can see how the performance of the non-dominated
@@ -2189,7 +2189,7 @@ In our approach, the business need of profitability is simulated by
 thresholding based on the <code class="code docutils literal notranslate"><span class="pre">balanced_error</span></code> rate of the unmitigated model, and
 we choose the least discriminatory model based on the smallest
 <code class="code docutils literal notranslate"><span class="pre">equalized_odds_difference</span></code> value.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_models_by_unmitigiated_score</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">filter_models_by_unmitigiated_score</span><span class="p">(</span>
     <span class="n">all_models</span><span class="p">,</span>
     <span class="n">models_frames</span><span class="p">,</span>
     <span class="n">unmitigated_score</span><span class="p">,</span>
@@ -2286,7 +2286,7 @@ performance of these models to our original fairness-unaware model.</p>
 <span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">create_metricframe_w_errors</span><span class="p">(</span><span class="n">mframe</span><span class="p">,</span> <span class="n">metrics_to_report</span><span class="p">,</span> <span class="n">metric_error_pair</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_metricframe_w_errors</span><span class="p">(</span><span class="n">mframe</span><span class="p">,</span> <span class="n">metrics_to_report</span><span class="p">,</span> <span class="n">metric_error_pair</span><span class="p">):</span>
     <span class="n">mframe_by_group</span> <span class="o">=</span> <span class="n">mframe</span><span class="o">.</span><span class="n">by_group</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">error_name</span> <span class="ow">in</span> <span class="n">metric_error_pair</span><span class="p">:</span>
         <span class="n">mframe_by_group</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mframe_by_group</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2469,7 +2469,7 @@ these imputation methods often introduce new fairness-related issues.</p>
 </aside>
 </aside>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.770 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.133 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-credit-loan-decisions-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_credit_loan_decisions.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" width="150px" /></a>
@@ -2641,7 +2641,7 @@ these imputation methods often introduce new fairness-related issues.</p>
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>

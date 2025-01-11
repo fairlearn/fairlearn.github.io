@@ -30,11 +30,11 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -567,22 +567,22 @@ Fairlearn package.</p>
 <p>We download the data set using <cite>fetch_adult</cite> function in
 <cite>fairlearn.datasets</cite>. We start by importing the various modules we’re going
 to use:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span> <span class="k">as</span> <span class="n">skm</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span> <span class="k">as</span> <span class="n">skm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html#sklearn.preprocessing.LabelEncoder" title="sklearn.preprocessing.LabelEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">LabelEncoder</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
 
-<span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a>
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">count</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">,</span>
     <a href="../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">,</span>
     <span class="n">selection_rate_difference</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">fairlearn.reductions</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.reductions.DemographicParity.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">DemographicParity</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ErrorRate</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">GridSearch</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.reductions</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.reductions.DemographicParity.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">DemographicParity</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ErrorRate</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">GridSearch</span></a>
 </pre></div>
 </div>
 <p>We can now load and inspect the data by using the <cite>fairlearn.datasets</cite> module:</p>
@@ -1367,7 +1367,7 @@ error and disparity (of the given sensitive feature).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">errors</span><span class="p">,</span> <span class="n">disparities</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="k">for</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">m</span></a> <span class="ow">in</span> <span class="n">predictors</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">classifier</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">classifier</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">):</span>
         <span class="k">return</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">m</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">)</span>
 
     <a href="../api_reference/generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions.ErrorRate" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-class"><span class="n">ErrorRate</span></a><span class="p">()</span>
@@ -1465,7 +1465,7 @@ between accuracy and disparity given the relevant business constraints.</p>
 </aside>
 </aside>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 15.042 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 19.453 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_grid_search_census.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" width="150px" /></a>
@@ -1605,7 +1605,7 @@ between accuracy and disparity given the relevant business constraints.</p>
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>

@@ -30,11 +30,11 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -722,14 +722,14 @@ selection rate (<a class="reference internal" href="../../api_reference/generate
 For completeness (and to help identify subgroups for which random noise might be
 significant), we should also include the counts (<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.count.html#fairlearn.metrics.count" title="fairlearn.metrics.count"><code class="xref py py-func docutils literal notranslate"><span class="pre">count()</span></code></a>).
 We can use <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> to evaluate these metrics on our data:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.width&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">MetricFrame</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">count</span><span class="p">,</span> \
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetricFrame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">count</span><span class="p">,</span> \
 <span class="gp">... </span>                              <span class="n">false_positive_rate</span><span class="p">,</span> \
 <span class="gp">... </span>                              <span class="n">selection_rate</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">recall_score</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Construct a function dictionary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_metrics</span> <span class="o">=</span> <span class="p">{</span>
 <span class="gp">... </span>    <span class="s1">&#39;tpr&#39;</span> <span class="p">:</span> <span class="n">recall_score</span><span class="p">,</span>
@@ -867,7 +867,7 @@ aggregations between groups, they are meant to be
 called directly, rather than used within the instantiation of a MetricFrame.</p>
 <p>Below, we show an example of calculating demographic parity ratio using the
 sample data defined above.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -886,7 +886,7 @@ or ratio) on the base metric values across groups. For example,
 to generate an output. As demonstrated below,
 using <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> and <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> method
 produces the same outcome.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -984,7 +984,7 @@ fairness metrics provided by Fairlearn, review <a class="reference internal" hre
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>

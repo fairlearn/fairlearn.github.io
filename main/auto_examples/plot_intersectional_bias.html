@@ -30,11 +30,11 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -966,18 +966,18 @@ likely to complement human or clinical judgment.</p>
 <h3>Model Development<a class="headerlink" href="#model-development" title="Link to this heading">#</a></h3>
 <p>Let’s build our first machine learning model. First, we need to import the required libraries and
 data set.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Import relevant libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skm</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">MinMaxScaler</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">skm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">MinMaxScaler</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a>
 
-<span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">false_positive_rate</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">,</span> <a href="../api_reference/generated/fairlearn.metrics.false_positive_rate.html#fairlearn.metrics.false_positive_rate" title="fairlearn.metrics.false_positive_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">false_positive_rate</span></a>
 
 <span class="c1"># Read in dataset</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_openml</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">45040</span><span class="p">)</span>
@@ -993,7 +993,7 @@ data set.</p>
 
 
 <span class="c1"># This function formats the data for stacked bar graphs</span>
-<span class="k">def</span> <span class="nf">grouppivot</span><span class="p">(</span><span class="n">labelgroup</span><span class="p">,</span> <span class="n">yvalue</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">SZonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grouppivot</span><span class="p">(</span><span class="n">labelgroup</span><span class="p">,</span> <span class="n">yvalue</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">SZonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="c1"># Select only columns with a SZ diagnosis</span>
     <span class="k">if</span> <span class="n">SZonly</span><span class="p">:</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dataset</span><span class="o">.</span><span class="n">Diagnosis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
@@ -1251,7 +1251,7 @@ mind that preprocessing real-world hospital record data is typically much more l
 
 
 <span class="c1"># Define a function for one hot encoding</span>
-<span class="k">def</span> <span class="nf">onehot</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">onehot</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">):</span>
     <span class="n">ordinalencoder</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">OneHotEncoder</span></a><span class="p">()</span>
     <span class="n">onehot</span> <span class="o">=</span> <span class="n">ordinalencoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">[</span><span class="n">categories</span><span class="p">])</span>
 
@@ -1305,7 +1305,7 @@ Test accuracy:  0.938
 </div>
 <p>We notice that the train and test accuracy are all fairly good. We can visualize the
 performance of the model further by looking at a confusion matrix.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">confusionmatrix</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">confusionmatrix</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
     <span class="n">confusion_matrix</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">confusion_matrix</span></a><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">)</span>
     <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span>
@@ -1475,7 +1475,7 @@ intersectional ones) and ignore important historical and social context. Keeping
 we should carefully consider which group we use as a reference and the implications of this choice.</p>
 <p>Here, we apply Fairlearn to compare performance in the test set among the different racial
 groups, with a focus on evaluating false positive rate ratio.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
     <span class="c1"># Define race to be the sensitive variable</span>
     <span class="n">sensitive</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">test</span><span class="o">.</span><span class="n">Race</span></a>
 
@@ -1567,7 +1567,7 @@ population, and other other group is being compared against the FPR for whites.<
 features of sex and race (i.e., Black men <a class="footnote-reference brackets" href="#footcite-gara2019naturalistic" id="id33" role="doc-noteref"><span class="fn-bracket">[</span>21<span class="fn-bracket">]</span></a>).</p>
 <p>Let’s repeat this assessment then.</p>
 <p>To do this with Fairlearn, we define sensitive features as the intersection of race and sex.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">intersectionalf</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">intersectionalf</span><span class="p">(</span><span class="n">truelabels</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">):</span>
     <span class="c1"># Sensitive features are now the intersection of race and sex</span>
     <span class="n">sensitive</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.stack.html#numpy.stack" title="numpy.stack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">stack</span></a><span class="p">([</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">test</span><span class="o">.</span><span class="n">Race</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">test</span><span class="o">.</span><span class="n">Sex</span></a><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Race&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">])</span>
 
@@ -1670,7 +1670,7 @@ frequency of diagnoses, stratified by intersectional groups.</p>
 <span class="n">m</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">&quot;Diagnosis&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_intersectional_bias_003.png" srcset="../_images/sphx_glr_plot_intersectional_bias_003.png" alt="Sex = Male | Race = Asian, Sex = Male | Race = Hispanic, Sex = Male | Race = Black, Sex = Male | Race = White, Sex = Female | Race = Asian, Sex = Female | Race = Hispanic, Sex = Female | Race = Black, Sex = Female | Race = White" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x7d0171bad850&gt;
+<img src="../_images/sphx_glr_plot_intersectional_bias_003.png" srcset="../_images/sphx_glr_plot_intersectional_bias_003.png" alt="Sex = Male | Race = Asian, Sex = Male | Race = Hispanic, Sex = Male | Race = Black, Sex = Male | Race = White, Sex = Female | Race = Asian, Sex = Female | Race = Hispanic, Sex = Female | Race = Black, Sex = Female | Race = White" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x78f76f4516a0&gt;
 </pre></div>
 </div>
 <p>We see that the frequency of the two diagnoses (of affective disorder or 0 and schizophrenia
@@ -1961,83 +1961,83 @@ they still rated the black men as having increased psychotic symptoms.</p>
     </tr>
     <tr>
       <th>Housing_Unstable</th>
-      <td>90.860465</td>
+      <td>90.852813</td>
     </tr>
     <tr>
       <th>Tension</th>
-      <td>87.331025</td>
+      <td>87.330771</td>
     </tr>
     <tr>
       <th>Race_White</th>
-      <td>82.566649</td>
+      <td>82.565888</td>
     </tr>
     <tr>
       <th>Delusion</th>
-      <td>55.671898</td>
+      <td>55.671818</td>
     </tr>
     <tr>
       <th>Unusual_Thought</th>
-      <td>53.261841</td>
+      <td>53.261797</td>
     </tr>
     <tr>
       <th>Suspicious</th>
-      <td>45.994193</td>
+      <td>45.994135</td>
     </tr>
     <tr>
       <th>Concentration</th>
-      <td>45.473725</td>
+      <td>45.473422</td>
     </tr>
     <tr>
       <th>Anhedonia</th>
-      <td>41.976290</td>
+      <td>41.976550</td>
     </tr>
     <tr>
       <th>Tired</th>
-      <td>41.872748</td>
+      <td>41.872866</td>
     </tr>
     <tr>
       <th>Delay_Yes</th>
-      <td>41.833781</td>
+      <td>41.833643</td>
     </tr>
     <tr>
       <th>Sex_Female</th>
-      <td>38.435684</td>
+      <td>38.435777</td>
     </tr>
     <tr>
       <th>Psychomotor</th>
-      <td>29.892967</td>
+      <td>29.893066</td>
     </tr>
     <tr>
       <th>Dep_Mood</th>
-      <td>26.117340</td>
+      <td>26.117513</td>
     </tr>
     <tr>
       <th>Withdrawal</th>
-      <td>18.919414</td>
+      <td>18.919288</td>
     </tr>
     <tr>
       <th>Race_Black</th>
-      <td>10.113248</td>
+      <td>10.112730</td>
     </tr>
     <tr>
       <th>Race_Asian</th>
-      <td>5.349941</td>
+      <td>5.350493</td>
     </tr>
     <tr>
       <th>Sleep</th>
-      <td>5.186766</td>
+      <td>5.186474</td>
     </tr>
     <tr>
       <th>Housing_Stable</th>
-      <td>2.545100</td>
+      <td>2.553401</td>
     </tr>
     <tr>
       <th>Passive</th>
-      <td>0.532344</td>
+      <td>0.532174</td>
     </tr>
     <tr>
       <th>Appetite</th>
-      <td>0.057424</td>
+      <td>0.057604</td>
     </tr>
     <tr>
       <th>Sex_Male</th>
@@ -2331,7 +2331,7 @@ more research and to improve current clinical practices.</p>
 </aside>
 </aside>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.827 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.370 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-intersectional-bias-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_intersectional_bias.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" width="150px" /></a>
@@ -2512,7 +2512,7 @@ more research and to improve current clinical practices.</p>
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>

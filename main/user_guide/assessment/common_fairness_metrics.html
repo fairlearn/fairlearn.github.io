@@ -30,11 +30,11 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -752,12 +752,12 @@ This metric can potentially be used to implement the ‘Four-Fifths’ Rule,
 but <a class="reference internal" href="#assessment-four-fifths"><span class="std std-ref">read our discussion below</span></a> to understand whether this is an appropriate metric for your use case.
 As with any fairness metric, achieving demographic parity does <em>not</em> automatically mean
 that the classifier is fair!</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_difference</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">demographic_parity_difference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_difference</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                                    <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                                    <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
 <span class="go">0.25</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">demographic_parity_ratio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">demographic_parity_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                               <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -830,12 +830,12 @@ true positive rate difference and the false positive rate difference
 separately.
 We then return the larger of these two differences.
 <em>Mutatis mutandis</em>, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.equalized_odds_ratio.html#fairlearn.metrics.equalized_odds_ratio" title="fairlearn.metrics.equalized_odds_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">equalized_odds_ratio()</span></code></a> works similarly.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_difference</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">equalized_odds_difference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_difference</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                                <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                                <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
 <span class="go">1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fairlearn.metrics</span> <span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">equalized_odds_ratio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">equalized_odds_ratio</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span>
 <span class="gp">... </span>                           <span class="n">y_pred</span><span class="p">,</span>
 <span class="gp">... </span>                           <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_data</span><span class="p">))</span>
@@ -1082,7 +1082,7 @@ of the new field.</p>
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>

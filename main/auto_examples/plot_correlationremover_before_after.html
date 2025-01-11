@@ -30,11 +30,11 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=e3ca86de" />
     <link rel="stylesheet" type="text/css" href="../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -561,12 +561,12 @@ demonstration. This is not for a lending scenario, but we will regard
 it as one for the purposes of this example. We will use the existing
 ‘sex’ column to illustrate how the CorrelationRemover works.
 We start with some`import` statements:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">fairlearn.datasets</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_diabetes_hospital.html#fairlearn.datasets.fetch_diabetes_hospital" title="fairlearn.datasets.fetch_diabetes_hospital" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_diabetes_hospital</span></a>
-<span class="kn">from</span> <span class="nn">fairlearn.preprocessing</span> <span class="kn">import</span> <a href="../api_reference/generated/fairlearn.preprocessing.CorrelationRemover.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover" class="sphx-glr-backref-module-fairlearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">CorrelationRemover</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_diabetes_hospital.html#fairlearn.datasets.fetch_diabetes_hospital" title="fairlearn.datasets.fetch_diabetes_hospital" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_diabetes_hospital</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.preprocessing.CorrelationRemover.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover" class="sphx-glr-backref-module-fairlearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">CorrelationRemover</span></a>
 </pre></div>
 </div>
 <p>Next, we import the data and transform the ‘sex’ column to a binary feature.
@@ -621,7 +621,7 @@ in a Pandas DataFrame, for plotting purposes.</p>
 and after the CorrelationRemover.
 The code is from  the
 <a class="reference external" href="https://matplotlib.org/devdocs/gallery/images_contours_and_fields/image_annotated_heatmap.html">matplotlib docs</a>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;had_inpatient_days_True&quot;</span><span class="p">:</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">})</span>
     <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
@@ -668,7 +668,7 @@ the CorrelationRemover successfully removed all correlation between
 ‘race_AfricanAmerican’ and the other columns while retaining the correlation
 between the other features. Using a lower value of alpha results in
 not all the correlation being projected away.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.277 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.415 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-correlationremover-before-after-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_correlationremover_before_after.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" width="150px" /></a>
@@ -801,7 +801,7 @@ not all the correlation being projected away.</p>
 
   <p class="copyright">
     
-      © Copyright 2018 - 2024, Fairlearn contributors.
+      © Copyright 2018 - 2025, Fairlearn contributors.
       <br/>
     
   </p>
