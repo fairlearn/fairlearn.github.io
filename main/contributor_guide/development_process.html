@@ -564,14 +564,36 @@ If you’re a new contributor please also add yourself to
 This is a <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues/314">recent decision by the community</a>.
 The new policy is to update docstrings that a PR touches, as opposed to
 changing all the docstrings in one PR.</p>
-<section id="advanced-installation-instructions">
-<h2>Advanced installation instructions<a class="headerlink" href="#advanced-installation-instructions" title="Link to this heading">#</a></h2>
-<p>While working on Fairlearn itself you may want to install it in editable mode.
-This allows you to test the changed functionality. First, clone the repository
-locally via:</p>
+<section id="installation-instructions">
+<h2>Installation instructions<a class="headerlink" href="#installation-instructions" title="Link to this heading">#</a></h2>
+<p>You will need a GitHub account to contribute to this project. Authenticating with Github using an ssh connection is highly recommended. You can learn more about it <a class="reference external" href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">here</a>.</p>
+<p>First, clone the repository locally via:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:fairlearn/fairlearn.git
 </pre></div>
 </div>
+<p>(Optional) Set up a virtual environment:</p>
+<blockquote>
+<div><p>While you can use <code class="code docutils literal notranslate"><span class="pre">pip</span></code> to install the fairlearn package globally, we strongly recommend developing using a virtual environment. Virtual environments are a great way to isolate project dependencies, especially if you’re working on multiple issues that require different versions of the package.</p>
+<p>Create a Python virtual environment using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Make your virtual environment inside the fairlearn project directory. This will create a new <code class="code docutils literal notranslate"><span class="pre">venv</span></code> folder and seed it with a Python 3 environment. Then activate the virtual environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>fairlearn<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w">  </span><span class="c1"># creates virtual environment</span>
+$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>myenv<span class="w"> </span><span class="c1"># activates virtual environment</span>
+<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="c1"># notice the shell prompt includes name of active virtual environment</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check if your virtual environment is indeed active. Then proceed to installing the package dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>which<span class="w"> </span>python<span class="w"> </span><span class="c1">#confirm virtual environment is active</span>
+<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>conda<span class="w"> </span>deactivate<span class="w"> </span><span class="c1">#use to deactivate if needed</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+<p>If you are using a virtual environment(highly recommended), make sure it is activated before you execute the next steps.</p>
 <p>To install in editable mode, from the repository root path run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
@@ -659,11 +681,10 @@ upstream        git@github.com:fairlearn/fairlearn.git (push)
 </div>
 </li>
 <li><p>(Optional) Install <a class="reference external" href="https://pre-commit.com/#install">pre-commit</a> to run code style checks before each commit:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+$<span class="w"> </span>pre-commit<span class="w"> </span>install
 </pre></div>
 </div>
-<p>$ pip install pre-commit
-$ pre-commit install</p>
 <p>Pre-commit checks can be disabled for a particular commit with <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-n</span></code>.</p>
 </li>
 <li><p>To contribute, you will need to create a branch on your forked repository and make a pull request to the original fairlearn repository.
@@ -726,7 +747,7 @@ the command to execute the tests (usually starting with
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-installation-instructions">Advanced installation instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-instructions">Installation instructions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-requirements-files">The Requirements Files</a></li>
 </ul>
 </li>
