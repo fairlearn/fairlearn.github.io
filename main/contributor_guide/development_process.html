@@ -566,32 +566,26 @@ The new policy is to update docstrings that a PR touches, as opposed to
 changing all the docstrings in one PR.</p>
 <section id="installation-instructions">
 <h2>Installation instructions<a class="headerlink" href="#installation-instructions" title="Link to this heading">#</a></h2>
-<p>You will need a GitHub account to contribute to this project. Authenticating with Github using an ssh connection is highly recommended. You can learn more about it <a class="reference external" href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">here</a>.</p>
+<p>You will need a GitHub account to contribute to this project. Authenticating with Github
+using an ssh connection is highly recommended. You can learn more about it
+<a class="reference external" href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">here</a>.</p>
 <p>First, clone the repository locally via:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>git@github.com:fairlearn/fairlearn.git</span>
 </pre></div></div><p>(Optional) Set up a virtual environment:</p>
 <blockquote>
-<div><p>While you can use <code class="code docutils literal notranslate"><span class="pre">pip</span></code> to install the fairlearn package globally, we strongly recommend developing using a virtual environment. Virtual environments are a great way to isolate project dependencies, especially if you’re working on multiple issues that require different versions of the package.</p>
-<p>Create a Python virtual environment using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>:</p>
-<blockquote>
-<div><ol class="arabic">
-<li><p>Make your virtual environment inside the fairlearn project directory. This will create a new <code class="code docutils literal notranslate"><span class="pre">venv</span></code> folder and seed it with a Python 3 environment. Then activate the virtual environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>fairlearn<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w">  </span><span class="c1"># creates virtual environment</span>
-$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span>myenv<span class="w"> </span><span class="c1"># activates virtual environment</span>
-<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="c1"># notice the shell prompt includes name of active virtual environment</span>
-</pre></div>
-</div>
-</li>
-<li><p>Check if your virtual environment is indeed active. Then proceed to installing the package dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>which<span class="w"> </span>python<span class="w"> </span><span class="c1">#confirm virtual environment is active</span>
-<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>conda<span class="w"> </span>deactivate<span class="w"> </span><span class="c1">#use to deactivate if needed</span>
-</pre></div>
-</div>
-</li>
-</ol>
+<div><p>While you can use <code class="code docutils literal notranslate"><span class="pre">pip</span></code> to install the fairlearn package globally, we strongly
+recommend developing using a virtual environment. Virtual environments are a great way
+to isolate project dependencies, especially if you’re working on multiple issues that
+require different versions of the package.</p>
+<p>To create a Python virtual environment using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>, make your virtual environment
+inside the fairlearn project directory. This will create a new <code class="code docutils literal notranslate"><span class="pre">fairlearn</span></code> folder
+and seed it with a <code class="code docutils literal notranslate"><span class="pre">python=3.12</span></code> environment. Then activate the virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>fairlearn<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w">  </span><span class="c1"># creates virtual env</span></span>
+<span class="prompt1">conda<span class="w"> </span>activate<span class="w"> </span>fairlearn<span class="w"> </span><span class="c1"># activates virtual env</span></span>
+<span class="prompt1"><span class="o">(</span>fairlearn<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="c1"># notice the shell prompt includes name of active virtual env</span></span>
+</pre></div></div><p>If you see the name of the environment in the shell prompt,
+then the virtual environment is activated. To deactivate it, run: <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code>.</p>
 </div></blockquote>
-</div></blockquote>
-<p>If you are using a virtual environment(highly recommended), make sure it is activated before you execute the next steps.</p>
 <p>To install in editable mode, from the repository root path run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.</span>
 </pre></div></div><p>To verify that the code works as expected run:</p>
@@ -608,15 +602,13 @@ please downgrade keep your <code class="code docutils literal notranslate"><span
 <span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib</span>
 </pre></div></div><section id="the-requirements-files">
 <h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Link to this heading">#</a></h3>
-<p>The prerequisites for Fairlearn are split between three separate files:</p>
-<blockquote>
-<div><ul class="simple">
+<p>The prerequisites for Fairlearn are split between two separate files:</p>
+<ul class="simple">
 <li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
 contains the prerequisites for the core Fairlearn package</p></li>
 <li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a> contains
 the prerequisites for Fairlearn development (such as <code class="code docutils literal notranslate"><span class="pre">ruff</span></code> and <code class="code docutils literal notranslate"><span class="pre">pytest</span></code>)</p></li>
 </ul>
-</div></blockquote>
 <p>The <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
 file is consumed
 by <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/setup.py">setup.py</a> to specify the dependencies to be
@@ -634,11 +626,17 @@ occurrences of <code class="code docutils literal notranslate"><span class="pre"
 <ol class="arabic simple">
 <li><p>Get a <a class="reference external" href="https://github.com/">GitHub account</a>.</p></li>
 <li><p>Install <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">GIT</a>.</p></li>
-<li><p>Look at Fairlearn’s issues on GitHub, specifically the ones marked <a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22">“help wanted”</a>. Within this category we’ve marked issues with labels:</p>
+<li><p>Look at Fairlearn’s issues on GitHub, specifically the ones marked
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22">“help wanted”</a>.
+Within this category we’ve marked issues with labels:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22good+first+issue%22">“good first issue”</a>: issues suitable for first time contributors, including people with no prior experience with coding or GitHub. This is an excellent way to get started!</p></li>
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22easy%22+">“easy”</a>: issues suitable for folks with at least a bit of experience and/or able to allocate some time to look for a solution.</p></li>
-<li><p>Neither of the two above: issues that are demanding or awaiting scope. Likely to take more than a day or two.
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22good+first+issue%22">“good first issue”</a>:
+Issues suitable for first time contributors, including people with no prior experience with coding or GitHub.
+This is an excellent way to get started!</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+label%3A%22easy%22">“easy”</a>:
+Issues suitable for folks with at least a bit of experience and/or able to allocate some time to look for a solution.</p></li>
+<li><p>Neither of the two above:
+issues that are demanding or awaiting scope. Likely to take more than a day or two.
 If you think this is something for you, please:</p>
 <ul>
 <li><p>Identify an issue that you would like to work on.</p></li>
@@ -690,13 +688,12 @@ Detailed description of this process you can find here:</p>
 <ul>
 <li><p><a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#creating-a-branch-to-work-on">Create a branch</a>.</p></li>
 <li><p><a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-and-pushing-changes">Commit and push changes</a>.</p></li>
-<li><p><a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-a-pull-request">Make a pull request</a>.</p>
+<li><p><a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-a-pull-request">Open a pull request</a>.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Build the website following the guidelines in <a class="reference internal" href="contributing_documentation.html#contributing-documentation"><span class="std std-ref">Contributing documentation</span></a> and run the tests if necessary.</p></li>
 <li><p>Opening a pull request comes with filling up an already provided description template.
 Please fill it up! If you created the pull request in response to an issue add <code class="code docutils literal notranslate"><span class="pre">#&lt;issue-number&gt;</span></code> for reference.</p></li>
-<li><p>If the PR introduces something that will affect the users, please add a changelog entry in the <code class="code docutils literal notranslate"><span class="pre">docs/user_guide/installation_and_version_guide</span></code> directory.</p></li>
 </ul>
 </div></blockquote>
 </li>
