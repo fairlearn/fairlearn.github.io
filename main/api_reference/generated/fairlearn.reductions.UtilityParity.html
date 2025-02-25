@@ -626,14 +626,14 @@ for positive and negative violations of the constraint</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>difference_bound</strong><span class="classifier">float</span></dt><dd><p>The constraints’ difference bound for constraints that are expressed
+<dt><strong>difference_bound</strong><span class="classifier">float | None</span></dt><dd><p>The constraints’ difference bound for constraints that are expressed
 as differences, also referred to as <span class="math notranslate nohighlight">\(\\epsilon\)</span> in documentation.
 If <cite>ratio_bound</cite> is used then <cite>difference_bound</cite> needs to be None.
 If neither <cite>ratio_bound</cite> nor <cite>difference_bound</cite> are set then a default
 difference bound of 0.01 is used for backwards compatibility.
 Default None.</p>
 </dd>
-<dt><strong>ratio_bound</strong><span class="classifier">float</span></dt><dd><p>The constraints’ ratio bound for constraints that are expressed as
+<dt><strong>ratio_bound</strong><span class="classifier">float | None</span></dt><dd><p>The constraints’ ratio bound for constraints that are expressed as
 ratios. The specified value needs to be in (0,1].
 If <cite>difference_bound</cite> is used then <cite>ratio_bound</cite> needs to be None.
 Default None.</p>
@@ -649,11 +649,14 @@ Default 0.0</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.bound">
-<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L223-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.bound" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L234-L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.bound" title="Link to this definition">#</a></dt>
 <dd><p>Return bound vector.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>pandas.Series</dt><dd><p>a vector of bound values corresponding to all constraints</p>
 </dd>
 </dl>
@@ -663,50 +666,69 @@ Default 0.0</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.default_objective">
-<span class="sig-name descname"><span class="pre">default_objective</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L109-L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.default_objective" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">default_objective</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L121-L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.default_objective" title="Link to this definition">#</a></dt>
 <dd><p>Return the default objective for moments of this kind.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="fairlearn.reductions.ErrorRate.html#fairlearn.reductions.ErrorRate" title="fairlearn.reductions._moments.error_rate.ErrorRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorRate</span></code></a></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.gamma">
-<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L212-L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.gamma" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L223-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.gamma" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the degree to which constraints are currently violated by the predictor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L113-L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.load_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L125-L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.load_data" title="Link to this definition">#</a></dt>
 <dd><p>Load the specified data into this object.</p>
 <p>This adds a column <cite>event</cite> to the <cite>tags</cite> field.</p>
 <p>The <cite>utilities</cite> is a 2-d array which corresponds to g(X,A,Y,h(X))
-from Agarwal <em>et al.</em><a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+from Agarwal <em>et al.</em><a href="#id4"><span class="problematic" id="id1">[#agarwal2018reductions]_</span></a>.
 The <cite>utilities</cite> defaults to h(X), i.e. [0, 1] for each X_i.
 The first column is G^0 and the second is G^1.
-Assumes binary classification with labels 0/1.</p>
+Assumes binary classification with labels 0/1.
+:rtype: <span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 <div class="math notranslate nohighlight">
 \[utilities = [g(X,A,Y,h(X)=0), g(X,A,Y,h(X)=1)]\]</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.project_lambda">
-<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L235-L252"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.project_lambda" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L246-L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.project_lambda" title="Link to this definition">#</a></dt>
 <dd><p>Return the projected lambda values.</p>
 <p>i.e., returns lambda which is guaranteed to lead to the same or higher value of the
 Lagrangian compared with lambda_vec for all possible choices of the classifier, h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.signed_weights">
-<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L254-L269"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.signed_weights" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L265-L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.UtilityParity.signed_weights" title="Link to this definition">#</a></dt>
 <dd><p>Compute the signed weights.</p>
 <p>Uses the equations for <span class="math notranslate nohighlight">\(C_i^0\)</span> and <span class="math notranslate nohighlight">\(C_i^1\)</span> as defined
-in Section 3.2 of Agarwal <em>et al.</em><a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+in Section 3.2 of Agarwal <em>et al.</em><a href="#id5"><span class="problematic" id="id2">[#agarwal2018reductions]_</span></a>
 in the ‘best response of the Q-player’ subsection to compute the
 signed weights to be applied to the data by the next call to the underlying
 estimator.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
 <dt><strong>lambda_vec</strong><span class="classifier"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.3)"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></span></dt><dd><p>The vector of Lagrange multipliers indexed by <cite>index</cite></p>
 </dd>
 </dl>
@@ -715,8 +737,14 @@ estimator.</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.index">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v2.2.3)"><span class="pre">MultiIndex</span></a></em><a class="headerlink" href="#fairlearn.reductions.UtilityParity.index" title="Link to this definition">#</a></dt>
+<dd><p>Return the multi-index listing the constraints.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="fairlearn.reductions.UtilityParity.total_samples">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_samples</span></span><a class="headerlink" href="#fairlearn.reductions.UtilityParity.total_samples" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_samples</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></em><a class="headerlink" href="#fairlearn.reductions.UtilityParity.total_samples" title="Link to this definition">#</a></dt>
 <dd><p>Return the number of samples in the data.</p>
 </dd></dl>
 
@@ -766,6 +794,7 @@ estimator.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.UtilityParity.load_data"><code class="docutils literal notranslate"><span class="pre">UtilityParity.load_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.UtilityParity.project_lambda"><code class="docutils literal notranslate"><span class="pre">UtilityParity.project_lambda()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.UtilityParity.signed_weights"><code class="docutils literal notranslate"><span class="pre">UtilityParity.signed_weights()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.UtilityParity.index"><code class="docutils literal notranslate"><span class="pre">UtilityParity.index</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.reductions.UtilityParity.total_samples"><code class="docutils literal notranslate"><span class="pre">UtilityParity.total_samples</span></code></a></li>
 </ul>
 </li>
