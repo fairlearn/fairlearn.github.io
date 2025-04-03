@@ -524,6 +524,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.SquareLoss.html">fairlearn.reductions.SquareLoss</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ZeroOneLoss.html">fairlearn.reductions.ZeroOneLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.MeanLoss.html">fairlearn.reductions.MeanLoss</a></li>
 </ul>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessClassifier.html">fairlearn.adversarial.AdversarialFairnessClassifier</a></li>
@@ -611,7 +612,7 @@ the number of unique values of the <cite>Y</cite> array, multiplied by two (for
 the Lagrange multipliers for positive and negative constraints).</p>
 <p>With these definitions, the <a class="reference internal" href="fairlearn.reductions.UtilityParity.html#fairlearn.reductions.UtilityParity.signed_weights" title="fairlearn.reductions.UtilityParity.signed_weights"><code class="xref py py-meth docutils literal notranslate"><span class="pre">UtilityParity.signed_weights()</span></code></a> method
 will calculate the costs according to Example 4 of
-Agarwal <em>et al.</em><a href="#id4"><span class="problematic" id="id1">[#agarwal2018reductions]_</span></a>.</p>
+Agarwal <em>et al.</em><a class="footnote-reference brackets" href="#footcite-agarwal2018reductions" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>This <a class="reference internal" href="fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> also supports control features, which can be used to
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
@@ -684,7 +685,7 @@ Lagrangian compared with lambda_vec for all possible choices of the classifier, 
 <span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L265-L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.EqualizedOdds.signed_weights" title="Link to this definition">#</a></dt>
 <dd><p>Compute the signed weights.</p>
 <p>Uses the equations for <span class="math notranslate nohighlight">\(C_i^0\)</span> and <span class="math notranslate nohighlight">\(C_i^1\)</span> as defined
-in Section 3.2 of Agarwal <em>et al.</em><a href="#id5"><span class="problematic" id="id2">[#agarwal2018reductions]_</span></a>
+in Section 3.2 of Agarwal et al. (2018).
 in the ‘best response of the Q-player’ subsection to compute the
 signed weights to be applied to the data by the next call to the underlying
 estimator.</p>
@@ -720,8 +721,16 @@ estimator.</p>
 
 </dd></dl>
 
+<div class="docutils container" id="id2">
+<span id="sphx-glr-backreferences-fairlearn-reductions-equalizedodds"></span><aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-agarwal2018reductions" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Alekh Agarwal, Alina Beygelzimer, Miroslav Dudík, John Langford, and Hanna M. Wallach. A reductions approach to fair classification. In <em>ICML</em>, volume 80 of Proceedings of Machine Learning Research, 60–69. PMLR, 2018. URL: <a class="reference external" href="http://proceedings.mlr.press/v80/agarwal18a.html">http://proceedings.mlr.press/v80/agarwal18a.html</a>.</p>
+</aside>
+</aside>
+</div>
 <section id="gallery-examples">
-<span id="sphx-glr-backreferences-fairlearn-reductions-equalizedodds"></span><h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
+<h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Credit Loan Decisions"><img alt="" src="../../_images/sphx_glr_plot_credit_loan_decisions_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/plot_credit_loan_decisions.html#sphx-glr-auto-examples-plot-credit-loan-decisions-py"><span class="std std-ref">Credit Loan Decisions</span></a></p>
   <div class="sphx-glr-thumbnail-title">Credit Loan Decisions</div>
