@@ -596,22 +596,25 @@
 <h1>fairlearn.metrics.equalized_odds_difference<a class="headerlink" href="#fairlearn-metrics-equalized-odds-difference" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="fairlearn.metrics.equalized_odds_difference">
-<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">equalized_odds_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'worst_case'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_fairness_metrics.py#L114-L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.equalized_odds_difference" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">equalized_odds_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'worst_case'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_fairness_metrics.py#L114-L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.equalized_odds_difference" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the equalized odds difference.</p>
-<p>The greater of two metrics: <cite>true_positive_rate_difference</cite> and
-<cite>false_positive_rate_difference</cite>. The former is the difference between the
-largest and smallest of <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span>
-of the sensitive feature(s). The latter is defined similarly, but for
+<p>Depending on the <cite>agg</cite> parameter, this function computes either:
+:rtype: <span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
+<ul class="simple">
+<li><p>The greater of two metrics: <cite>true_positive_rate_difference</cite> and</p></li>
+</ul>
+<p><cite>false_positive_rate_difference</cite>, if <cite>agg=’worst_case’</cite>. The former is the
+difference between the largest and smallest of
+<span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=1]\)</span>, across all values <span class="math notranslate nohighlight">\(a\)</span> of the sensitive
+feature(s). The latter is defined similarly, but for
 <span class="math notranslate nohighlight">\(P[h(X)=1 | A=a, Y=0]\)</span>.
-The equalized odds difference of 0 means that all groups have the same
+- The mean of these two metrics, if <cite>agg=’mean’</cite>.</p>
+<p>The equalized odds difference of 0 means that all groups have the same
 true positive, true negative, false positive, and false negative rates.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/fairness_in_machine_learning.html#disparity-metrics"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
 <dt><strong>y_true</strong><span class="classifier">array-like</span></dt><dd><p>Ground truth (correct) labels.</p>
 </dd>
 <dt><strong>y_pred</strong><span class="classifier">array-like</span></dt><dd><p>Predicted labels <span class="math notranslate nohighlight">\(h(X)\)</span> returned by the classifier.</p>
@@ -630,8 +633,8 @@ If <cite>“mean”</cite>, the mean of the differences is returned.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>float</dt><dd><p>The equalized odds difference</p>
 </dd>
 </dl>
