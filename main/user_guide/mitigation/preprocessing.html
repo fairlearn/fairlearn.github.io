@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
-    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=2c9f8f05" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=8ee2c72c" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -698,6 +698,94 @@ we would expect with <span class="math notranslate nohighlight">\(\alpha=0.5\)</
 <a class="reference external image-reference" href="../../auto_examples/plot_correlationremover_before_after.html"><img alt="../../_images/sphx_glr_plot_correlationremover_before_after_003.png" src="../../_images/sphx_glr_plot_correlationremover_before_after_003.png" /></a>
 </figure>
 </section>
+<section id="prototype-representation-learner">
+<span id="id3"></span><h2>Prototype Representation Learner<a class="headerlink" href="#prototype-representation-learner" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.preprocessing.PrototypeRepresentationLearner.html#fairlearn.preprocessing.PrototypeRepresentationLearner" title="fairlearn.preprocessing.PrototypeRepresentationLearner"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code></a> is a preprocessing algorithm and
+a classifier that aims to learn a latent representation of the data that minimizes reconstruction
+error, while simultaneously obfuscating information about sensitive features. It was introduced in
+Zemel et al. (2013) <a class="footnote-reference brackets" href="#footcite-pmlr-v28-zemel13" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>The latent representation consists of <span class="math notranslate nohighlight">\(K\)</span> prototype vectors
+<span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_K \in \mathbb{R}^d\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the dimension
+of the input data, and a stochastic transformation matrix <span class="math notranslate nohighlight">\(\mathbf{M} \in \mathbb{R}^{n \times k}\)</span>
+that maps the input data <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{n \times d}\)</span> to the prototypes.
+Each entry <span class="math notranslate nohighlight">\(M_{nk}\)</span> is the softmax of the distances of the sample <span class="math notranslate nohighlight">\(n\)</span> to the prototype
+vectors:</p>
+<div class="math notranslate nohighlight">
+\[M_{nk} = \frac{\exp(-d(\mathbf{x}_n, \mathbf{v}_k))}{\sum_{k'=1}^{K} \exp(-d(\mathbf{x}_n, \mathbf{v}_{k'}))}\]</div>
+<p>The algorithm works by solving an optimization problem that balances the trade-off between
+classification accuracy, group and individual fairness, and reconstruction error. The objective
+function is thus defined as a weighted sum of three terms:</p>
+<div class="math notranslate nohighlight">
+\[\text{reconstruct_weight} \times L_x + \text{target_weight} \times L_y + \text{fairness_weight} \times L_z\]</div>
+<p>where:</p>
+<p><span class="math notranslate nohighlight">\(L_x\)</span> is the reconstruction error term that writes as:</p>
+<div class="math notranslate nohighlight">
+\[L_x = \frac{1}{N} \sum_{n=1}^{N} \| \mathbf{x}_n - \hat{\mathbf{x}}_n \|_2^2\]</div>
+<p><span class="math notranslate nohighlight">\(L_y\)</span> is the classification error term that is equal to the log loss:</p>
+<div class="math notranslate nohighlight">
+\[L_y = -\frac{1}{N} \sum_{n=1}^{N} y_n \log(\hat{y}_n) + (1-y_n) \log(1-\hat{y}_n)\]</div>
+<p><span class="math notranslate nohighlight">\(L_z\)</span> is the demographic parity difference’s approximation term that is defined as:</p>
+<div class="math notranslate nohighlight">
+\[L_z = \frac{1}{K \times \binom{G}{2}} \sum_{k=1}^{K} \sum_{g &lt; g'} \left| M_{gk} - M_{g'k} \right|\]</div>
+<p>where <span class="math notranslate nohighlight">\(1\leq g, g'\leq G\)</span> are the indices of the groups in the sensitive features and
+<span class="math notranslate nohighlight">\(M_{gk}\)</span> is the average of the entries of the transformation matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>
+for group <span class="math notranslate nohighlight">\(g\)</span> and prototype <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>In the example below, we use the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">Adult Income</a>
+dataset to demonstrate the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>. This dataset contains sensitive
+features such as race and sex. The goal is to transform the dataset so that the sensitive
+features have less influence on the predictions of a downstream model.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrototypeRepresentationLearner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_adult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-gain&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-loss&quot;</span><span class="p">,</span> <span class="s2">&quot;hours-per-week&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">senstive_feature_id</span> <span class="o">=</span> <span class="s2">&quot;race_White&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">()</span><span class="o">.</span><span class="n">frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="n">features_to_keep</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]],</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">features_to_keep</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">senstive_feature_id</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">sf_train</span><span class="p">,</span> <span class="n">sf_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span> <span class="o">=</span> <span class="n">PrototypeRepresentationLearner</span><span class="p">(</span><span class="n">n_prototypes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_train</span><span class="p">)</span>
+<span class="go">PrototypeRepresentationLearner(max_iter=10, n_prototypes=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_hat</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that when used solely as a transformer, the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code> does not
+require the target labels to be passed to the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method; they are only
+required when the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code> is used as a classifier. In case they are
+not provided, the classification error term will not be included in the loss function, and the
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> method will raise an exception when called.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span> <span class="o">=</span> <span class="n">PrototypeRepresentationLearner</span><span class="p">(</span><span class="n">n_prototypes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_train</span><span class="p">)</span>
+<span class="go">PrototypeRepresentationLearner(max_iter=10, n_prototypes=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id5">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-pmlr-v28-zemel13" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
+<p>Rich Zemel, Yu Wu, Kevin Swersky, Toni Pitassi, and Cynthia Dwork. Learning fair representations. In Sanjoy Dasgupta and David McAllester, editors, <em>Proceedings of the 30th International Conference on Machine Learning</em>, volume 28 of Proceedings of Machine Learning Research, 325–333. Atlanta, Georgia, USA, 17–19 Jun 2013. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v28/zemel13.html">https://proceedings.mlr.press/v28/zemel13.html</a>.</p>
+</aside>
+</aside>
+</div>
+</section>
 </section>
 
 
@@ -724,6 +812,8 @@ we would expect with <span class="math notranslate nohighlight">\(\alpha=0.5\)</
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-remover">Correlation Remover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prototype-representation-learner">Prototype Representation Learner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
