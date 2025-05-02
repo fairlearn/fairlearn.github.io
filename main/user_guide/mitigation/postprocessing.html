@@ -638,7 +638,6 @@ true positive rate parity as the fairness constraint.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.postprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThresholdOptimizer</span><span class="p">,</span> <span class="n">plot_threshold_optimizer</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.reductions</span><span class="w"> </span><span class="kn">import</span> <span class="n">DemographicParity</span><span class="p">,</span> <span class="n">ExponentiatedGradient</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Drop 3 rows of Unknown gender since it&#39;s not representative of that group.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># In a real application, this would be a red flag to investigate data collection.</span>
@@ -757,6 +756,35 @@ probability <span class="math notranslate nohighlight">\(0.002\)</span></p></li>
 </ul>
 </li>
 </ul>
+<p>The <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer`</span></code> can also introduce a degree of tolerance in the fairness constraint
+(except for <code class="code docutils literal notranslate"><span class="pre">equalized_odds</span></code>). This means that the user can relax the strict equality
+requirement of the fairness criterion across all sensitive groups. Instead, the objective will be
+optimized under the condition that the maximum discrepancy between any two sensitive groups remains
+within a specified tolerance <code class="code docutils literal notranslate"><span class="pre">tol</span></code>.</p>
+<p>In the example below, we examine how the outcome changes when setting a tolerance of
+<code class="code docutils literal notranslate"><span class="pre">tol=0.2</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;true_positive_rate_parity&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">tol</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">true_positive_rate_per_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">_x_best_per_group</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">({</span><span class="n">group</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rate</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">true_positive_rate_per_group</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+<span class="go">{&#39;Female&#39;: &#39;0.70&#39;, &#39;Male&#39;: &#39;0.63&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">_y_best</span><span class="si">:</span><span class="s2">5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">0.604667</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../../_images/postprocessing-2.png" class="plot-directive" src="../../_images/postprocessing-2.png" />
+</figure>
+<p>Notice that the <code class="code docutils literal notranslate"><span class="pre">true_positive_rate</span></code> differs between the Male and Female groups, yet the
+discrepancy remains within the specified tolerance level.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="code docutils literal notranslate"><span class="pre">flip</span></code> argument on the constructor indicates whether flipped
@@ -903,7 +931,7 @@ two groups.</p>
 </pre></div>
 </div>
 <figure class="align-default">
-<img alt="../../_images/postprocessing-2.png" class="plot-directive" src="../../_images/postprocessing-2.png" />
+<img alt="../../_images/postprocessing-3.png" class="plot-directive" src="../../_images/postprocessing-3.png" />
 </figure>
 <p>The printed thresholding rules influence the predictions, so we need to first
 understand the formula that puts all the parts together.
