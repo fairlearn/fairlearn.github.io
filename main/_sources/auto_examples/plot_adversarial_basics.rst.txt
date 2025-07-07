@@ -391,9 +391,7 @@ Then, we can fit the data to our model:
     /* Toggleable content - dropdown */
 
     #sk-container-id-1 div.sk-toggleable__content {
-      max-height: 0;
-      max-width: 0;
-      overflow: hidden;
+      display: none;
       text-align: left;
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-0);
@@ -419,9 +417,9 @@ Then, we can fit the data to our model:
 
     #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
-      max-height: 200px;
-      max-width: 100%;
-      overflow: auto;
+      display: block;
+      width: 100%;
+      overflow: visible;
     }
 
     #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -626,20 +624,84 @@ Then, we can fit the data to our model:
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+
+    .estimator-table summary {
+        padding: .5rem;
+        font-family: monospace;
+        cursor: pointer;
+    }
+
+    .estimator-table details[open] {
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .estimator-table .parameters-table {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(even) {
+        background-color: #f6f6f6;
+    }
+
+    .estimator-table .parameters-table tr:hover {
+        background-color: #e0e0e0;
+    }
+
+    .estimator-table table td {
+        border: 1px solid rgba(106, 105, 104, 0.232);
+    }
+
+    .user-set td {
+        color:rgb(255, 94, 0);
+        text-align: left;
+    }
+
+    .user-set td.value pre {
+        color:rgb(255, 94, 0) !important;
+        background-color: transparent !important;
+    }
+
+    .default td {
+        color: black;
+        text-align: left;
+    }
+
+    .user-set td i,
+    .default td i {
+        color: black;
+    }
+
+    .copy-paste-icon {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-position: 0;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+    }
+    </style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
                      ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer()),
                                                                       (&#x27;normalizer&#x27;,
                                                                        StandardScaler())]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fcf1ba74f80&gt;),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f1459e2bfb0&gt;),
                                                      (&#x27;pipeline-2&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;most_frequent&#x27;)),
                                                                       (&#x27;encoder&#x27;,
                                                                        OneHotEncoder(drop=&#x27;if_binary&#x27;,
                                                                                      sparse_output=False))]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fce9cb9e630&gt;)])),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f1459e99a60&gt;)])),
                     (&#x27;adversarialfairnessclassifier&#x27;,
                      AdversarialFairnessClassifier(adversary_model=[3,
                                                                     &#x27;leaky_relu&#x27;],
@@ -647,42 +709,639 @@ Then, we can fit the data to our model:
                                                    predictor_model=[50,
                                                                     &#x27;leaky_relu&#x27;],
                                                    progress_updates=0.5,
-                                                   random_state=123))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
-                     ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
-                                                      Pipeline(steps=[(&#x27;imputer&#x27;,
-                                                                       SimpleImputer()),
-                                                                      (&#x27;normalizer&#x27;,
-                                                                       StandardScaler())]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fcf1ba74f80&gt;),
-                                                     (&#x27;pipeline-2&#x27;,
-                                                      Pipeline(steps=[(&#x27;imputer&#x27;,
-                                                                       SimpleImputer(strategy=&#x27;most_frequent&#x27;)),
-                                                                      (&#x27;encoder&#x27;,
-                                                                       OneHotEncoder(drop=&#x27;if_binary&#x27;,
-                                                                                     sparse_output=False))]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fce9cb9e630&gt;)])),
-                    (&#x27;adversarialfairnessclassifier&#x27;,
-                     AdversarialFairnessClassifier(adversary_model=[3,
-                                                                    &#x27;leaky_relu&#x27;],
-                                                   backend=&#x27;torch&#x27;, batch_size=256,
-                                                   predictor_model=[50,
-                                                                    &#x27;leaky_relu&#x27;],
-                                                   progress_updates=0.5,
-                                                   random_state=123))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
-                                     Pipeline(steps=[(&#x27;imputer&#x27;, SimpleImputer()),
-                                                     (&#x27;normalizer&#x27;,
-                                                      StandardScaler())]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fcf1ba74f80&gt;),
-                                    (&#x27;pipeline-2&#x27;,
-                                     Pipeline(steps=[(&#x27;imputer&#x27;,
-                                                      SimpleImputer(strategy=&#x27;most_frequent&#x27;)),
-                                                     (&#x27;encoder&#x27;,
-                                                      OneHotEncoder(drop=&#x27;if_binary&#x27;,
-                                                                    sparse_output=False))]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fce9cb9e630&gt;)])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fcf1ba74f80&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fce9cb9e630&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer(strategy=&#x27;most_frequent&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(drop=&#x27;if_binary&#x27;, sparse_output=False)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>AdversarialFairnessClassifier</div></div></label><div class="sk-toggleable__content fitted"><pre>AdversarialFairnessClassifier(adversary_model=[3, &#x27;leaky_relu&#x27;],
-                                  backend=&#x27;torch&#x27;, batch_size=256,
-                                  predictor_model=[50, &#x27;leaky_relu&#x27;],
-                                  progress_updates=0.5, random_state=123)</pre></div> </div></div></div></div></div></div>
+                                                   random_state=123))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('steps',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">steps&nbsp;</td>
+                <td class="value">[(&#x27;columntransformer&#x27;, ...), (&#x27;adversarialfairnessclassifier&#x27;, ...)]</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('transform_input',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">transform_input&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('memory',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">memory&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('verbose',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">verbose&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('transformers',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">transformers&nbsp;</td>
+                <td class="value">[(&#x27;pipeline-1&#x27;, ...), (&#x27;pipeline-2&#x27;, ...)]</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('remainder',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">remainder&nbsp;</td>
+                <td class="value">&#x27;drop&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('sparse_threshold',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">sparse_threshold&nbsp;</td>
+                <td class="value">0.3</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('n_jobs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">n_jobs&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('transformer_weights',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">transformer_weights&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('verbose',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">verbose&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('verbose_feature_names_out',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">verbose_feature_names_out&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('force_int_remainder_cols',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">force_int_remainder_cols&nbsp;</td>
+                <td class="value">&#x27;deprecated&#x27;</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f1459e2bfb0&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__imputer__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('missing_values',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">missing_values&nbsp;</td>
+                <td class="value">nan</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('strategy',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">strategy&nbsp;</td>
+                <td class="value">&#x27;mean&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('fill_value',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">fill_value&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('copy',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">copy&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('add_indicator',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">add_indicator&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('keep_empty_features',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">keep_empty_features&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__normalizer__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('copy',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">copy&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('with_mean',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">with_mean&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('with_std',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">with_std&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f1459e99a60&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__imputer__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('missing_values',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">missing_values&nbsp;</td>
+                <td class="value">nan</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('strategy',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">strategy&nbsp;</td>
+                <td class="value">&#x27;most_frequent&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('fill_value',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">fill_value&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('copy',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">copy&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('add_indicator',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">add_indicator&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('keep_empty_features',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">keep_empty_features&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__encoder__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('categories',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">categories&nbsp;</td>
+                <td class="value">&#x27;auto&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('drop',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">drop&nbsp;</td>
+                <td class="value">&#x27;if_binary&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('sparse_output',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">sparse_output&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('dtype',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">dtype&nbsp;</td>
+                <td class="value">&lt;class &#x27;numpy.float64&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('handle_unknown',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">handle_unknown&nbsp;</td>
+                <td class="value">&#x27;error&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('min_frequency',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">min_frequency&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('max_categories',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">max_categories&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('feature_name_combiner',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">feature_name_combiner&nbsp;</td>
+                <td class="value">&#x27;concat&#x27;</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>AdversarialFairnessClassifier</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="adversarialfairnessclassifier__">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('backend',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">backend&nbsp;</td>
+                <td class="value">&#x27;torch&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('predictor_model',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">predictor_model&nbsp;</td>
+                <td class="value">[50, &#x27;leaky_relu&#x27;]</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('adversary_model',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">adversary_model&nbsp;</td>
+                <td class="value">[3, &#x27;leaky_relu&#x27;]</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('predictor_optimizer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">predictor_optimizer&nbsp;</td>
+                <td class="value">&#x27;Adam&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('adversary_optimizer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">adversary_optimizer&nbsp;</td>
+                <td class="value">&#x27;Adam&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('constraints',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">constraints&nbsp;</td>
+                <td class="value">&#x27;demographic_parity&#x27;</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('learning_rate',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">learning_rate&nbsp;</td>
+                <td class="value">0.001</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('alpha',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">alpha&nbsp;</td>
+                <td class="value">1.0</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('epochs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">epochs&nbsp;</td>
+                <td class="value">1</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('batch_size',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">batch_size&nbsp;</td>
+                <td class="value">256</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('shuffle',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">shuffle&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('progress_updates',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">progress_updates&nbsp;</td>
+                <td class="value">0.5</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('skip_validation',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">skip_validation&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('cuda',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">cuda&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="default">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('warm_start',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">warm_start&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('random_state',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">random_state&nbsp;</td>
+                <td class="value">123</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
+        // Get the parameter prefix from the closest toggleable content
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+        const originalStyle = element.style;
+        const computedStyle = window.getComputedStyle(element);
+        const originalWidth = computedStyle.width;
+        const originalHTML = element.innerHTML.replace('Copied!', '');
+
+        navigator.clipboard.writeText(fullParamName)
+            .then(() => {
+                element.style.width = originalWidth;
+                element.style.color = 'green';
+                element.innerHTML = "Copied!";
+
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+                element.style.color = 'red';
+                element.innerHTML = "Failed!";
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            });
+        return false;
+    }
+
+    document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const paramName = element.parentElement.nextElementSibling.textContent.trim();
+        const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+        element.setAttribute('title', fullParamName);
+    });
+    </script></body>
     </div>
     <br />
     <br />
@@ -776,7 +1435,7 @@ validation, and early stopping to improve adversarial training.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.346 seconds)
+   **Total running time of the script:** (0 minutes 15.073 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_adversarial_basics.py:
