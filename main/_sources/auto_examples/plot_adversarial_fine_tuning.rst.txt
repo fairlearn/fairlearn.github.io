@@ -189,7 +189,7 @@ suffering from mode collapse, and we also calculate the accuracy on the
 validation set as well.
 We will pass this validation step to our model later::
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-143
+.. GENERATED FROM PYTHON SOURCE LINES 120-144
 
 .. code-block:: Python
 
@@ -201,12 +201,13 @@ We will pass this validation step to our model later::
 
     def validate(pipeline, X, y, z, pos_label):
         predictions = pipeline.predict(X)
+
         dp_diff = demographic_parity_difference(
             y == pos_label,
             predictions == pos_label,
             sensitive_features=z,
         )
-        accuracy = mean(predictions == y.values)
+        accuracy = mean(predictions == y)
         selection_rate = mean(predictions == pos_label)
         print(
             "DP diff: {:.4f}, accuracy: {:.4f}, selection_rate: {:.4f}".format(
@@ -223,14 +224,14 @@ We will pass this validation step to our model later::
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-148
+.. GENERATED FROM PYTHON SOURCE LINES 145-149
 
 We may define the optimizers however we like. In this case, we use the
 suggestion from the paper to set the hyperparameters :math:`\alpha` and learning
 rate :math:`\eta` to depend on the timestep such that :math:`\alpha \eta
 \rightarrow 0` as the timestep grows:
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-160
+.. GENERATED FROM PYTHON SOURCE LINES 149-161
 
 .. code-block:: Python
 
@@ -253,14 +254,14 @@ rate :math:`\eta` to depend on the timestep such that :math:`\alpha \eta
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-165
+.. GENERATED FROM PYTHON SOURCE LINES 162-166
 
 We make use of a callback function to both update the hyperparameters and to
 validate the model. We update these hyperparameters at every 10 steps, and we
 validate every 100 steps. Additionally, we can implement early stopping
 easily by calling :code:`return True` in a callback function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-184
+.. GENERATED FROM PYTHON SOURCE LINES 166-185
 
 .. code-block:: Python
 
@@ -290,13 +291,13 @@ easily by calling :code:`return True` in a callback function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-188
+.. GENERATED FROM PYTHON SOURCE LINES 186-189
 
 Then, the instance itself. Notice that we do not explicitly define loss
 functions, because adversarial fairness is able to infer the loss function
 on its own in this example:
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-202
+.. GENERATED FROM PYTHON SOURCE LINES 189-203
 
 .. code-block:: Python
 
@@ -321,12 +322,12 @@ on its own in this example:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-205
+.. GENERATED FROM PYTHON SOURCE LINES 204-206
 
 We now put the above model in a ``Pipeline`` with the transformation step. Note
 that we use ``scikit-learn``'s metadata routing to pass the sensitive feature::
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-210
+.. GENERATED FROM PYTHON SOURCE LINES 206-211
 
 .. code-block:: Python
 
@@ -342,11 +343,11 @@ that we use ``scikit-learn``'s metadata routing to pass the sensitive feature::
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-212
+.. GENERATED FROM PYTHON SOURCE LINES 212-213
 
 Then, we fit the model:
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-217
+.. GENERATED FROM PYTHON SOURCE LINES 213-218
 
 .. code-block:: Python
 
@@ -363,83 +364,25 @@ Then, we fit the model:
 
  .. code-block:: none
 
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
-    DP diff: 0.0000, accuracy: 0.0000, selection_rate: 0.0000
+    DP diff: 0.0003, accuracy: 0.6146, selection_rate: 0.5991
+    DP diff: 0.0000, accuracy: 0.7964, selection_rate: 0.0520
+    DP diff: 0.0035, accuracy: 0.8088, selection_rate: 0.0904
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 218-219
+.. GENERATED FROM PYTHON SOURCE LINES 219-220
 
 Finally, we validate as before, and take a look at the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-238
+.. GENERATED FROM PYTHON SOURCE LINES 220-239
 
 .. code-block:: Python
 
     from fairlearn.metrics import MetricFrame, selection_rate
 
     # to see DP difference, accuracy, and selection_rate
-    print(validate(pipeline, X_test, y_test, z=Z_test, pos_label=pos_label))
+    validate(pipeline, X_test, y_test, z=Z_test, pos_label=pos_label)
     predictions = pipeline.predict(X_test)
     mf = MetricFrame(
         metrics={"accuracy": accuracy_score, "selection_rate": selection_rate},
@@ -463,12 +406,11 @@ Finally, we validate as before, and take a look at the results:
 
  .. code-block:: none
 
-    DP diff: 0.9908, accuracy: 0.5070, selection_rate: 0.6628
-    (np.float64(0.9908186687069626), np.float64(0.5070119766608661), np.float64(0.6628109325417136))
+    DP diff: 0.0334, accuracy: 0.8061, selection_rate: 0.9093
             accuracy  selection_rate
     sex                             
-    Female  0.107607        0.000000
-    Male    0.704667        0.990819
+    Female  0.910637        0.931664
+    Male    0.754399        0.898240
 
 
 
@@ -476,9 +418,9 @@ Finally, we validate as before, and take a look at the results:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 53.941 seconds)
+   **Total running time of the script:** (0 minutes 12.116 seconds)
 
-**Estimated memory usage:**  286 MB
+**Estimated memory usage:**  178 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_adversarial_fine_tuning.py:
