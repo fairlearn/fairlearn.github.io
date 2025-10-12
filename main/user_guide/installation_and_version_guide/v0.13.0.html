@@ -601,24 +601,51 @@
                   
   <section id="v0-13-0">
 <h1>v0.13.0<a class="headerlink" href="#v0-13-0" title="Link to this heading">#</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>v0.13.0 is not yet released. This page reflects changes on the current
-<code class="code docutils literal notranslate"><span class="pre">main</span></code> branch that will eventually be a part of v0.13.0.</p>
-</div>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>This release introduces a new method implementation, <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>,
+which is based on the work of Zemel et al. (2013) <a class="footnote-reference brackets" href="#footcite-pmlr-v28-zemel13" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+You can learn more about it <a class="reference internal" href="../mitigation/preprocessing.html#prototype-representation-learner"><span class="std std-ref">here</span></a>.</p>
+<p>Additionally, this release includes several improvements to existing
+functionality: enhanced support for relaxed constraints and multi-dimensional
+input data in optimization methods, performance improvements through
+vectorization, updating the supported Python versions (removed 3.8, added 3.12),
+first efforts concerning Narwhals integration, removal of unused functionality,
+and cleanup of local logging initialization.</p>
+</section>
+<section id="new-methods">
+<h2>New methods<a class="headerlink" href="#new-methods" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Implemented the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>  introduced in Zemel et al. (2013) <a class="footnote-reference brackets" href="#footcite-pmlr-v28-zemel13" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1478">#1478</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+</ul>
+</section>
+<section id="new-features">
+<h2>New features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Allowed relaxed constraints (except <code class="code docutils literal notranslate"><span class="pre">equalized_odds</span></code>) in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1453">#1453</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a></p></li>
+<li><p>Allowed multi-dimensional input data <code class="code docutils literal notranslate"><span class="pre">X</span></code> (<code class="code docutils literal notranslate"><span class="pre">ndims</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>) in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code> and <code class="code docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1470">#1470</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+</ul>
+</section>
+<section id="performance-improvements">
+<h2>Performance improvements<a class="headerlink" href="#performance-improvements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Vectorized the curve interpolation step in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code> to improve performance and readability: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1448">#1448</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+</ul>
+</section>
+<section id="narwhals-integration">
+<h2>Narwhals integration<a class="headerlink" href="#narwhals-integration" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Make <cite>preprocessing</cite> module dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1525">#1525</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
+<li><p>Make <code class="code docutils literal notranslate"><span class="pre">AnnotatedMetricFunction</span></code> class dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1545">#1545</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
+</ul>
+</section>
 <section id="other-improvements">
 <h2>Other improvements<a class="headerlink" href="#other-improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Allowed relaxed constraints (except <code class="code docutils literal notranslate"><span class="pre">equalized_odds</span></code>) in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1453">#1453</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a></p></li>
-<li><p>Vectorized the curve interpolation step in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code> to improve performance and readability: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1448">#1448</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
-<li><p>Allowed multi-dimensional input data <code class="code docutils literal notranslate"><span class="pre">X</span></code> (<code class="code docutils literal notranslate"><span class="pre">ndims</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>) in <code class="code docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code> and <code class="code docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1470">#1470</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
 <li><p>Removed support for python 3.8 and added support for python 3.12: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1488">#1488</a> by <a class="reference external" href="https://github.com/tamaraatanasoska">Tamara Atanasoska</a>.</p></li>
-<li><p>Implemented the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>  introduced in Zemel et al. (2013) <a class="footnote-reference brackets" href="#footcite-pmlr-v28-zemel13" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:
-<a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1478">#1478</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
-<li><p>Make <cite>preprocessing</cite> module dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1525">#1525</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a></p></li>
 <li><p>Removed the keyword argument <cite>control_features</cite> from <code class="code docutils literal notranslate"><span class="pre">ErrorRate.load_data</span></code>, since it was without functionality for the method: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1531">#1531</a> by <a class="reference external" href="https://github.com/StefanieSenger">Stefanie Senger</a>.</p></li>
-<li><p>Make <code class="code docutils literal notranslate"><span class="pre">AnnotatedMetricFunction</span></code> class dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1545">#1545</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
-<li><p>Removed local logging using environment variable <cite>FAIRLEARN_LOGS</cite> at initialization: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1561">#1561</a> by :user: <cite>Parul Gupta &lt;parulgupta1004&gt;</cite>.</p></li>
+<li><p>Removed local logging using environment variable <cite>FAIRLEARN_LOGS</cite> at initialization: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1561">#1561</a> by <a class="reference external" href="https://github.com/parulgupta1004">Parul Gupta</a>.</p></li>
 </ul>
 </section>
 </section>
@@ -646,6 +673,11 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-methods">New methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-improvements">Performance improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#narwhals-integration">Narwhals integration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-improvements">Other improvements</a></li>
 </ul>
   </nav></div>
