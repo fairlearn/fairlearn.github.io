@@ -1,0 +1,892 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Preprocessing &#8212; Fairlearn 0.13.0.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=8ee2c72c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=b01019a4" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=323ffc05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../../_static/jupyterlite_sphinx.js?v=96e329c5"></script>
+    <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/mitigation/preprocessing';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../_static/fairlearn-favicon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Postprocessing" href="postprocessing.html" />
+    <link rel="prev" title="Mitigations" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+     
+  
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color_lightmode.svg" class="logo__image only-light" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+    <img src="../../_static/fairlearn_full_color_darkmode.svg" class="logo__image only-dark pst-js-only" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference/index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference/index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fairness_in_machine_learning.html">Fairness in Machine Learning</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../assessment/index.html">Assessment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/perform_fairness_assessment.html">Performing a Fairness Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/common_fairness_metrics.html">Common fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/custom_fairness_metrics.html">Defining custom fairness metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/intersecting_groups.html">Intersecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/confidence_interval_estimation.html">Confidence Interval Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/advanced_metricframe.html">Advanced Usage of MetricFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assessment/saving_loading_metricframe.html">Saving and loading MetricFrame</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Mitigations</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html">Postprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reductions.html">Reductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarial.html">Adversarial Mitigation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../datasets/adult_data.html">Adult Census Dataset</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../datasets/acs_income.html">ACSIncome</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/boston_housing_data.html">Revisiting the Boston Housing Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/diabetes_hospital_data.html">Diabetes 130-Hospitals Dataset</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installation_and_version_guide/index.html">Installation and version guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation_and_version_guide/installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../installation_and_version_guide/version_guide.html">Version guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.1.html">v0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.10.0.html">v0.10.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.11.0.html">v0.11.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.12.0.html">v0.12.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.13.0.html">v0.13.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.2.0.html">v0.2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.3.0.html">v0.3.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.0.html">v0.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.1.html">v0.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.2.html">v0.4.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.3.html">v0.4.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.4.html">v0.4.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.5.html">v0.4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.4.6.html">v0.4.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.5.0.html">v0.5.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.0.html">v0.6.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.1.html">v0.6.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.6.2.html">v0.6.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.7.0.html">v0.7.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.8.0.html">v0.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation_and_version_guide/v0.9.0.html">v0.9.0</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../further_resources.html">Further Resources</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Mitigations</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Preprocessing</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="preprocessing">
+<span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h1>
+<p>Preprocessing algorithms transform the dataset to mitigate possible unfairness
+present in the data.
+Preprocessing algorithms in Fairlearn follow the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="(in scikit-learn v1.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></a>
+class, meaning that they can <code class="code docutils literal notranslate"><span class="pre">fit</span></code> to the dataset and <code class="code docutils literal notranslate"><span class="pre">transform</span></code> it
+(or <code class="code docutils literal notranslate"><span class="pre">fit_transform</span></code> to fit and transform in one go).</p>
+<section id="correlation-remover">
+<span id="id2"></span><h2>Correlation Remover<a class="headerlink" href="#correlation-remover" title="Link to this heading">#</a></h2>
+<p>Sensitive features can be correlated with non-sensitive features in the dataset.
+By applying the <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code>, these correlations are projected away
+while details from the original data are retained as much as possible (as measured
+by the least-squares error). The user can control the level of projection via the
+<code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter.</p>
+<p>In mathematical terms, assume we have the original dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, which
+contains a set of <strong>sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> and a set of
+<strong>non-sensitive features</strong> denoted by <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>. The goal is to remove
+correlations between the sensitive features and the non-sensitive features.</p>
+<p>Let <span class="math notranslate nohighlight">\(m_s\)</span> and <span class="math notranslate nohighlight">\(m_{ns}\)</span> denote the number of sensitive and non-sensitive
+features, respectively.
+Let <span class="math notranslate nohighlight">\(\bar{\mathbf{s}}\)</span> represent the mean of the sensitive features, <em>i.e.</em>,
+<span class="math notranslate nohighlight">\(\bar{\mathbf{s}} = [\bar{s}_1, \dots, \bar{s}_{m_s}]^\top\)</span>, where
+<span class="math notranslate nohighlight">\(\bar{s}_j\)</span> is the mean of the <span class="math notranslate nohighlight">\(j\text{-th}\)</span> sensitive feature.</p>
+<p>For each non-sensitive feature <span class="math notranslate nohighlight">\(\mathbf{z}_j\in\mathbb{R}^n\)</span>, where <span class="math notranslate nohighlight">\(j=1,\dotsc,m_{ns}\)</span>,
+we compute an optimal weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_j^* \in \mathbb{R}^{m_s}\)</span> that minimizes the
+following least squares objective:</p>
+<div class="math notranslate nohighlight">
+\[\min _{\mathbf{w}} \| \mathbf{z}_j - (\mathbf{S}-\mathbf{1}_n\times\bar{\mathbf{s}}^\top) \mathbf{w} \|_2^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{1}_n\)</span> is the all-one vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>In other words, <span class="math notranslate nohighlight">\(\mathbf{w}_j^*\)</span> is the solution to a linear regression problem where we
+project <span class="math notranslate nohighlight">\(\mathbf{z}_j\)</span> onto the centered sensitive features. The weight matrix
+<span class="math notranslate nohighlight">\(\mathbf{W}^* = (\mathbf{w}_1^*, \dots, \mathbf{w}_{m_{ns}}^*)\)</span> is thus obtained by solving
+this regression for each non-sensitive feature.</p>
+<p>Once we have the optimal weight matrix <span class="math notranslate nohighlight">\(\mathbf{W}^*\)</span>, we compute the <strong>residual
+non-sensitive features</strong> <span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Z}^* = \mathbf{Z} - (\mathbf{S}-\mathbf{1}_n\times\bar{\mathbf{s}}^\top) \mathbf{W}^*\]</div>
+<p>The columns in <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> will be dropped from the dataset <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, and
+<span class="math notranslate nohighlight">\(\mathbf{Z}^*\)</span> will replace the original non-sensitive features <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, but the
+hyper parameter <span class="math notranslate nohighlight">\(\alpha\)</span> does allow you to tweak the amount of filtering that gets applied:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{\text{tfm}} = \alpha \mathbf{X}_{\text{filtered}} + (1-\alpha) \mathbf{X}_{\text{orig}}\]</div>
+<p>Note that the lack of correlation does not imply anything about statistical dependence.
+In particular, since correlation measures linear relationships, it might still be
+possible that non-linear relationships exist in the data. Therefore, we expect this
+to be most appropriate as a preprocessing step for (generalized) linear models.</p>
+<p>In the example below, the <a class="reference external" href="https://www.openml.org/d/43874">Diabetes 130-Hospitals</a>
+is loaded and the correlation between the African American race and
+the non-sensitive features is removed. This dataset contains more races,
+but in example we will only focus on the African American race.
+The <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code> will drop the sensitive features from the dataset.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">CorrelationRemover</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;time_in_hospital&quot;</span><span class="p">,</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">,</span> <span class="s2">&quot;medicare&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;race_Asian&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Caucasian&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Hispanic&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Other&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;race_Unknown&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;had_inpatient_days_False&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">&quot;medicare_False&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">CorrelationRemover(sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the visualization below, we see the correlation values in the
+original dataset. We are particularly interested in the correlations
+between the ‘race_AfricanAmerican’ column and the three non-sensitive features
+‘time_in_hospital’, ‘had_inpatient_days’ and ‘medicare_True’. The target
+variable is also included in these visualization for completeness, and it is
+defined as a binary feature which indicated whether the readmission of a patient
+occurred within 30 days of the release. We see that ‘race_AfricanAmerican’ is
+not highly correlated with the three mentioned features, but we want to remove
+these correlations nonetheless. The code for generating the correlation matrix
+can be found in
+<a class="reference external" href="../../auto_examples/plot_correlationremover_before_after.html">this example notebook</a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../../auto_examples/plot_correlationremover_before_after.html"><img alt="../../_images/sphx_glr_plot_correlationremover_before_after_001.png" src="../../_images/sphx_glr_plot_correlationremover_before_after_001.png" />
+</a>
+</figure>
+<p>In order to see the effect of <a class="reference internal" href="../../api_reference/generated/fairlearn.preprocessing.CorrelationRemover.html#fairlearn.preprocessing.CorrelationRemover" title="fairlearn.preprocessing.CorrelationRemover"><code class="xref py py-class docutils literal notranslate"><span class="pre">CorrelationRemover</span></code></a>, we visualize
+how the correlation matrix has changed after the transformation of the
+dataset. Due to rounding, some of the 0.0 values appear as -0.0. Either
+way, the <code class="code docutils literal notranslate"><span class="pre">CorrelationRemover</span></code> successfully removed all correlation
+between ‘race_AfricanAmerican’ and the other columns while retaining
+the correlation between the other features.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../../auto_examples/plot_correlationremover_before_after.html"><img alt="../../_images/sphx_glr_plot_correlationremover_before_after_002.png" src="../../_images/sphx_glr_plot_correlationremover_before_after_002.png" />
+</a>
+</figure>
+<p>We can also use the <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter with for instance <span class="math notranslate nohighlight">\(\alpha=0.5\)</span>
+to control the level of filtering between the sensitive and non-sensitive features.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">CorrelationRemover(alpha=0.5, sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see in the visualization below, not all correlation between
+‘race_AfricanAmerican’ and the other columns was removed. This is exactly what
+we would expect with <span class="math notranslate nohighlight">\(\alpha=0.5\)</span>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../../auto_examples/plot_correlationremover_before_after.html"><img alt="../../_images/sphx_glr_plot_correlationremover_before_after_003.png" src="../../_images/sphx_glr_plot_correlationremover_before_after_003.png" />
+</a>
+</figure>
+</section>
+<section id="prototype-representation-learner">
+<span id="id3"></span><h2>Prototype Representation Learner<a class="headerlink" href="#prototype-representation-learner" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.preprocessing.PrototypeRepresentationLearner.html#fairlearn.preprocessing.PrototypeRepresentationLearner" title="fairlearn.preprocessing.PrototypeRepresentationLearner"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code></a> is a preprocessing algorithm and
+a classifier that aims to learn a latent representation of the data that minimizes reconstruction
+error, while simultaneously obfuscating information about sensitive features. It was introduced in
+Zemel et al. (2013) <a class="footnote-reference brackets" href="#footcite-pmlr-v28-zemel13" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>The latent representation consists of <span class="math notranslate nohighlight">\(K\)</span> prototype vectors
+<span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_K \in \mathbb{R}^d\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the dimension
+of the input data, and a stochastic transformation matrix <span class="math notranslate nohighlight">\(\mathbf{M} \in \mathbb{R}^{n \times k}\)</span>
+that maps the input data <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{n \times d}\)</span> to the prototypes.
+Each entry <span class="math notranslate nohighlight">\(M_{nk}\)</span> is the softmax of the distances of the sample <span class="math notranslate nohighlight">\(n\)</span> to the prototype
+vectors:</p>
+<div class="math notranslate nohighlight">
+\[M_{nk} = \frac{\exp(-d(\mathbf{x}_n, \mathbf{v}_k))}{\sum_{k'=1}^{K} \exp(-d(\mathbf{x}_n, \mathbf{v}_{k'}))}\]</div>
+<p>The algorithm works by solving an optimization problem that balances the trade-off between
+classification accuracy, group and individual fairness, and reconstruction error. The objective
+function is thus defined as a weighted sum of three terms:</p>
+<div class="math notranslate nohighlight">
+\[\text{reconstruct_weight} \times L_x + \text{target_weight} \times L_y + \text{fairness_weight} \times L_z\]</div>
+<p>where:</p>
+<p><span class="math notranslate nohighlight">\(L_x\)</span> is the reconstruction error term that writes as:</p>
+<div class="math notranslate nohighlight">
+\[L_x = \frac{1}{N} \sum_{n=1}^{N} \| \mathbf{x}_n - \hat{\mathbf{x}}_n \|_2^2\]</div>
+<p><span class="math notranslate nohighlight">\(L_y\)</span> is the classification error term that is equal to the log loss:</p>
+<div class="math notranslate nohighlight">
+\[L_y = -\frac{1}{N} \sum_{n=1}^{N} y_n \log(\hat{y}_n) + (1-y_n) \log(1-\hat{y}_n)\]</div>
+<p><span class="math notranslate nohighlight">\(L_z\)</span> is the demographic parity difference’s approximation term that is defined as:</p>
+<div class="math notranslate nohighlight">
+\[L_z = \frac{1}{K \times \binom{G}{2}} \sum_{k=1}^{K} \sum_{g &lt; g'} \left| M_{gk} - M_{g'k} \right|\]</div>
+<p>where <span class="math notranslate nohighlight">\(1\leq g, g'\leq G\)</span> are the indices of the groups in the sensitive features and
+<span class="math notranslate nohighlight">\(M_{gk}\)</span> is the average of the entries of the transformation matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>
+for group <span class="math notranslate nohighlight">\(g\)</span> and prototype <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>In the example below, we use the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/adult">Adult Income</a>
+dataset to demonstrate the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>. This dataset contains sensitive
+features such as race and sex. The goal is to transform the dataset so that the sensitive
+features have less influence on the predictions of a downstream model.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrototypeRepresentationLearner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_adult</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-gain&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-loss&quot;</span><span class="p">,</span> <span class="s2">&quot;hours-per-week&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_feature_id</span> <span class="o">=</span> <span class="s2">&quot;race_White&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">()</span><span class="o">.</span><span class="n">frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="n">features_to_keep</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]],</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">features_to_keep</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">sensitive_feature_id</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">sf_train</span><span class="p">,</span> <span class="n">sf_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span> <span class="o">=</span> <span class="n">PrototypeRepresentationLearner</span><span class="p">(</span><span class="n">n_prototypes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_train</span><span class="p">)</span>
+<span class="go">PrototypeRepresentationLearner(max_iter=10, n_prototypes=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_hat</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that when used solely as a transformer, the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code> does not
+require the target labels to be passed to the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method; they are only
+required when the <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code> is used as a classifier. In case they are
+not provided, the classification error term will not be included in the loss function, and the
+<code class="code docutils literal notranslate"><span class="pre">predict</span></code> method will raise an exception when called.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span> <span class="o">=</span> <span class="n">PrototypeRepresentationLearner</span><span class="p">(</span><span class="n">n_prototypes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf_train</span><span class="p">)</span>
+<span class="go">PrototypeRepresentationLearner(max_iter=10, n_prototypes=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">prl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id5">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-pmlr-v28-zemel13" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">1</a><span class="fn-bracket">]</span></span>
+<p>Rich Zemel, Yu Wu, Kevin Swersky, Toni Pitassi, and Cynthia Dwork. Learning fair representations. In Sanjoy Dasgupta and David McAllester, editors, <em>Proceedings of the 30th International Conference on Machine Learning</em>, volume 28 of Proceedings of Machine Learning Research, 325–333. Atlanta, Georgia, USA, 17–19 Jun 2013. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v28/zemel13.html">https://proceedings.mlr.press/v28/zemel13.html</a>.</p>
+</aside>
+</aside>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-remover">Correlation Remover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prototype-representation-learner">Prototype Representation Learner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item"><div class="edit-example-link">
+    
+</div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1296 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fairlearn.metrics.MetricFrame &#8212; Fairlearn 0.13.0.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=8ee2c72c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=b01019a4" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=323ffc05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../../_static/jupyterlite_sphinx.js?v=96e329c5"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/generated/fairlearn.metrics.MetricFrame';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../_static/fairlearn-favicon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="fairlearn.postprocessing.ThresholdOptimizer" href="fairlearn.postprocessing.ThresholdOptimizer.html" />
+    <link rel="prev" title="fairlearn.metrics.true_positive_rate" href="fairlearn.metrics.true_positive_rate.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+     
+  
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color_lightmode.svg" class="logo__image only-light" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+    <img src="../../_static/fairlearn_full_color_darkmode.svg" class="logo__image only-dark pst-js-only" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_acs_income.html">fairlearn.datasets.fetch_acs_income</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_adult.html">fairlearn.datasets.fetch_adult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_bank_marketing.html">fairlearn.datasets.fetch_bank_marketing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_boston.html">fairlearn.datasets.fetch_boston</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_credit_card.html">fairlearn.datasets.fetch_credit_card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_diabetes_hospital.html">fairlearn.datasets.fetch_diabetes_hospital</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.count.html">fairlearn.metrics.count</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_difference.html">fairlearn.metrics.demographic_parity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_ratio.html">fairlearn.metrics.demographic_parity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_difference.html">fairlearn.metrics.equalized_odds_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_ratio.html">fairlearn.metrics.equalized_odds_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equal_opportunity_difference.html">fairlearn.metrics.equal_opportunity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equal_opportunity_ratio.html">fairlearn.metrics.equal_opportunity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_negative_rate.html">fairlearn.metrics.false_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_positive_rate.html">fairlearn.metrics.false_positive_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.make_derived_metric.html">fairlearn.metrics.make_derived_metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.mean_prediction.html">fairlearn.metrics.mean_prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.plot_model_comparison.html">fairlearn.metrics.plot_model_comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.selection_rate.html">fairlearn.metrics.selection_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_negative_rate.html">fairlearn.metrics.true_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_positive_rate.html">fairlearn.metrics.true_positive_rate</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">fairlearn.metrics.MetricFrame</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.ThresholdOptimizer.html">fairlearn.postprocessing.ThresholdOptimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.plot_threshold_optimizer.html">fairlearn.postprocessing.plot_threshold_optimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.preprocessing.CorrelationRemover.html">fairlearn.preprocessing.CorrelationRemover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.preprocessing.PrototypeRepresentationLearner.html">fairlearn.preprocessing.PrototypeRepresentationLearner</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.AbsoluteLoss.html">fairlearn.reductions.AbsoluteLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ClassificationMoment.html">fairlearn.reductions.ClassificationMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.DemographicParity.html">fairlearn.reductions.DemographicParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.EqualizedOdds.html">fairlearn.reductions.EqualizedOdds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRate.html">fairlearn.reductions.ErrorRate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRateParity.html">fairlearn.reductions.ErrorRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ExponentiatedGradient.html">fairlearn.reductions.ExponentiatedGradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.TruePositiveRateParity.html">fairlearn.reductions.TruePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.FalsePositiveRateParity.html">fairlearn.reductions.FalsePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.UtilityParity.html">fairlearn.reductions.UtilityParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.GridSearch.html">fairlearn.reductions.GridSearch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.LossMoment.html">fairlearn.reductions.LossMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.Moment.html">fairlearn.reductions.Moment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.SquareLoss.html">fairlearn.reductions.SquareLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ZeroOneLoss.html">fairlearn.reductions.ZeroOneLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.MeanLoss.html">fairlearn.reductions.MeanLoss</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessClassifier.html">fairlearn.adversarial.AdversarialFairnessClassifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessRegressor.html">fairlearn.adversarial.AdversarialFairnessRegressor</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics._plotter.plot_metric_frame.html">fairlearn.metrics._plotter.plot_metric_frame</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Docs</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">fairlearn.metrics.MetricFrame</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fairlearn-metrics-metricframe">
+<h1>fairlearn.metrics.MetricFrame<a class="headerlink" href="#fairlearn-metrics-metricframe" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairlearn.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_boot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ci_quantiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L50-L1026"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame" title="Link to this definition">#</a></dt>
+<dd><p>Collection of disaggregated metric values.</p>
+<p>This data structure stores and manipulates disaggregated values for any number of underlying
+metrics. At least one sensitive feature must be supplied, which is used
+to split the data into subgroups. The underlying metric(s) is(are) calculated
+across the entire dataset (made available by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> property) and
+for each identified subgroup (made available by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property).</p>
+<p>The only limitations placed on the metric functions are that:</p>
+<ul class="simple">
+<li><p>The first two arguments they take must be <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays</p></li>
+<li><p>Any other arguments must correspond to sample properties (such as sample weights),
+meaning that their first dimension is the same as that of y_true and y_pred. These
+arguments will be split up along with the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays</p></li>
+</ul>
+<p>The interpretation of the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays is up to the
+underlying metric - it is perfectly possible to pass in lists of class
+probability tuples. We also support non-scalar return types for the
+metric function (such as confusion matrices) at the current time. However,
+the aggregation functions will not be well defined in this case.</p>
+<p>Group fairness metrics are obtained by methods that implement
+various aggregators over group-level metrics, such as the
+maximum, minimum, or the worst-case difference or ratio.</p>
+<p>This data structure also supports the concept of ‘control features.’ Like the sensitive
+features, control features identify subgroups within the data, but
+aggregations are not performed over the control features. Instead, the
+aggregations produce a result for each subgroup identified by the control
+feature(s). The name ‘control features’ refers to the statistical practice
+of ‘controlling’ for a variable.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/index.html#assessment"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>metrics</strong><span class="classifier">callable or dict</span></dt><dd><p>The underlying metric functions which are to be calculated. This
+can either be a single metric function or a dictionary of functions.
+These functions must be callable as
+<code class="docutils literal notranslate"><span class="pre">fn(y_true,</span> <span class="pre">y_pred,</span> <span class="pre">**sample_params)</span></code>.
+If there are any other arguments required (such as <code class="docutils literal notranslate"><span class="pre">beta</span></code> for
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn.metrics.fbeta_score" title="(in scikit-learn v1.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fbeta_score()</span></code></a>) then
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> must be used.</p>
+<p><strong>Note</strong> that the values returned by various members of the class change
+based on whether this argument is a callable or a dictionary of
+callables. This distinction remains <em>even if</em> the dictionary only
+contains a single entry.</p>
+</dd>
+<dt><strong>y_true</strong><span class="classifier">list, pandas.Series, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The ground-truth labels (for classification) or target values (for regression).</p>
+</dd>
+<dt><strong>y_pred</strong><span class="classifier">list, pandas.Series, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The predictions.</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier">list, pandas.Series, dict of 1d arrays, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>The sensitive features which should be used to create the subgroups.
+At least one sensitive feature must be provided.
+All names (whether on pandas objects or dictionary keys) must be strings.
+We also forbid DataFrames with column names of <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+For cases where no names are provided we generate names <code class="docutils literal notranslate"><span class="pre">sensitive_feature_[n]</span></code>.</p>
+</dd>
+<dt><strong>control_features</strong><span class="classifier">list, pandas.Series, dict of 1d arrays, numpy.ndarray, pandas.DataFrame</span></dt><dd><p>Control features are similar to sensitive features, in that they
+divide the input data into subgroups.
+Unlike the sensitive features, aggregations are not performed
+across the control features - for example, the <code class="docutils literal notranslate"><span class="pre">overall</span></code> property
+will have one value for each subgroup in the control feature(s),
+rather than a single value for the entire data set.
+Control features can be specified similarly to the sensitive features.
+However, their default names (if none can be identified in the
+input values) are of the format <code class="docutils literal notranslate"><span class="pre">control_feature_[n]</span></code>.
+See the <a class="reference internal" href="../../user_guide/assessment/intersecting_groups.html#assessment-intersecting-groups"><span class="std std-ref">section on intersecting groups</span></a>
+in the User Guide to learn how to use control levels.</p>
+<p><strong>Note</strong> the types returned by members of the class vary based on whether
+control features are present.</p>
+</dd>
+<dt><strong>sample_params</strong><span class="classifier">dict</span></dt><dd><p>Parameters for the metric function(s). If there is only one metric function,
+then this is a dictionary of strings and array-like objects, which are split
+alongside the <code class="docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> arrays, and passed to the metric function.
+If there are multiple metric functions (passed as a dictionary), then this is
+a nested dictionary, with the first set of string keys identifying the
+metric function name, with the values being the string-to-array-like dictionaries.</p>
+</dd>
+<dt><strong>n_boot</strong><span class="classifier">int | None</span></dt><dd><p>If set to a positive integer, generate this number of bootstrap samples of the
+supplied data, and use to estimate confidence intervals for all of the metrics.
+Must be set with <cite>ci_quantiles</cite>.</p>
+</dd>
+<dt><strong>ci_quantiles</strong><span class="classifier">list[float] | None</span></dt><dd><p>A list of confidence interval quantiles to extract from the bootstrap samples.
+For example, the list <cite>[0.159, 0.5, 0.841]</cite> would extract the median and
+standard deviations.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | np.random.RandomState | None</span></dt><dd><p>Used to control the generation of the bootstrap samples</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>We will now go through some simple examples (see the <a class="reference internal" href="../../user_guide/assessment/index.html#assessment"><span class="std std-ref">User Guide</span></a> for
+a more in-depth discussion):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetricFrame</span><span class="p">,</span> <span class="n">selection_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sex</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Female&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf1</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Access the disaggregated metrics via a pandas Series</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf1</span><span class="o">.</span><span class="n">by_group</span> 
+<span class="go">                    selection_rate</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">Female                         0.8</span>
+<span class="go">Male                           0.4</span>
+</pre></div>
+</div>
+<p>Access the largest difference, smallest ratio, and worst case performance</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;difference: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">difference</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="gp">... </span>     <span class="sa">f</span><span class="s2">&quot;ratio: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">ratio</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="gp">... </span>     <span class="sa">f</span><span class="s2">&quot;max across groups: </span><span class="si">{</span><span class="n">mf1</span><span class="o">.</span><span class="n">group_max</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">difference: 0.4   ratio: 0.5   max across groups: 0.8</span>
+</pre></div>
+</div>
+<p>You can also evaluate multiple metrics by providing a dictionary</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;accuracy&quot;</span><span class="p">:</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="s2">&quot;selection_rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
+<span class="gp">... </span>     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics_dict</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Access the disaggregated metrics via a pandas DataFrame</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span><span class="o">.</span><span class="n">by_group</span> 
+<span class="go">                    accuracy selection_rate</span>
+<span class="go">sensitive_feature_0</span>
+<span class="go">Female                   0.8            0.8</span>
+<span class="go">Male                     0.6            0.4</span>
+</pre></div>
+</div>
+<p>The largest difference, smallest ratio, and the maximum and minimum values
+across the groups are then all pandas Series, for example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mf2</span><span class="o">.</span><span class="n">difference</span><span class="p">()</span>
+<span class="go">accuracy          0.2</span>
+<span class="go">selection_rate    0.4</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+<p>You’ll probably want to view them transposed</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;difference&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">difference</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;ratio&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">ratio</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;group_min&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">group_min</span><span class="p">(),</span>
+<span class="gp">... </span>              <span class="s1">&#39;group_max&#39;</span><span class="p">:</span> <span class="n">mf2</span><span class="o">.</span><span class="n">group_max</span><span class="p">()})</span><span class="o">.</span><span class="n">T</span>
+<span class="go">            accuracy  selection_rate</span>
+<span class="go">difference      0.20             0.4</span>
+<span class="go">ratio           0.75             0.5</span>
+<span class="go">group_min       0.60             0.4</span>
+<span class="go">group_max       0.80             0.8</span>
+</pre></div>
+</div>
+<p>More information about plotting metrics can be found in the
+<a class="reference internal" href="../../user_guide/assessment/plotting.html#plot-metricframe"><span class="std std-ref">plotting section</span></a> of the User Guide.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference">
+<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L739-L788"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference" title="Link to this definition">#</a></dt>
+<dd><p>Return the maximum absolute difference between groups for each metric.</p>
+<p>This method calculates a scalar value for each underlying metric by
+finding the maximum absolute difference between the entries in each
+combination of sensitive features in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
+<p>Similar to other methods, the result type varies with the
+specification of the metric functions, and whether control features
+are present or not.</p>
+<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
+value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the maximum difference between
+any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
+<code class="docutils literal notranslate"><span class="pre">group_max()</span> <span class="pre">-</span> <span class="pre">group_min()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
+computes the difference between each subgroup and the
+corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
+features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric).
+The result is the absolute maximum of these values.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>method</strong><span class="classifier">string {‘between_groups’, ‘to_overall’}, default <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></span></dt><dd><p>How to compute the aggregate.</p>
+</dd>
+<dt><strong>errors: {‘raise’, ‘coerce’}, default :code:`coerce`</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.difference_ci">
+<span class="sig-name descname"><span class="pre">difference_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L790-L815"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.difference_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a>.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list, with each element having the same type as that
+returned by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> function.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+<p>Unlike <a class="reference internal" href="#fairlearn.metrics.MetricFrame.difference" title="fairlearn.metrics.MetricFrame.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a> there is no <code class="code docutils literal notranslate"><span class="pre">errors</span></code> parameter, because
+a bootstrapped <a class="reference internal" href="#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all the metrics to return scalars.</p>
+<dl class="field-list">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>method</strong><span class="classifier">string {‘between_groups’, ‘to_overall’}, default <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></span></dt><dd><p>How to compute the aggregate.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_max">
+<span class="sig-name descname"><span class="pre">group_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L637-L670"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max" title="Link to this definition">#</a></dt>
+<dd><p>Return the maximum value of the metric over the sensitive features.</p>
+<p>This method computes the maximum value over all combinations of
+sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property (it will only succeed if all the underlying metric
+functions return scalar values). The exact return type depends on
+whether control features are present, and whether the metric functions
+were specified as a single callable or a dictionary.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>errors: {‘raise’, ‘coerce’}, default :code:`raise`</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The maximum value over sensitive features. The exact type
+follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_max_ci">
+<span class="sig-name descname"><span class="pre">group_max_ci</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L672-L686"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_max_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.group_max</span></code></a>.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list, with each element having the same type as that
+returned by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a> function.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+<p>Unlike <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_max" title="fairlearn.metrics.MetricFrame.group_max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a> there is no <code class="code docutils literal notranslate"><span class="pre">errors</span></code> parameter, because
+a bootstrapped <a class="reference internal" href="#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all the metrics to return scalars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_min">
+<span class="sig-name descname"><span class="pre">group_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L688-L721"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min" title="Link to this definition">#</a></dt>
+<dd><p>Return the maximum value of the metric over the sensitive features.</p>
+<p>This method computes the minimum value over all combinations of
+sensitive features for each underlying metric function in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property (it will only succeed if all the underlying metric
+functions return scalar values). The exact return type depends on
+whether control features are present, and whether the metric functions
+were specified as a single callable or a dictionary.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>errors: {‘raise’, ‘coerce’}, default :code:`raise`</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The maximum value over sensitive features. The exact type
+follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.group_min_ci">
+<span class="sig-name descname"><span class="pre">group_min_ci</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L723-L737"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.group_min_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.group_min</span></code></a>.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list, with each element having the same type as that
+returned by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a> function.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+<p>Unlike <a class="reference internal" href="#fairlearn.metrics.MetricFrame.group_min" title="fairlearn.metrics.MetricFrame.group_min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a> there is no <code class="code docutils literal notranslate"><span class="pre">errors</span></code> parameter, because
+a bootstrapped <a class="reference internal" href="#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all the metrics to return scalars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ratio">
+<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coerce'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L817-L868"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio" title="Link to this definition">#</a></dt>
+<dd><p>Return the minimum ratio between groups for each metric.</p>
+<p>This method calculates a scalar value for each underlying metric by
+finding the minimum ratio (that is, the ratio is forced to be
+less than unity) between the entries in each
+column of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property.</p>
+<p>Similar to other methods, the result type varies with the
+specification of the metric functions, and whether control features
+are present or not.</p>
+<p>There are two allowed values for the <code class="docutils literal notranslate"><span class="pre">method=</span></code> parameter. The
+value <code class="docutils literal notranslate"><span class="pre">between_groups</span></code> computes the minimum ratio between
+any two pairs of groups in the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property (i.e.
+<code class="docutils literal notranslate"><span class="pre">group_min()</span> <span class="pre">/</span> <span class="pre">group_max()</span></code>). Alternatively, <code class="docutils literal notranslate"><span class="pre">to_overall</span></code>
+computes the ratio between each subgroup and the
+corresponding value from <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> (if there are control
+features, then <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overall</span></code></a> is multivalued for each metric),
+expressing the ratio as a number less than 1.
+The result is the minimum of these values.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-compare-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>method</strong><span class="classifier">string {‘between_groups’, ‘to_overall’}, default <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></span></dt><dd><p>How to compute the aggregate.</p>
+</dd>
+<dt><strong>errors: {‘raise’, ‘coerce’}, default :code:`coerce`</strong></dt><dd><p>if ‘raise’, then invalid parsing will raise an exception
+if ‘coerce’, then invalid parsing will be set as NaN</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type follows the table in <a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ratio_ci">
+<span class="sig-name descname"><span class="pre">ratio_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'between_groups'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/metrics/_metric_frame.py#L870-L895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ratio_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the bootstrapped confidence intervals for <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a>.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list, with each element having the same type as that
+returned by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> function.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+<p>Unlike <a class="reference internal" href="#fairlearn.metrics.MetricFrame.ratio" title="fairlearn.metrics.MetricFrame.ratio"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a> there is no <code class="code docutils literal notranslate"><span class="pre">errors</span></code> parameter, because
+a bootstrapped <a class="reference internal" href="#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> requires all the metrics to return scalars.</p>
+<dl class="field-list">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>method</strong><span class="classifier">string {‘between_groups’, ‘to_overall’}, default <code class="code docutils literal notranslate"><span class="pre">between_groups</span></code></span></dt><dd><p>How to compute the aggregate.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.by_group">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">by_group</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><span class="pre">Series</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><span class="pre">DataFrame</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.by_group" title="Link to this definition">#</a></dt>
+<dd><p>Return the collection of metrics evaluated for each subgroup.</p>
+<p>The collection is defined by the combination of classes in the
+sensitive and control features. The exact type depends on
+the specification of the metric function.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt>pandas.Series or pandas.DataFrame</dt><dd><p>When a callable is supplied to the constructor, the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>When the metric functions were specified with a dictionary (even
+if the dictionary only has a single entry), then the result is
+a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with columns named after the metric
+functions, and rows indexed by the combinations of subgroups
+in the sensitive and control features.</p>
+<p>If a particular combination of subgroups was not present in the dataset
+(likely to occur as more sensitive and control features
+are specified), then the corresponding entry will be NaN.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.by_group_ci">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">by_group_ci</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><span class="pre">Series</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><span class="pre">DataFrame</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.by_group_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the confidence intervals for the metrics, evaluated on each subgroup.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list, with each element having the same type as that
+returned by the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.ci_quantiles">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ci_quantiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.ci_quantiles" title="Link to this definition">#</a></dt>
+<dd><p>Return the quantiles specified for bootstrapping.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.control_levels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control_levels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.control_levels" title="Link to this definition">#</a></dt>
+<dd><p>Return a list of feature names which are produced by control features.</p>
+<p>If control features are present, then the rows of the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a>
+property have a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a> index. This property
+identifies which elements of that index are control features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>List[str] or None</dt><dd><p>List of names, which can be used in calls to
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v2.3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.n_boot">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_boot</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.n_boot" title="Link to this definition">#</a></dt>
+<dd><p>Return the number of bootstrap samples specified.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.overall">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><span class="pre">Series</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><span class="pre">DataFrame</span></a></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.overall" title="Link to this definition">#</a></dt>
+<dd><p>Return the underlying metrics evaluated on the whole dataset.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt>typing.Any or pandas.Series or pandas.DataFrame</dt><dd><p>The exact type varies based on whether control featuers were
+provided and how the metric functions were specified.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrics</p></th>
+<th class="head"><p>Control Features</p></th>
+<th class="head"><p>Result Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Callable</p></td>
+<td><p>None</p></td>
+<td><p>Return type of callable</p></td>
+</tr>
+<tr class="row-odd"><td><p>Callable</p></td>
+<td><p>Provided</p></td>
+<td><p>Series, indexed by the subgroups
+of the conditional feature(s)</p></td>
+</tr>
+<tr class="row-even"><td><p>dict</p></td>
+<td><p>None</p></td>
+<td><p>Series, indexed by the metric
+names</p></td>
+</tr>
+<tr class="row-odd"><td><p>dict</p></td>
+<td><p>Provided</p></td>
+<td><p>DataFrame. Columns are
+metric names, rows are subgroups
+of conditional feature(s)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The distinction applies even if the dictionary contains a
+single metric function. This is to allow for a consistent
+interface when calling programmatically, while also reducing
+typing for those using Fairlearn interactively.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.overall_ci">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overall_ci</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><span class="pre">Series</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><span class="pre">DataFrame</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.overall_ci" title="Link to this definition">#</a></dt>
+<dd><p>Return the underlying bootstrapped metrics evaluated on the whole dataset.</p>
+<p>When bootstrapping has been activated (by <cite>n_boot</cite> and <cite>ci_quantiles</cite> in the
+constructor), this property will be available.
+The contents will be a list of the same underlying type as that returned by
+<a class="reference internal" href="#fairlearn.metrics.MetricFrame.overall" title="fairlearn.metrics.MetricFrame.overall"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a> property.
+The elements of the list are indexed by the <cite>ci_quantiles</cite> array supplied
+to the constructor.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fairlearn.metrics.MetricFrame.sensitive_levels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sensitive_levels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fairlearn.metrics.MetricFrame.sensitive_levels" title="Link to this definition">#</a></dt>
+<dd><p>Return a list of the feature names which are produced by sensitive features.</p>
+<p>In cases where the <a class="reference internal" href="#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">by_group</span></code></a> property has a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.MultiIndex.html#pandas.MultiIndex" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.MultiIndex</span></code></a>
+index, this identifies which elements of the index are sensitive features.</p>
+<p>Read more in the <a class="reference internal" href="../../user_guide/assessment/perform_fairness_assessment.html#assessment-quantify-harms"><span class="std std-ref">User Guide</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>List[str]</dt><dd><p>List of names, which can be used in calls to
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html#pandas.DataFrame.groupby" title="(in pandas v2.3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.groupby()</span></code></a> etc.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="gallery-examples">
+<span id="sphx-glr-backreferences-fairlearn-metrics-metricframe"></span><h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use AdversarialFairnessClassifier on the UCI Adult dataset."><img alt="" src="../../_images/sphx_glr_plot_adversarial_basics_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_adversarial_basics.html#sphx-glr-auto-examples-plot-adversarial-basics-py"><span class="std std-ref">Basics &amp; Model Specification of AdversarialFairness</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Basics & Model Specification of AdversarialFairness</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Adversarial learning is inherently difficult because of various issues, such as mode collapse, divergence, and diminishing gradients. In particular, mode collapse seems a real problem on this dataset: the predictor and adversary trap themselves in a local minimum by favoring one class (mode). Problems with diverging parameters may also occur, which may be an indication of a bad choice of hyperparameters, such as a learning rate that is too large. The problems that a user may encounter are of course case specific, but general good practices when training such models are: train slowly, ensuring the losses remain balanced, and keep track of validation accuracies. Additionally, we found that single hidden layer neural networks work best for this use case."><img alt="" src="../../_images/sphx_glr_plot_adversarial_fine_tuning_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_adversarial_fine_tuning.html#sphx-glr-auto-examples-plot-adversarial-fine-tuning-py"><span class="std std-ref">AdversarialFairness Fine Tuning</span></a></p>
+  <div class="sphx-glr-thumbnail-title">AdversarialFairness Fine Tuning</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Credit Loan Decisions"><img alt="" src="../../_images/sphx_glr_plot_credit_loan_decisions_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_credit_loan_decisions.html#sphx-glr-auto-examples-plot-credit-loan-decisions-py"><span class="std std-ref">Credit Loan Decisions</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Credit Loan Decisions</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GridSearch with Census Data"><img alt="" src="../../_images/sphx_glr_plot_grid_search_census_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_grid_search_census.html#sphx-glr-auto-examples-plot-grid-search-census-py"><span class="std std-ref">GridSearch with Census Data</span></a></p>
+  <div class="sphx-glr-thumbnail-title">GridSearch with Census Data</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Intersectionality in Mental Health Care"><img alt="" src="../../_images/sphx_glr_plot_intersectional_bias_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_intersectional_bias.html#sphx-glr-auto-examples-plot-intersectional-bias-py"><span class="std std-ref">Intersectionality in Mental Health Care</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Intersectionality in Mental Health Care</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Making Derived Metrics"><img alt="" src="../../_images/sphx_glr_plot_make_derived_metric_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_make_derived_metric.html#sphx-glr-auto-examples-plot-make-derived-metric-py"><span class="std std-ref">Making Derived Metrics</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making Derived Metrics</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="MetricFrame: Beyond Binary Classification"><img alt="" src="../../_images/sphx_glr_plot_metricframe_beyond_binary_classification_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_metricframe_beyond_binary_classification.html#sphx-glr-auto-examples-plot-metricframe-beyond-binary-classification-py"><span class="std std-ref">MetricFrame: Beyond Binary Classification</span></a></p>
+  <div class="sphx-glr-thumbnail-title">MetricFrame: Beyond Binary Classification</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Metrics with Multiple Features"><img alt="" src="../../_images/sphx_glr_plot_new_metrics_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_new_metrics.html#sphx-glr-auto-examples-plot-new-metrics-py"><span class="std std-ref">Metrics with Multiple Features</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Metrics with Multiple Features</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting Metrics with Errors"><img alt="" src="../../_images/sphx_glr_plot_plotting_metrics_with_error_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_plotting_metrics_with_error.html#sphx-glr-auto-examples-plot-plotting-metrics-with-error-py"><span class="std std-ref">Plotting Metrics with Errors</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting Metrics with Errors</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="MetricFrame visualizations"><img alt="" src="../../_images/sphx_glr_plot_quickstart_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_quickstart.html#sphx-glr-auto-examples-plot-quickstart-py"><span class="std std-ref">MetricFrame visualizations</span></a></p>
+  <div class="sphx-glr-thumbnail-title">MetricFrame visualizations</div>
+</div></div></section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame"><code class="docutils literal notranslate"><span class="pre">MetricFrame</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.difference"><code class="docutils literal notranslate"><span class="pre">MetricFrame.difference()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.difference_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.difference_ci()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.group_max"><code class="docutils literal notranslate"><span class="pre">MetricFrame.group_max()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.group_max_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.group_max_ci()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.group_min"><code class="docutils literal notranslate"><span class="pre">MetricFrame.group_min()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.group_min_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.group_min_ci()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.ratio"><code class="docutils literal notranslate"><span class="pre">MetricFrame.ratio()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.ratio_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.ratio_ci()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.by_group"><code class="docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.by_group_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.by_group_ci</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.ci_quantiles"><code class="docutils literal notranslate"><span class="pre">MetricFrame.ci_quantiles</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.control_levels"><code class="docutils literal notranslate"><span class="pre">MetricFrame.control_levels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.n_boot"><code class="docutils literal notranslate"><span class="pre">MetricFrame.n_boot</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.overall"><code class="docutils literal notranslate"><span class="pre">MetricFrame.overall</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.overall_ci"><code class="docutils literal notranslate"><span class="pre">MetricFrame.overall_ci</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.metrics.MetricFrame.sensitive_levels"><code class="docutils literal notranslate"><span class="pre">MetricFrame.sensitive_levels</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gallery-examples">Gallery examples</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item"><div class="edit-example-link">
+    
+</div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1140 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fairlearn.adversarial.AdversarialFairnessClassifier &#8212; Fairlearn 0.13.0.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=8ee2c72c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/hide_links.css?v=81b1ad43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=b01019a4" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=323ffc05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../../_static/jupyterlite_sphinx.js?v=96e329c5"></script>
+    <script>window.MathJax = {"tex": {"macros": {"E": "{\\mathbb{E}}", "P": "{\\mathbb{P}}", "given": "\\mathbin{\\vert}"}}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/generated/fairlearn.adversarial.AdversarialFairnessClassifier';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://fairlearn.org/main/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../_static/fairlearn-favicon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="fairlearn.adversarial.AdversarialFairnessRegressor" href="fairlearn.adversarial.AdversarialFairnessRegressor.html" />
+    <link rel="prev" title="fairlearn.reductions.MeanLoss" href="fairlearn.reductions.MeanLoss.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+     
+  
+
+<a class="navbar-brand logo" href="https://fairlearn.org">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/fairlearn_full_color_lightmode.svg" class="logo__image only-light" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+    <img src="../../_static/fairlearn_full_color_darkmode.svg" class="logo__image only-dark pst-js-only" alt="Fairlearn 0.13.0.dev0 documentation - Home"/>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Get Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Docs
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../auto_examples/index.html">
+    Example Notebooks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About Us
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://forms.gle/U3wdiNAPeQWgenKh8">
+    Survey
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/fairlearn/fairlearn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/company/fairlearn/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/fairlearn" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/R22yCfgsRn" title="Discord" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-discord fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Discord</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_acs_income.html">fairlearn.datasets.fetch_acs_income</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_adult.html">fairlearn.datasets.fetch_adult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_bank_marketing.html">fairlearn.datasets.fetch_bank_marketing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_boston.html">fairlearn.datasets.fetch_boston</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_credit_card.html">fairlearn.datasets.fetch_credit_card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.datasets.fetch_diabetes_hospital.html">fairlearn.datasets.fetch_diabetes_hospital</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.count.html">fairlearn.metrics.count</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_difference.html">fairlearn.metrics.demographic_parity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.demographic_parity_ratio.html">fairlearn.metrics.demographic_parity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_difference.html">fairlearn.metrics.equalized_odds_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equalized_odds_ratio.html">fairlearn.metrics.equalized_odds_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equal_opportunity_difference.html">fairlearn.metrics.equal_opportunity_difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.equal_opportunity_ratio.html">fairlearn.metrics.equal_opportunity_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_negative_rate.html">fairlearn.metrics.false_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.false_positive_rate.html">fairlearn.metrics.false_positive_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.make_derived_metric.html">fairlearn.metrics.make_derived_metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.mean_prediction.html">fairlearn.metrics.mean_prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.plot_model_comparison.html">fairlearn.metrics.plot_model_comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.selection_rate.html">fairlearn.metrics.selection_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_negative_rate.html">fairlearn.metrics.true_negative_rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.true_positive_rate.html">fairlearn.metrics.true_positive_rate</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics.MetricFrame.html">fairlearn.metrics.MetricFrame</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.ThresholdOptimizer.html">fairlearn.postprocessing.ThresholdOptimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.postprocessing.plot_threshold_optimizer.html">fairlearn.postprocessing.plot_threshold_optimizer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.preprocessing.CorrelationRemover.html">fairlearn.preprocessing.CorrelationRemover</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.preprocessing.PrototypeRepresentationLearner.html">fairlearn.preprocessing.PrototypeRepresentationLearner</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.AbsoluteLoss.html">fairlearn.reductions.AbsoluteLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ClassificationMoment.html">fairlearn.reductions.ClassificationMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.DemographicParity.html">fairlearn.reductions.DemographicParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.EqualizedOdds.html">fairlearn.reductions.EqualizedOdds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRate.html">fairlearn.reductions.ErrorRate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ErrorRateParity.html">fairlearn.reductions.ErrorRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ExponentiatedGradient.html">fairlearn.reductions.ExponentiatedGradient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.TruePositiveRateParity.html">fairlearn.reductions.TruePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.FalsePositiveRateParity.html">fairlearn.reductions.FalsePositiveRateParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.UtilityParity.html">fairlearn.reductions.UtilityParity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.GridSearch.html">fairlearn.reductions.GridSearch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.LossMoment.html">fairlearn.reductions.LossMoment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.Moment.html">fairlearn.reductions.Moment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.BoundedGroupLoss.html">fairlearn.reductions.BoundedGroupLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.SquareLoss.html">fairlearn.reductions.SquareLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.ZeroOneLoss.html">fairlearn.reductions.ZeroOneLoss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.reductions.MeanLoss.html">fairlearn.reductions.MeanLoss</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">fairlearn.adversarial.AdversarialFairnessClassifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.adversarial.AdversarialFairnessRegressor.html">fairlearn.adversarial.AdversarialFairnessRegressor</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fairlearn.metrics._plotter.plot_metric_frame.html">fairlearn.metrics._plotter.plot_metric_frame</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Docs</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">fairlearn.adversarial.AdversarialFairnessClassifier</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fairlearn-adversarial-adversarialfairnessclassifier">
+<h1>fairlearn.adversarial.AdversarialFairnessClassifier<a class="headerlink" href="#fairlearn-adversarial-adversarialfairnessclassifier" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fairlearn.adversarial.</span></span><span class="sig-name descname"><span class="pre">AdversarialFairnessClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adversary_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor_optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adversary_optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'demographic_parity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/adversarial/_adversarial_mitigation.py#L849-L1053"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier" title="Link to this definition">#</a></dt>
+<dd><p>Train PyTorch or TensorFlow classifiers while mitigating unfairness.</p>
+<p>This estimator implements the supervised learning method proposed in
+“Mitigating Unwanted Biases with Adversarial Learning”. <a class="footnote-reference brackets" href="#footcite-zhang2018mitigating" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+The training algorithm takes as input two neural network
+models, a predictor model and an adversarial model, defined either as a
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">PyTorch module</a> or
+<a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Model">TensorFlow2 model</a>. The API
+follows conventions of <cite>sklearn</cite> estimators.</p>
+<p>The predictor model takes the features <code class="code docutils literal notranslate"><span class="pre">X</span></code> as input and seeks
+to predict <code class="code docutils literal notranslate"><span class="pre">y</span></code>.
+For binary classification, the predictor model should return a single
+real-valued score, which is transformed into a probability of the
+positive class via the logistic function (aka sigmoid), similarly to
+logistic regression. For multi-class classification, the predictor
+model should return a vector of real-valued scores, which are
+transformed into class probabilities via the softmax function,
+similarly to multinomial logistic regression. The training loss is
+the negative log likelihood (aka log loss, logistic loss,
+cross-entropy loss).</p>
+<p>The adversarial model for demographic parity takes scores
+produced by the predictor model as input, and seeks to predict
+<code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>. Depending on the type of the provided
+sensitive features, the model should produce a scalar
+or vector output. Three types of sensitive features are supported:
+(1) a single binary feature; (2) a single discrete feature; (3) one or
+multiple real-valued features. For a single binary sensitive feature
+and a single discrete feature, the network outputs are transformed
+by the logistic function and the softmax function, respectively, and
+the loss is the negative log likelihood. For one or multiple
+real-valued features, the network output is left as is, and the
+loss is a square loss.</p>
+<p>The adversarial model for equalized odds additionally takes
+<code class="code docutils literal notranslate"><span class="pre">y</span></code> as input. For multi-class classification, <code class="code docutils literal notranslate"><span class="pre">y</span></code> is
+transformed using one-hot encoding.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>backend</strong><span class="classifier">str, BackendEngine, default = ‘auto’</span></dt><dd><p>The backend to use. Must be one of <code class="code docutils literal notranslate"><span class="pre">'torch'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'tensorflow'</span></code>,
+or <code class="code docutils literal notranslate"><span class="pre">'auto'</span></code> which indicates PyTorch, TensorFlow, or to
+automatically infer
+the backend from the <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.
+You can also pass in a BackendEngine class.</p>
+</dd>
+<dt><strong>predictor_model</strong><span class="classifier">list, torch.nn.Module, keras.Model</span></dt><dd><p>The predictor model to train.
+Instead of a neural network model, it is possible to pass a list
+<span class="math notranslate nohighlight">\([k_1, k_2, \dots]\)</span>, where each <span class="math notranslate nohighlight">\(k_i\)</span> either indicates
+the number of nodes (if <span class="math notranslate nohighlight">\(k_i\)</span> is an integer) or
+an activation function (if <span class="math notranslate nohighlight">\(k_i\)</span> is a string) or
+a layer or activation function instance directly (if <span class="math notranslate nohighlight">\(k_i\)</span> is
+a callable). The default parameter is <code class="code docutils literal notranslate"><span class="pre">[]</span></code>, which indicates
+a neural network without any hidden layers.
+However, the number of nodes in the input
+and output layer are automatically inferred from data, and the final
+activation function (such as softmax for categorical
+predictors) are inferred from data.
+If <code class="code docutils literal notranslate"><span class="pre">backend</span></code> is specified, you cannot pass a model
+that uses a different backend.</p>
+</dd>
+<dt><strong>adversary_model</strong><span class="classifier">list, torch.nn.Module, keras.Model</span></dt><dd><p>The adversary model to train. Defined similarly as <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.
+Must be the same type as the
+<code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.</p>
+</dd>
+<dt><strong>predictor_optimizer</strong><span class="classifier">str, torch.optim, keras.optimizers, callable, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. If a string is passed instead, this must be
+either ‘SGD’ or ‘Adam’. A corresponding SGD or Adam optimizer is
+initialized with the given predictor model and learning rate.
+If an instance of a subclass of torch.optim.Optimizer
+or keras.optimizers.Optimizer is passed, this
+is used directly. If a callable <code class="code docutils literal notranslate"><span class="pre">fn</span></code> is passed, we call this
+callable and pass our model, and set the result of this call
+as the optimizer, so: <code class="code docutils literal notranslate"><span class="pre">predictor_optimizer=fn(predictor_model)</span></code>.</p>
+</dd>
+<dt><strong>adversary_optimizer</strong><span class="classifier">str, torch.optim, keras.optimizers, callable, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. Defined similarly as
+<code class="code docutils literal notranslate"><span class="pre">predictor_optimizer</span></code>.</p>
+</dd>
+<dt><strong>constraints</strong><span class="classifier">str, default = ‘demographic_parity’</span></dt><dd><p>The fairness constraint. Must be either ‘demographic_parity’
+or ‘equalized_odds’.</p>
+</dd>
+<dt><strong>learning_rate</strong><span class="classifier">float, default = 0.001</span></dt><dd><p>A small number greater than zero to set as a learning rate.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, default = 1.0</span></dt><dd><p>A small number <span class="math notranslate nohighlight">\(\alpha\)</span> as specified in the paper. It
+is the factor that balances the training towards predicting <code class="code docutils literal notranslate"><span class="pre">y</span></code>
+(choose <span class="math notranslate nohighlight">\(\alpha\)</span> closer to zero) or enforcing fairness constraint
+(choose larger <span class="math notranslate nohighlight">\(\alpha\)</span>).</p>
+</dd>
+<dt><strong>epochs</strong><span class="classifier">int, default = 1</span></dt><dd><p>Number of epochs to train for.</p>
+</dd>
+<dt><strong>batch_size</strong><span class="classifier">int, default = 32</span></dt><dd><p>Batch size. For no batching, set this to -1.</p>
+</dd>
+<dt><strong>shuffle</strong><span class="classifier">bool, default = False</span></dt><dd><p>When true, shuffle the data before every epoch (including the first).</p>
+</dd>
+<dt><strong>progress_updates</strong><span class="classifier">number, optional, default = None</span></dt><dd><p>If a number <span class="math notranslate nohighlight">\(t\)</span> is provided, we print an update
+about the training loop after processing a batch and <span class="math notranslate nohighlight">\(t\)</span> seconds
+have passed since the previous update.</p>
+</dd>
+<dt><strong>skip_validation</strong><span class="classifier">bool, default = False</span></dt><dd><p>Skip the validation of the data. Useful because validate_input is
+a costly operation, and we may instead pass all data to validate_input
+at an earlier stage. Note that not only checking <code class="code docutils literal notranslate"><span class="pre">X</span></code>
+is skipped, but also no transform is applied to <code class="code docutils literal notranslate"><span class="pre">y</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>.</p>
+</dd>
+<dt><strong>callbacks</strong><span class="classifier">callable</span></dt><dd><p>Callback function, called after every batch. For instance useable when
+wanting to validate. A list of callback functions can also be provided.
+Each callback function is called as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">callback</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">sensitive_features</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>which is passed the <code class="docutils literal notranslate"><span class="pre">self</span></code> object, the step number, the inputs <code class="docutils literal notranslate"><span class="pre">X</span></code>,
+the targets <code class="docutils literal notranslate"><span class="pre">y</span></code>, the sensitive features <code class="docutils literal notranslate"><span class="pre">z</span></code>, and the positive label.
+The callback may return a Boolean value. If the returned value is <cite>True</cite>,
+the optimization algorithm terminates. This can be used to implement
+<em>early stopping</em>.</p>
+</dd>
+<dt><strong>cuda</strong><span class="classifier">str, default = None</span></dt><dd><p>A string to indicate which device to use when training. For instance,
+set <code class="code docutils literal notranslate"><span class="pre">cuda='cuda:0'</span></code> to train on the first GPU. Only for PyTorch
+backend.</p>
+</dd>
+<dt><strong>warm_start</strong><span class="classifier">bool, default = False</span></dt><dd><p>Normally, when set to False, a call to <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> triggers reinitialization,
+which discards the models and initializes them again. Setting to
+True triggers reuse of these models. Note: if pre-initialized models
+are passed, the models (and their parameters) are never discarded.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState, default = None</span></dt><dd><p>Controls the randomized aspects of this algorithm, such as shuffling.
+Useful to get reproducible output across multiple function calls.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/adversarial/_adversarial_mitigation.py#L399-L533"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.fit" title="Link to this definition">#</a></dt>
+<dd><p>Fit the model based on the given training data and sensitive features.</p>
+<p>Currently, for discrete y and sensitive_features
+<em>ALL</em> classes need to be passed in
+the first call to fit!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>Two-dimensional numpy array containing training data</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>Array-like containing training targets</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier">array</span></dt><dd><p>Array-like containing the sensitive features of the
+training data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.get_metadata_routing">
+<span class="sig-name descname"><span class="pre">get_metadata_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/utils/_metadata_requests.py#L1532-L1544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.get_metadata_routing" title="Link to this definition">#</a></dt>
+<dd><p>Get metadata routing of this object.</p>
+<p>Please check <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.7)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>routing</strong><span class="classifier">MetadataRequest</span></dt><dd><p>A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.metadata_routing.MetadataRequest.html#sklearn.utils.metadata_routing.MetadataRequest" title="(in scikit-learn v1.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataRequest</span></code></a> encapsulating
+routing information.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/base.py#L233-L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.get_params" title="Link to this definition">#</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.partial_fit">
+<span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/adversarial/_adversarial_mitigation.py#L535-L578"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.partial_fit" title="Link to this definition">#</a></dt>
+<dd><p>Perform one training step on given samples and update model.</p>
+<p>This method allows for incremental fitting on batches of data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>The training input samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,)</span></dt><dd><p>The target values.</p>
+</dd>
+<dt><strong>classes</strong><span class="classifier">array-like of shape (n_classes,), default=None</span></dt><dd><p>List of all the classes that can possibly appear in the y vector.
+Must be provided at the first call to partial_fit, can be omitted
+in subsequent calls.</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>The sensitive features for each sample. If None, a vector of zeros
+will be used.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>Returns self.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/adversarial/_adversarial_mitigation.py#L607-L628"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.predict" title="Link to this definition">#</a></dt>
+<dd><p>Compute predictions for given test data.</p>
+<p>Predictions are discrete for classifiers, making use of the
+predictor_function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>Two-dimensional numpy array containing test data</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y_pred</strong><span class="classifier">array</span></dt><dd><p>array-like containing the model’s predictions fed through
+the (discrete) <code class="code docutils literal notranslate"><span class="pre">predictor_function</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/base.py#L522-L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.score" title="Link to this definition">#</a></dt>
+<dd><p>Return <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#accuracy-score" title="(in scikit-learn v1.7)"><span class="xref std std-ref">accuracy</span></a> on provided data and labels.</p>
+<p>In multi-label classification, this is the subset accuracy
+which is a harsh metric since you require for each sample that
+each label set be correctly predicted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Test samples.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs)</span></dt><dd><p>True labels for <cite>X</cite>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Sample weights.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p>Mean accuracy of <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> w.r.t. <cite>y</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.set_fit_request">
+<span class="sig-name descname"><span class="pre">set_fit_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#fairlearn.adversarial.AdversarialFairnessClassifier" title="fairlearn.adversarial._adversarial_mitigation.AdversarialFairnessClassifier"><span class="pre">AdversarialFairnessClassifier</span></a></span></span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/utils/_metadata_requests.py#L1285-L1330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_fit_request" title="Link to this definition">#</a></dt>
+<dd><p>Configure whether metadata should be requested to be passed to the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method.</p>
+<p>Note that this method is only relevant when this estimator is used as a
+sub-estimator within a <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-meta-estimator" title="(in scikit-learn v1.7)"><span class="xref std std-term">meta-estimator</span></a> and metadata routing is enabled
+with <code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="(in scikit-learn v1.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code></a>).
+Please check the <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.7)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<p>The options for each parameter are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">fit</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
+</ul>
+<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
+existing request. This allows you to change the request for some
+parameters and not others.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sensitive_features</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>The updated object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/base.py#L317-L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_params" title="Link to this definition">#</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
+parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
+possible to update each component of a nested object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.set_partial_fit_request">
+<span class="sig-name descname"><span class="pre">set_partial_fit_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#fairlearn.adversarial.AdversarialFairnessClassifier" title="fairlearn.adversarial._adversarial_mitigation.AdversarialFairnessClassifier"><span class="pre">AdversarialFairnessClassifier</span></a></span></span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/utils/_metadata_requests.py#L1285-L1330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_partial_fit_request" title="Link to this definition">#</a></dt>
+<dd><p>Configure whether metadata should be requested to be passed to the <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> method.</p>
+<p>Note that this method is only relevant when this estimator is used as a
+sub-estimator within a <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-meta-estimator" title="(in scikit-learn v1.7)"><span class="xref std std-term">meta-estimator</span></a> and metadata routing is enabled
+with <code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="(in scikit-learn v1.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code></a>).
+Please check the <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.7)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<p>The options for each parameter are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
+</ul>
+<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
+existing request. This allows you to change the request for some
+parameters and not others.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>classes</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">classes</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+</dd>
+<dt><strong>sensitive_features</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>The updated object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.set_score_request">
+<span class="sig-name descname"><span class="pre">set_score_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#fairlearn.adversarial.AdversarialFairnessClassifier" title="fairlearn.adversarial._adversarial_mitigation.AdversarialFairnessClassifier"><span class="pre">AdversarialFairnessClassifier</span></a></span></span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.12/lib/python3.12/site-packages/sklearn/utils/_metadata_requests.py#L1285-L1330"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_score_request" title="Link to this definition">#</a></dt>
+<dd><p>Configure whether metadata should be requested to be passed to the <code class="docutils literal notranslate"><span class="pre">score</span></code> method.</p>
+<p>Note that this method is only relevant when this estimator is used as a
+sub-estimator within a <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-meta-estimator" title="(in scikit-learn v1.7)"><span class="xref std std-term">meta-estimator</span></a> and metadata routing is enabled
+with <code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="(in scikit-learn v1.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code></a>).
+Please check the <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.7)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<p>The options for each parameter are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">score</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
+</ul>
+<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
+existing request. This allows you to change the request for some
+parameters and not others.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sample_weight</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>The updated object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="docutils container" id="id2">
+<span id="sphx-glr-backreferences-fairlearn-adversarial-adversarialfairnessclassifier"></span><aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-zhang2018mitigating" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Brian Hu Zhang, Blake Lemoine, and Margaret Mitchell. Mitigating unwanted biases with adversarial learning. In <em>Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society</em>, 335–340. 2018. URL: <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3278721.3278779">https://dl.acm.org/doi/pdf/10.1145/3278721.3278779</a>.</p>
+</aside>
+</aside>
+</div>
+<section id="gallery-examples">
+<h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use AdversarialFairnessClassifier on the UCI Adult dataset."><img alt="" src="../../_images/sphx_glr_plot_adversarial_basics_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_adversarial_basics.html#sphx-glr-auto-examples-plot-adversarial-basics-py"><span class="std std-ref">Basics &amp; Model Specification of AdversarialFairness</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Basics & Model Specification of AdversarialFairness</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Adversarial learning is inherently difficult because of various issues, such as mode collapse, divergence, and diminishing gradients. In particular, mode collapse seems a real problem on this dataset: the predictor and adversary trap themselves in a local minimum by favoring one class (mode). Problems with diverging parameters may also occur, which may be an indication of a bad choice of hyperparameters, such as a learning rate that is too large. The problems that a user may encounter are of course case specific, but general good practices when training such models are: train slowly, ensuring the losses remain balanced, and keep track of validation accuracies. Additionally, we found that single hidden layer neural networks work best for this use case."><img alt="" src="../../_images/sphx_glr_plot_adversarial_fine_tuning_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/plot_adversarial_fine_tuning.html#sphx-glr-auto-examples-plot-adversarial-fine-tuning-py"><span class="std std-ref">AdversarialFairness Fine Tuning</span></a></p>
+  <div class="sphx-glr-thumbnail-title">AdversarialFairness Fine Tuning</div>
+</div></div></section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.fit"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.get_metadata_routing"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.get_metadata_routing()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.get_params"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.get_params()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.partial_fit"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.partial_fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.predict"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.predict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.score"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.score()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_fit_request"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.set_fit_request()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_params"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.set_params()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_partial_fit_request"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.set_partial_fit_request()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fairlearn.adversarial.AdversarialFairnessClassifier.set_score_request"><code class="docutils literal notranslate"><span class="pre">AdversarialFairnessClassifier.set_score_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gallery-examples">Gallery examples</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item"><div class="edit-example-link">
+    
+</div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, Fairlearn contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
