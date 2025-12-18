@@ -586,7 +586,7 @@ as we have many columns that are not numerical in nature. To resolve this
 issue, we could for instance use one-hot encodings to preprocess categorical
 columns. Additionally, let’s preprocess the numeric columns to a
 standardized range. For these tasks, we can use functionality from
-scikit-learn (<a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.preprocessing.html#module-sklearn.preprocessing" title="(in scikit-learn v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code></a>). We also use an imputer
+scikit-learn (<a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.preprocessing.html#module-sklearn.preprocessing" title="(in scikit-learn v1.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code></a>). We also use an imputer
 to get rid of NaN’s:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.number" title="numpy.number" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class"><span class="n">number</span></a>
@@ -678,20 +678,21 @@ that we use <code class="docutils literal notranslate"><span class="pre">scikit-
   --sklearn-color-fitted-level-1: #d4ebff;
   --sklearn-color-fitted-level-2: #b3dbfd;
   --sklearn-color-fitted-level-3: cornflowerblue;
+}
 
+#sk-container-id-1.light {
   /* Specific color for light theme */
-  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-text-on-default-background: black;
+  --sklearn-color-background: white;
+  --sklearn-color-border-box: black;
   --sklearn-color-icon: #696969;
+}
 
-  @media (prefers-color-scheme: dark) {
-    /* Redefinition of color scheme for dark theme */
-    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-icon: #878787;
-  }
+#sk-container-id-1.dark {
+  --sklearn-color-text-on-default-background: white;
+  --sklearn-color-background: #111;
+  --sklearn-color-border-box: white;
+  --sklearn-color-icon: #878787;
 }
 
 #sk-container-id-1 {
@@ -817,8 +818,8 @@ clickable and can be expanded/collapsed.
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
-  align-items: start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   gap: 0.5em;
 }
 
@@ -925,7 +926,6 @@ clickable and can be expanded/collapsed.
 #sk-container-id-1 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
-  display: inline-block;
   line-height: 1.2em;
 }
 
@@ -971,7 +971,7 @@ a:visited.sk-estimator-doc-link {
   font-size: smaller;
   line-height: 1em;
   font-family: monospace;
-  background-color: var(--sklearn-color-background);
+  background-color: var(--sklearn-color-unfitted-level-0);
   border-radius: 1em;
   height: 1em;
   width: 1em;
@@ -979,16 +979,17 @@ a:visited.sk-estimator-doc-link {
   margin-left: 0.5em;
   text-align: center;
   /* unfitted */
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-3) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-3);
 }
 
 .sk-estimator-doc-link.fitted,
 a:link.sk-estimator-doc-link.fitted,
 a:visited.sk-estimator-doc-link.fitted {
   /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
+  background-color: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3) 1pt solid;
+  color: var(--sklearn-color-fitted-level-3);
 }
 
 /* On hover */
@@ -998,7 +999,8 @@ div.sk-label-container:hover .sk-estimator-doc-link:hover,
 .sk-estimator-doc-link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
+  border: var(--sklearn-color-fitted-level-0) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-0);
   text-decoration: none;
 }
 
@@ -1008,7 +1010,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 .sk-estimator-doc-link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
-  color: var(--sklearn-color-background);
+  border: var(--sklearn-color-fitted-level-0) 1pt solid;
+  color: var(--sklearn-color-fitted-level-0);
   text-decoration: none;
 }
 
@@ -1048,7 +1051,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   font-size: 1rem;
   line-height: 1em;
   font-family: monospace;
-  background-color: var(--sklearn-color-background);
+  background-color: var(--sklearn-color-unfitted-level-0);
   border-radius: 1rem;
   height: 1rem;
   width: 1rem;
@@ -1060,6 +1063,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 #sk-container-id-1 a.estimator_doc_link.fitted {
   /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
@@ -1077,10 +1081,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   background-color: var(--sklearn-color-fitted-level-3);
 }
 
+.estimator-table {
+    font-family: monospace;
+}
+
 .estimator-table summary {
     padding: .5rem;
-    font-family: monospace;
     cursor: pointer;
+}
+
+.estimator-table summary::marker {
+    font-size: 0.7rem;
 }
 
 .estimator-table details[open] {
@@ -1092,6 +1103,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 .estimator-table .parameters-table {
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-top: 0;
 }
 
 .estimator-table .parameters-table tr:nth-child(odd) {
@@ -1110,24 +1122,85 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     border: 1px solid rgba(106, 105, 104, 0.232);
 }
 
-.user-set td {
-    color:rgb(255, 94, 0);
+/*
+    `table td`is set in notebook with right text-align.
+    We need to overwrite it.
+*/
+.estimator-table table td.param {
     text-align: left;
+    position: relative;
+    padding: 0;
 }
 
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left !important;
+}
+
+.user-set td.value {
+    color:rgb(255, 94, 0);
+    background-color: transparent;
 }
 
 .default td {
     color: black;
-    text-align: left;
+    text-align: left !important;
 }
 
 .user-set td i,
 .default td i {
     color: black;
+}
+
+/*
+    Styles for parameter documentation links
+    We need styling for visited so jupyter doesn't overwrite it
+*/
+a.param-doc-link,
+a.param-doc-link:link,
+a.param-doc-link:visited {
+    text-decoration: underline dashed;
+    text-underline-offset: .3em;
+    color: inherit;
+    display: block;
+    padding: .5em;
+}
+
+/* "hack" to make the entire area of the cell containing the link clickable */
+a.param-doc-link::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+}
+
+.param-doc-description {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    padding: .5ex;
+    margin-left: 1.5em;
+    color: var(--sklearn-color-text);
+    box-shadow: .3em .3em .4em #999;
+    width: max-content;
+    text-align: left;
+    max-height: 10em;
+    overflow-y: auto;
+
+    /* unfitted */
+    background: var(--sklearn-color-unfitted-level-0);
+    border: thin solid var(--sklearn-color-unfitted-level-3);
+}
+
+/* Fitted state for parameter tooltips */
+.fitted .param-doc-description {
+    /* fitted */
+    background: var(--sklearn-color-fitted-level-0);
+    border: thin solid var(--sklearn-color-fitted-level-3);
+}
+
+.param-doc-link:hover .param-doc-description {
+    display: block;
 }
 
 .copy-paste-icon {
@@ -1146,14 +1219,14 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                                                    SimpleImputer()),
                                                                   (&#x27;normalizer&#x27;,
                                                                    StandardScaler())]),
-                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fabedf35c40&gt;),
+                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fe5c7f34350&gt;),
                                                  (&#x27;pipeline-2&#x27;,
                                                   Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                    SimpleImputer(strategy=&#x27;most_frequent&#x27;)),
                                                                   (&#x27;encoder&#x27;,
                                                                    OneHotEncoder(drop=&#x27;if_binary&#x27;,
                                                                                  sparse_output=False))]),
-                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fabec241a30&gt;)])),
+                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fe5ccbd9fd0&gt;)])),
                 (&#x27;adversarialfairnessclassifier&#x27;,
                  AdversarialFairnessClassifier(adversary_model=[3,
                                                                 &#x27;leaky_relu&#x27;],
@@ -1161,7 +1234,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                                predictor_model=[50,
                                                                 &#x27;leaky_relu&#x27;],
                                                progress_updates=0.5,
-                                               random_state=123))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+                                               random_state=123))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1173,7 +1246,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('steps',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">steps&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=steps,-list%20of%20tuples">
+            steps
+            <span class="param-doc-description">steps: list of tuples<br><br>List of (name of step, estimator) tuples that are to be chained in<br>sequential order. To be compatible with the scikit-learn API, all steps<br>must define `fit`. All non-last steps must also define `transform`. See<br>:ref:`Combining Estimators <combining_estimators>` for more details.</span>
+        </a>
+    </td>
             <td class="value">[(&#x27;columntransformer&#x27;, ...), (&#x27;adversarialfairnessclassifier&#x27;, ...)]</td>
         </tr>
 
@@ -1183,7 +1262,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('transform_input',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">transform_input&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=transform_input,-list%20of%20str%2C%20default%3DNone">
+            transform_input
+            <span class="param-doc-description">transform_input: list of str, default=None<br><br>The names of the :term:`metadata` parameters that should be transformed by the<br>pipeline before passing it to the step consuming it.<br><br>This enables transforming some input arguments to ``fit`` (other than ``X``)<br>to be transformed by the steps of the pipeline up to the step which requires<br>them. Requirement is defined via :ref:`metadata routing <metadata_routing>`.<br>For instance, this can be used to pass a validation set through the pipeline.<br><br>You can only set this if metadata routing is enabled, which you<br>can enable using ``sklearn.set_config(enable_metadata_routing=True)``.<br><br>.. versionadded:: 1.6</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1193,7 +1278,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('memory',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">memory&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=memory,-str%20or%20object%20with%20the%20joblib.Memory%20interface%2C%20default%3DNone">
+            memory
+            <span class="param-doc-description">memory: str or object with the joblib.Memory interface, default=None<br><br>Used to cache the fitted transformers of the pipeline. The last step<br>will never be cached, even if it is a transformer. By default, no<br>caching is performed. If a string is given, it is the path to the<br>caching directory. Enabling caching triggers a clone of the transformers<br>before fitting. Therefore, the transformer instance given to the<br>pipeline cannot be inspected directly. Use the attribute ``named_steps``<br>or ``steps`` to inspect estimators within the pipeline. Caching the<br>transformers is advantageous when fitting is time consuming. See<br>:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`<br>for an example on how to enable caching.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1203,7 +1294,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('verbose',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">verbose&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=verbose,-bool%2C%20default%3DFalse">
+            verbose
+            <span class="param-doc-description">verbose: bool, default=False<br><br>If True, the time elapsed while fitting each step will be printed as it<br>is completed.</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1211,7 +1308,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                 </table>
             </details>
         </div>
-    </div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__">
+    </div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1223,7 +1320,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('transformers',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">transformers&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=transformers,-list%20of%20tuples">
+            transformers
+            <span class="param-doc-description">transformers: list of tuples<br><br>List of (name, transformer, columns) tuples specifying the<br>transformer objects to be applied to subsets of the data.<br><br>name : str<br>    Like in Pipeline and FeatureUnion, this allows the transformer and<br>    its parameters to be set using ``set_params`` and searched in grid<br>    search.<br>transformer : {'drop', 'passthrough'} or estimator<br>    Estimator must support :term:`fit` and :term:`transform`.<br>    Special-cased strings 'drop' and 'passthrough' are accepted as<br>    well, to indicate to drop the columns or to pass them through<br>    untransformed, respectively.<br>columns :  str, array-like of str, int, array-like of int,                 array-like of bool, slice or callable<br>    Indexes the data on its second axis. Integers are interpreted as<br>    positional columns, while strings can reference DataFrame columns<br>    by name.  A scalar string or int should be used where<br>    ``transformer`` expects X to be a 1d array-like (vector),<br>    otherwise a 2d array will be passed to the transformer.<br>    A callable is passed the input data `X` and can return any of the<br>    above. To select multiple columns by name or dtype, you can use<br>    :obj:`make_column_selector`.</span>
+        </a>
+    </td>
             <td class="value">[(&#x27;pipeline-1&#x27;, ...), (&#x27;pipeline-2&#x27;, ...)]</td>
         </tr>
 
@@ -1233,7 +1336,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('remainder',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">remainder&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=remainder,-%7B%27drop%27%2C%20%27passthrough%27%7D%20or%20estimator%2C%20default%3D%27drop%27">
+            remainder
+            <span class="param-doc-description">remainder: {'drop', 'passthrough'} or estimator, default='drop'<br><br>By default, only the specified columns in `transformers` are<br>transformed and combined in the output, and the non-specified<br>columns are dropped. (default of ``'drop'``).<br>By specifying ``remainder='passthrough'``, all remaining columns that<br>were not specified in `transformers`, but present in the data passed<br>to `fit` will be automatically passed through. This subset of columns<br>is concatenated with the output of the transformers. For dataframes,<br>extra columns not seen during `fit` will be excluded from the output<br>of `transform`.<br>By setting ``remainder`` to be an estimator, the remaining<br>non-specified columns will use the ``remainder`` estimator. The<br>estimator must support :term:`fit` and :term:`transform`.<br>Note that using this feature requires that the DataFrame columns<br>input at :term:`fit` and :term:`transform` have identical order.</span>
+        </a>
+    </td>
             <td class="value">&#x27;drop&#x27;</td>
         </tr>
 
@@ -1243,7 +1352,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('sparse_threshold',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">sparse_threshold&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=sparse_threshold,-float%2C%20default%3D0.3">
+            sparse_threshold
+            <span class="param-doc-description">sparse_threshold: float, default=0.3<br><br>If the output of the different transformers contains sparse matrices,<br>these will be stacked as a sparse matrix if the overall density is<br>lower than this value. Use ``sparse_threshold=0`` to always return<br>dense.  When the transformed output consists of all dense data, the<br>stacked result will be dense, and this keyword will be ignored.</span>
+        </a>
+    </td>
             <td class="value">0.3</td>
         </tr>
 
@@ -1253,7 +1368,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('n_jobs',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">n_jobs&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=n_jobs,-int%2C%20default%3DNone">
+            n_jobs
+            <span class="param-doc-description">n_jobs: int, default=None<br><br>Number of jobs to run in parallel.<br>``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.<br>``-1`` means using all processors. See :term:`Glossary <n_jobs>`<br>for more details.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1263,7 +1384,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('transformer_weights',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">transformer_weights&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=transformer_weights,-dict%2C%20default%3DNone">
+            transformer_weights
+            <span class="param-doc-description">transformer_weights: dict, default=None<br><br>Multiplicative weights for features per transformer. The output of the<br>transformer is multiplied by these weights. Keys are transformer names,<br>values the weights.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1273,7 +1400,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('verbose',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">verbose&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=verbose,-bool%2C%20default%3DFalse">
+            verbose
+            <span class="param-doc-description">verbose: bool, default=False<br><br>If True, the time elapsed while fitting each transformer will be<br>printed as it is completed.</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1283,7 +1416,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('verbose_feature_names_out',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">verbose_feature_names_out&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=verbose_feature_names_out,-bool%2C%20str%20or%20Callable%5B%5Bstr%2C%20str%5D%2C%20str%5D%2C%20default%3DTrue">
+            verbose_feature_names_out
+            <span class="param-doc-description">verbose_feature_names_out: bool, str or Callable[[str, str], str], default=True<br><br>- If True, :meth:`ColumnTransformer.get_feature_names_out` will prefix<br>  all feature names with the name of the transformer that generated that<br>  feature. It is equivalent to setting<br>  `verbose_feature_names_out="{transformer_name}__{feature_name}"`.<br>- If False, :meth:`ColumnTransformer.get_feature_names_out` will not<br>  prefix any feature names and will error if feature names are not<br>  unique.<br>- If ``Callable[[str, str], str]``,<br>  :meth:`ColumnTransformer.get_feature_names_out` will rename all the features<br>  using the name of the transformer. The first argument of the callable is the<br>  transformer name and the second argument is the feature name. The returned<br>  string will be the new feature name.<br>- If ``str``, it must be a string ready for formatting. The given string will<br>  be formatted using two field names: ``transformer_name`` and ``feature_name``.<br>  e.g. ``"{feature_name}__{transformer_name}"``. See :meth:`str.format` method<br>  from the standard library for more info.<br><br>.. versionadded:: 1.0<br><br>.. versionchanged:: 1.6<br>    `verbose_feature_names_out` can be a callable or a string to be formatted.</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1293,7 +1432,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('force_int_remainder_cols',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">force_int_remainder_cols&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.compose.ColumnTransformer.html#:~:text=force_int_remainder_cols,-bool%2C%20default%3DFalse">
+            force_int_remainder_cols
+            <span class="param-doc-description">force_int_remainder_cols: bool, default=False<br><br>This parameter has no effect.<br><br>.. note::<br>    If you do not access the list of columns for the remainder columns<br>    in the `transformers_` fitted attribute, you do not need to set<br>    this parameter.<br><br>.. versionadded:: 1.5<br><br>.. versionchanged:: 1.7<br>   The default value for `force_int_remainder_cols` will change from<br>   `True` to `False` in version 1.7.<br><br>.. deprecated:: 1.7<br>   `force_int_remainder_cols` is deprecated and will be removed in 1.9.</span>
+        </a>
+    </td>
             <td class="value">&#x27;deprecated&#x27;</td>
         </tr>
 
@@ -1301,7 +1446,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                 </table>
             </details>
         </div>
-    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fabedf35c40&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__imputer__">
+    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fe5c7f34350&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__imputer__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1313,7 +1458,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('missing_values',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">missing_values&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=missing_values,-int%2C%20float%2C%20str%2C%20np.nan%2C%20None%20or%20pandas.NA%2C%20default%3Dnp.nan">
+            missing_values
+            <span class="param-doc-description">missing_values: int, float, str, np.nan, None or pandas.NA, default=np.nan<br><br>The placeholder for the missing values. All occurrences of<br>`missing_values` will be imputed. For pandas' dataframes with<br>nullable integer dtypes with missing values, `missing_values`<br>can be set to either `np.nan` or `pd.NA`.</span>
+        </a>
+    </td>
             <td class="value">nan</td>
         </tr>
 
@@ -1323,7 +1474,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('strategy',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">strategy&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=strategy,-str%20or%20Callable%2C%20default%3D%27mean%27">
+            strategy
+            <span class="param-doc-description">strategy: str or Callable, default='mean'<br><br>The imputation strategy.<br><br>- If "mean", then replace missing values using the mean along<br>  each column. Can only be used with numeric data.<br>- If "median", then replace missing values using the median along<br>  each column. Can only be used with numeric data.<br>- If "most_frequent", then replace missing using the most frequent<br>  value along each column. Can be used with strings or numeric data.<br>  If there is more than one such value, only the smallest is returned.<br>- If "constant", then replace missing values with fill_value. Can be<br>  used with strings or numeric data.<br>- If an instance of Callable, then replace missing values using the<br>  scalar statistic returned by running the callable over a dense 1d<br>  array containing non-missing values of each column.<br><br>.. versionadded:: 0.20<br>   strategy="constant" for fixed value imputation.<br><br>.. versionadded:: 1.5<br>   strategy=callable for custom value imputation.</span>
+        </a>
+    </td>
             <td class="value">&#x27;mean&#x27;</td>
         </tr>
 
@@ -1333,7 +1490,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('fill_value',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">fill_value&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=fill_value,-str%20or%20numerical%20value%2C%20default%3DNone">
+            fill_value
+            <span class="param-doc-description">fill_value: str or numerical value, default=None<br><br>When strategy == "constant", `fill_value` is used to replace all<br>occurrences of missing_values. For string or object data types,<br>`fill_value` must be a string.<br>If `None`, `fill_value` will be 0 when imputing numerical<br>data and "missing_value" for strings or object data types.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1343,7 +1506,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">copy&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=copy,-bool%2C%20default%3DTrue">
+            copy
+            <span class="param-doc-description">copy: bool, default=True<br><br>If True, a copy of X will be created. If False, imputation will<br>be done in-place whenever possible. Note that, in the following cases,<br>a new copy will always be made, even if `copy=False`:<br><br>- If `X` is not an array of floating values;<br>- If `X` is encoded as a CSR matrix;<br>- If `add_indicator=True`.</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1353,7 +1522,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('add_indicator',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">add_indicator&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=add_indicator,-bool%2C%20default%3DFalse">
+            add_indicator
+            <span class="param-doc-description">add_indicator: bool, default=False<br><br>If True, a :class:`MissingIndicator` transform will stack onto output<br>of the imputer's transform. This allows a predictive estimator<br>to account for missingness despite imputation. If a feature has no<br>missing values at fit/train time, the feature won't appear on<br>the missing indicator even if there are missing values at<br>transform/test time.</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1363,7 +1538,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('keep_empty_features',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">keep_empty_features&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=keep_empty_features,-bool%2C%20default%3DFalse">
+            keep_empty_features
+            <span class="param-doc-description">keep_empty_features: bool, default=False<br><br>If True, features that consist exclusively of missing values when<br>`fit` is called are returned in results when `transform` is called.<br>The imputed value is always `0` except when `strategy="constant"`<br>in which case `fill_value` will be used instead.<br><br>.. versionadded:: 1.2</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1371,7 +1552,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                 </table>
             </details>
         </div>
-    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__normalizer__">
+    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-1__normalizer__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1383,7 +1564,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">copy&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=copy,-bool%2C%20default%3DTrue">
+            copy
+            <span class="param-doc-description">copy: bool, default=True<br><br>If False, try to avoid a copy and do inplace scaling instead.<br>This is not guaranteed to always work inplace; e.g. if the data is<br>not a NumPy array or scipy.sparse CSR matrix, a copy may still be<br>returned.</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1393,7 +1580,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('with_mean',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">with_mean&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=with_mean,-bool%2C%20default%3DTrue">
+            with_mean
+            <span class="param-doc-description">with_mean: bool, default=True<br><br>If True, center the data before scaling.<br>This does not work (and will raise an exception) when attempted on<br>sparse matrices, because centering them entails building a dense<br>matrix which in common use cases is likely to be too large to fit in<br>memory.</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1403,7 +1596,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('with_std',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">with_std&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=with_std,-bool%2C%20default%3DTrue">
+            with_std
+            <span class="param-doc-description">with_std: bool, default=True<br><br>If True, scale the data to unit variance (or equivalently,<br>unit standard deviation).</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1411,7 +1610,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                 </table>
             </details>
         </div>
-    </div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fabec241a30&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__imputer__">
+    </div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fe5ccbd9fd0&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__imputer__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1423,7 +1622,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('missing_values',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">missing_values&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=missing_values,-int%2C%20float%2C%20str%2C%20np.nan%2C%20None%20or%20pandas.NA%2C%20default%3Dnp.nan">
+            missing_values
+            <span class="param-doc-description">missing_values: int, float, str, np.nan, None or pandas.NA, default=np.nan<br><br>The placeholder for the missing values. All occurrences of<br>`missing_values` will be imputed. For pandas' dataframes with<br>nullable integer dtypes with missing values, `missing_values`<br>can be set to either `np.nan` or `pd.NA`.</span>
+        </a>
+    </td>
             <td class="value">nan</td>
         </tr>
 
@@ -1433,7 +1638,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('strategy',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">strategy&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=strategy,-str%20or%20Callable%2C%20default%3D%27mean%27">
+            strategy
+            <span class="param-doc-description">strategy: str or Callable, default='mean'<br><br>The imputation strategy.<br><br>- If "mean", then replace missing values using the mean along<br>  each column. Can only be used with numeric data.<br>- If "median", then replace missing values using the median along<br>  each column. Can only be used with numeric data.<br>- If "most_frequent", then replace missing using the most frequent<br>  value along each column. Can be used with strings or numeric data.<br>  If there is more than one such value, only the smallest is returned.<br>- If "constant", then replace missing values with fill_value. Can be<br>  used with strings or numeric data.<br>- If an instance of Callable, then replace missing values using the<br>  scalar statistic returned by running the callable over a dense 1d<br>  array containing non-missing values of each column.<br><br>.. versionadded:: 0.20<br>   strategy="constant" for fixed value imputation.<br><br>.. versionadded:: 1.5<br>   strategy=callable for custom value imputation.</span>
+        </a>
+    </td>
             <td class="value">&#x27;most_frequent&#x27;</td>
         </tr>
 
@@ -1443,7 +1654,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('fill_value',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">fill_value&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=fill_value,-str%20or%20numerical%20value%2C%20default%3DNone">
+            fill_value
+            <span class="param-doc-description">fill_value: str or numerical value, default=None<br><br>When strategy == "constant", `fill_value` is used to replace all<br>occurrences of missing_values. For string or object data types,<br>`fill_value` must be a string.<br>If `None`, `fill_value` will be 0 when imputing numerical<br>data and "missing_value" for strings or object data types.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1453,7 +1670,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">copy&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=copy,-bool%2C%20default%3DTrue">
+            copy
+            <span class="param-doc-description">copy: bool, default=True<br><br>If True, a copy of X will be created. If False, imputation will<br>be done in-place whenever possible. Note that, in the following cases,<br>a new copy will always be made, even if `copy=False`:<br><br>- If `X` is not an array of floating values;<br>- If `X` is encoded as a CSR matrix;<br>- If `add_indicator=True`.</span>
+        </a>
+    </td>
             <td class="value">True</td>
         </tr>
 
@@ -1463,7 +1686,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('add_indicator',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">add_indicator&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=add_indicator,-bool%2C%20default%3DFalse">
+            add_indicator
+            <span class="param-doc-description">add_indicator: bool, default=False<br><br>If True, a :class:`MissingIndicator` transform will stack onto output<br>of the imputer's transform. This allows a predictive estimator<br>to account for missingness despite imputation. If a feature has no<br>missing values at fit/train time, the feature won't appear on<br>the missing indicator even if there are missing values at<br>transform/test time.</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1473,7 +1702,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('keep_empty_features',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">keep_empty_features&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.impute.SimpleImputer.html#:~:text=keep_empty_features,-bool%2C%20default%3DFalse">
+            keep_empty_features
+            <span class="param-doc-description">keep_empty_features: bool, default=False<br><br>If True, features that consist exclusively of missing values when<br>`fit` is called are returned in results when `transform` is called.<br>The imputed value is always `0` except when `strategy="constant"`<br>in which case `fill_value` will be used instead.<br><br>.. versionadded:: 1.2</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1481,7 +1716,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                 </table>
             </details>
         </div>
-    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__encoder__">
+    </div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="columntransformer__pipeline-2__encoder__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1493,7 +1728,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('categories',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">categories&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=categories,-%27auto%27%20or%20a%20list%20of%20array-like%2C%20default%3D%27auto%27">
+            categories
+            <span class="param-doc-description">categories: 'auto' or a list of array-like, default='auto'<br><br>Categories (unique values) per feature:<br><br>- 'auto' : Determine categories automatically from the training data.<br>- list : ``categories[i]`` holds the categories expected in the ith<br>  column. The passed categories should not mix strings and numeric<br>  values within a single feature, and should be sorted in case of<br>  numeric values.<br><br>The used categories can be found in the ``categories_`` attribute.<br><br>.. versionadded:: 0.20</span>
+        </a>
+    </td>
             <td class="value">&#x27;auto&#x27;</td>
         </tr>
 
@@ -1503,7 +1744,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('drop',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">drop&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=drop,-%7B%27first%27%2C%20%27if_binary%27%7D%20or%20an%20array-like%20of%20shape%20%28n_features%2C%29%2C%20%20%20%20%20%20%20%20%20%20%20%20%20default%3DNone">
+            drop
+            <span class="param-doc-description">drop: {'first', 'if_binary'} or an array-like of shape (n_features,),             default=None<br><br>Specifies a methodology to use to drop one of the categories per<br>feature. This is useful in situations where perfectly collinear<br>features cause problems, such as when feeding the resulting data<br>into an unregularized linear regression model.<br><br>However, dropping one category breaks the symmetry of the original<br>representation and can therefore induce a bias in downstream models,<br>for instance for penalized linear classification or regression models.<br><br>- None : retain all features (the default).<br>- 'first' : drop the first category in each feature. If only one<br>  category is present, the feature will be dropped entirely.<br>- 'if_binary' : drop the first category in each feature with two<br>  categories. Features with 1 or more than 2 categories are<br>  left intact.<br>- array : ``drop[i]`` is the category in feature ``X[:, i]`` that<br>  should be dropped.<br><br>When `max_categories` or `min_frequency` is configured to group<br>infrequent categories, the dropping behavior is handled after the<br>grouping.<br><br>.. versionadded:: 0.21<br>   The parameter `drop` was added in 0.21.<br><br>.. versionchanged:: 0.23<br>   The option `drop='if_binary'` was added in 0.23.<br><br>.. versionchanged:: 1.1<br>    Support for dropping infrequent categories.</span>
+        </a>
+    </td>
             <td class="value">&#x27;if_binary&#x27;</td>
         </tr>
 
@@ -1513,7 +1760,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('sparse_output',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">sparse_output&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=sparse_output,-bool%2C%20default%3DTrue">
+            sparse_output
+            <span class="param-doc-description">sparse_output: bool, default=True<br><br>When ``True``, it returns a :class:`scipy.sparse.csr_matrix`,<br>i.e. a sparse matrix in "Compressed Sparse Row" (CSR) format.<br><br>.. versionadded:: 1.2<br>   `sparse` was renamed to `sparse_output`</span>
+        </a>
+    </td>
             <td class="value">False</td>
         </tr>
 
@@ -1523,7 +1776,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('dtype',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">dtype&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=dtype,-number%20type%2C%20default%3Dnp.float64">
+            dtype
+            <span class="param-doc-description">dtype: number type, default=np.float64<br><br>Desired dtype of output.</span>
+        </a>
+    </td>
             <td class="value">&lt;class &#x27;numpy.float64&#x27;&gt;</td>
         </tr>
 
@@ -1533,7 +1792,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('handle_unknown',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">handle_unknown&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=handle_unknown,-%7B%27error%27%2C%20%27ignore%27%2C%20%27infrequent_if_exist%27%2C%20%27warn%27%7D%2C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20default%3D%27error%27">
+            handle_unknown
+            <span class="param-doc-description">handle_unknown: {'error', 'ignore', 'infrequent_if_exist', 'warn'},                      default='error'<br><br>Specifies the way unknown categories are handled during :meth:`transform`.<br><br>- 'error' : Raise an error if an unknown category is present during transform.<br>- 'ignore' : When an unknown category is encountered during<br>  transform, the resulting one-hot encoded columns for this feature<br>  will be all zeros. In the inverse transform, an unknown category<br>  will be denoted as None.<br>- 'infrequent_if_exist' : When an unknown category is encountered<br>  during transform, the resulting one-hot encoded columns for this<br>  feature will map to the infrequent category if it exists. The<br>  infrequent category will be mapped to the last position in the<br>  encoding. During inverse transform, an unknown category will be<br>  mapped to the category denoted `'infrequent'` if it exists. If the<br>  `'infrequent'` category does not exist, then :meth:`transform` and<br>  :meth:`inverse_transform` will handle an unknown category as with<br>  `handle_unknown='ignore'`. Infrequent categories exist based on<br>  `min_frequency` and `max_categories`. Read more in the<br>  :ref:`User Guide <encoder_infrequent_categories>`.<br>- 'warn' : When an unknown category is encountered during transform<br>  a warning is issued, and the encoding then proceeds as described for<br>  `handle_unknown="infrequent_if_exist"`.<br><br>.. versionchanged:: 1.1<br>    `'infrequent_if_exist'` was added to automatically handle unknown<br>    categories and infrequent categories.<br><br>.. versionadded:: 1.6<br>   The option `"warn"` was added in 1.6.</span>
+        </a>
+    </td>
             <td class="value">&#x27;error&#x27;</td>
         </tr>
 
@@ -1543,7 +1808,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('min_frequency',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">min_frequency&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=min_frequency,-int%20or%20float%2C%20default%3DNone">
+            min_frequency
+            <span class="param-doc-description">min_frequency: int or float, default=None<br><br>Specifies the minimum frequency below which a category will be<br>considered infrequent.<br><br>- If `int`, categories with a smaller cardinality will be considered<br>  infrequent.<br><br>- If `float`, categories with a smaller cardinality than<br>  `min_frequency * n_samples`  will be considered infrequent.<br><br>.. versionadded:: 1.1<br>    Read more in the :ref:`User Guide <encoder_infrequent_categories>`.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1553,7 +1824,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('max_categories',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">max_categories&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=max_categories,-int%2C%20default%3DNone">
+            max_categories
+            <span class="param-doc-description">max_categories: int, default=None<br><br>Specifies an upper limit to the number of output features for each input<br>feature when considering infrequent categories. If there are infrequent<br>categories, `max_categories` includes the category representing the<br>infrequent categories along with the frequent categories. If `None`,<br>there is no limit to the number of output features.<br><br>.. versionadded:: 1.1<br>    Read more in the :ref:`User Guide <encoder_infrequent_categories>`.</span>
+        </a>
+    </td>
             <td class="value">None</td>
         </tr>
 
@@ -1563,7 +1840,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('feature_name_combiner',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">feature_name_combiner&nbsp;</td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.OneHotEncoder.html#:~:text=feature_name_combiner,-%22concat%22%20or%20callable%2C%20default%3D%22concat%22">
+            feature_name_combiner
+            <span class="param-doc-description">feature_name_combiner: "concat" or callable, default="concat"<br><br>Callable with signature `def callable(input_feature, category)` that returns a<br>string. This is used to create feature names to be returned by<br>:meth:`get_feature_names_out`.<br><br>`"concat"` concatenates encoded feature name and category with<br>`feature + "_" + str(category)`.E.g. feature X with values 1, 6, 7 create<br>feature names `X_1, X_6, X_7`.<br><br>.. versionadded:: 1.3</span>
+        </a>
+    </td>
             <td class="value">&#x27;concat&#x27;</td>
         </tr>
 
@@ -1583,7 +1866,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('backend',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">backend&nbsp;</td>
+            <td class="param">backend</td>
             <td class="value">&#x27;torch&#x27;</td>
         </tr>
 
@@ -1593,7 +1876,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('predictor_model',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">predictor_model&nbsp;</td>
+            <td class="param">predictor_model</td>
             <td class="value">[50, &#x27;leaky_relu&#x27;]</td>
         </tr>
 
@@ -1603,7 +1886,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('adversary_model',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">adversary_model&nbsp;</td>
+            <td class="param">adversary_model</td>
             <td class="value">[3, &#x27;leaky_relu&#x27;]</td>
         </tr>
 
@@ -1613,7 +1896,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('predictor_optimizer',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">predictor_optimizer&nbsp;</td>
+            <td class="param">predictor_optimizer</td>
             <td class="value">&#x27;Adam&#x27;</td>
         </tr>
 
@@ -1623,7 +1906,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('adversary_optimizer',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">adversary_optimizer&nbsp;</td>
+            <td class="param">adversary_optimizer</td>
             <td class="value">&#x27;Adam&#x27;</td>
         </tr>
 
@@ -1633,7 +1916,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('constraints',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">constraints&nbsp;</td>
+            <td class="param">constraints</td>
             <td class="value">&#x27;demographic_parity&#x27;</td>
         </tr>
 
@@ -1643,7 +1926,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('learning_rate',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">learning_rate&nbsp;</td>
+            <td class="param">learning_rate</td>
             <td class="value">0.001</td>
         </tr>
 
@@ -1653,7 +1936,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('alpha',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">alpha&nbsp;</td>
+            <td class="param">alpha</td>
             <td class="value">1.0</td>
         </tr>
 
@@ -1663,7 +1946,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('epochs',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">epochs&nbsp;</td>
+            <td class="param">epochs</td>
             <td class="value">1</td>
         </tr>
 
@@ -1673,7 +1956,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('batch_size',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">batch_size&nbsp;</td>
+            <td class="param">batch_size</td>
             <td class="value">256</td>
         </tr>
 
@@ -1683,7 +1966,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('shuffle',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">shuffle&nbsp;</td>
+            <td class="param">shuffle</td>
             <td class="value">False</td>
         </tr>
 
@@ -1693,7 +1976,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('progress_updates',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">progress_updates&nbsp;</td>
+            <td class="param">progress_updates</td>
             <td class="value">0.5</td>
         </tr>
 
@@ -1703,7 +1986,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('skip_validation',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">skip_validation&nbsp;</td>
+            <td class="param">skip_validation</td>
             <td class="value">False</td>
         </tr>
 
@@ -1713,7 +1996,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('callbacks',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">callbacks&nbsp;</td>
+            <td class="param">callbacks</td>
             <td class="value">None</td>
         </tr>
 
@@ -1723,7 +2006,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('cuda',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">cuda&nbsp;</td>
+            <td class="param">cuda</td>
             <td class="value">None</td>
         </tr>
 
@@ -1733,7 +2016,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('warm_start',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">warm_start&nbsp;</td>
+            <td class="param">warm_start</td>
             <td class="value">False</td>
         </tr>
 
@@ -1743,7 +2026,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  onclick="copyToClipboard('random_state',
                           this.parentElement.nextElementSibling)"
             ></i></td>
-            <td class="param">random_state&nbsp;</td>
+            <td class="param">random_state</td>
             <td class="value">123</td>
         </tr>
 
@@ -1785,15 +2068,88 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     return false;
 }
 
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+document.querySelectorAll('.copy-paste-icon').forEach(function(element) {
     const toggleableContent = element.closest('.sk-toggleable__content');
     const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const paramName = element.parentElement.nextElementSibling
+        .textContent.trim().split(' ')[0];
     const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
 
     element.setAttribute('title', fullParamName);
 });
-</script></body>
+
+
+/**
+ * Adapted from Skrub
+ * https://github.com/skrub-data/skrub/blob/403466d1d5d4dc76a7ef569b3f8228db59a31dc3/skrub/_reporting/_data/templates/report.js#L789
+ * @returns "light" or "dark"
+ */
+function detectTheme(element) {
+    const body = document.querySelector('body');
+
+    // Check VSCode theme
+    const themeKindAttr = body.getAttribute('data-vscode-theme-kind');
+    const themeNameAttr = body.getAttribute('data-vscode-theme-name');
+
+    if (themeKindAttr && themeNameAttr) {
+        const themeKind = themeKindAttr.toLowerCase();
+        const themeName = themeNameAttr.toLowerCase();
+
+        if (themeKind.includes("dark") || themeName.includes("dark")) {
+            return "dark";
+        }
+        if (themeKind.includes("light") || themeName.includes("light")) {
+            return "light";
+        }
+    }
+
+    // Check Jupyter theme
+    if (body.getAttribute('data-jp-theme-light') === 'false') {
+        return 'dark';
+    } else if (body.getAttribute('data-jp-theme-light') === 'true') {
+        return 'light';
+    }
+
+    // Guess based on a parent element's color
+    const color = window.getComputedStyle(element.parentNode, null).getPropertyValue('color');
+    const match = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)\s*$/i);
+    if (match) {
+        const [r, g, b] = [
+            parseFloat(match[1]),
+            parseFloat(match[2]),
+            parseFloat(match[3])
+        ];
+
+        // https://en.wikipedia.org/wiki/HSL_and_HSV#Lightness
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        if (luma > 180) {
+            // If the text is very bright we have a dark theme
+            return 'dark';
+        }
+        if (luma < 75) {
+            // If the text is very dark we have a light theme
+            return 'light';
+        }
+        // Otherwise fall back to the next heuristic.
+    }
+
+    // Fallback to system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+
+function forceTheme(elementId) {
+    const estimatorElement = document.querySelector(`#${elementId}`);
+    if (estimatorElement === null) {
+        console.error(`Element with id ${elementId} not found.`);
+    } else {
+        const theme = detectTheme(estimatorElement);
+        estimatorElement.classList.add(theme);
+    }
+}
+
+forceTheme('sk-container-id-1');</script></body>
 </div>
 <br />
 <br /><p>Finally, we evaluate the predictions. In particular, we trained the
@@ -1838,8 +2194,8 @@ validation, and early stopping to improve adversarial training.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">sklearn</span><span class="o">.</span><span class="n">set_config</span></a><span class="p">(</span><span class="n">enable_metadata_routing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 8.280 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  733 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.605 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  726 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-adversarial-basics-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_adversarial_basics.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" width="150px" /></a>

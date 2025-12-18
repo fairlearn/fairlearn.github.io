@@ -597,7 +597,7 @@ individuals who defaulted on their loan.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7fac6b9db5c0>
+    <matplotlib.legend.Legend object at 0x7fe5d9ba69c0>
 
 
 
@@ -716,20 +716,21 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       --sklearn-color-fitted-level-1: #d4ebff;
       --sklearn-color-fitted-level-2: #b3dbfd;
       --sklearn-color-fitted-level-3: cornflowerblue;
+    }
 
+    #sk-container-id-3.light {
       /* Specific color for light theme */
-      --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-      --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-      --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-text-on-default-background: black;
+      --sklearn-color-background: white;
+      --sklearn-color-border-box: black;
       --sklearn-color-icon: #696969;
+    }
 
-      @media (prefers-color-scheme: dark) {
-        /* Redefinition of color scheme for dark theme */
-        --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-        --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-        --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-        --sklearn-color-icon: #878787;
-      }
+    #sk-container-id-3.dark {
+      --sklearn-color-text-on-default-background: white;
+      --sklearn-color-background: #111;
+      --sklearn-color-border-box: white;
+      --sklearn-color-icon: #878787;
     }
 
     #sk-container-id-3 {
@@ -855,8 +856,8 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       padding: 0.5em;
       box-sizing: border-box;
       text-align: center;
-      align-items: start;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
       gap: 0.5em;
     }
 
@@ -963,7 +964,6 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     #sk-container-id-3 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
-      display: inline-block;
       line-height: 1.2em;
     }
 
@@ -1009,7 +1009,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       font-size: smaller;
       line-height: 1em;
       font-family: monospace;
-      background-color: var(--sklearn-color-background);
+      background-color: var(--sklearn-color-unfitted-level-0);
       border-radius: 1em;
       height: 1em;
       width: 1em;
@@ -1017,16 +1017,17 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       margin-left: 0.5em;
       text-align: center;
       /* unfitted */
-      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-      color: var(--sklearn-color-unfitted-level-1);
+      border: var(--sklearn-color-unfitted-level-3) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-3);
     }
 
     .sk-estimator-doc-link.fitted,
     a:link.sk-estimator-doc-link.fitted,
     a:visited.sk-estimator-doc-link.fitted {
       /* fitted */
-      border: var(--sklearn-color-fitted-level-1) 1pt solid;
-      color: var(--sklearn-color-fitted-level-1);
+      background-color: var(--sklearn-color-fitted-level-0);
+      border: var(--sklearn-color-fitted-level-3) 1pt solid;
+      color: var(--sklearn-color-fitted-level-3);
     }
 
     /* On hover */
@@ -1036,7 +1037,8 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     .sk-estimator-doc-link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
-      color: var(--sklearn-color-background);
+      border: var(--sklearn-color-fitted-level-0) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-0);
       text-decoration: none;
     }
 
@@ -1046,7 +1048,8 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     .sk-estimator-doc-link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
-      color: var(--sklearn-color-background);
+      border: var(--sklearn-color-fitted-level-0) 1pt solid;
+      color: var(--sklearn-color-fitted-level-0);
       text-decoration: none;
     }
 
@@ -1086,7 +1089,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       font-size: 1rem;
       line-height: 1em;
       font-family: monospace;
-      background-color: var(--sklearn-color-background);
+      background-color: var(--sklearn-color-unfitted-level-0);
       border-radius: 1rem;
       height: 1rem;
       width: 1rem;
@@ -1098,6 +1101,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
 
     #sk-container-id-3 a.estimator_doc_link.fitted {
       /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
@@ -1115,10 +1119,17 @@ When we evaluate the model, we will use the unbalanced testing dataset.
       background-color: var(--sklearn-color-fitted-level-3);
     }
 
+    .estimator-table {
+        font-family: monospace;
+    }
+
     .estimator-table summary {
         padding: .5rem;
-        font-family: monospace;
         cursor: pointer;
+    }
+
+    .estimator-table summary::marker {
+        font-size: 0.7rem;
     }
 
     .estimator-table details[open] {
@@ -1130,6 +1141,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
     .estimator-table .parameters-table {
         margin-left: auto !important;
         margin-right: auto !important;
+        margin-top: 0;
     }
 
     .estimator-table .parameters-table tr:nth-child(odd) {
@@ -1148,24 +1160,85 @@ When we evaluate the model, we will use the unbalanced testing dataset.
         border: 1px solid rgba(106, 105, 104, 0.232);
     }
 
-    .user-set td {
-        color:rgb(255, 94, 0);
+    /*
+        `table td`is set in notebook with right text-align.
+        We need to overwrite it.
+    */
+    .estimator-table table td.param {
         text-align: left;
+        position: relative;
+        padding: 0;
     }
 
-    .user-set td.value pre {
-        color:rgb(255, 94, 0) !important;
-        background-color: transparent !important;
+    .user-set td {
+        color:rgb(255, 94, 0);
+        text-align: left !important;
+    }
+
+    .user-set td.value {
+        color:rgb(255, 94, 0);
+        background-color: transparent;
     }
 
     .default td {
         color: black;
-        text-align: left;
+        text-align: left !important;
     }
 
     .user-set td i,
     .default td i {
         color: black;
+    }
+
+    /*
+        Styles for parameter documentation links
+        We need styling for visited so jupyter doesn't overwrite it
+    */
+    a.param-doc-link,
+    a.param-doc-link:link,
+    a.param-doc-link:visited {
+        text-decoration: underline dashed;
+        text-underline-offset: .3em;
+        color: inherit;
+        display: block;
+        padding: .5em;
+    }
+
+    /* "hack" to make the entire area of the cell containing the link clickable */
+    a.param-doc-link::before {
+        position: absolute;
+        content: "";
+        inset: 0;
+    }
+
+    .param-doc-description {
+        display: none;
+        position: absolute;
+        z-index: 9999;
+        left: 0;
+        padding: .5ex;
+        margin-left: 1.5em;
+        color: var(--sklearn-color-text);
+        box-shadow: .3em .3em .4em #999;
+        width: max-content;
+        text-align: left;
+        max-height: 10em;
+        overflow-y: auto;
+
+        /* unfitted */
+        background: var(--sklearn-color-unfitted-level-0);
+        border: thin solid var(--sklearn-color-unfitted-level-3);
+    }
+
+    /* Fitted state for parameter tooltips */
+    .fitted .param-doc-description {
+        /* fitted */
+        background: var(--sklearn-color-fitted-level-0);
+        border: thin solid var(--sklearn-color-fitted-level-3);
+    }
+
+    .param-doc-link:hover .param-doc-description {
+        display: block;
     }
 
     .copy-paste-icon {
@@ -1182,7 +1255,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                     (&#x27;classifier&#x27;,
                      LGBMClassifier(learning_rate=0.03, max_depth=3, metric=&#x27;auc&#x27;,
                                     n_jobs=1, num_leaves=10, objective=&#x27;binary&#x27;,
-                                    random_state=1234, verbose=-1))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+                                    random_state=1234, verbose=-1))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
             <div class="estimator-table">
                 <details>
                     <summary>Parameters</summary>
@@ -1194,7 +1267,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('steps',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">steps&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=steps,-list%20of%20tuples">
+                steps
+                <span class="param-doc-description">steps: list of tuples<br><br>List of (name of step, estimator) tuples that are to be chained in<br>sequential order. To be compatible with the scikit-learn API, all steps<br>must define `fit`. All non-last steps must also define `transform`. See<br>:ref:`Combining Estimators <combining_estimators>` for more details.</span>
+            </a>
+        </td>
                 <td class="value">[(&#x27;preprocessing&#x27;, ...), (&#x27;classifier&#x27;, ...)]</td>
             </tr>
     
@@ -1204,7 +1283,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('transform_input',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">transform_input&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=transform_input,-list%20of%20str%2C%20default%3DNone">
+                transform_input
+                <span class="param-doc-description">transform_input: list of str, default=None<br><br>The names of the :term:`metadata` parameters that should be transformed by the<br>pipeline before passing it to the step consuming it.<br><br>This enables transforming some input arguments to ``fit`` (other than ``X``)<br>to be transformed by the steps of the pipeline up to the step which requires<br>them. Requirement is defined via :ref:`metadata routing <metadata_routing>`.<br>For instance, this can be used to pass a validation set through the pipeline.<br><br>You can only set this if metadata routing is enabled, which you<br>can enable using ``sklearn.set_config(enable_metadata_routing=True)``.<br><br>.. versionadded:: 1.6</span>
+            </a>
+        </td>
                 <td class="value">None</td>
             </tr>
     
@@ -1214,7 +1299,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('memory',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">memory&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=memory,-str%20or%20object%20with%20the%20joblib.Memory%20interface%2C%20default%3DNone">
+                memory
+                <span class="param-doc-description">memory: str or object with the joblib.Memory interface, default=None<br><br>Used to cache the fitted transformers of the pipeline. The last step<br>will never be cached, even if it is a transformer. By default, no<br>caching is performed. If a string is given, it is the path to the<br>caching directory. Enabling caching triggers a clone of the transformers<br>before fitting. Therefore, the transformer instance given to the<br>pipeline cannot be inspected directly. Use the attribute ``named_steps``<br>or ``steps`` to inspect estimators within the pipeline. Caching the<br>transformers is advantageous when fitting is time consuming. See<br>:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`<br>for an example on how to enable caching.</span>
+            </a>
+        </td>
                 <td class="value">None</td>
             </tr>
     
@@ -1224,7 +1315,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('verbose',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">verbose&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.pipeline.Pipeline.html#:~:text=verbose,-bool%2C%20default%3DFalse">
+                verbose
+                <span class="param-doc-description">verbose: bool, default=False<br><br>If True, the time elapsed while fitting each step will be printed as it<br>is completed.</span>
+            </a>
+        </td>
                 <td class="value">False</td>
             </tr>
     
@@ -1232,7 +1329,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                     </table>
                 </details>
             </div>
-        </div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="preprocessing__">
+        </div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="preprocessing__">
             <div class="estimator-table">
                 <details>
                     <summary>Parameters</summary>
@@ -1244,7 +1341,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('copy',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">copy&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=copy,-bool%2C%20default%3DTrue">
+                copy
+                <span class="param-doc-description">copy: bool, default=True<br><br>If False, try to avoid a copy and do inplace scaling instead.<br>This is not guaranteed to always work inplace; e.g. if the data is<br>not a NumPy array or scipy.sparse CSR matrix, a copy may still be<br>returned.</span>
+            </a>
+        </td>
                 <td class="value">True</td>
             </tr>
     
@@ -1254,7 +1357,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('with_mean',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">with_mean&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=with_mean,-bool%2C%20default%3DTrue">
+                with_mean
+                <span class="param-doc-description">with_mean: bool, default=True<br><br>If True, center the data before scaling.<br>This does not work (and will raise an exception) when attempted on<br>sparse matrices, because centering them entails building a dense<br>matrix which in common use cases is likely to be too large to fit in<br>memory.</span>
+            </a>
+        </td>
                 <td class="value">True</td>
             </tr>
     
@@ -1264,7 +1373,13 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('with_std',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">with_std&nbsp;</td>
+                <td class="param">
+            <a class="param-doc-link"
+                rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.preprocessing.StandardScaler.html#:~:text=with_std,-bool%2C%20default%3DTrue">
+                with_std
+                <span class="param-doc-description">with_std: bool, default=True<br><br>If True, scale the data to unit variance (or equivalently,<br>unit standard deviation).</span>
+            </a>
+        </td>
                 <td class="value">True</td>
             </tr>
     
@@ -1284,7 +1399,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('boosting_type',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">boosting_type&nbsp;</td>
+                <td class="param">boosting_type</td>
                 <td class="value">&#x27;gbdt&#x27;</td>
             </tr>
     
@@ -1294,7 +1409,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('num_leaves',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">num_leaves&nbsp;</td>
+                <td class="param">num_leaves</td>
                 <td class="value">10</td>
             </tr>
     
@@ -1304,7 +1419,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('max_depth',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">max_depth&nbsp;</td>
+                <td class="param">max_depth</td>
                 <td class="value">3</td>
             </tr>
     
@@ -1314,7 +1429,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('learning_rate',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">learning_rate&nbsp;</td>
+                <td class="param">learning_rate</td>
                 <td class="value">0.03</td>
             </tr>
     
@@ -1324,7 +1439,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('n_estimators',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">n_estimators&nbsp;</td>
+                <td class="param">n_estimators</td>
                 <td class="value">100</td>
             </tr>
     
@@ -1334,7 +1449,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('subsample_for_bin',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">subsample_for_bin&nbsp;</td>
+                <td class="param">subsample_for_bin</td>
                 <td class="value">200000</td>
             </tr>
     
@@ -1344,7 +1459,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('objective',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">objective&nbsp;</td>
+                <td class="param">objective</td>
                 <td class="value">&#x27;binary&#x27;</td>
             </tr>
     
@@ -1354,7 +1469,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('class_weight',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">class_weight&nbsp;</td>
+                <td class="param">class_weight</td>
                 <td class="value">None</td>
             </tr>
     
@@ -1364,7 +1479,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('min_split_gain',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">min_split_gain&nbsp;</td>
+                <td class="param">min_split_gain</td>
                 <td class="value">0.0</td>
             </tr>
     
@@ -1374,7 +1489,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('min_child_weight',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">min_child_weight&nbsp;</td>
+                <td class="param">min_child_weight</td>
                 <td class="value">0.001</td>
             </tr>
     
@@ -1384,7 +1499,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('min_child_samples',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">min_child_samples&nbsp;</td>
+                <td class="param">min_child_samples</td>
                 <td class="value">20</td>
             </tr>
     
@@ -1394,7 +1509,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('subsample',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">subsample&nbsp;</td>
+                <td class="param">subsample</td>
                 <td class="value">1.0</td>
             </tr>
     
@@ -1404,7 +1519,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('subsample_freq',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">subsample_freq&nbsp;</td>
+                <td class="param">subsample_freq</td>
                 <td class="value">0</td>
             </tr>
     
@@ -1414,7 +1529,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('colsample_bytree',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">colsample_bytree&nbsp;</td>
+                <td class="param">colsample_bytree</td>
                 <td class="value">1.0</td>
             </tr>
     
@@ -1424,7 +1539,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('reg_alpha',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">reg_alpha&nbsp;</td>
+                <td class="param">reg_alpha</td>
                 <td class="value">0.0</td>
             </tr>
     
@@ -1434,7 +1549,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('reg_lambda',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">reg_lambda&nbsp;</td>
+                <td class="param">reg_lambda</td>
                 <td class="value">0.0</td>
             </tr>
     
@@ -1444,7 +1559,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('random_state',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">random_state&nbsp;</td>
+                <td class="param">random_state</td>
                 <td class="value">1234</td>
             </tr>
     
@@ -1454,7 +1569,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('n_jobs',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">n_jobs&nbsp;</td>
+                <td class="param">n_jobs</td>
                 <td class="value">1</td>
             </tr>
     
@@ -1464,7 +1579,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('importance_type',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">importance_type&nbsp;</td>
+                <td class="param">importance_type</td>
                 <td class="value">&#x27;split&#x27;</td>
             </tr>
     
@@ -1474,7 +1589,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('metric',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">metric&nbsp;</td>
+                <td class="param">metric</td>
                 <td class="value">&#x27;auc&#x27;</td>
             </tr>
     
@@ -1484,7 +1599,7 @@ When we evaluate the model, we will use the unbalanced testing dataset.
                      onclick="copyToClipboard('verbose',
                               this.parentElement.nextElementSibling)"
                 ></i></td>
-                <td class="param">verbose&nbsp;</td>
+                <td class="param">verbose</td>
                 <td class="value">-1</td>
             </tr>
     
@@ -1526,15 +1641,88 @@ When we evaluate the model, we will use the unbalanced testing dataset.
         return false;
     }
 
-    document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    document.querySelectorAll('.copy-paste-icon').forEach(function(element) {
         const toggleableContent = element.closest('.sk-toggleable__content');
         const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-        const paramName = element.parentElement.nextElementSibling.textContent.trim();
+        const paramName = element.parentElement.nextElementSibling
+            .textContent.trim().split(' ')[0];
         const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
 
         element.setAttribute('title', fullParamName);
     });
-    </script></body>
+
+
+    /**
+     * Adapted from Skrub
+     * https://github.com/skrub-data/skrub/blob/403466d1d5d4dc76a7ef569b3f8228db59a31dc3/skrub/_reporting/_data/templates/report.js#L789
+     * @returns "light" or "dark"
+     */
+    function detectTheme(element) {
+        const body = document.querySelector('body');
+
+        // Check VSCode theme
+        const themeKindAttr = body.getAttribute('data-vscode-theme-kind');
+        const themeNameAttr = body.getAttribute('data-vscode-theme-name');
+
+        if (themeKindAttr && themeNameAttr) {
+            const themeKind = themeKindAttr.toLowerCase();
+            const themeName = themeNameAttr.toLowerCase();
+
+            if (themeKind.includes("dark") || themeName.includes("dark")) {
+                return "dark";
+            }
+            if (themeKind.includes("light") || themeName.includes("light")) {
+                return "light";
+            }
+        }
+
+        // Check Jupyter theme
+        if (body.getAttribute('data-jp-theme-light') === 'false') {
+            return 'dark';
+        } else if (body.getAttribute('data-jp-theme-light') === 'true') {
+            return 'light';
+        }
+
+        // Guess based on a parent element's color
+        const color = window.getComputedStyle(element.parentNode, null).getPropertyValue('color');
+        const match = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)\s*$/i);
+        if (match) {
+            const [r, g, b] = [
+                parseFloat(match[1]),
+                parseFloat(match[2]),
+                parseFloat(match[3])
+            ];
+
+            // https://en.wikipedia.org/wiki/HSL_and_HSV#Lightness
+            const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+            if (luma > 180) {
+                // If the text is very bright we have a dark theme
+                return 'dark';
+            }
+            if (luma < 75) {
+                // If the text is very dark we have a light theme
+                return 'light';
+            }
+            // Otherwise fall back to the next heuristic.
+        }
+
+        // Fallback to system preference
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+
+    function forceTheme(elementId) {
+        const estimatorElement = document.querySelector(`#${elementId}`);
+        if (estimatorElement === null) {
+            console.error(`Element with id ${elementId} not found.`);
+        } else {
+            const theme = detectTheme(estimatorElement);
+            estimatorElement.classList.add(theme);
+        }
+    }
+
+    forceTheme('sk-container-id-3');</script></body>
     </div>
     <br />
     <br />
@@ -2640,7 +2828,7 @@ Now, let's plot the performance trade-offs between all of our models.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7fac6bb792e0>
+    <matplotlib.legend.Legend object at 0x7fe4a86a5d60>
 
 
 
@@ -3057,9 +3245,9 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 55.934 seconds)
+   **Total running time of the script:** (0 minutes 52.958 seconds)
 
-**Estimated memory usage:**  188 MB
+**Estimated memory usage:**  186 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_credit_loan_decisions.py:
