@@ -22,7 +22,7 @@
 Passing pipelines to mitigation techniques
 ==========================================
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-16
+.. GENERATED FROM PYTHON SOURCE LINES 11-17
 
 This notebook shows how to pass :class:`sklearn.pipeline.Pipeline` to
 mitigation techniques from Fairlearn. Note that the notebook is not to be
@@ -31,7 +31,7 @@ demonstration of the technical aspects of passing
 :class:`sklearn.pipeline.Pipeline`. For more information around proper
 fairness assessment and mitigation please refer to the :ref:`user_guide`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-31
+.. GENERATED FROM PYTHON SOURCE LINES 17-32
 
 .. code-block:: Python
 
@@ -57,12 +57,12 @@ fairness assessment and mitigation please refer to the :ref:`user_guide`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-34
+.. GENERATED FROM PYTHON SOURCE LINES 33-35
 
 Below we load the "Adult" census dataset and split its features, sensitive
 features, and labels into train and test sets.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-51
+.. GENERATED FROM PYTHON SOURCE LINES 35-52
 
 .. code-block:: Python
 
@@ -72,7 +72,7 @@ features, and labels into train and test sets.
     y = (data.target == ">50K") * 1
     A = X_raw["sex"]
 
-    (X_train, X_test, y_train, y_test, A_train, A_test) = train_test_split(
+    X_train, X_test, y_train, y_test, A_train, A_test = train_test_split(
         X_raw, y, A, test_size=0.3, random_state=12345, stratify=y
     )
 
@@ -90,7 +90,7 @@ features, and labels into train and test sets.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-57
+.. GENERATED FROM PYTHON SOURCE LINES 53-58
 
 To illustrate Fairlearn's compatibility with
 :class:`~sklearn.pipeline.Pipeline` we first need to build our pipeline.
@@ -98,7 +98,7 @@ In the following we assemble a pipeline by combining preprocessing steps
 with an estimator. The preprocessing steps include imputing, scaling for
 numerical features and one-hot encoding for categorical features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-87
+.. GENERATED FROM PYTHON SOURCE LINES 58-88
 
 .. code-block:: Python
 
@@ -139,12 +139,12 @@ numerical features and one-hot encoding for categorical features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-90
+.. GENERATED FROM PYTHON SOURCE LINES 89-91
 
 Below we will pass the pipeline to some of our mitigation techniques,
 starting with :class:`fairlearn.postprocessing.ThresholdOptimizer`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-108
+.. GENERATED FROM PYTHON SOURCE LINES 91-109
 
 .. code-block:: Python
 
@@ -198,7 +198,7 @@ starting with :class:`fairlearn.postprocessing.ThresholdOptimizer`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-114
+.. GENERATED FROM PYTHON SOURCE LINES 110-115
 
 Similarly, :class:`fairlearn.reductions.ExponentiatedGradient` works with
 pipelines. Since it requires the :code:`sample_weight` parameter of the
@@ -206,7 +206,7 @@ underlying estimator internally we need to provide it with the correct
 way of passing :code:`sample_weight` to just the :code:`"classifier"` step
 using the step name followed by two underscores and :code:`sample_weight`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-122
+.. GENERATED FROM PYTHON SOURCE LINES 115-123
 
 .. code-block:: Python
 
@@ -234,9 +234,9 @@ using the step name followed by two underscores and :code:`sample_weight`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.537 seconds)
+   **Total running time of the script:** (0 minutes 12.416 seconds)
 
-**Estimated memory usage:**  150 MB
+**Estimated memory usage:**  141 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_mitigation_pipeline.py:
