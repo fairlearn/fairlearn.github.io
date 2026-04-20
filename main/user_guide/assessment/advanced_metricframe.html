@@ -736,6 +736,26 @@ For example:</p>
 <span class="go">Name: selection_rate, dtype: float64</span>
 </pre></div>
 </div>
+<p>Another example of a metric that only uses <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code> is
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.mean_prediction.html#fairlearn.metrics.mean_prediction" title="fairlearn.metrics.mean_prediction"><code class="xref py py-func docutils literal notranslate"><span class="pre">mean_prediction()</span></code></a>, which computes the average predicted value
+for each group. This is useful for detecting prediction bias —
+for instance, whether a model systematically assigns higher risk
+scores to one group over another.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_prediction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_pred_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">mean_prediction</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="n">y_true</span><span class="o">=</span><span class="n">dummy_y_true</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="n">sensitive_features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sf_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SF 0&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_pred_frame</span><span class="o">.</span><span class="n">overall</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="go">0.55555...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_pred_frame</span><span class="o">.</span><span class="n">by_group</span>
+<span class="go">SF 0</span>
+<span class="go">a    0.75</span>
+<span class="go">b    0.50</span>
+<span class="go">c    0.50</span>
+<span class="go">Name: mean_prediction, dtype: float64</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="more-complex-metrics">
