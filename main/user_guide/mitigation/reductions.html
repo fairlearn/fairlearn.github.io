@@ -1109,6 +1109,37 @@ detected by <code class="code docutils literal notranslate"><span class="pre">ga
 </div>
 </section>
 </section>
+<section id="grid-search">
+<span id="id9"></span><h2>Grid Search<a class="headerlink" href="#grid-search" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearch</span></code></a> algorithm is a simpler alternative to
+<a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a>. It works by generating a grid of re-weightings
+and relabelings, and training a separate predictor for each. The resulting
+collection of predictors represents various trade-offs between the performance
+objective and the fairness constraints.</p>
+<p>Here is a short example of how to use <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearch</span></code></a> with <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.DemographicParity.html#fairlearn.reductions.DemographicParity" title="fairlearn.reductions.DemographicParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">DemographicParity</span></code></a>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.reductions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearch</span><span class="p">,</span> <span class="n">DemographicParity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sample data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize and fit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span> <span class="o">=</span> <span class="n">GridSearch</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;liblinear&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="n">DemographicParity</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">grid_size</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sf</span><span class="p">)</span> 
+<span class="go">GridSearch(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Predict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The full collection of predictors generated during the search is available
+via the <code class="xref py py-attr docutils literal notranslate"><span class="pre">GridSearch.predictors_</span></code> attribute, allowing users to manually
+explore the Pareto front of models.</p>
+</section>
 <section id="exponentiated-gradient">
 <h2>Exponentiated Gradient<a class="headerlink" href="#exponentiated-gradient" title="Link to this heading">#</a></h2>
 <p>The <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> algorithm in Fairlearn is used to produce models that
@@ -1182,7 +1213,7 @@ sensitive to the chosen epsilon value, so epsilon can be treated as a hyperparam
 and iterated over a range of potential values.</p>
 <aside class="topic">
 <p class="topic-title">References</p>
-<div class="docutils container" id="id9">
+<div class="docutils container" id="id10">
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footcite-agarwal2018reductions" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
@@ -1235,6 +1266,7 @@ and iterated over a range of potential values.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounded-group-loss">Bounded Group Loss</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-search">Grid Search</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiated-gradient">Exponentiated Gradient</a></li>
 </ul>
   </nav></div>
