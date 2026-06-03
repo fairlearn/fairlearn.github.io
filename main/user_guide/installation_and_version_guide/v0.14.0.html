@@ -600,24 +600,62 @@
                   
   <section id="v0-14-0">
 <h1>v0.14.0<a class="headerlink" href="#v0-14-0" title="Link to this heading">#</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>v0.14.0 is not yet released. This page reflects changes on the current
-<code class="code docutils literal notranslate"><span class="pre">main</span></code> branch that will eventually be a part of v0.14.0.</p>
-</div>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>This release updates the supported Python range (drops 3.9, adds 3.13)
+and adds compatibility with scipy 1.16. It continues the Narwhals
+integration work in the postprocessing module and <code class="code docutils literal notranslate"><span class="pre">GroupFeature</span></code>,
+fixes a polars dataframe-interchange deprecation, and corrects the
+handling of degenerate sensitive feature values in
+<code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>.</p>
+</section>
+<section id="bug-fixes">
+<h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fixed handling of single-group (degenerate) sensitive features in <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner.fit</span></code>, which previously failed during the fairness-error computation: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1626">#1626</a> by <a class="reference external" href="https://github.com/BALOGUN-DAVID">BALOGUN DAVID TAIWO</a>.</p></li>
+<li><p>Changed <code class="code docutils literal notranslate"><span class="pre">GridSearch.fit</span></code> to return <code class="code docutils literal notranslate"><span class="pre">self</span></code>, matching the scikit-learn estimator convention: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1622">#1622</a> by <a class="reference external" href="https://github.com/k-nithin">Nithin</a>.</p></li>
+<li><p>Fixed a polars dataframe-interchange protocol deprecation in <code class="code docutils literal notranslate"><span class="pre">AnnotatedMetricFunction</span></code> and corrected the 1D-array branch at the same time: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1639">#1639</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Added a <code class="code docutils literal notranslate"><span class="pre">MANIFEST.in</span></code> so that <code class="code docutils literal notranslate"><span class="pre">requirements*.txt</span></code> are included in the source distribution, and switched the build pipeline to the PEP 517 <code class="code docutils literal notranslate"><span class="pre">build</span></code> frontend: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1628">#1628</a> by <a class="reference external" href="https://github.com/tiran">Christian Heimes</a>.</p></li>
+<li><p>Excluded the <code class="code docutils literal notranslate"><span class="pre">test</span></code> and <code class="code docutils literal notranslate"><span class="pre">test_othermlpackages</span></code> directories from the <code class="code docutils literal notranslate"><span class="pre">fairlearn</span></code> packaging distribution: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1644">#1644</a> by <a class="reference external" href="https://github.com/parulgupta1004">Parul Gupta</a>.</p></li>
+</ul>
+</section>
+<section id="narwhals-integration">
+<h2>Narwhals integration<a class="headerlink" href="#narwhals-integration" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Made <code class="code docutils literal notranslate"><span class="pre">postprocessing/_tradeoff_curve_utilities.py</span></code> dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1553">#1553</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
+<li><p>Made <code class="code docutils literal notranslate"><span class="pre">GroupFeature</span></code> dataframe agnostic through Narwhals: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1546">#1546</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Added a GridSearch algorithm overview and usage example to the reductions user guide: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1622">#1622</a> by <a class="reference external" href="https://github.com/k-nithin">Nithin</a>.</p></li>
+<li><p>Added a usage example for <code class="code docutils literal notranslate"><span class="pre">mean_prediction</span></code> in the advanced <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code> guide: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1637">#1637</a> by <a class="reference external" href="https://github.com/3Paradox">&#64;3Paradox</a>.</p></li>
+<li><p>Improved docstrings for base metrics, <code class="code docutils literal notranslate"><span class="pre">DisaggregatedResult</span></code> methods, and <code class="code docutils literal notranslate"><span class="pre">MetricFrame</span></code> group methods: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1621">#1621</a> by <a class="reference external" href="https://github.com/k-nithin">Nithin</a>.</p></li>
+<li><p>Added <code class="code docutils literal notranslate"><span class="pre">versionadded</span></code> and <code class="code docutils literal notranslate"><span class="pre">versionchanged</span></code> directives to the public docstrings in <code class="code docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1640">#1640</a> by <a class="reference external" href="https://github.com/BAder82t">Bader</a>.</p></li>
+<li><p>Corrected the true-positive-rate formula in the <code class="code docutils literal notranslate"><span class="pre">equal_opportunity_difference</span></code> and <code class="code docutils literal notranslate"><span class="pre">equal_opportunity_ratio</span></code> docstrings (from <code class="code docutils literal notranslate"><span class="pre">E[h(X)</span> <span class="pre">|</span> <span class="pre">A=a]</span></code> to <code class="code docutils literal notranslate"><span class="pre">P[h(X)=1</span> <span class="pre">|</span> <span class="pre">A=a,</span> <span class="pre">Y=1]</span></code>): <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1605">#1605</a> by <a class="reference external" href="https://github.com/OphyBoamah">Ophy Boamah Ampoh</a>.</p></li>
+<li><p>Removed the outdated Fairlearn repository overview page from the contributor guide: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1606">#1606</a> by <a class="reference external" href="https://github.com/Anish8800">&#64;Anish8800</a>.</p></li>
+<li><p>Fixed minor spacing and punctuation in <code class="code docutils literal notranslate"><span class="pre">docs/user_guide/fairness_in_machine_learning.rst</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1611">#1611</a> by <a class="reference external" href="https://github.com/Anish8800">&#64;Anish8800</a>.</p></li>
+<li><p>Updated the Maintainers link in the README to point directly to the Maintainers section of the website instead of the general About page: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1601">#1601</a> by <a class="reference external" href="https://github.com/itz8bitstudios">&#64;itz8bitstudios</a>.</p></li>
+</ul>
+</section>
 <section id="other-improvements">
 <h2>Other improvements<a class="headerlink" href="#other-improvements" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Removed support for python 3.9 and added support for python 3.13: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1592">#1592</a> by <a class="reference external" href="https://github.com/tamaraatanasoska">Tamara Atanasoska</a>.</p></li>
-<li><p>Added support for scipy 1.16 <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1596">#1596</a> by <a class="reference external" href="https://github.com/tamaraatanasoska">Tamara Atanasoska</a>.</p></li>
-<li><p>Fixed handling of degenerate sensitive feature values in <code class="docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1626">#1626</a> by <a class="reference external" href="https://github.com/BALOGUN-DAVID">&#64;BALOGUN-DAVID</a>.</p></li>
-<li><p>Added <code class="docutils literal notranslate"><span class="pre">versionadded</span></code> and <code class="docutils literal notranslate"><span class="pre">versionchanged</span></code> directives to the <code class="docutils literal notranslate"><span class="pre">fairlearn.metrics</span></code> API reference docstrings: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1640">#1640</a> by <a class="reference external" href="https://github.com/BAder82t">&#64;BAder82t</a>.</p></li>
-<li><p>Excluded top-level <code class="docutils literal notranslate"><span class="pre">test*</span></code> from <code class="docutils literal notranslate"><span class="pre">fairlearn</span></code> packaging distribution <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1644">#1644</a> by <a class="reference external" href="https://github.com/parulgupta1004">Parul Gupta</a>.</p></li>
-<li><p>Raised the minimum supported version of <code class="code docutils literal notranslate"><span class="pre">scikit-learn</span></code> to 1.5.0 and bumped the
-pinned <code class="code docutils literal notranslate"><span class="pre">torch</span></code> version in <code class="code docutils literal notranslate"><span class="pre">requirements-min.txt</span></code> to 2.8.0 to address
-Dependabot security advisories (GHSA scikit-learn sensitive data leakage,
-PyTorch CTC loss denial of service, and PyTorch improper resource shutdown):
-<a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1645">#1645</a> by <a class="reference external" href="https://github.com/romanlutz">Roman Lutz</a>.</p></li>
+<li><p>Removed support for Python 3.9 and added support for Python 3.13: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1592">#1592</a> by <a class="reference external" href="https://github.com/tamaraatanasoska">Tamara Atanasoska</a>.</p></li>
+<li><p>Added support for scipy 1.16: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1596">#1596</a> by <a class="reference external" href="https://github.com/tamaraatanasoska">Tamara Atanasoska</a>.</p></li>
+<li><p>Raised the minimum supported <code class="code docutils literal notranslate"><span class="pre">scikit-learn</span></code> to 1.5.0 and the pinned <code class="code docutils literal notranslate"><span class="pre">torch</span></code> in <code class="code docutils literal notranslate"><span class="pre">requirements-min.txt</span></code> to 2.8.0 to clear Dependabot security advisories: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1645">#1645</a> by <a class="reference external" href="https://github.com/romanlutz">Roman Lutz</a>.</p></li>
+<li><p>Removed an unused <code class="code docutils literal notranslate"><span class="pre">name</span></code> argument from <code class="code docutils literal notranslate"><span class="pre">GroupFeature</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1599">#1599</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Avoided a <code class="code docutils literal notranslate"><span class="pre">sys</span></code> module patching leak in the test suite: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1600">#1600</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Removed a Pillow deprecation warning by requiring <code class="code docutils literal notranslate"><span class="pre">matplotlib&gt;=3.10.5</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1618">#1618</a> by <a class="reference external" href="https://github.com/iclectic">Ibim Braide</a>.</p></li>
+<li><p>Fixed a <code class="code docutils literal notranslate"><span class="pre">DataFrame</span></code> fragmentation <code class="code docutils literal notranslate"><span class="pre">PerformanceWarning</span></code> in the reductions module: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1631">#1631</a> by <a class="reference external" href="https://github.com/BALOGUN-DAVID">BALOGUN DAVID TAIWO</a>.</p></li>
+<li><p>Closed Matplotlib figures before/after tests to avoid a deprecation warning: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1603">#1603</a> by <a class="reference external" href="https://github.com/lolashaffy">&#64;lolashaffy</a>.</p></li>
+<li><p>Sped up the reductions test suite: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1574">#1574</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Sped up the preprocessing test suite: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1573">#1573</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Sped up the metrics test suite: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1572">#1572</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Improved unit tests for <code class="code docutils literal notranslate"><span class="pre">PrototypeRepresentationLearner</span></code>: stopped overriding parametrized <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code> values inside the test bodies and added coverage for multi-dimensional sensitive features: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1623">#1623</a> by <a class="reference external" href="https://github.com/taharallouche">Tahar Allouche</a>.</p></li>
+<li><p>Cached OpenML datasets in CI runs: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1598">#1598</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
+<li><p>Added a Narwhals pytest marker: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1597">#1597</a> by <a class="reference external" href="https://github.com/FBruzzesi">Francesco Bruzzesi</a>.</p></li>
 </ul>
 </section>
 </section>
@@ -645,6 +683,10 @@ PyTorch CTC loss denial of service, and PyTorch improper resource shutdown):
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bug-fixes">Bug fixes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#narwhals-integration">Narwhals integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-improvements">Other improvements</a></li>
 </ul>
   </nav></div>
