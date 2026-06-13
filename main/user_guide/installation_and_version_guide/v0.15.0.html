@@ -609,6 +609,14 @@
 <section id="bug-fixes">
 <h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Fixed <code class="code docutils literal notranslate"><span class="pre">AssertionError:</span> <span class="pre">data</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">loaded</span> <span class="pre">only</span> <span class="pre">once</span></code> raised when a
+<a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.Moment.html#fairlearn.reductions.Moment" title="fairlearn.reductions.Moment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> instance is passed as <code class="code docutils literal notranslate"><span class="pre">constraints</span></code>
+to more than one call of <code class="code docutils literal notranslate"><span class="pre">ExponentiatedGradient.fit</span></code> or
+<code class="code docutils literal notranslate"><span class="pre">GridSearch.fit</span></code>, or shared between estimators. The fitted estimators
+now deep-copy the user-supplied constraints before loading data, leave the
+original object unmodified, and expose the loaded copy as the fitted
+attribute <code class="code docutils literal notranslate"><span class="pre">constraints_</span></code>: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1632">#1632</a> by
+<a class="reference external" href="https://github.com/BALOGUN-DAVID">BALOGUN DAVID TAIWO</a>.</p></li>
 <li><p>Fixed <code class="code docutils literal notranslate"><span class="pre">fetch_diabetes_hospital</span></code> so that <code class="code docutils literal notranslate"><span class="pre">as_frame=False</span></code> returns numpy arrays instead of raising. The data is now always fetched as a pandas DataFrame internally and converted to numpy when needed. The skipped tests and the obsolete <code class="code docutils literal notranslate"><span class="pre">test_fetch_diabetes_hospital_as_ndarray_raises_value_error</span></code> test were removed: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1636">#1636</a> by <a class="reference external" href="https://github.com/richardogundele">Richard Ogundele</a>.</p></li>
 </ul>
 </section>
