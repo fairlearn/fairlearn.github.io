@@ -606,22 +606,25 @@ please downgrade keep your <code class="code docutils literal notranslate"><span
 <span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib</span>
 </pre></div></div><section id="the-requirements-files">
 <h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Link to this heading">#</a></h3>
-<p>The prerequisites for Fairlearn are split between two separate files:</p>
+<p>Fairlearn’s runtime dependencies (the packages required to actually use Fairlearn)
+are declared in the <code class="docutils literal notranslate"><span class="pre">[project]</span> <span class="pre">dependencies</span></code> table of
+<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/pyproject.toml">pyproject.toml</a> and
+are installed automatically when you run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> (or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>).</p>
+<p>Development dependencies are tracked in two additional files:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
-contains the prerequisites for the core Fairlearn package</p></li>
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a> contains
-the prerequisites for Fairlearn development (such as <code class="code docutils literal notranslate"><span class="pre">ruff</span></code> and <code class="code docutils literal notranslate"><span class="pre">pytest</span></code>)</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a>
+contains the prerequisites for Fairlearn development (such as <code class="code docutils literal notranslate"><span class="pre">ruff</span></code>, <code class="code docutils literal notranslate"><span class="pre">pytest</span></code>,
+and the Sphinx documentation toolchain).</p></li>
+<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-min.txt">requirements-min.txt</a>
+pins both runtime and development dependencies to the minimum supported versions
+and is used in CI to test against the oldest combination of dependencies we claim to support.</p></li>
 </ul>
-<p>The <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements.txt">requirements.txt</a>
-file is consumed
-by <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/setup.py">setup.py</a> to specify the dependencies to be
-documented in the wheel files.
-To help simplify installation of the prerequisites, we have the
+<p>To install the unpinned development dependencies, run the
 <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/scripts/install_requirements.py">install_requirements.py</a>
-script which runs <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> on both the above files.
-This script will also optionally pin the requirements to any lower bound specified (by changing any
-occurrences of <code class="code docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="code docutils literal notranslate"><span class="pre">==</span></code> in each file).</p>
+helper script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>./scripts/install_requirements.py</span>
+</pre></div></div><p>Pass <code class="code docutils literal notranslate"><span class="pre">--min</span></code> to install the pinned minimum-version set from <code class="code docutils literal notranslate"><span class="pre">requirements-min.txt</span></code>
+instead.</p>
 </section>
 </section>
 <section id="contributing-a-pull-request">
