@@ -699,6 +699,28 @@ desired filename.</p>
 </div>
 </section>
 </section>
+<section id="plotting-roc-curves-by-sensitive-feature">
+<h2>Plotting ROC curves by sensitive feature<a class="headerlink" href="#plotting-roc-curves-by-sensitive-feature" title="Link to this heading">#</a></h2>
+<p>To assess how well a binary classifier separates the positive and negative
+classes for each subgroup, <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.plot_roc_curve_by_group.html#fairlearn.metrics.plot_roc_curve_by_group" title="fairlearn.metrics.plot_roc_curve_by_group"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_roc_curve_by_group()</span></code></a> draws one Receiver
+Operating Characteristic (ROC) curve per group defined by the sensitive
+feature(s), along with the overall curve and a chance-level baseline. Curves
+that lie on top of one another indicate similar ranking performance across
+groups, while diverging curves indicate that the model discriminates between
+the classes better for some groups than for others.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_roc_curve_by_group</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_score</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="auto_examples/plot_roc_auc.html"><img alt="../../_images/sphx_glr_plot_roc_auc_001.png" src="../../_images/sphx_glr_plot_roc_auc_001.png" />
+</a>
+</figure>
+<p>The function only produces the plot. To obtain the AUC scores themselves, use
+<a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> with <code class="code docutils literal notranslate"><span class="pre">sklearn.metrics.roc_auc_score</span></code>, passing the
+scores as <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code>. See the full
+<a class="reference internal" href="../../auto_examples/plot_roc_auc.html#sphx-glr-auto-examples-plot-roc-auc-py"><span class="std std-ref">Plotting ROC curves by sensitive feature</span></a> example for details.</p>
+</section>
 </section>
 
 
@@ -730,6 +752,7 @@ desired filename.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-plots-kind">Customize Plots: <code class="code docutils literal notranslate"><span class="pre">kind</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-roc-curves-by-sensitive-feature">Plotting ROC curves by sensitive feature</a></li>
 </ul>
   </nav></div>
 
