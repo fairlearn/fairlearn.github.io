@@ -622,19 +622,19 @@ also available.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.6.0: </span>Implementation now uses <a class="reference internal" href="fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetricFrame</span></code></a> internally.</p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>metric</strong><span class="classifier">callable</span></dt><dd><p>The metric function from which the new function should be derived</p>
+<dd class="field-even"><dl>
+<dt><strong>metric</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>The metric function from which the new function should be derived</p>
 </dd>
-<dt><strong>transform</strong><span class="classifier">str</span></dt><dd><p>Selects the transformation aggregation the resultant function should use.
+<dt><strong>transform</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Selects the transformation aggregation the resultant function should use.
 The list of possible options is:
 [‘difference’, ‘group_min’, ‘group_max’, ‘ratio’].</p>
 </dd>
-<dt><strong>sample_param_names</strong><span class="classifier">list[str]</span></dt><dd><p>A list of parameters names of the underlying <code class="code docutils literal notranslate"><span class="pre">metric</span></code> which should
+<dt><strong>sample_param_names</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>]</span></dt><dd><p>A list of parameters names of the underlying <code class="code docutils literal notranslate"><span class="pre">metric</span></code> which should
 be treated as sample parameters (i.e. the same leading dimension as the
 <code class="code docutils literal notranslate"><span class="pre">y_true</span></code> and <code class="code docutils literal notranslate"><span class="pre">y_pred</span></code> parameters). This defaults to a list with
 a single entry of <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> (as used by many SciKit-Learn
@@ -645,7 +645,7 @@ will be treated as sample parameters.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>callable</dt><dd><p>Function with the same signature as the <code class="code docutils literal notranslate"><span class="pre">metric</span></code> but with additional
+<dt><a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></dt><dd><p>Function with the same signature as the <code class="code docutils literal notranslate"><span class="pre">metric</span></code> but with additional
 <code class="code docutils literal notranslate"><span class="pre">sensitive_features=</span></code> and <code class="code docutils literal notranslate"><span class="pre">method=</span></code> arguments, to enable the
 required computation</p>
 </dd>

@@ -633,13 +633,13 @@ transformed using one-hot encoding.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>backend</strong><span class="classifier">str, BackendEngine, default = ‘auto’</span></dt><dd><p>The backend to use. Must be one of <code class="code docutils literal notranslate"><span class="pre">'torch'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'tensorflow'</span></code>,
+<dt><strong>backend</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, BackendEngine, default = ‘auto’</span></dt><dd><p>The backend to use. Must be one of <code class="code docutils literal notranslate"><span class="pre">'torch'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'tensorflow'</span></code>,
 or <code class="code docutils literal notranslate"><span class="pre">'auto'</span></code> which indicates PyTorch, TensorFlow, or to
 automatically infer
 the backend from the <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.
 You can also pass in a BackendEngine class.</p>
 </dd>
-<dt><strong>predictor_model</strong><span class="classifier">list, torch.nn.Module, keras.Model</span></dt><dd><p>The predictor model to train.
+<dt><strong>predictor_model</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a>, torch.nn.Module, keras.Model</span></dt><dd><p>The predictor model to train.
 Instead of a neural network model, it is possible to pass a list
 <span class="math notranslate nohighlight">\([k_1, k_2, \dots]\)</span>, where each <span class="math notranslate nohighlight">\(k_i\)</span> either indicates
 the number of nodes (if <span class="math notranslate nohighlight">\(k_i\)</span> is an integer) or
@@ -654,11 +654,11 @@ predictors) are inferred from data.
 If <code class="code docutils literal notranslate"><span class="pre">backend</span></code> is specified, you cannot pass a model
 that uses a different backend.</p>
 </dd>
-<dt><strong>adversary_model</strong><span class="classifier">list, torch.nn.Module, keras.Model</span></dt><dd><p>The adversary model to train. Defined similarly as <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.
+<dt><strong>adversary_model</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a>, torch.nn.Module, keras.Model</span></dt><dd><p>The adversary model to train. Defined similarly as <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.
 Must be the same type as the
 <code class="code docutils literal notranslate"><span class="pre">predictor_model</span></code>.</p>
 </dd>
-<dt><strong>predictor_optimizer</strong><span class="classifier">str, torch.optim, keras.optimizers, callable, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. If a string is passed instead, this must be
+<dt><strong>predictor_optimizer</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, torch.optim, keras.optimizers, <a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a>, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. If a string is passed instead, this must be
 either ‘SGD’ or ‘Adam’. A corresponding SGD or Adam optimizer is
 initialized with the given predictor model and learning rate.
 If an instance of a subclass of torch.optim.Optimizer
@@ -667,36 +667,36 @@ is used directly. If a callable <code class="code docutils literal notranslate">
 callable and pass our model, and set the result of this call
 as the optimizer, so: <code class="code docutils literal notranslate"><span class="pre">predictor_optimizer=fn(predictor_model)</span></code>.</p>
 </dd>
-<dt><strong>adversary_optimizer</strong><span class="classifier">str, torch.optim, keras.optimizers, callable, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. Defined similarly as
+<dt><strong>adversary_optimizer</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, torch.optim, keras.optimizers, <a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a>, default = ‘Adam’</span></dt><dd><p>The optimizer class to use. Defined similarly as
 <code class="code docutils literal notranslate"><span class="pre">predictor_optimizer</span></code>.</p>
 </dd>
-<dt><strong>constraints</strong><span class="classifier">str, default = ‘demographic_parity’</span></dt><dd><p>The fairness constraint. Must be either ‘demographic_parity’
+<dt><strong>constraints</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, default = ‘demographic_parity’</span></dt><dd><p>The fairness constraint. Must be either ‘demographic_parity’
 or ‘equalized_odds’.</p>
 </dd>
-<dt><strong>learning_rate</strong><span class="classifier">float, default = 0.001</span></dt><dd><p>A small number greater than zero to set as a learning rate.</p>
+<dt><strong>learning_rate</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a>, default = 0.001</span></dt><dd><p>A small number greater than zero to set as a learning rate.</p>
 </dd>
-<dt><strong>alpha</strong><span class="classifier">float, default = 1.0</span></dt><dd><p>A small number <span class="math notranslate nohighlight">\(\alpha\)</span> as specified in the paper. It
+<dt><strong>alpha</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a>, default = 1.0</span></dt><dd><p>A small number <span class="math notranslate nohighlight">\(\alpha\)</span> as specified in the paper. It
 is the factor that balances the training towards predicting <code class="code docutils literal notranslate"><span class="pre">y</span></code>
 (choose <span class="math notranslate nohighlight">\(\alpha\)</span> closer to zero) or enforcing fairness constraint
 (choose larger <span class="math notranslate nohighlight">\(\alpha\)</span>).</p>
 </dd>
-<dt><strong>epochs</strong><span class="classifier">int, default = 1</span></dt><dd><p>Number of epochs to train for.</p>
+<dt><strong>epochs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, default = 1</span></dt><dd><p>Number of epochs to train for.</p>
 </dd>
-<dt><strong>batch_size</strong><span class="classifier">int, default = 32</span></dt><dd><p>Batch size. For no batching, set this to -1.</p>
+<dt><strong>batch_size</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, default = 32</span></dt><dd><p>Batch size. For no batching, set this to -1.</p>
 </dd>
-<dt><strong>shuffle</strong><span class="classifier">bool, default = False</span></dt><dd><p>When true, shuffle the data before every epoch (including the first).</p>
+<dt><strong>shuffle</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a></span></dt><dd><p>When true, shuffle the data before every epoch (including the first).</p>
 </dd>
-<dt><strong>progress_updates</strong><span class="classifier">number, optional, default = None</span></dt><dd><p>If a number <span class="math notranslate nohighlight">\(t\)</span> is provided, we print an update
+<dt><strong>progress_updates</strong><span class="classifier">number, optional, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>If a number <span class="math notranslate nohighlight">\(t\)</span> is provided, we print an update
 about the training loop after processing a batch and <span class="math notranslate nohighlight">\(t\)</span> seconds
 have passed since the previous update.</p>
 </dd>
-<dt><strong>skip_validation</strong><span class="classifier">bool, default = False</span></dt><dd><p>Skip the validation of the data. Useful because validate_input is
+<dt><strong>skip_validation</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a></span></dt><dd><p>Skip the validation of the data. Useful because validate_input is
 a costly operation, and we may instead pass all data to validate_input
 at an earlier stage. Note that not only checking <code class="code docutils literal notranslate"><span class="pre">X</span></code>
 is skipped, but also no transform is applied to <code class="code docutils literal notranslate"><span class="pre">y</span></code> and
 <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code>.</p>
 </dd>
-<dt><strong>callbacks</strong><span class="classifier">callable</span></dt><dd><p>Callback function, called after every batch. For instance useable when
+<dt><strong>callbacks</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>Callback function, called after every batch. For instance useable when
 wanting to validate. A list of callback functions can also be provided.
 Each callback function is called as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">callback</span><span class="p">(</span>
@@ -710,16 +710,16 @@ The callback may return a Boolean value. If the returned value is <cite>True</ci
 the optimization algorithm terminates. This can be used to implement
 <em>early stopping</em>.</p>
 </dd>
-<dt><strong>cuda</strong><span class="classifier">str, default = None</span></dt><dd><p>A string to indicate which device to use when training. For instance,
+<dt><strong>cuda</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>A string to indicate which device to use when training. For instance,
 set <code class="code docutils literal notranslate"><span class="pre">cuda='cuda:0'</span></code> to train on the first GPU. Only for PyTorch
 backend.</p>
 </dd>
-<dt><strong>warm_start</strong><span class="classifier">bool, default = False</span></dt><dd><p>Normally, when set to False, a call to <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> triggers reinitialization,
+<dt><strong>warm_start</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a></span></dt><dd><p>Normally, when set to False, a call to <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> triggers reinitialization,
 which discards the models and initializes them again. Setting to
 True triggers reuse of these models. Note: if pre-initialized models
 are passed, the models (and their parameters) are never discarded.</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier">int, RandomState, default = None</span></dt><dd><p>Controls the randomized aspects of this algorithm, such as shuffling.
+<dt><strong>random_state</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/random/legacy.html#numpy.random.RandomState" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></a>, default = <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Controls the randomized aspects of this algorithm, such as shuffling.
 Useful to get reproducible output across multiple function calls.</p>
 </dd>
 </dl>
@@ -732,14 +732,14 @@ Useful to get reproducible output across multiple function calls.</p>
 <p>Currently, for discrete y and sensitive_features
 <em>ALL</em> classes need to be passed in
 the first call to fit!</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>Two-dimensional numpy array containing training data</p>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></span></dt><dd><p>Two-dimensional numpy array containing training data</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>Array-like containing training targets</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>Array-like containing training targets</p>
 </dd>
-<dt><strong>sensitive_features</strong><span class="classifier">array</span></dt><dd><p>Array-like containing the sensitive features of the
+<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>Array-like containing the sensitive features of the
 training data.</p>
 </dd>
 </dl>
@@ -768,17 +768,17 @@ routing information.</p>
 <dt class="sig sig-object py" id="fairlearn.adversarial.AdversarialFairnessClassifier.get_params">
 <span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.13/lib/python3.12/site-packages/sklearn/base.py#L248-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.get_params" title="Link to this definition">#</a></dt>
 <dd><p>Get parameters for this estimator.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
+<dd class="field-odd"><dl>
+<dt><strong>deep</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Parameter names mapped to their values.</p>
+<dd class="field-even"><dl>
+<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Parameter names mapped to their values.</p>
 </dd>
 </dl>
 </dd>
@@ -790,18 +790,18 @@ contained subobjects that are estimators.</p>
 <span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/adversarial/_adversarial_mitigation.py#L533-L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.adversarial.AdversarialFairnessClassifier.partial_fit" title="Link to this definition">#</a></dt>
 <dd><p>Perform one training step on given samples and update model.</p>
 <p>This method allows for incremental fitting on batches of data.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>The training input samples.</p>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples, n_features)</span></dt><dd><p>The training input samples.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,)</span></dt><dd><p>The target values.</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples,)</span></dt><dd><p>The target values.</p>
 </dd>
-<dt><strong>classes</strong><span class="classifier">array-like of shape (n_classes,), default=None</span></dt><dd><p>List of all the classes that can possibly appear in the y vector.
+<dt><strong>classes</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_classes,), default=None</span></dt><dd><p>List of all the classes that can possibly appear in the y vector.
 Must be provided at the first call to partial_fit, can be omitted
 in subsequent calls.</p>
 </dd>
-<dt><strong>sensitive_features</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>The sensitive features for each sample. If None, a vector of zeros
+<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples,), default=None</span></dt><dd><p>The sensitive features for each sample. If None, a vector of zeros
 will be used.</p>
 </dd>
 </dl>
@@ -821,16 +821,16 @@ will be used.</p>
 <dd><p>Compute predictions for given test data.</p>
 <p>Predictions are discrete for classifiers, making use of the
 predictor_function.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>Two-dimensional numpy array containing test data</p>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></span></dt><dd><p>Two-dimensional numpy array containing test data</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>y_pred</strong><span class="classifier">array</span></dt><dd><p>array-like containing the model’s predictions fed through
+<dd class="field-even"><dl>
+<dt><strong>y_pred</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>array-like containing the model’s predictions fed through
 the (discrete) <code class="code docutils literal notranslate"><span class="pre">predictor_function</span></code></p>
 </dd>
 </dl>
@@ -845,20 +845,20 @@ the (discrete) <code class="code docutils literal notranslate"><span class="pre"
 <p>In multi-label classification, this is the subset accuracy
 which is a harsh metric since you require for each sample that
 each label set be correctly predicted.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Test samples.</p>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples, n_features)</span></dt><dd><p>Test samples.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,) or (n_samples, n_outputs)</span></dt><dd><p>True labels for <cite>X</cite>.</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples,) or (n_samples, n_outputs)</span></dt><dd><p>True labels for <cite>X</cite>.</p>
 </dd>
-<dt><strong>sample_weight</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Sample weights.</p>
+<dt><strong>sample_weight</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.4)"><span>array_like</span></a> of shape (n_samples,), default=None</span></dt><dd><p>Sample weights.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p>Mean accuracy of <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> w.r.t. <cite>y</cite>.</p>
+<dd class="field-even"><dl>
+<dt><strong>score</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a></span></dt><dd><p>Mean accuracy of <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> w.r.t. <cite>y</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -887,10 +887,10 @@ parameters and not others.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Added in version 1.3.</span></p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>sensitive_features</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+<dd class="field-odd"><dl>
+<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
 </dd>
 </dl>
 </dd>
@@ -911,10 +911,10 @@ parameters and not others.</p>
 (such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
 parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
 possible to update each component of a nested object.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Estimator parameters.</p>
+<dd class="field-odd"><dl>
+<dt><strong>**params</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Estimator parameters.</p>
 </dd>
 </dl>
 </dd>
@@ -949,12 +949,12 @@ parameters and not others.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Added in version 1.3.</span></p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>classes</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">classes</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+<dd class="field-odd"><dl>
+<dt><strong>classes</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">classes</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
 </dd>
-<dt><strong>sensitive_features</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sensitive_features</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
 </dd>
 </dl>
 </dd>
@@ -989,10 +989,10 @@ parameters and not others.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Added in version 1.3.</span></p>
 </div>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>sample_weight</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
+<dd class="field-odd"><dl>
+<dt><strong>sample_weight</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">False</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
 </dd>
 </dl>
 </dd>
