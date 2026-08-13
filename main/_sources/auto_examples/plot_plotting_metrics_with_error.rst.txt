@@ -170,7 +170,7 @@ We have many different choices for calculating confidence intervals. In this not
         """
         denominator = 1 + z**2 / n
         centre_adjusted_probability = p + z * z / (2 * n)
-        adjusted_standard_deviation = np.sqrt((p * (1 - p) + z * z / (4 * n))) / np.sqrt(n)
+        adjusted_standard_deviation = np.sqrt(p * (1 - p) + z * z / (4 * n)) / np.sqrt(n)
         lower_bound = (centre_adjusted_probability - z * adjusted_standard_deviation) / denominator
         upper_bound = (centre_adjusted_probability + z * adjusted_standard_deviation) / denominator
         return np.array([round(lower_bound, digits), round(upper_bound, digits)])
@@ -467,9 +467,9 @@ Customizing plots
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.251 seconds)
+   **Total running time of the script:** (0 minutes 7.574 seconds)
 
-**Estimated memory usage:**  175 MB
+**Estimated memory usage:**  185 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_plotting_metrics_with_error.py:

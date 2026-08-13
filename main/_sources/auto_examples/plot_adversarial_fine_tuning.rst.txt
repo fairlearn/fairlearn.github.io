@@ -155,7 +155,7 @@ classifier.
 
     class PredictorModel(torch.nn.Module):
         def __init__(self):
-            super(PredictorModel, self).__init__()
+            super().__init__()
             self.layers = torch.nn.Sequential(
                 # in_features is the number of features coming out of the above
                 # ColumnTransformer
@@ -189,7 +189,7 @@ suffering from mode collapse, and we also calculate the accuracy on the
 validation set as well.
 We will pass this validation step to our model later::
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-144
+.. GENERATED FROM PYTHON SOURCE LINES 120-142
 
 .. code-block:: Python
 
@@ -210,9 +210,7 @@ We will pass this validation step to our model later::
         accuracy = mean(predictions == y)
         selection_rate = mean(predictions == pos_label)
         print(
-            "DP diff: {:.4f}, accuracy: {:.4f}, selection_rate: {:.4f}".format(
-                dp_diff, accuracy, selection_rate
-            )
+            f"DP diff: {dp_diff:.4f}, accuracy: {accuracy:.4f}, selection_rate: {selection_rate:.4f}"
         )
         return dp_diff, accuracy, selection_rate
 
@@ -224,14 +222,14 @@ We will pass this validation step to our model later::
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-149
+.. GENERATED FROM PYTHON SOURCE LINES 143-147
 
 We may define the optimizers however we like. In this case, we use the
 suggestion from the paper to set the hyperparameters :math:`\alpha` and learning
 rate :math:`\eta` to depend on the timestep such that :math:`\alpha \eta
 \rightarrow 0` as the timestep grows:
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-161
+.. GENERATED FROM PYTHON SOURCE LINES 147-159
 
 .. code-block:: Python
 
@@ -254,14 +252,14 @@ rate :math:`\eta` to depend on the timestep such that :math:`\alpha \eta
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-166
+.. GENERATED FROM PYTHON SOURCE LINES 160-164
 
 We make use of a callback function to both update the hyperparameters and to
 validate the model. We update these hyperparameters at every 10 steps, and we
 validate every 100 steps. Additionally, we can implement early stopping
 easily by calling :code:`return True` in a callback function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-185
+.. GENERATED FROM PYTHON SOURCE LINES 164-183
 
 .. code-block:: Python
 
@@ -291,13 +289,13 @@ easily by calling :code:`return True` in a callback function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 186-189
+.. GENERATED FROM PYTHON SOURCE LINES 184-187
 
 Then, the instance itself. Notice that we do not explicitly define loss
 functions, because adversarial fairness is able to infer the loss function
 on its own in this example:
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-203
+.. GENERATED FROM PYTHON SOURCE LINES 187-201
 
 .. code-block:: Python
 
@@ -322,12 +320,12 @@ on its own in this example:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-206
+.. GENERATED FROM PYTHON SOURCE LINES 202-204
 
 We now put the above model in a ``Pipeline`` with the transformation step. Note
 that we use ``scikit-learn``'s metadata routing to pass the sensitive feature::
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-211
+.. GENERATED FROM PYTHON SOURCE LINES 204-209
 
 .. code-block:: Python
 
@@ -343,11 +341,11 @@ that we use ``scikit-learn``'s metadata routing to pass the sensitive feature::
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-213
+.. GENERATED FROM PYTHON SOURCE LINES 210-211
 
 Then, we fit the model:
 
-.. GENERATED FROM PYTHON SOURCE LINES 213-218
+.. GENERATED FROM PYTHON SOURCE LINES 211-216
 
 .. code-block:: Python
 
@@ -371,11 +369,11 @@ Then, we fit the model:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-220
+.. GENERATED FROM PYTHON SOURCE LINES 217-218
 
 Finally, we validate as before, and take a look at the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 220-239
+.. GENERATED FROM PYTHON SOURCE LINES 218-237
 
 .. code-block:: Python
 
@@ -418,9 +416,9 @@ Finally, we validate as before, and take a look at the results:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 9.792 seconds)
+   **Total running time of the script:** (0 minutes 13.264 seconds)
 
-**Estimated memory usage:**  266 MB
+**Estimated memory usage:**  261 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_adversarial_fine_tuning.py:
