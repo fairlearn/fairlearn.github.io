@@ -645,18 +645,18 @@ The <code class="code docutils literal notranslate"><span class="pre">Correlatio
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s2">&quot;race&quot;</span><span class="p">,</span> <span class="s2">&quot;time_in_hospital&quot;</span><span class="p">,</span> <span class="s2">&quot;had_inpatient_days&quot;</span><span class="p">,</span> <span class="s2">&quot;medicare&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s2">"race"</span><span class="p">,</span> <span class="s2">"time_in_hospital"</span><span class="p">,</span> <span class="s2">"had_inpatient_days"</span><span class="p">,</span> <span class="s2">"medicare"</span><span class="p">]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;race_Asian&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;race_Caucasian&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;race_Hispanic&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;race_Other&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;race_Unknown&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;had_inpatient_days_False&quot;</span><span class="p">,</span>
-<span class="gp">... </span>                    <span class="s2">&quot;medicare_False&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"race_Asian"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"race_Caucasian"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"race_Hispanic"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"race_Other"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"race_Unknown"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"had_inpatient_days_False"</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s2">"medicare_False"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">'race_AfricanAmerican'</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="go">CorrelationRemover(sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="go">CorrelationRemover(sensitive_feature_ids=['race_AfricanAmerican'])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -687,9 +687,9 @@ the correlation between the other features.</p>
 </figure>
 <p>We can also use the <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> parameter with for instance <span class="math notranslate nohighlight">\(\alpha=0.5\)</span>
 to control the level of filtering between the sensitive and non-sensitive features.</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;race_AfricanAmerican&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span> <span class="o">=</span> <span class="n">CorrelationRemover</span><span class="p">(</span><span class="n">sensitive_feature_ids</span><span class="o">=</span><span class="p">[</span><span class="s1">'race_AfricanAmerican'</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="go">CorrelationRemover(alpha=0.5, sensitive_feature_ids=[&#39;race_AfricanAmerican&#39;])</span>
+<span class="go">CorrelationRemover(alpha=0.5, sensitive_feature_ids=['race_AfricanAmerican'])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_transform</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -742,12 +742,12 @@ features have less influence on the predictions of a downstream model.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">features_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-gain&quot;</span><span class="p">,</span> <span class="s2">&quot;capital-loss&quot;</span><span class="p">,</span> <span class="s2">&quot;hours-per-week&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_feature_id</span> <span class="o">=</span> <span class="s2">&quot;race_White&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"fnlwgt"</span><span class="p">,</span> <span class="s2">"capital-gain"</span><span class="p">,</span> <span class="s2">"capital-loss"</span><span class="p">,</span> <span class="s2">"hours-per-week"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sensitive_feature_id</span> <span class="o">=</span> <span class="s2">"race_White"</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">raw_data</span> <span class="o">=</span> <span class="n">fetch_adult</span><span class="p">()</span><span class="o">.</span><span class="n">frame</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="p">(</span>
-<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="n">features_to_keep</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]],</span>
-<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="n">features_to_keep</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"race"</span><span class="p">]],</span>
+<span class="gp">... </span>    <span class="n">raw_data</span><span class="p">[</span><span class="s2">"class"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"&gt;50K"</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">sensitive_features</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">features_to_keep</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">sensitive_feature_id</span><span class="p">]</span>

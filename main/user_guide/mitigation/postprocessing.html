@@ -639,21 +639,21 @@ true positive rate parity as the fairness constraint.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.postprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThresholdOptimizer</span><span class="p">,</span> <span class="n">plot_threshold_optimizer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Drop 3 rows of Unknown gender since it&#39;s not representative of that group.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Drop 3 rows of Unknown gender since it's not representative of that group.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># In a real application, this would be a red flag to investigate data collection.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">keep_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Male&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Female&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keep_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Male"</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Female"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_columns</span> <span class="o">=</span> <span class="p">[</span>
-<span class="gp">... </span>    <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;discharge_disposition_id&#39;</span><span class="p">,</span> <span class="s1">&#39;admission_source_id&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s1">&#39;medical_specialty&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;readmitted&#39;</span><span class="p">,</span> <span class="s1">&#39;max_glu_serum&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s1">&#39;A1Cresult&#39;</span><span class="p">,</span> <span class="s1">&#39;insulin&#39;</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="s1">&#39;diabetesMed&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="s1">'race'</span><span class="p">,</span> <span class="s1">'gender'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">,</span> <span class="s1">'discharge_disposition_id'</span><span class="p">,</span> <span class="s1">'admission_source_id'</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">'medical_specialty'</span><span class="p">,</span> <span class="s1">'primary_diagnosis'</span><span class="p">,</span> <span class="s1">'readmitted'</span><span class="p">,</span> <span class="s1">'max_glu_serum'</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">'A1Cresult'</span><span class="p">,</span> <span class="s1">'insulin'</span><span class="p">,</span> <span class="s1">'change'</span><span class="p">,</span> <span class="s1">'diabetesMed'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'category'</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Remove readmission columns from data as they would leak the target information.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readmitted&quot;</span><span class="p">,</span> <span class="s2">&quot;readmit_binary&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_raw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"readmitted"</span><span class="p">,</span> <span class="s2">"readmit_binary"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">"gender"</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">A_train</span><span class="p">,</span> <span class="n">A_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -662,70 +662,70 @@ true positive rate parity as the fairness constraint.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A_test</span> <span class="o">=</span> <span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">numeric_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;impute&quot;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">()),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"impute"</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">()),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"scaler"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;ohe&quot;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"ohe"</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">)),</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="n">numeric_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_exclude</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="n">categorical_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"num"</span><span class="p">,</span> <span class="n">numeric_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_exclude</span><span class="o">=</span><span class="s2">"category"</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"cat"</span><span class="p">,</span> <span class="n">categorical_transformer</span><span class="p">,</span> <span class="n">selector</span><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="s2">"category"</span><span class="p">)),</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"preprocessor"</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="p">(</span>
-<span class="gp">... </span>            <span class="s2">&quot;classifier&quot;</span><span class="p">,</span>
-<span class="gp">... </span>            <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="s2">"classifier"</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="p">),</span>
 <span class="gp">... </span>    <span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;true_positive_rate_parity&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">"true_positive_rate_parity"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">"balanced_accuracy_score"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">"predict_proba"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
-<span class="go">ThresholdOptimizer(constraints=&#39;true_positive_rate_parity&#39;,</span>
-<span class="go">                   estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
-<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">ThresholdOptimizer(constraints='true_positive_rate_parity',</span>
+<span class="go">                   estimator=Pipeline(steps=[('preprocessor',</span>
+<span class="go">                                              ColumnTransformer(transformers=[('num',</span>
+<span class="go">                                                                               Pipeline(steps=[('impute',</span>
 <span class="go">                                                                                                SimpleImputer()),</span>
-<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                               ('scaler',</span>
 <span class="go">                                                                                                StandardScaler())]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
-<span class="go">                                                                              (&#39;cat&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
-<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                              ('cat',</span>
+<span class="go">                                                                               Pipeline(steps=[('ohe',</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown='ignore'))]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;)])),</span>
-<span class="go">                                             (&#39;classifier&#39;,</span>
-<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
-<span class="go">                   objective=&#39;balanced_accuracy_score&#39;,</span>
-<span class="go">                   predict_method=&#39;predict_proba&#39;)</span>
+<span class="go">                                             ('classifier',</span>
+<span class="go">                                              LogisticRegression(solver='liblinear'))]),</span>
+<span class="go">                   objective='balanced_accuracy_score',</span>
+<span class="go">                   predict_method='predict_proba')</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
 <span class="go">array([0, 0, 0, ..., 0, 1, 0], shape=(30529,))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_rules_by_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">threshold_rules_by_group</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 <span class="go">{</span>
-<span class="go">    &quot;Female&quot;: {</span>
-<span class="go">        &quot;p0&quot;: 0.628...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.110...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.371...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.096...]&quot;</span>
+<span class="go">    "Female": {</span>
+<span class="go">        "p0": 0.628...,</span>
+<span class="go">        "operation0": "[&gt;0.110...]",</span>
+<span class="go">        "p1": 0.371...,</span>
+<span class="go">        "operation1": "[&gt;0.096...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Male&quot;: {</span>
-<span class="go">        &quot;p0&quot;: 0.997...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.104...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.002...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.099...]&quot;</span>
+<span class="go">    "Male": {</span>
+<span class="go">        "p0": 0.997...,</span>
+<span class="go">        "operation0": "[&gt;0.104...]",</span>
+<span class="go">        "p1": 0.002...,</span>
+<span class="go">        "operation1": "[&gt;0.099...]"</span>
 <span class="go">    }</span>
 <span class="go">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
@@ -765,17 +765,17 @@ within a specified tolerance <code class="code docutils literal notranslate"><sp
 <code class="code docutils literal notranslate"><span class="pre">tol=0.2</span></code>:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;true_positive_rate_parity&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">"true_positive_rate_parity"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">"balanced_accuracy_score"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">"predict_proba"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">tol</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">true_positive_rate_per_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">_x_best_per_group</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">({</span><span class="n">group</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rate</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">true_positive_rate_per_group</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-<span class="go">{&#39;Female&#39;: &#39;0.70&#39;, &#39;Male&#39;: &#39;0.63&#39;}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">_y_best</span><span class="si">:</span><span class="s2">5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">({</span><span class="n">group</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rate</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">true_positive_rate_per_group</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+<span class="go">{'Female': '0.70', 'Male': '0.63'}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">_y_best</span><span class="si">:</span><span class="s2">5f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="go">0.604667</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
 </pre></div>
@@ -844,9 +844,9 @@ Also note that we use race as the sensitive feature here to illustrate
 ROC curves that are somewhat different from each other.
 Using gender as we did above would result in very similar curves for the
 two groups.</p>
-<div class="doctest highlight-default notranslate" id="printed-thresholds"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">&quot;race&quot;</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate" id="printed-thresholds"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">X_raw</span><span class="p">[</span><span class="s2">"race"</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">A_train</span><span class="p">,</span> <span class="n">A_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">X_raw</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -855,76 +855,76 @@ two groups.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A_test</span> <span class="o">=</span> <span class="n">A_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;equalized_odds&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">&quot;predict_proba&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy_score&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">"equalized_odds"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">predict_method</span><span class="o">=</span><span class="s2">"predict_proba"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">"balanced_accuracy_score"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
-<span class="go">ThresholdOptimizer(constraints=&#39;equalized_odds&#39;,</span>
-<span class="go">                   estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
-<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">ThresholdOptimizer(constraints='equalized_odds',</span>
+<span class="go">                   estimator=Pipeline(steps=[('preprocessor',</span>
+<span class="go">                                              ColumnTransformer(transformers=[('num',</span>
+<span class="go">                                                                               Pipeline(steps=[('impute',</span>
 <span class="go">                                                                                                SimpleImputer()),</span>
-<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                               ('scaler',</span>
 <span class="go">                                                                                                StandardScaler())]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
-<span class="go">                                                                              (&#39;cat&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
-<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                              ('cat',</span>
+<span class="go">                                                                               Pipeline(steps=[('ohe',</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown='ignore'))]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;)])),</span>
-<span class="go">                                             (&#39;classifier&#39;,</span>
-<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
-<span class="go">                   objective=&#39;balanced_accuracy_score&#39;,</span>
-<span class="go">                   predict_method=&#39;predict_proba&#39;)</span>
+<span class="go">                                             ('classifier',</span>
+<span class="go">                                              LogisticRegression(solver='liblinear'))]),</span>
+<span class="go">                   objective='balanced_accuracy_score',</span>
+<span class="go">                   predict_method='predict_proba')</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_rules_by_group</span> <span class="o">=</span> <span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">interpolated_thresholder_</span><span class="o">.</span><span class="n">interpolation_dict</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">threshold_rules_by_group</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 <span class="go">{</span>
-<span class="go">    &quot;AfricanAmerican&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.107...,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.987...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.093...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.012...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.081...]&quot;</span>
+<span class="go">    "AfricanAmerican": {</span>
+<span class="go">        "p_ignore": 0.107...,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.987...,</span>
+<span class="go">        "operation0": "[&gt;0.093...]",</span>
+<span class="go">        "p1": 0.012...,</span>
+<span class="go">        "operation1": "[&gt;0.081...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Asian&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.445...,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.921...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.084...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.078...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.066...]&quot;</span>
+<span class="go">    "Asian": {</span>
+<span class="go">        "p_ignore": 0.445...,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.921...,</span>
+<span class="go">        "operation0": "[&gt;0.084...]",</span>
+<span class="go">        "p1": 0.078...,</span>
+<span class="go">        "operation1": "[&gt;0.066...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Caucasian&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.071...,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.708...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.097...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.291...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.088...]&quot;</span>
+<span class="go">    "Caucasian": {</span>
+<span class="go">        "p_ignore": 0.071...,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.708...,</span>
+<span class="go">        "operation0": "[&gt;0.097...]",</span>
+<span class="go">        "p1": 0.291...,</span>
+<span class="go">        "operation1": "[&gt;0.088...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Hispanic&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.311...,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.864...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.084...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.135...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.080...]&quot;</span>
+<span class="go">    "Hispanic": {</span>
+<span class="go">        "p_ignore": 0.311...,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.864...,</span>
+<span class="go">        "operation0": "[&gt;0.084...]",</span>
+<span class="go">        "p1": 0.135...,</span>
+<span class="go">        "operation1": "[&gt;0.080...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Other&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.0,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.373...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.113...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.626...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.069...]&quot;</span>
+<span class="go">    "Other": {</span>
+<span class="go">        "p_ignore": 0.0,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.373...,</span>
+<span class="go">        "operation0": "[&gt;0.113...]",</span>
+<span class="go">        "p1": 0.626...,</span>
+<span class="go">        "operation1": "[&gt;0.069...]"</span>
 <span class="go">    },</span>
-<span class="go">    &quot;Unknown&quot;: {</span>
-<span class="go">        &quot;p_ignore&quot;: 0.000...,</span>
-<span class="go">        &quot;prediction_constant&quot;: 0.511,</span>
-<span class="go">        &quot;p0&quot;: 0.183...,</span>
-<span class="go">        &quot;operation0&quot;: &quot;[&gt;0.094...]&quot;,</span>
-<span class="go">        &quot;p1&quot;: 0.816...,</span>
-<span class="go">        &quot;operation1&quot;: &quot;[&gt;0.065...]&quot;</span>
+<span class="go">    "Unknown": {</span>
+<span class="go">        "p_ignore": 0.000...,</span>
+<span class="go">        "prediction_constant": 0.511,</span>
+<span class="go">        "p0": 0.183...,</span>
+<span class="go">        "operation0": "[&gt;0.094...]",</span>
+<span class="go">        "p1": 0.816...,</span>
+<span class="go">        "operation1": "[&gt;0.065...]"</span>
 <span class="go">    }</span>
 <span class="go">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plot_threshold_optimizer</span><span class="p">(</span><span class="n">threshold_optimizer</span><span class="p">)</span>
@@ -1000,37 +1000,37 @@ EU non-discrimination law in contexts covered by these laws.</p>
 <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThresholdOptimizer</span></code></a> does not call <code class="code docutils literal notranslate"><span class="pre">fit()</span></code> on the estimator and
 assumes that it is already trained.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="go">Pipeline(steps=[(&#39;preprocessor&#39;,</span>
-<span class="go">                 ColumnTransformer(transformers=[(&#39;num&#39;,</span>
-<span class="go">                                                  Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">Pipeline(steps=[('preprocessor',</span>
+<span class="go">                 ColumnTransformer(transformers=[('num',</span>
+<span class="go">                                                  Pipeline(steps=[('impute',</span>
 <span class="go">                                                                   SimpleImputer()),</span>
-<span class="go">                                                                  (&#39;scaler&#39;,</span>
+<span class="go">                                                                  ('scaler',</span>
 <span class="go">                                                                   StandardScaler())]),</span>
 <span class="go">                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...),</span>
-<span class="go">                                                 (&#39;cat&#39;,</span>
-<span class="go">                                                  Pipeline(steps=[(&#39;ohe&#39;,</span>
-<span class="go">                                                                   OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                 ('cat',</span>
+<span class="go">                                                  Pipeline(steps=[('ohe',</span>
+<span class="go">                                                                   OneHotEncoder(handle_unknown='ignore'))]),</span>
 <span class="go">                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...)])),</span>
-<span class="go">                (&#39;classifier&#39;, LogisticRegression(solver=&#39;liblinear&#39;))])</span>
+<span class="go">                ('classifier', LogisticRegression(solver='liblinear'))])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span> <span class="o">=</span> <span class="n">ThresholdOptimizer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">&quot;demographic_parity&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;accuracy_score&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">constraints</span><span class="o">=</span><span class="s2">"demographic_parity"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">"accuracy_score"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">prefit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
-<span class="go">ThresholdOptimizer(estimator=Pipeline(steps=[(&#39;preprocessor&#39;,</span>
-<span class="go">                                              ColumnTransformer(transformers=[(&#39;num&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;impute&#39;,</span>
+<span class="go">ThresholdOptimizer(estimator=Pipeline(steps=[('preprocessor',</span>
+<span class="go">                                              ColumnTransformer(transformers=[('num',</span>
+<span class="go">                                                                               Pipeline(steps=[('impute',</span>
 <span class="go">                                                                                                SimpleImputer()),</span>
-<span class="go">                                                                                               (&#39;scaler&#39;,</span>
+<span class="go">                                                                                               ('scaler',</span>
 <span class="go">                                                                                                StandardScaler())]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...&gt;),</span>
-<span class="go">                                                                              (&#39;cat&#39;,</span>
-<span class="go">                                                                               Pipeline(steps=[(&#39;ohe&#39;,</span>
-<span class="go">                                                                                                OneHotEncoder(handle_unknown=&#39;ignore&#39;))]),</span>
+<span class="go">                                                                              ('cat',</span>
+<span class="go">                                                                               Pipeline(steps=[('ohe',</span>
+<span class="go">                                                                                                OneHotEncoder(handle_unknown='ignore'))]),</span>
 <span class="go">                                                                               &lt;sklearn.compose._column_transformer.make_column_selector object at 0x...)])),</span>
-<span class="go">                                             (&#39;classifier&#39;,</span>
-<span class="go">                                              LogisticRegression(solver=&#39;liblinear&#39;))]),</span>
+<span class="go">                                             ('classifier',</span>
+<span class="go">                                              LogisticRegression(solver='liblinear'))]),</span>
 <span class="go">                   prefit=True)</span>
 </pre></div>
 </div>

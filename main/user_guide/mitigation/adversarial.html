@@ -642,11 +642,11 @@ or discrete prediction function on the final layer. So, for instance, when predi
 a categorical feature that is one-hot-encoded, the neural network should output a
 vector of real-valued scores, not the one-hot-encoded discrete prediction:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">predictor_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">),</span>
     <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">])</span>
 <span class="n">adversary_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">),</span>
     <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">])</span>
 <span class="n">mitigator</span> <span class="o">=</span> <span class="n">AdversarialFairnessClassifier</span><span class="p">(</span>
@@ -674,8 +674,8 @@ ReLU activations, and an output layer with an appropriate activation function.
 The appropriate function in case of classification will be softmax for one
 hot encoded <span class="math notranslate nohighlight">\(Y\)</span> and sigmoid for binary <span class="math notranslate nohighlight">\(Y\)</span>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mitigator</span> <span class="o">=</span> <span class="n">AdversarialFairnessClassifier</span><span class="p">(</span>
-    <span class="n">predictor_model</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;relu&quot;</span><span class="p">],</span>
-    <span class="n">adversary_model</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;relu&quot;</span><span class="p">]</span>
+    <span class="n">predictor_model</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="s2">"relu"</span><span class="p">],</span>
+    <span class="n">adversary_model</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"relu"</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>

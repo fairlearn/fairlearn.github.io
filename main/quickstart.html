@@ -602,10 +602,10 @@ prediction task.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_diabetes_hospital</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_diabetes_hospital</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readmitted&quot;</span><span class="p">,</span> <span class="s2">&quot;readmit_binary&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"readmitted"</span><span class="p">,</span> <span class="s2">"readmit_binary"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_ohe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">race</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">race</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">'race'</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="go">race</span>
 <span class="go">Caucasian          76099</span>
@@ -683,12 +683,12 @@ the model does not predict that outcome.</p>
 <p>Fairlearn also allows us to quickly plot these metrics from the
 <a class="reference internal" href="api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.metrics.MetricFrame</span></code></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
-    <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">zero_div_precision_score</span><span class="p">,</span>
-    <span class="s2">&quot;false positive rate&quot;</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
-    <span class="s2">&quot;false negative rate&quot;</span><span class="p">:</span> <span class="n">false_negative_rate</span><span class="p">,</span>
-    <span class="s2">&quot;selection rate&quot;</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
-    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span>
+    <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">,</span>
+    <span class="s2">"precision"</span><span class="p">:</span> <span class="n">zero_div_precision_score</span><span class="p">,</span>
+    <span class="s2">"false positive rate"</span><span class="p">:</span> <span class="n">false_positive_rate</span><span class="p">,</span>
+    <span class="s2">"false negative rate"</span><span class="p">:</span> <span class="n">false_negative_rate</span><span class="p">,</span>
+    <span class="s2">"selection rate"</span><span class="p">:</span> <span class="n">selection_rate</span><span class="p">,</span>
+    <span class="s2">"count"</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">metric_frame</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_test</span>
@@ -698,7 +698,7 @@ the model does not predict that outcome.</p>
     <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Show all metrics&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Show all metrics"</span><span class="p">,</span>
 <span class="p">)</span>
 
 </pre></div>
@@ -721,7 +721,7 @@ such decisions. The Exponentiated Gradient mitigation technique used fits the
 provided classifier using Equalized Odds as the constraint and a suitably weighted Error Rate
 as the objective, leading to a vastly reduced difference in accuracy:</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.reductions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ErrorRate</span><span class="p">,</span> <span class="n">EqualizedOdds</span><span class="p">,</span> <span class="n">ExponentiatedGradient</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">objective</span> <span class="o">=</span> <span class="n">ErrorRate</span><span class="p">(</span><span class="n">costs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fp&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;fn&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">objective</span> <span class="o">=</span> <span class="n">ErrorRate</span><span class="p">(</span><span class="n">costs</span><span class="o">=</span><span class="p">{</span><span class="s1">'fp'</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">'fn'</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constraint</span> <span class="o">=</span> <span class="n">EqualizedOdds</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span> <span class="o">=</span> <span class="n">ExponentiatedGradient</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">constraint</span><span class="p">,</span> <span class="n">objective</span><span class="o">=</span><span class="n">objective</span><span class="p">)</span>
