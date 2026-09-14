@@ -558,7 +558,7 @@ We start by loading and preprocessing the dataset:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fairlearn.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a>
 
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.datasets.fetch_adult.html#fairlearn.datasets.fetch_adult" title="fairlearn.datasets.fetch_adult" class="sphx-glr-backref-module-fairlearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_adult</span></a><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">z</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span>  <span class="c1"># In this example, we consider 'sex' the sensitive feature.</span>
 </pre></div>
@@ -1230,6 +1230,14 @@ a.param-doc-link::before {
     width: 14px;
     height: 14px;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.copy-paste-icon:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
 }
 
 .features {
@@ -1288,7 +1296,6 @@ a.param-doc-link::before {
 }
 
 .features .features-container {
-  max-width: 15em;
   max-height: 10em;
   overflow: auto;
   scrollbar-width: thin;
@@ -1358,14 +1365,14 @@ a.param-doc-link::before {
                                                                    SimpleImputer()),
                                                                   (&#x27;normalizer&#x27;,
                                                                    StandardScaler())]),
-                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x752629e9b590&gt;),
+                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7e00d8867620&gt;),
                                                  (&#x27;pipeline-2&#x27;,
                                                   Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                    SimpleImputer(strategy=&#x27;most_frequent&#x27;)),
                                                                   (&#x27;encoder&#x27;,
                                                                    OneHotEncoder(drop=&#x27;if_binary&#x27;,
                                                                                  sparse_output=False))]),
-                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7525871c8e00&gt;)])),
+                                                  &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7e0035da6e70&gt;)])),
                 (&#x27;adversarialfairnessclassifier&#x27;,
                  AdversarialFairnessClassifier(adversary_model=[3,
                                                                 &#x27;leaky_relu&#x27;],
@@ -1381,10 +1388,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy steps to clipboard"
                  onclick="copyToClipboard('steps',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-steps;"
@@ -1400,10 +1408,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy transform_input to clipboard"
                  onclick="copyToClipboard('transform_input',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-transform_input;"
@@ -1419,10 +1428,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy memory to clipboard"
                  onclick="copyToClipboard('memory',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-memory;"
@@ -1438,10 +1448,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy verbose to clipboard"
                  onclick="copyToClipboard('verbose',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-verbose;"
@@ -1537,10 +1548,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy transformers to clipboard"
                  onclick="copyToClipboard('transformers',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-transformers;"
@@ -1556,10 +1568,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy remainder to clipboard"
                  onclick="copyToClipboard('remainder',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-remainder;"
@@ -1575,10 +1588,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy sparse_threshold to clipboard"
                  onclick="copyToClipboard('sparse_threshold',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-sparse_threshold;"
@@ -1594,10 +1608,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy n_jobs to clipboard"
                  onclick="copyToClipboard('n_jobs',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-n_jobs;"
@@ -1613,10 +1628,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy transformer_weights to clipboard"
                  onclick="copyToClipboard('transformer_weights',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-transformer_weights;"
@@ -1632,10 +1648,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy verbose to clipboard"
                  onclick="copyToClipboard('verbose',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-verbose;"
@@ -1651,10 +1668,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy verbose_feature_names_out to clipboard"
                  onclick="copyToClipboard('verbose_feature_names_out',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-verbose_feature_names_out;"
@@ -1804,10 +1822,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy missing_values to clipboard"
                  onclick="copyToClipboard('missing_values',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-missing_values;"
@@ -1823,10 +1842,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy strategy to clipboard"
                  onclick="copyToClipboard('strategy',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-strategy;"
@@ -1842,10 +1862,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy fill_value to clipboard"
                  onclick="copyToClipboard('fill_value',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-fill_value;"
@@ -1861,10 +1882,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy copy to clipboard"
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-copy;"
@@ -1880,10 +1902,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy add_indicator to clipboard"
                  onclick="copyToClipboard('add_indicator',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-add_indicator;"
@@ -1899,10 +1922,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy keep_empty_features to clipboard"
                  onclick="copyToClipboard('keep_empty_features',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-keep_empty_features;"
@@ -2014,15 +2038,17 @@ a.param-doc-link::before {
             <summary>
               <div class="arrow"></div>
               <div>6 features</div>
-              <div class="image-container" title="Copy all output features">
-                <i class="copy-paste-icon"
+              <div class="image-container">
+                <button type="button" class="copy-paste-icon"
+                  title="Copy output features (max 100)"
+                  aria-label="Copy output features (max 100)"
                   onclick="
                   event.stopPropagation();
                   event.preventDefault();
                   copyFeatureNamesToClipboard(this);
                   "
                 >
-                </i>
+                </button>
               </div>
             </summary>
             <div class="features-container">
@@ -2072,10 +2098,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy copy to clipboard"
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-copy;"
@@ -2091,10 +2118,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy with_mean to clipboard"
                  onclick="copyToClipboard('with_mean',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-with_mean;"
@@ -2110,10 +2138,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy with_std to clipboard"
                  onclick="copyToClipboard('with_std',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-with_std;"
@@ -2242,15 +2271,17 @@ a.param-doc-link::before {
             <summary>
               <div class="arrow"></div>
               <div>6 features</div>
-              <div class="image-container" title="Copy all output features">
-                <i class="copy-paste-icon"
+              <div class="image-container">
+                <button type="button" class="copy-paste-icon"
+                  title="Copy output features (max 100)"
+                  aria-label="Copy output features (max 100)"
                   onclick="
                   event.stopPropagation();
                   event.preventDefault();
                   copyFeatureNamesToClipboard(this);
                   "
                 >
-                </i>
+                </button>
               </div>
             </summary>
             <div class="features-container">
@@ -2300,10 +2331,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy strategy to clipboard"
                  onclick="copyToClipboard('strategy',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-strategy;"
@@ -2319,10 +2351,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy missing_values to clipboard"
                  onclick="copyToClipboard('missing_values',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-missing_values;"
@@ -2338,10 +2371,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy fill_value to clipboard"
                  onclick="copyToClipboard('fill_value',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-fill_value;"
@@ -2357,10 +2391,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy copy to clipboard"
                  onclick="copyToClipboard('copy',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-copy;"
@@ -2376,10 +2411,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy add_indicator to clipboard"
                  onclick="copyToClipboard('add_indicator',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-add_indicator;"
@@ -2395,10 +2431,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy keep_empty_features to clipboard"
                  onclick="copyToClipboard('keep_empty_features',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-keep_empty_features;"
@@ -2511,15 +2548,17 @@ a.param-doc-link::before {
             <summary>
               <div class="arrow"></div>
               <div>8 features</div>
-              <div class="image-container" title="Copy all output features">
-                <i class="copy-paste-icon"
+              <div class="image-container">
+                <button type="button" class="copy-paste-icon"
+                  title="Copy output features (max 100)"
+                  aria-label="Copy output features (max 100)"
                   onclick="
                   event.stopPropagation();
                   event.preventDefault();
                   copyFeatureNamesToClipboard(this);
                   "
                 >
-                </i>
+                </button>
               </div>
             </summary>
             <div class="features-container">
@@ -2579,10 +2618,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy drop to clipboard"
                  onclick="copyToClipboard('drop',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-drop;"
@@ -2598,10 +2638,11 @@ a.param-doc-link::before {
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy sparse_output to clipboard"
                  onclick="copyToClipboard('sparse_output',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-sparse_output;"
@@ -2617,10 +2658,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy categories to clipboard"
                  onclick="copyToClipboard('categories',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-categories;"
@@ -2636,10 +2678,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy dtype to clipboard"
                  onclick="copyToClipboard('dtype',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-dtype;"
@@ -2655,10 +2698,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy handle_unknown to clipboard"
                  onclick="copyToClipboard('handle_unknown',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-handle_unknown;"
@@ -2674,10 +2718,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy min_frequency to clipboard"
                  onclick="copyToClipboard('min_frequency',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-min_frequency;"
@@ -2693,10 +2738,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy max_categories to clipboard"
                  onclick="copyToClipboard('max_categories',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-max_categories;"
@@ -2712,10 +2758,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy feature_name_combiner to clipboard"
                  onclick="copyToClipboard('feature_name_combiner',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-feature_name_combiner;"
@@ -2808,15 +2855,17 @@ a.param-doc-link::before {
             <summary>
               <div class="arrow"></div>
               <div>98 features</div>
-              <div class="image-container" title="Copy all output features">
-                <i class="copy-paste-icon"
+              <div class="image-container">
+                <button type="button" class="copy-paste-icon"
+                  title="Copy output features (max 100)"
+                  aria-label="Copy output features (max 100)"
                   onclick="
                   event.stopPropagation();
                   event.preventDefault();
                   copyFeatureNamesToClipboard(this);
                   "
                 >
-                </i>
+                </button>
               </div>
             </summary>
             <div class="features-container">
@@ -3323,16 +3372,18 @@ a.param-doc-link::before {
           <details>
             <summary>
               <div class="arrow"></div>
-              <div>104 features</div>
-              <div class="image-container" title="Copy all output features">
-                <i class="copy-paste-icon"
+              <div>100 of 104 features</div>
+              <div class="image-container">
+                <button type="button" class="copy-paste-icon"
+                  title="Copy output features (max 100)"
+                  aria-label="Copy output features (max 100)"
                   onclick="
                   event.stopPropagation();
                   event.preventDefault();
                   copyFeatureNamesToClipboard(this);
                   "
                 >
-                </i>
+                </button>
               </div>
             </summary>
             <div class="features-container">
@@ -3839,26 +3890,6 @@ a.param-doc-link::before {
         </tr>
 
 
-        <tr>
-          <td>pipeline-2__native-country_Trinadad&amp;Tobago</td>
-        </tr>
-
-
-        <tr>
-          <td>pipeline-2__native-country_United-States</td>
-        </tr>
-
-
-        <tr>
-          <td>pipeline-2__native-country_Vietnam</td>
-        </tr>
-
-
-        <tr>
-          <td>pipeline-2__native-country_Yugoslavia</td>
-        </tr>
-
-
                   </tbody>
                 </table>
             </div>
@@ -3872,170 +3903,187 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy backend to clipboard"
                  onclick="copyToClipboard('backend',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">backend</td>
             <td class="value">&#x27;torch&#x27;</td>
         </tr>
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy predictor_model to clipboard"
                  onclick="copyToClipboard('predictor_model',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">predictor_model</td>
             <td class="value">[50, &#x27;leaky_relu&#x27;]</td>
         </tr>
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy adversary_model to clipboard"
                  onclick="copyToClipboard('adversary_model',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">adversary_model</td>
             <td class="value">[3, &#x27;leaky_relu&#x27;]</td>
         </tr>
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy batch_size to clipboard"
                  onclick="copyToClipboard('batch_size',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">batch_size</td>
             <td class="value">256</td>
         </tr>
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy progress_updates to clipboard"
                  onclick="copyToClipboard('progress_updates',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">progress_updates</td>
             <td class="value">0.5</td>
         </tr>
 
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy random_state to clipboard"
                  onclick="copyToClipboard('random_state',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">random_state</td>
             <td class="value">123</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy predictor_optimizer to clipboard"
                  onclick="copyToClipboard('predictor_optimizer',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">predictor_optimizer</td>
             <td class="value">&#x27;Adam&#x27;</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy adversary_optimizer to clipboard"
                  onclick="copyToClipboard('adversary_optimizer',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">adversary_optimizer</td>
             <td class="value">&#x27;Adam&#x27;</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy constraints to clipboard"
                  onclick="copyToClipboard('constraints',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">constraints</td>
             <td class="value">&#x27;demographic_parity&#x27;</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy learning_rate to clipboard"
                  onclick="copyToClipboard('learning_rate',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">learning_rate</td>
             <td class="value">0.001</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy alpha to clipboard"
                  onclick="copyToClipboard('alpha',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">alpha</td>
             <td class="value">1.0</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy epochs to clipboard"
                  onclick="copyToClipboard('epochs',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">epochs</td>
             <td class="value">1</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy shuffle to clipboard"
                  onclick="copyToClipboard('shuffle',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">shuffle</td>
             <td class="value">False</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy skip_validation to clipboard"
                  onclick="copyToClipboard('skip_validation',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">skip_validation</td>
             <td class="value">False</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy callbacks to clipboard"
                  onclick="copyToClipboard('callbacks',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">callbacks</td>
             <td class="value">None</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy cuda to clipboard"
                  onclick="copyToClipboard('cuda',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">cuda</td>
             <td class="value">None</td>
         </tr>
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy warm_start to clipboard"
                  onclick="copyToClipboard('warm_start',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">warm_start</td>
             <td class="value">False</td>
         </tr>
@@ -4068,7 +4116,7 @@ a.param-doc-link::before {
        <tr class="default">
            <td class="param"><a class="param-doc-link" style="text-decoration:none;">backendEngine_</a></td>
            <td class="fitted-att-type">PytorchEngine</td>
-           <td>&lt;fairlearn.ad...x7525a8d52600&gt;</td>
+           <td>&lt;fairlearn.ad...x7e0054ccd880&gt;</td>
 
 
        </tr>
@@ -4158,7 +4206,7 @@ a.param-doc-link::before {
        <tr class="default">
            <td class="param"><a class="param-doc-link" style="text-decoration:none;">random_state_</a></td>
            <td class="fitted-att-type">RandomState</td>
-           <td>RandomState(M...0x7525A87BE840</td>
+           <td>RandomState(M...0x7E0054567840</td>
 
 
        </tr>
@@ -4352,8 +4400,8 @@ here:</p>
 
 <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mf</span></a> <span class="o">=</span> <a href="../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame" title="fairlearn.metrics.MetricFrame" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-class"><span class="n">MetricFrame</span></a><span class="p">(</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"accuracy"</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a><span class="p">,</span> <span class="s2">"selection_rate"</span><span class="p">:</span> <a href="../api_reference/generated/fairlearn.metrics.selection_rate.html#fairlearn.metrics.selection_rate" title="fairlearn.metrics.selection_rate" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">selection_rate</span></a><span class="p">},</span>
-    <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a> <span class="o">==</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a><span class="p">,</span>
-    <span class="n">y_pred</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a> <span class="o">==</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a><span class="p">,</span>
+    <span class="n">y_true</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a> <span class="o">==</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a><span class="p">,</span>
+    <span class="n">y_pred</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a> <span class="o">==</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pos_label</span></a><span class="p">,</span>
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Z_test</span></a><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -4382,8 +4430,8 @@ validation, and early stopping to improve adversarial training.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">sklearn</span><span class="o">.</span><span class="n">set_config</span></a><span class="p">(</span><span class="n">enable_metadata_routing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.179 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  792 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 13.326 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  770 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-adversarial-basics-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_adversarial_basics.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" style="width: 150px;" />

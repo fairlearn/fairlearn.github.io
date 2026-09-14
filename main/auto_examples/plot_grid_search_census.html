@@ -1438,6 +1438,14 @@ a.param-doc-link::before {
     width: 14px;
     height: 14px;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.copy-paste-icon:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
 }
 
 .features {
@@ -1496,7 +1504,6 @@ a.param-doc-link::before {
 }
 
 .features .features-container {
-  max-width: 15em;
   max-height: 10em;
   overflow: auto;
   scrollbar-width: thin;
@@ -1568,10 +1575,11 @@ a.param-doc-link::before {
                   <tbody>
 
         <tr class="user-set">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy solver to clipboard"
                  onclick="copyToClipboard('solver',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-solver;"
@@ -1587,10 +1595,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy penalty to clipboard"
                  onclick="copyToClipboard('penalty',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-penalty;"
@@ -1606,10 +1615,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy C to clipboard"
                  onclick="copyToClipboard('C',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-C;"
@@ -1625,10 +1635,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy l1_ratio to clipboard"
                  onclick="copyToClipboard('l1_ratio',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-l1_ratio;"
@@ -1644,10 +1655,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy dual to clipboard"
                  onclick="copyToClipboard('dual',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-dual;"
@@ -1663,10 +1675,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy tol to clipboard"
                  onclick="copyToClipboard('tol',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-tol;"
@@ -1682,10 +1695,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy fit_intercept to clipboard"
                  onclick="copyToClipboard('fit_intercept',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-fit_intercept;"
@@ -1701,10 +1715,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy intercept_scaling to clipboard"
                  onclick="copyToClipboard('intercept_scaling',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-intercept_scaling;"
@@ -1720,10 +1735,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy class_weight to clipboard"
                  onclick="copyToClipboard('class_weight',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-class_weight;"
@@ -1739,10 +1755,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy random_state to clipboard"
                  onclick="copyToClipboard('random_state',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-random_state;"
@@ -1750,7 +1767,7 @@ a.param-doc-link::before {
             random_state
             <span class="param-doc-description"
             style="position-anchor: --doc-link-random_state;">
-            random_state: int, RandomState instance, default=None<br><br>Used when ``solver`` == &#x27;sag&#x27;, &#x27;saga&#x27; or &#x27;liblinear&#x27; to shuffle the<br>data. See :term:`Glossary &lt;random_state&gt;` for details.</span>
+            random_state: int, RandomState instance, default=None<br><br>Only used for `solver` == &#x27;sag&#x27;, &#x27;saga&#x27; or &#x27;liblinear&#x27; to shuffle the<br>data. It has no effect on the other solvers.<br>See :term:`Glossary &lt;random_state&gt;` for details.</span>
         </a>
     </td>
             <td class="value">None</td>
@@ -1758,10 +1775,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy max_iter to clipboard"
                  onclick="copyToClipboard('max_iter',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-max_iter;"
@@ -1777,10 +1795,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy verbose to clipboard"
                  onclick="copyToClipboard('verbose',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-verbose;"
@@ -1796,10 +1815,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy warm_start to clipboard"
                  onclick="copyToClipboard('warm_start',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-warm_start;"
@@ -1815,10 +1835,11 @@ a.param-doc-link::before {
 
 
         <tr class="default">
-            <td><i class="copy-paste-icon"
+            <td><button type="button" class="copy-paste-icon"
+                 aria-label="Copy n_jobs to clipboard"
                  onclick="copyToClipboard('n_jobs',
                           this.parentElement.nextElementSibling)"
-            ></i></td>
+            ></button></td>
             <td class="param">
         <a class="param-doc-link"
             style="anchor-name: --doc-link-n_jobs;"
@@ -2203,7 +2224,7 @@ feature labels, and also the number of predictors to generate in our sweep.</p>
 <a class="reference internal" href="../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch" title="fairlearn.reductions.GridSearch"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.reductions.GridSearch</span></code></a> object.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api_reference/generated/fairlearn.reductions.GridSearch.html#fairlearn.reductions.GridSearch.fit" title="fairlearn.reductions.GridSearch.fit" class="sphx-glr-backref-module-fairlearn-reductions sphx-glr-backref-type-py-method"><span class="n">sweep</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">)</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sweep</span><span class="o">.</span><span class="n">predictors_</span></a>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sweep</span><span class="o">.</span><span class="n">predictors_</span></a>
 </pre></div>
 </div>
 <p>We could plot performance and fairness metrics of these predictors now.
@@ -2214,35 +2235,35 @@ only be calculated for the sensitive feature; other potentially sensitive
 features will not be mitigated). In general, one might not want to do this,
 since there may be other considerations beyond the strict optimization of
 error and disparity (of the given sensitive feature).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-<span class="k">for</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">m</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a><span class="p">:</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="p">,</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">m</span></a> <span class="ow">in</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a><span class="p">:</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">m</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_train</span></a><span class="p">)</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">))</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">demographic_parity_difference</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">))</span>
+    <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">))</span>
+    <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="../api_reference/generated/fairlearn.metrics.demographic_parity_difference.html#fairlearn.metrics.demographic_parity_difference" title="fairlearn.metrics.demographic_parity_difference" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">demographic_parity_difference</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_train</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_pred</span></a><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_train</span></a><span class="p">))</span>
 
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">({</span><span class="s2">"predictor"</span><span class="p">:</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="p">,</span> <span class="s2">"disparity"</span><span class="p">:</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a><span class="p">})</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">({</span><span class="s2">"predictor"</span><span class="p">:</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictors</span></a><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors</span></a><span class="p">,</span> <span class="s2">"disparity"</span><span class="p">:</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">disparities</span></a><span class="p">})</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.itertuples.html#pandas.DataFrame.itertuples" title="pandas.DataFrame.itertuples" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">all_results</span><span class="o">.</span><span class="n">itertuples</span></a><span class="p">():</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">errors_for_lower_or_eq_disparity</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a><span class="p">[</span><span class="s2">"error"</span><span class="p">][</span>
-        <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a><span class="p">[</span><span class="s2">"disparity"</span><span class="p">]</span> <span class="o">&lt;=</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">disparity</span></a>
+        <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">all_results</span></a><span class="p">[</span><span class="s2">"disparity"</span><span class="p">]</span> <span class="o">&lt;=</span> <a href="https://docs.python.org/3/builtins/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">disparity</span></a>
     <span class="p">]</span>
-    <span class="k">if</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">error</span></a> <span class="o">&lt;=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html#pandas.Series.min" title="pandas.Series.min" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">errors_for_lower_or_eq_disparity</span><span class="o">.</span><span class="n">min</span></a><span class="p">():</span>
-        <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">predictor</span></a><span class="p">)</span>
+    <span class="k">if</span> <a href="https://docs.python.org/3/builtins/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">error</span></a> <span class="o">&lt;=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html#pandas.Series.min" title="pandas.Series.min" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">errors_for_lower_or_eq_disparity</span><span class="o">.</span><span class="n">min</span></a><span class="p">():</span>
+        <a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a><span class="o">.</span><span class="n">append</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">row</span><span class="o">.</span><span class="n">predictor</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we can evaluate the dominant models along with the unmitigated model.
 Fairlearn provides the <a class="reference internal" href="../api_reference/generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison"><code class="xref py py-func docutils literal notranslate"><span class="pre">fairlearn.metrics.plot_model_comparison()</span></code></a>
 function to compare models easily:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a> <span class="o">=</span> <span class="p">{</span><span class="s2">"unmitigated"</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">unmitigated_predictor</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)}</span>
-<span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictor</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a><span class="p">):</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">[</span><span class="sa">f</span><span class="s2">"dominant_model_</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a> <span class="o">=</span> <span class="p">{</span><span class="s2">"unmitigated"</span><span class="p">:</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">unmitigated_predictor</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)}</span>
+<span class="k">for</span> <a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictor</span></a> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="https://docs.python.org/3/builtins/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">non_dominated</span></a><span class="p">):</span>
+    <a href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">[</span><span class="sa">f</span><span class="s2">"dominant_model_</span><span class="si">{</span><a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict" title="sklearn.linear_model.LogisticRegression.predict" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-method"><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">)</span>
 
 <a href="../api_reference/generated/fairlearn.metrics.plot_model_comparison.html#fairlearn.metrics.plot_model_comparison" title="fairlearn.metrics.plot_model_comparison" class="sphx-glr-backref-module-fairlearn-metrics sphx-glr-backref-type-py-function"><span class="n">plot_model_comparison</span></a><span class="p">(</span>
     <span class="n">x_axis_metric</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">skm</span><span class="o">.</span><span class="n">accuracy_score</span></a><span class="p">,</span>
     <span class="n">y_axis_metric</span><span class="o">=</span><span class="n">selection_rate_difference</span><span class="p">,</span>
     <span class="n">y_true</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y_test</span></a><span class="p">,</span>
-    <span class="n">y_preds</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">,</span>
+    <span class="n">y_preds</span><span class="o">=</span><a href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">predictions</span></a><span class="p">,</span>
     <span class="n">sensitive_features</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">A_test</span></a><span class="p">,</span>
     <span class="n">point_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2276,8 +2297,8 @@ between accuracy and disparity given the relevant business constraints.</p>
 </aside>
 </aside>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 28.016 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  247 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 28.965 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  264 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-grid-search-census-py">
 <div class="lite-badge docutils container">
 <a class="reference external image-reference" href="../lite/lab/index.html?path=auto_examples/plot_grid_search_census.ipynb"><img alt="Launch JupyterLite" src="../_images/jupyterlite_badge_logo.svg" style="width: 150px;" />
