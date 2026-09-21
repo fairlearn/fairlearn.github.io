@@ -657,6 +657,20 @@ omitted from per-group curves, instead of raising a <code class="code docutils l
 reductions constraints by removing the redundant per-event group-membership
 component while preserving the classifier-dependent Lagrangian term: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1714">#1714</a>
 by <a class="reference external" href="https://github.com/quinnarnold">quinnarnold</a>.</p></li>
+<li><p><strong>Behaviour change.</strong> <a class="reference internal" href="../../api_reference/generated/fairlearn.datasets.fetch_bank_marketing.html#fairlearn.datasets.fetch_bank_marketing" title="fairlearn.datasets.fetch_bank_marketing"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_bank_marketing()</span></code></a> and
+<a class="reference internal" href="../../api_reference/generated/fairlearn.datasets.fetch_credit_card.html#fairlearn.datasets.fetch_credit_card" title="fairlearn.datasets.fetch_credit_card"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_credit_card()</span></code></a> now report the authoritative UCI
+column names (<code class="code docutils literal notranslate"><span class="pre">age</span></code>, <code class="code docutils literal notranslate"><span class="pre">job</span></code>, … and <code class="code docutils literal notranslate"><span class="pre">LIMIT_BAL</span></code>, <code class="code docutils literal notranslate"><span class="pre">SEX</span></code>, …)
+instead of passing through the placeholder names carried by the underlying OpenML
+records (<code class="code docutils literal notranslate"><span class="pre">V1</span></code> … <code class="code docutils literal notranslate"><span class="pre">V16</span></code> and <code class="code docutils literal notranslate"><span class="pre">x1</span></code> … <code class="code docutils literal notranslate"><span class="pre">x23</span></code>), so a sensitive
+feature can be selected by its documented name. The names are applied consistently to
+<code class="code docutils literal notranslate"><span class="pre">feature_names</span></code>, the <code class="code docutils literal notranslate"><span class="pre">data</span></code> and <code class="code docutils literal notranslate"><span class="pre">frame</span></code> DataFrame columns, and the
+<code class="code docutils literal notranslate"><span class="pre">return_X_y=True</span></code> result; categorical metadata keys in non-frame Bunches are
+remapped to match. Each returned Bunch has its own <code class="code docutils literal notranslate"><span class="pre">feature_names</span></code> list, so
+modifying it does not affect other results or later loads. Code that selects
+columns by the previous OpenML names will need
+updating; positional access, OpenML data IDs, targets, arrays, and dtypes are
+unchanged. The loaders now raise a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> rather than relabelling if a
+record’s column count ever stops matching: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1728">#1728</a> by <a class="reference external" href="https://github.com/breken-ai">&#64;breken-ai</a>.</p></li>
 <li><p>Preserved multi-column sensitive feature data in
 <a class="reference internal" href="../../api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" title="fairlearn.postprocessing.ThresholdOptimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">fairlearn.postprocessing.ThresholdOptimizer</span></code></a> data reformatting helpers:
 <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1679">#1679</a> by <a class="reference external" href="https://github.com/BALOGUN-DAVID">BALOGUN-DAVID</a>.</p></li>

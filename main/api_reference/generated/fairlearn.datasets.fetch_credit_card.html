@@ -594,7 +594,7 @@
 <h1>fairlearn.datasets.fetch_credit_card<a class="headerlink" href="#fairlearn-datasets-fetch-credit-card" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="fairlearn.datasets.fetch_credit_card">
-<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_credit_card</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/datasets/_fetch_credit_card.py#L11-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_credit_card" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fairlearn.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_credit_card</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/datasets/_fetch_credit_card.py#L29-L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.datasets.fetch_credit_card" title="Link to this definition">#</a></dt>
 <dd><p>Load the ‘Default of Credit Card clients’ dataset (binary classification).</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <tbody>
@@ -652,19 +652,31 @@ the data and the target.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
 <dt><strong>dataset</strong><span class="classifier">class:<cite>~sklearn.utils.Bunch</cite></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
-<dl class="simple">
+<dl>
 <dt>data<span class="classifier">NumPy Array or Pandas DataFrame, Shape (30000, 23)</span></dt><dd><p>Each row corresponds to the 23 feature values in order.
 If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a Pandas DataFrame</p>
 </dd>
 <dt>target<span class="classifier">NumPy Array or Pandas Series, Shape (30000,)</span></dt><dd><p>Each value represents whether an applicant defaulted on credit loan.
 If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">target</span></code> is a Pandas Series.</p>
 </dd>
-<dt>feature_names<span class="classifier">List of Strings, Length 23</span></dt><dd><p>Array of ordered feature names used in the dataset.</p>
+<dt>feature_names<span class="classifier">List of Strings, Length 23</span></dt><dd><p>The ordered UCI column names: <code class="docutils literal notranslate"><span class="pre">LIMIT_BAL</span></code>, <code class="docutils literal notranslate"><span class="pre">SEX</span></code>, <code class="docutils literal notranslate"><span class="pre">EDUCATION</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MARRIAGE</span></code>, <code class="docutils literal notranslate"><span class="pre">AGE</span></code>, <code class="docutils literal notranslate"><span class="pre">PAY_0</span></code>, <code class="docutils literal notranslate"><span class="pre">PAY_2</span></code> … <code class="docutils literal notranslate"><span class="pre">PAY_6</span></code>,
+<code class="docutils literal notranslate"><span class="pre">BILL_AMT1</span></code> … <code class="docutils literal notranslate"><span class="pre">BILL_AMT6</span></code>, <code class="docutils literal notranslate"><span class="pre">PAY_AMT1</span></code> … <code class="docutils literal notranslate"><span class="pre">PAY_AMT6</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True the same names are used for the <code class="docutils literal notranslate"><span class="pre">data</span></code>
+and <code class="docutils literal notranslate"><span class="pre">frame</span></code> columns, and for the <code class="docutils literal notranslate"><span class="pre">X</span></code> returned by
+<code class="docutils literal notranslate"><span class="pre">return_X_y=True</span></code>.
+Each returned Bunch has its own <code class="docutils literal notranslate"><span class="pre">feature_names</span></code> list.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.15.0: </span>Previously these were whatever names the underlying OpenML
+record carried, which are placeholders (<code class="docutils literal notranslate"><span class="pre">x1</span></code> … <code class="docutils literal notranslate"><span class="pre">x23</span></code>)
+rather than the UCI column names.</p>
+</div>
 </dd>
 <dt>DESCR<span class="classifier">string</span></dt><dd><p>Description of the UCI Default of Credit Card</p>
 </dd>
 <dt>categories<span class="classifier">dict or None</span></dt><dd><p>Maps each categorical feature name to a list of values, such that the
-value encoded as i is ith in the list. If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, this is None.</p>
+value encoded as i is ith in the list. If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, this is None.
+The keys use the UCI names listed under <code class="docutils literal notranslate"><span class="pre">feature_names</span></code>.</p>
 </dd>
 <dt>frame<span class="classifier">pandas DataFrame</span></dt><dd><p>Only present when <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True. DataFrame with <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
 </dd>
