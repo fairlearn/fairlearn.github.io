@@ -614,6 +614,25 @@ All of these will use the following definitions:</p>
 is constructed.
 The <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics.MetricFrame.html#fairlearn.metrics.MetricFrame.by_group" title="fairlearn.metrics.MetricFrame.by_group"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MetricFrame.by_group</span></code></a> property then holds the intersections
 of these groups:</p>
+<p>Each entry must be a scalar, non-floating value rather than a list or array.
+If a data source stores multiple dimensions in one list-valued column, split
+that column so each dimension has one scalar value per row:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Invalid: each entry in "dimensions" is a list.</span>
+<span class="n">invalid_sensitive_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"dimensions"</span><span class="p">:</span> <span class="p">[[</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="s2">"b"</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]}</span>
+<span class="p">)</span>
+
+<span class="c1"># Valid: each entry in "dimension1" and "dimension2" is a scalar.</span>
+<span class="n">valid_sensitive_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"dimension1"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
+        <span class="s2">"dimension2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_columns'</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
