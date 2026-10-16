@@ -30,6 +30,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
@@ -611,16 +612,14 @@ as much information as possible (as measured by the least-squares error).</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.12.0: </span>The estimator became fully <code class="code docutils literal notranslate"><span class="pre">scikit-learn</span></code> compatible.</p>
 </div>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>sensitive_feature_ids</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>list of columns to filter out this can be a sequence of
-either int, in the case of numpy, or string, in the case of pandas.</p>
-</dd>
-<dt><strong>alpha</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a></span></dt><dd><p>parameter to control how much to filter, for alpha=1.0 we filter out
-all information while for alpha=0.0 we don’t apply any.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensitive_feature_ids</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a></span>) – list of columns to filter out this can be a sequence of
+either int, in the case of numpy, or string, in the case of pandas.</p></li>
+<li><p><strong>alpha</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – parameter to control how much to filter, for alpha=1.0 we filter out
+all information while for alpha=0.0 we don’t apply any.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -662,29 +661,21 @@ Therefore, we expect this to be most appropriate as a preprocessing step for
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L117-L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.fit" title="Link to this definition">#</a></dt>
 <dd><p>Learn the projection required to make the dataset uncorrelated with sensitive columns.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)</span></dt><dd><p>The feature matrix. pandas DataFrame, Polars DataFrame, and PyArrow
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)) – The feature matrix. pandas DataFrame, Polars DataFrame, and PyArrow
 Table inputs are supported. Sensitive feature columns identified by
-<code class="docutils literal notranslate"><span class="pre">sensitive_feature_ids</span></code> must be present in <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
-</dd>
-<dt><strong>y</strong><span class="classifier">Ignored</span></dt><dd><p>Not used; present for API compatibility with scikit-learn.</p>
-</dd>
-</dl>
+<code class="docutils literal notranslate"><span class="pre">sensitive_feature_ids</span></code> must be present in <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
+<li><p><strong>y</strong> (<em>Ignored</em>) – Not used; present for API compatibility with scikit-learn.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>Fitted CorrelationRemover instance.</p>
-</dd>
-</dl>
+<dd class="field-even"><p><strong>self</strong> (object) – Fitted CorrelationRemover instance.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>ValueError</dt><dd><p>If the number of features in <code class="docutils literal notranslate"><span class="pre">X</span></code> differs from the number seen
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If the number of features in <code class="docutils literal notranslate"><span class="pre">X</span></code> differs from the number seen
 during a previous call to <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
-</dd>
-</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -695,23 +686,17 @@ during a previous call to <code class="docutils literal notranslate"><span class
 <dd><p>Fit to data, then transform it.</p>
 <p>Fits transformer to <cite>X</cite> and <cite>y</cite> with optional parameters <cite>fit_params</cite>
 and returns a transformed version of <cite>X</cite>.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)</span></dt><dd><p>Input samples.</p>
-</dd>
-<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples,) or (n_samples, n_outputs), default=None</span></dt><dd><p>Target values (None for unsupervised transformations).</p>
-</dd>
-<dt><strong>**fit_params</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Additional fit parameters.
-Pass only if the estimator accepts additional params in its <cite>fit</cite> method.</p>
-</dd>
-</dl>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)) – Input samples.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples,) or (n_samples, n_outputs), default=None) – Target values (None for unsupervised transformations).</p></li>
+<li><p><strong>**fit_params</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a>) – Additional fit parameters.
+Pass only if the estimator accepts additional params in its <cite>fit</cite> method.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt><strong>X_new</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a> <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> of shape (n_samples, n_features_new)</span></dt><dd><p>Transformed array.</p>
-</dd>
-</dl>
+<dd class="field-even"><p><strong>X_new</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a> <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> of shape (n_samples, n_features_new)) – Transformed array.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -722,28 +707,23 @@ Pass only if the estimator accepts additional params in its <cite>fit</cite> met
 <dd><p>Get output feature names for transformation.</p>
 <p>The sensitive feature columns are dropped, so the output contains the
 non-sensitive features in their input order.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>input_features</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>, default=None</span></dt><dd><p>Input feature names. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the column names seen during
+<dd class="field-odd"><p><strong>input_features</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>, default=None) – Input feature names. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the column names seen during
 <code class="docutils literal notranslate"><span class="pre">fit</span></code> are used, or <code class="docutils literal notranslate"><span class="pre">[&quot;x0&quot;,</span> <span class="pre">&quot;x1&quot;,</span> <span class="pre">...]</span></code> if <code class="docutils literal notranslate"><span class="pre">X</span></code> had no column
 names. If given, it must match the column names seen during <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
 </dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></dt><dd><p>The names of the transformed features.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The names of the transformed features.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>NotFittedError</dt><dd><p>If the estimator has not been fitted yet.</p>
-</dd>
-<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">input_features</span></code> does not match the features seen during <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
-</dd>
-</dl>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotFittedError</strong> – If the estimator has not been fitted yet.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">input_features</span></code> does not match the features seen during <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -756,11 +736,8 @@ names. If given, it must match the column names seen during <code class="docutil
 mechanism works.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>routing</strong><span class="classifier">MetadataRequest</span></dt><dd><p>A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.metadata_routing.MetadataRequest.html#sklearn.utils.metadata_routing.MetadataRequest" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataRequest</span></code></a> encapsulating
+<dd class="field-odd"><p><strong>routing</strong> (MetadataRequest) – A <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.metadata_routing.MetadataRequest.html#sklearn.utils.metadata_routing.MetadataRequest" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataRequest</span></code></a> encapsulating
 routing information.</p>
-</dd>
-</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -769,19 +746,13 @@ routing information.</p>
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.get_params">
 <span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/../../.pyenv/versions/3.12.15/lib/python3.12/site-packages/sklearn/base.py#L248-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.get_params" title="Link to this definition">#</a></dt>
 <dd><p>Get parameters for this estimator.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>deep</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><p>If True, will return the parameters for this estimator and
+<dd class="field-odd"><p><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True) – If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
 </dd>
-</dl>
-</dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Parameter names mapped to their values.</p>
-</dd>
-</dl>
+<dd class="field-even"><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a>) – Parameter names mapped to their values.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -793,27 +764,22 @@ contained subobjects that are estimators.</p>
 <p>Refer to the <a class="reference external" href="https://scikit-learn.org/stable/modules/df_output_transform.html#df-output-transform" title="(in scikit-learn v1.9)"><span class="xref std std-ref">user guide</span></a> for more details
 and <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py" title="(in scikit-learn v1.9)"><span>Introducing the set_output API</span></a> for an
 example on how to use the API.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>transform</strong><span class="classifier">{“default”, “pandas”, “polars”}, default=None</span></dt><dd><p>Configure output of <cite>transform</cite> and <cite>fit_transform</cite>.</p>
+<dd class="field-odd"><p><strong>transform</strong> (<em>{&quot;default&quot;</em><em>, </em><em>&quot;pandas&quot;</em><em>, </em><em>&quot;polars&quot;}</em><em>, </em><em>default=None</em>) – <p>Configure output of <cite>transform</cite> and <cite>fit_transform</cite>.</p>
 <ul class="simple">
-<li><p><cite>“default”</cite>: Default output format of a transformer</p></li>
-<li><p><cite>“pandas”</cite>: DataFrame output</p></li>
-<li><p><cite>“polars”</cite>: Polars output</p></li>
+<li><p><cite>”default”</cite>: Default output format of a transformer</p></li>
+<li><p><cite>”pandas”</cite>: DataFrame output</p></li>
+<li><p><cite>”polars”</cite>: Polars output</p></li>
 <li><p><cite>None</cite>: Transform configuration is unchanged</p></li>
 </ul>
 <div class="versionadded">
 <p><span class="versionmodified added">Added in version 1.4: </span><cite>“polars”</cite> option was added.</p>
 </div>
-</dd>
-</dl>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
-</dd>
-</dl>
+<dd class="field-even"><p><strong>self</strong> (estimator instance) – Estimator instance.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -826,18 +792,12 @@ example on how to use the API.</p>
 (such as <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
 parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s
 possible to update each component of a nested object.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>**params</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Estimator parameters.</p>
-</dd>
-</dl>
+<dd class="field-odd"><p><strong>**params</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a>) – Estimator parameters.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>self</strong><span class="classifier">estimator instance</span></dt><dd><p>Estimator instance.</p>
-</dd>
-</dl>
+<dd class="field-even"><p><strong>self</strong> (estimator instance) – Estimator instance.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -846,32 +806,27 @@ possible to update each component of a nested object.</p>
 <dt class="sig sig-object py" id="fairlearn.preprocessing.CorrelationRemover.transform">
 <span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/preprocessing/_correlation_remover.py#L165-L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.preprocessing.CorrelationRemover.transform" title="Link to this definition">#</a></dt>
 <dd><p>Transform X by applying the correlation remover.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>X</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)</span></dt><dd><p>The feature matrix to transform. pandas DataFrame, Polars DataFrame,
+<dd class="field-odd"><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a> of shape (n_samples, n_features)) – The feature matrix to transform. pandas DataFrame, Polars DataFrame,
 and PyArrow Table inputs are supported. Must have the same number of
 features as the <code class="docutils literal notranslate"><span class="pre">X</span></code> passed to <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
 </dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></dt><dd><p>The transformed feature matrix with sensitive correlations removed.
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The transformed feature matrix with sensitive correlations removed.
 The sensitive feature columns are dropped; non-sensitive columns
 are replaced by their residuals after projecting out the sensitive
 features, blended with the originals according to <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>NotFittedError</dt><dd><p>If the estimator has not been fitted yet.</p>
-</dd>
-<dt>ValueError</dt><dd><p>If the number of features in <code class="docutils literal notranslate"><span class="pre">X</span></code> differs from the number seen
-during <code class="docutils literal notranslate"><span class="pre">fit</span></code>, or named columns do not match the fitted column order.</p>
-</dd>
-</dl>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotFittedError</strong> – If the estimator has not been fitted yet.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If the number of features in <code class="docutils literal notranslate"><span class="pre">X</span></code> differs from the number seen
+during <code class="docutils literal notranslate"><span class="pre">fit</span></code>, or named columns do not match the fitted column order.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

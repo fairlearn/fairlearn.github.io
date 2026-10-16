@@ -30,6 +30,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
@@ -620,15 +621,13 @@ with Applications, 36(2), 2473-2480, 2009</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Added in version 0.9.0.</span></p>
 </div>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>cache</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><p>Whether to cache downloaded datasets using joblib</p>
-</dd>
-<dt><strong>data_home</strong><span class="classifier">optional, default: <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Specify another download and cache folder for the datasets. By default,
-all scikit-learn data is stored in ‘~/.fairlearn-data’ subfolders.</p>
-</dd>
-<dt><strong>as_frame</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><dl class="simple">
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True) – Whether to cache downloaded datasets using joblib</p></li>
+<li><p><strong>data_home</strong> (optional, default: <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a>) – Specify another download and cache folder for the datasets. By default,
+all scikit-learn data is stored in ‘~/.fairlearn-data’ subfolders.</p></li>
+<li><p><strong>as_frame</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True) – <dl class="simple">
 <dt>If True,</dt><dd><p>Returns the data as Pandas DataFrame, and the target
 is returned as a Pandas Series.</p>
 </dd>
@@ -639,19 +638,19 @@ the data and the target.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.9.0: </span>Default value changed to True.</p>
 </div>
-</dd>
-<dt><strong>return_X_y</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=False.</span></dt><dd><dl class="simple">
+</p></li>
+<li><p><strong>return_X_y</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=False.) – <dl class="simple">
 <dt>If True,</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">(data.data,</span> <span class="pre">data.target)</span></code></p>
 </dd>
 <dt>Else,</dt><dd><p>return Sci-kit Learn Bunch object</p>
 </dd>
 </dl>
-</dd>
-</dl>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt><strong>dataset</strong><span class="classifier">class:<cite>~sklearn.utils.Bunch</cite></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
+<dd class="field-even"><p><ul>
+<li><p><strong>dataset</strong> (class:<cite>~sklearn.utils.Bunch</cite>) – Dictionary-like object, with the following attributes.</p>
 <dl>
 <dt>data<span class="classifier">NumPy Array or Pandas DataFrame, Shape (30000, 23)</span></dt><dd><p>Each row corresponds to the 23 feature values in order.
 If <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True, <code class="docutils literal notranslate"><span class="pre">data</span></code> is a Pandas DataFrame</p>
@@ -681,9 +680,10 @@ The keys use the UCI names listed under <code class="docutils literal notranslat
 <dt>frame<span class="classifier">pandas DataFrame</span></dt><dd><p>Only present when <code class="docutils literal notranslate"><span class="pre">as_frame</span></code> is True. DataFrame with <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
 </dd>
 </dl>
-</dd>
-<dt><strong>(data, target)</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">tuple</span></code></a> if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#True" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a></span></dt><dd></dd>
-</dl>
+</li>
+<li><p><strong>(data, target)</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">tuple</span></code></a> if <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> is <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#True" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">True</span></code></a>)</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>

@@ -30,6 +30,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
@@ -616,40 +617,32 @@ consistent with <a class="reference internal" href="fairlearn.metrics.MetricFram
 instead of being included in the overall curve but skipped in
 per-group curves.</p>
 </div>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>y_true</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a></span></dt><dd><p>The ground-truth binary labels.</p>
-</dd>
-<dt><strong>y_score</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a></span></dt><dd><p>Target scores for the positive class, such as probability estimates
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_true</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a>) – The ground-truth binary labels.</p></li>
+<li><p><strong>y_score</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a>) – Target scores for the positive class, such as probability estimates
 returned by <code class="docutils literal notranslate"><span class="pre">predict_proba(X)[:,</span> <span class="pre">1]</span></code> or the output of
-<code class="docutils literal notranslate"><span class="pre">decision_function</span></code>.</p>
-</dd>
-<dt><strong>sensitive_features</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> of 1d arrays, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></span></dt><dd><p>The sensitive feature(s) used to define the subgroups. At least one
-sensitive feature must be provided.</p>
-</dd>
-<dt><strong>ax</strong><span class="classifier">matplotlib.axes.Axes, optional</span></dt><dd><p>The axes on which to draw. If not supplied, a new figure and axes are
-created.</p>
-</dd>
-<dt><strong>plot_overall</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><p>Whether to also plot the ROC curve computed over the entire dataset for
-comparison.</p>
-</dd>
-<dt><strong>plot_chance_level</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True</span></dt><dd><p>Whether to plot the chance-level (no-skill) diagonal that a random
-classifier would produce.</p>
-</dd>
-<dt><strong>pos_label</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>The label of the positive class. When <code class="docutils literal notranslate"><span class="pre">None</span></code>, the positive class is
+<code class="docutils literal notranslate"><span class="pre">decision_function</span></code>.</p></li>
+<li><p><strong>sensitive_features</strong> (<a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-array_like" title="(in NumPy v2.5)"><span>array_like</span></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> of 1d arrays, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) – The sensitive feature(s) used to define the subgroups. At least one
+sensitive feature must be provided.</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.11.2)"><em>matplotlib.axes.Axes</em></a><em>, </em><em>optional</em>) – The axes on which to draw. If not supplied, a new figure and axes are
+created.</p></li>
+<li><p><strong>plot_overall</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True) – Whether to also plot the ROC curve computed over the entire dataset for
+comparison.</p></li>
+<li><p><strong>plot_chance_level</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, default=True) – Whether to plot the chance-level (no-skill) diagonal that a random
+classifier would produce.</p></li>
+<li><p><strong>pos_label</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – The label of the positive class. When <code class="docutils literal notranslate"><span class="pre">None</span></code>, the positive class is
 inferred by scikit-learn (1 when the labels are in <code class="docutils literal notranslate"><span class="pre">{-1,</span> <span class="pre">1}</span></code> or
-<code class="docutils literal notranslate"><span class="pre">{0,</span> <span class="pre">1}</span></code>).</p>
+<code class="docutils literal notranslate"><span class="pre">{0,</span> <span class="pre">1}</span></code>).</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – The title to set on the axes, for example the name of the estimator.</p></li>
+</ul>
 </dd>
-<dt><strong>title</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>The title to set on the axes, for example the name of the estimator.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.11.2)">matplotlib.axes.Axes</a></p>
 </dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>matplotlib.axes.Axes</dt><dd><p>The axes on which the curves were drawn.</p>
-</dd>
-</dl>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The axes on which the curves were drawn.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>

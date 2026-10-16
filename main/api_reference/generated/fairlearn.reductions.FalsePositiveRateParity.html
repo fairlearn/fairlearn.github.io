@@ -30,6 +30,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
@@ -596,7 +597,7 @@
 <h1>fairlearn.reductions.FalsePositiveRateParity<a class="headerlink" href="#fairlearn-reductions-falsepositiverateparity" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">FalsePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L404-L452"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">fairlearn.reductions.</span></span><span class="sig-name descname"><span class="pre">FalsePositiveRateParity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">difference_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio_bound_slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L408-L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity" title="Link to this definition">#</a></dt>
 <dd><p>Implementation of false positive rate parity as a moment.</p>
 <p>Adds conditioning on label <cite>Y=0</cite> compared to demographic parity, i.e.,</p>
 <div class="math notranslate nohighlight">
@@ -618,26 +619,26 @@ but will use the weights equal to zero for <cite>Y=1</cite>.</p>
 stratify the data, with the constraint applied within
 each stratum, but not between strata.</p>
 <p>Read more in the <a class="reference internal" href="../../user_guide/mitigation/reductions.html#false-positive-rate-parity"><span class="std std-ref">User Guide</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.5.0.</span></p>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.bound">
-<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L234-L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.bound" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L236-L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.bound" title="Link to this definition">#</a></dt>
 <dd><p>Return bound vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></dt><dd><p>a vector of bound values corresponding to all constraints</p>
-</dd>
-</dl>
+<dd class="field-even"><p>a vector of bound values corresponding to all constraints</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.default_objective">
-<span class="sig-name descname"><span class="pre">default_objective</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L121-L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.default_objective" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">default_objective</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L123-L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.default_objective" title="Link to this definition">#</a></dt>
 <dd><p>Return the default objective for moments of this kind.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -648,7 +649,7 @@ each stratum, but not between strata.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.gamma">
-<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L223-L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.gamma" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictor</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L225-L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.gamma" title="Link to this definition">#</a></dt>
 <dd><p>Calculate the degree to which constraints are currently violated by the predictor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -659,18 +660,18 @@ each stratum, but not between strata.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L439-L452"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.load_data" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitive_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L444-L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.load_data" title="Link to this definition">#</a></dt>
 <dd><p>Load the specified data into the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></a></span></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.project_lambda">
-<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L245-L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.project_lambda" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">project_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L247-L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.project_lambda" title="Link to this definition">#</a></dt>
 <dd><p>Return the projected lambda values.</p>
 <p>i.e., returns lambda which is guaranteed to lead to the same or higher value of the
 Lagrangian compared with lambda_vec for all possible choices of the classifier, h.</p>
@@ -683,22 +684,19 @@ Lagrangian compared with lambda_vec for all possible choices of the classifier, 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="fairlearn.reductions.FalsePositiveRateParity.signed_weights">
-<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L277-L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.signed_weights" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">signed_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_vec</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/fairlearn/fairlearn/blob/main/fairlearn/reductions/_moments/utility_parity.py#L279-L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fairlearn.reductions.FalsePositiveRateParity.signed_weights" title="Link to this definition">#</a></dt>
 <dd><p>Compute the signed weights.</p>
 <p>Uses the equations for <span class="math notranslate nohighlight">\(C_i^0\)</span> and <span class="math notranslate nohighlight">\(C_i^1\)</span> as defined
 in Section 3.2 of Agarwal et al. (2018).
 in the ‘best response of the Q-player’ subsection to compute the
 signed weights to be applied to the data by the next call to the underlying
 estimator.</p>
-<dl class="field-list">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lambda_vec</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span>) – The vector of Lagrange multipliers indexed by <cite>index</cite></p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt><strong>lambda_vec</strong><span class="classifier"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code></a></span></dt><dd><p>The vector of Lagrange multipliers indexed by <cite>index</cite></p>
-</dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
