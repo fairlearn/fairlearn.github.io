@@ -606,6 +606,12 @@
 <section id="bug-fixes">
 <h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>Fixed <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.TruePositiveRateParity.html#fairlearn.reductions.TruePositiveRateParity" title="fairlearn.reductions.TruePositiveRateParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">TruePositiveRateParity</span></code></a> and
+<a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.FalsePositiveRateParity.html#fairlearn.reductions.FalsePositiveRateParity" title="fairlearn.reductions.FalsePositiveRateParity"><code class="xref py py-class docutils literal notranslate"><span class="pre">FalsePositiveRateParity</span></code></a> with <code class="code docutils literal notranslate"><span class="pre">control_features</span></code>.
+Rows with the other label (<code class="code docutils literal notranslate"><span class="pre">Y=0</span></code> and <code class="code docutils literal notranslate"><span class="pre">Y=1</span></code> respectively) were turned into
+events named <code class="code docutils literal notranslate"><span class="pre">control=&lt;value&gt;,nan</span></code>, so the moments also constrained the rate
+among those rows, and passing a control feature added a false (or true) positive rate
+parity constraint that the user did not ask for: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1747">#1747</a> by <a class="reference external" href="https://github.com/breken-ai">&#64;breken-ai</a>.</p></li>
 <li><p>Bootstrap confidence intervals in <a class="reference internal" href="../../api_reference/generated/fairlearn.metrics._plotter.plot_metric_frame.html#fairlearn.metrics._plotter.plot_metric_frame" title="fairlearn.metrics._plotter.plot_metric_frame"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_metric_frame()</span></code></a>
 are aligned with the plotted groups when a group is absent from all bootstrap
 samples. Such groups retain their metric values with unavailable intervals:
