@@ -919,7 +919,7 @@ to a cost-sensitive classification problem.</p>
 <span class="gp">... </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mitigator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_train</span><span class="p">)</span>
 <span class="go">ExponentiatedGradient(...)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">mitigator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span> <span class="o">=</span> <span class="n">MetricFrame</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="n">accuracy_score</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">sensitive_test</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mf_mitigated</span><span class="o">.</span><span class="n">overall</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 <span class="go">0.5151515151515151</span>
@@ -1141,7 +1141,17 @@ explore the Pareto front of models.</p>
 satisfy fairness constraints without needing access to sensitive features at deployment time.
 This algorithm creates a sequence of re-weighted datasets and retrains the
 wrapped classifier on each of these datasets.
-To instantiate an <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> model, we need to pass in a base estimator
+The learned solution is a probability distribution over these predictors,
+represented by the <code class="xref py py-attr docutils literal notranslate"><span class="pre">ExponentiatedGradient.predictors_</span></code> and
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ExponentiatedGradient.weights_</span></code> attributes. Consequently,
+<a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient.predict" title="fairlearn.reductions.ExponentiatedGradient.predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ExponentiatedGradient.predict()</span></code></a> is randomized, and repeated calls may
+return different labels. Pass <code class="docutils literal notranslate"><span class="pre">random_state</span></code> to <code class="docutils literal notranslate"><span class="pre">predict</span></code>, as shown below,
+to make evaluation and examples reproducible.</p>
+<p><a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> does not expose a <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> method.
+Averaging the wrapped estimators’ <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> outputs is not a supported
+equivalent to the learned randomized solution, which samples hard predictor
+outputs according to <code class="docutils literal notranslate"><span class="pre">weights_</span></code>.</p>
+<p>To instantiate an <a class="reference internal" href="../../api_reference/generated/fairlearn.reductions.ExponentiatedGradient.html#fairlearn.reductions.ExponentiatedGradient" title="fairlearn.reductions.ExponentiatedGradient"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExponentiatedGradient</span></code></a> model, we need to pass in a base estimator
 and fairness constraints. The fairness constraints are typically specified by providing
 an upper bound on the difference (or the ratio) between the largest and the smallest
 value of some statistic (like a false positive rate) across all groups. This bound is
@@ -1188,7 +1198,8 @@ often referred to as epsilon.</p>
 <span class="gp">... </span>        <span class="n">constraints</span><span class="o">=</span><span class="n">EqualizedOdds</span><span class="p">(</span><span class="n">difference_bound</span><span class="o">=</span><span class="n">eps</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="n">sample_weight_name</span><span class="o">=</span><span class="s2">"classifier__sample_weight"</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">exp_grad_est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sensitive_features</span><span class="o">=</span><span class="n">A_train</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">exp_grad_models</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ExpGrad (ε=</span><span class="si">{</span><span class="n">eps</span><span class="si">}</span><span class="s2">)"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_grad_est</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">exp_grad_models</span><span class="p">[</span><span class="sa">f</span><span class="s2">"ExpGrad (ε=</span><span class="si">{</span><span class="n">eps</span><span class="si">}</span><span class="s2">)"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_grad_est</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">X_test</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add the base model predictions</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">exp_grad_models</span><span class="p">[</span><span class="s2">"Base Model"</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_base</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the comparison</span>
@@ -1304,7 +1315,7 @@ and iterated over a range of potential values.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
   </p>
 </div>
       
