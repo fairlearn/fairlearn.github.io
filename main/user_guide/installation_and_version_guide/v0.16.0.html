@@ -606,6 +606,13 @@
 <section id="bug-fixes">
 <h2>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p>The mitigation techniques in <a class="reference internal" href="../../api_reference/index.html#module-fairlearn.reductions" title="fairlearn.reductions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.reductions</span></code></a>,
+<a class="reference internal" href="../../api_reference/index.html#module-fairlearn.postprocessing" title="fairlearn.postprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.postprocessing</span></code></a> and <a class="reference internal" href="../../api_reference/index.html#module-fairlearn.preprocessing" title="fairlearn.preprocessing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fairlearn.preprocessing</span></code></a> now raise
+a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> when <code class="code docutils literal notranslate"><span class="pre">sensitive_features</span></code> or
+<code class="code docutils literal notranslate"><span class="pre">control_features</span></code> contain missing values. Previously, a <code class="code docutils literal notranslate"><span class="pre">None</span></code>
+value was silently left out of the groups used by the reductions
+constraints: <a class="reference external" href="https://github.com/fairlearn/fairlearn/pull/1792">#1792</a> by
+<a class="reference external" href="https://github.com/SpiliosDimakopoulos">Spilios Dimakopoulos</a>.</p></li>
 <li><p><a class="reference internal" href="../../api_reference/generated/fairlearn.adversarial.AdversarialFairnessRegressor.html#fairlearn.adversarial.AdversarialFairnessRegressor" title="fairlearn.adversarial.AdversarialFairnessRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdversarialFairnessRegressor</span></code></a> and
 <a class="reference internal" href="../../api_reference/generated/fairlearn.adversarial.AdversarialFairnessRegressor.html#fairlearn.adversarial.AdversarialFairnessRegressor" title="fairlearn.adversarial.AdversarialFairnessRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdversarialFairnessRegressor</span></code></a> correctly passthrough
 target <code class="code docutils literal notranslate"><span class="pre">y</span></code>, respec., sensitive features <code class="code docutils literal notranslate"><span class="pre">A</span></code> passed to <code class="code docutils literal notranslate"><span class="pre">.fit</span></code> if
