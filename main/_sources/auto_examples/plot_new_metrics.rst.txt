@@ -287,7 +287,7 @@ new pipeline which includes an Estimator:
     unmitigated_predictor = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
-            ("classifier", LogisticRegression(solver="liblinear", fit_intercept=True)),
+            ("classifier", LogisticRegression(solver="lbfgs", fit_intercept=True)),
         ]
     )
 
@@ -355,8 +355,8 @@ We can evaluate these metrics directly:
 
  .. code-block:: none
 
-    Selection Rate: 0.1947041561454992
-    fbeta: 0.6827826864569057
+    Selection Rate: 0.19477240155599537
+    fbeta: 0.6822864028609189
 
 
 
@@ -431,8 +431,8 @@ same values calculated above:
 
  .. code-block:: none
 
-    selection_rate        0.194704
-    fbeta_06              0.682783
+    selection_rate        0.194772
+    fbeta_06              0.682286
     count             14653.000000
     dtype: float64
 
@@ -494,14 +494,14 @@ data points in each subgroup. In this case, we have results for males and female
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.06883</td>
-          <td>0.634014</td>
+          <td>0.068623</td>
+          <td>0.632607</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.25675</td>
-          <td>0.689789</td>
+          <td>0.256954</td>
+          <td>0.689406</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -610,13 +610,13 @@ column:
         <tr>
           <th>Other</th>
           <td>0.167630</td>
-          <td>0.693717</td>
+          <td>0.701600</td>
           <td>692.0</td>
         </tr>
         <tr>
           <th>White</th>
-          <td>0.210715</td>
-          <td>0.686081</td>
+          <td>0.210795</td>
+          <td>0.685181</td>
           <td>12524.0</td>
         </tr>
       </tbody>
@@ -703,8 +703,8 @@ We can inspect the overall values, and check they are as expected:
 
  .. code-block:: none
 
-    selection_rate        0.194494
-    fbeta_06              0.690305
+    selection_rate        0.194399
+    fbeta_06              0.682717
     count             14653.000000
     dtype: float64
 
@@ -761,14 +761,14 @@ We can also see the effect on the metric being evaluated on the subgroups:
       <tbody>
         <tr>
           <th>Female</th>
-          <td>0.071230</td>
-          <td>0.649698</td>
+          <td>0.064444</td>
+          <td>0.626483</td>
           <td>4838.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.254539</td>
-          <td>0.696250</td>
+          <td>0.258222</td>
+          <td>0.690343</td>
           <td>9815.0</td>
         </tr>
       </tbody>
@@ -842,8 +842,8 @@ For this, we provide the method ``difference(method='between_groups)``:
  .. code-block:: none
 
 
-    selection_rate        0.142518
-    fbeta_06              0.101591
+    selection_rate        0.142598
+    fbeta_06              0.109475
     count             11832.000000
     dtype: float64
 
@@ -870,8 +870,8 @@ result is always positive:
  .. code-block:: none
 
 
-    selection_rate        0.126507
-    fbeta_06              0.090657
+    selection_rate        0.126575
+    fbeta_06              0.090161
     count             13961.000000
     dtype: float64
 
@@ -898,8 +898,8 @@ We can take the ratios between the minimum and maximum values of each metric:
  .. code-block:: none
 
 
-    selection_rate    0.323648
-    fbeta_06          0.853555
+    selection_rate    0.323525
+    fbeta_06          0.843964
     count             0.055254
     dtype: float64
 
@@ -926,8 +926,8 @@ metric. Analogous to the differences, the ratios are always in the range
  .. code-block:: none
 
 
-    selection_rate    0.350263
-    fbeta_06          0.867223
+    selection_rate    0.350140
+    fbeta_06          0.867854
     count             0.047226
     dtype: float64
 
@@ -1036,27 +1036,27 @@ shows the intersections between subgroups:
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.070866</td>
-          <td>0.503704</td>
+          <td>0.066929</td>
+          <td>0.523077</td>
           <td>254.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.223744</td>
-          <td>0.728972</td>
+          <td>0.226027</td>
+          <td>0.733279</td>
           <td>438.0</td>
         </tr>
         <tr>
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.075433</td>
-          <td>0.642076</td>
+          <td>0.639075</td>
           <td>3871.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.271235</td>
-          <td>0.692069</td>
+          <td>0.271351</td>
+          <td>0.691453</td>
           <td>8653.0</td>
         </tr>
       </tbody>
@@ -1090,7 +1090,7 @@ fact):
 
 
     selection_rate      0.032258
-    fbeta_06            0.503704
+    fbeta_06            0.523077
     count             254.000000
     dtype: float64
 
@@ -1117,8 +1117,8 @@ the ``by_group`` table):
  .. code-block:: none
 
 
-    selection_rate    0.118930
-    fbeta_06          0.690978
+    selection_rate    0.118879
+    fbeta_06          0.713340
     count             0.029354
     dtype: float64
 
@@ -1218,14 +1218,14 @@ unique value of the control feature:
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.022924</td>
-          <td>0.549994</td>
+          <td>0.023061</td>
+          <td>0.552361</td>
           <td>7285.0</td>
         </tr>
         <tr>
           <th>Medium</th>
           <td>0.386924</td>
-          <td>0.695034</td>
+          <td>0.694308</td>
           <td>6898.0</td>
         </tr>
       </tbody>
@@ -1350,8 +1350,8 @@ The ``by_group`` property is similarly expanded:
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.037267</td>
-          <td>0.693878</td>
+          <td>0.043478</td>
+          <td>0.746082</td>
           <td>161.0</td>
         </tr>
         <tr>
@@ -1384,8 +1384,8 @@ The ``by_group`` property is similarly expanded:
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.238806</td>
-          <td>0.500000</td>
+          <td>0.223881</td>
+          <td>0.524085</td>
           <td>67.0</td>
         </tr>
         <tr>
@@ -1398,13 +1398,13 @@ The ``by_group`` property is similarly expanded:
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.373457</td>
-          <td>0.680881</td>
+          <td>0.676876</td>
           <td>648.0</td>
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.406108</td>
-          <td>0.700837</td>
+          <td>0.406290</td>
+          <td>0.700176</td>
           <td>5501.0</td>
         </tr>
       </tbody>
@@ -1478,7 +1478,7 @@ by the control feature:
         <tr>
           <th>Medium</th>
           <td>0.206897</td>
-          <td>0.500000</td>
+          <td>0.524085</td>
           <td>67.0</td>
         </tr>
       </tbody>
@@ -1544,14 +1544,14 @@ And:
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.188635</td>
-          <td>0.748092</td>
+          <td>0.161687</td>
+          <td>0.695747</td>
           <td>0.052239</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.509462</td>
-          <td>0.683007</td>
+          <td>0.509234</td>
+          <td>0.715907</td>
           <td>0.012180</td>
         </tr>
       </tbody>
@@ -1653,8 +1653,8 @@ The ``overall`` property now splits into more values:
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.071429</td>
-          <td>0.388325</td>
+          <td>0.073733</td>
+          <td>0.382261</td>
           <td>434.0</td>
         </tr>
         <tr>
@@ -1666,14 +1666,14 @@ The ``overall`` property now splits into more values:
         </tr>
         <tr>
           <th>Low</th>
-          <td>0.024176</td>
-          <td>0.549299</td>
+          <td>0.024322</td>
+          <td>0.551700</td>
           <td>6825.0</td>
         </tr>
         <tr>
           <th>Medium</th>
-          <td>0.408106</td>
-          <td>0.700288</td>
+          <td>0.407952</td>
+          <td>0.699739</td>
           <td>6464.0</td>
         </tr>
       </tbody>
@@ -1855,8 +1855,8 @@ indicate that there were no samples in the cell:
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.087087</td>
-          <td>0.420976</td>
+          <td>0.090090</td>
+          <td>0.413448</td>
           <td>333.0</td>
         </tr>
         <tr>
@@ -1923,8 +1923,8 @@ indicate that there were no samples in the cell:
         </tr>
         <tr>
           <th>Male</th>
-          <td>0.040816</td>
-          <td>0.715789</td>
+          <td>0.047619</td>
+          <td>0.767742</td>
           <td>147.0</td>
         </tr>
         <tr>
@@ -1957,8 +1957,8 @@ indicate that there were no samples in the cell:
         <tr>
           <th rowspan="2" valign="top">Other</th>
           <th>Female</th>
-          <td>0.258621</td>
-          <td>0.524085</td>
+          <td>0.241379</td>
+          <td>0.550607</td>
           <td>58.0</td>
         </tr>
         <tr>
@@ -1971,13 +1971,13 @@ indicate that there were no samples in the cell:
           <th rowspan="2" valign="top">White</th>
           <th>Female</th>
           <td>0.390323</td>
-          <td>0.682328</td>
+          <td>0.678314</td>
           <td>620.0</td>
         </tr>
         <tr>
           <th>Male</th>
           <td>0.426664</td>
-          <td>0.705861</td>
+          <td>0.705416</td>
           <td>5168.0</td>
         </tr>
       </tbody>
@@ -2104,15 +2104,15 @@ a :class:`pandas.Series`, but that has a similar
     Low,Black,Female,0.007029876977152899,0.6267281105990783,569.0
     Low,Black,Male,0.020512820512820513,0.56353591160221,390.0
     Low,Other,Female,0.012048192771084338,0.5190839694656488,166.0
-    Low,Other,Male,0.037267080745341616,0.6938775510204082,161.0
+    Low,Other,Male,0.043478260869565216,0.7460815047021944,161.0
     Low,White,Female,0.015083990401097017,0.5257731958762886,2917.0
     Low,White,Male,0.033419857235561325,0.5502497502497503,3082.0
     Medium,Black,Female,0.2111111111111111,0.6396526772793053,90.0
     Medium,Black,Male,0.20689655172413793,0.5775764439411097,319.0
-    Medium,Other,Female,0.23880597014925373,0.5,67.0
+    Medium,Other,Female,0.22388059701492538,0.5240847784200385,67.0
     Medium,Other,Male,0.336996336996337,0.7320574162679425,273.0
-    Medium,White,Female,0.3734567901234568,0.6808811402992107,648.0
-    Medium,White,Male,0.40610798036720597,0.700837357443748,5501.0
+    Medium,White,Female,0.3734567901234568,0.67687595712098,648.0
+    Medium,White,Male,0.4062897654971823,0.7001758913325372,5501.0
 
 
 
@@ -2137,9 +2137,9 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 18.414 seconds)
+   **Total running time of the script:** (0 minutes 18.552 seconds)
 
-**Estimated memory usage:**  159 MB
+**Estimated memory usage:**  128 MB
 
 
 .. _sphx_glr_download_auto_examples_plot_new_metrics.py:
