@@ -578,18 +578,20 @@ third-party types that should link, add a targeted intersphinx mapping and alias
 instructions on that page, and return to follow the further
 documentation specific guidelines.</p>
 <p>You may also need to install <a class="reference external" href="https://pandoc.org/installing.html">pandoc</a>,
-<a class="reference external" href="https://optipng.sourceforge.net">optipng</a>, and <code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+<a class="reference external" href="https://optipng.sourceforge.net">optipng</a>. Python dependencies, including
+<code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>, are provided by the <code class="code docutils literal notranslate"><span class="pre">docs</span></code> development group:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib&gt;<span class="o">=</span><span class="m">3</span>.2.1</span>
+</style><span class="prompt1">uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-default-groups<span class="w"> </span>--group<span class="w"> </span>docs</span>
 </pre></div></div><p>You can contribute updates to existing documentation by navigating to the
 relevant part of the repository (typically in the <cite>docs</cite> directory), and
 editing the restructured text files (<cite>.rst</cite>) corresponding to your updates.</p>
 <p>To build the webpage run the following command from the repository root
 directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>sphinx<span class="w"> </span>-v<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>-n<span class="w"> </span>-j<span class="w"> </span>auto<span class="w"> </span>docs<span class="w"> </span>docs/_build/html</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--no-default-groups<span class="w"> </span>--group<span class="w"> </span>docs<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>sphinx<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>-n<span class="w"> </span>-j<span class="w"> </span>auto<span class="w"> </span>docs<span class="w"> </span>docs/_build/html</span>
 </pre></div></div><p>or use the shortcut:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make<span class="w"> </span>doc</span>
 </pre></div></div><p>This will generate the website in the directory mentioned at the end of the

@@ -578,56 +578,64 @@ span.prompt1:before {
   content: "$ ";
 }
 </style><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>git@github.com:fairlearn/fairlearn.git</span>
-</pre></div></div><p>(Optional) Set up a virtual environment:</p>
-<blockquote>
-<div><p>While you can use <code class="code docutils literal notranslate"><span class="pre">pip</span></code> to install the fairlearn package globally, we strongly
-recommend developing using a virtual environment. Virtual environments are a great way
-to isolate project dependencies, especially if you’re working on multiple issues that
-require different versions of the package.</p>
-<p>To create a Python virtual environment using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>, make your virtual environment
-inside the fairlearn project directory. This will create a new <code class="code docutils literal notranslate"><span class="pre">fairlearn</span></code> folder
-and seed it with a <code class="code docutils literal notranslate"><span class="pre">python=3.12</span></code> environment. Then activate the virtual environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>fairlearn<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w">  </span><span class="c1"># creates virtual env</span></span>
-<span class="prompt1">conda<span class="w"> </span>activate<span class="w"> </span>fairlearn<span class="w"> </span><span class="c1"># activates virtual env</span></span>
-<span class="prompt1"><span class="o">(</span>fairlearn<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="c1"># notice the shell prompt includes name of active virtual env</span></span>
-</pre></div></div><p>If you see the name of the environment in the shell prompt,
-then the virtual environment is activated. To deactivate it, run: <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code>.</p>
-</div></blockquote>
-<p>To install in editable mode, from the repository root path run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.</span>
-</pre></div></div><p>To verify that the code works as expected run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>./scripts/install_requirements.py</span>
-<span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>./test/unit</span>
-</pre></div></div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If there is a <code class="code docutils literal notranslate"><span class="pre">torch</span></code> related error during the installation,
-please downgrade keep your <code class="code docutils literal notranslate"><span class="pre">python</span></code> version between 3.11-3.14.</p>
-</div>
-<p>Fairlearn currently includes plotting functionality provided by
-<code class="code docutils literal notranslate"><span class="pre">matplotlib</span></code>. This is for a niche use case, so it isn’t a default requirement. To install run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.</span>
-<span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>matplotlib</span>
-</pre></div></div><section id="the-requirements-files">
-<h3>The Requirements Files<a class="headerlink" href="#the-requirements-files" title="Link to this heading">#</a></h3>
+</pre></div></div><p>Install <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">uv</a>, then run
+from the repository root:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>sync<span class="w"> </span>--locked</span>
+</pre></div></div><p>This creates a project-local <code class="code docutils literal notranslate"><span class="pre">.venv</span></code>, installs Fairlearn in editable mode, and
+installs all development dependencies, including documentation dependencies. The
+checked-in <code class="code docutils literal notranslate"><span class="pre">.python-version</span></code> selects Python 3.13 by default; use
+<code class="code docutils literal notranslate"><span class="pre">--python</span> <span class="pre">3.11</span></code> (or another supported version) on both <code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code> to override it. Alternatively, set <code class="code docutils literal notranslate"><span class="pre">UV_PYTHON=3.11</span></code> for both commands.
+Each checkout or worktree has its own environment. No manual activation is required:
+<code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code> executes commands in that checkout’s environment.</p>
+<p>To verify that the code works as expected, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-s<span class="w"> </span>./test/unit</span>
+</pre></div></div><p>Matplotlib and the adversarial ML backends remain optional for end users. Development
+groups install Matplotlib and Torch for tests and examples; they are not added to
+Fairlearn’s published runtime requirements.</p>
+<section id="dependencies-and-the-development-lockfile">
+<h3>Dependencies and the development lockfile<a class="headerlink" href="#dependencies-and-the-development-lockfile" title="Link to this heading">#</a></h3>
 <p>Fairlearn’s runtime dependencies (the packages required to actually use Fairlearn)
 are declared in the <code class="docutils literal notranslate"><span class="pre">[project]</span> <span class="pre">dependencies</span></code> table of
 <a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/pyproject.toml">pyproject.toml</a> and
-are installed automatically when you run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> (or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>).</p>
-<p>Development dependencies are tracked in two additional files:</p>
+are installed automatically by <code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> or a regular package installation.</p>
+<p>The same file declares development-only dependency groups:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-dev.txt">requirements-dev.txt</a>
-contains the prerequisites for Fairlearn development (such as <code class="code docutils literal notranslate"><span class="pre">ruff</span></code>, <code class="code docutils literal notranslate"><span class="pre">pytest</span></code>,
-and the Sphinx documentation toolchain).</p></li>
-<li><p><a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/requirements-min.txt">requirements-min.txt</a>
-pins both runtime and development dependencies to the minimum supported versions
-and is used in CI to test against the oldest combination of dependencies we claim to support.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tests</span></code> contains pytest, plotting, and dataframe-backend test dependencies.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">docs</span></code> contains the documentation toolchain and includes the test dependencies
+needed by examples.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tooling</span></code> contains Ruff, the build frontend, and pre-commit.</p></li>
+<li><p>The default <code class="code docutils literal notranslate"><span class="pre">dev</span></code> group includes all three.</p></li>
 </ul>
-<p>To install the unpinned development dependencies, run the
-<a class="reference external" href="https://github.com/fairlearn/fairlearn/blob/main/scripts/install_requirements.py">install_requirements.py</a>
-helper script:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>./scripts/install_requirements.py</span>
-</pre></div></div><p>Pass <code class="code docutils literal notranslate"><span class="pre">--min</span></code> to install the pinned minimum-version set from <code class="code docutils literal notranslate"><span class="pre">requirements-min.txt</span></code>
-instead.</p>
+<p>For a smaller environment, select the groups explicitly in both installation and
+execution commands. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--no-default-groups<span class="w"> </span>--group<span class="w"> </span>tests</span>
+<span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--no-default-groups<span class="w"> </span>--group<span class="w"> </span>tests<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>./test/unit</span>
+</pre></div></div><p>Omitting the group-selection flags from <code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code> restores the default development
+groups. The committed <code class="code docutils literal notranslate"><span class="pre">uv.lock</span></code> resolves all groups together, even when only some
+are installed. <code class="code docutils literal notranslate"><span class="pre">--locked</span></code> fails if the manifest and lockfile disagree instead of
+silently changing the lock.</p>
+<p>When changing dependencies, edit the appropriate group in <code class="code docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, run
+<code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">lock</span></code>, and commit both files. To intentionally update locked dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>lock<span class="w"> </span>--upgrade</span>
+<span class="prompt1">uv<span class="w"> </span>lock<span class="w"> </span>--upgrade-package<span class="w"> </span>PACKAGE_NAME</span>
+</pre></div></div><p>Use the second command for a targeted update, rather than running both. The development
+lockfile is not a runtime constraint for package users or compatibility tests.</p>
+</section>
+<section id="compatibility-environments">
+<h3>Compatibility environments<a class="headerlink" href="#compatibility-environments" title="Link to this heading">#</a></h3>
+<p>Latest, minimum, minimal-installation, and scikit-learn nightly CI environments resolve
+independently of <code class="code docutils literal notranslate"><span class="pre">uv.lock</span></code>. Use a separate environment and <code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span></code> to reproduce
+them; do not use project-mode <code class="code docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code>, which can restore locked dependencies.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.11<span class="w"> </span>.venv-compat</span>
+<span class="prompt1">uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--python<span class="w"> </span>.venv-compat<span class="w"> </span>.<span class="w"> </span>--group<span class="w"> </span>tests<span class="w"> </span>-r<span class="w"> </span>requirements-min.txt</span>
+<span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>--no-project<span class="w"> </span>--python<span class="w"> </span>.venv-compat<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>narwhals<span class="w"> </span>./test/unit</span>
+</pre></div></div><p><code class="code docutils literal notranslate"><span class="pre">requirements-min.txt</span></code> pins all runtime requirements and selected development
+requirements. The minimum matrix uses Python 3.11, not newer Python versions whose
+wheels may require newer dependencies. Optional-backend compatibility bounds in that
+file are not claims about the oldest supported backend versions. Latest tests omit
+<code class="code docutils literal notranslate"><span class="pre">-r</span> <span class="pre">requirements-min.txt</span></code>; minimal-installation tests install only Fairlearn,
+pytest, and pytest-cov, without the <code class="code docutils literal notranslate"><span class="pre">tests</span></code> group.</p>
 </section>
 </section>
 <section id="contributing-a-pull-request">
@@ -689,8 +697,7 @@ upstream        git@github.com:fairlearn/fairlearn.git (push)
 </div>
 </li>
 <li><p>(Optional) Install <a class="reference external" href="https://pre-commit.com/#install">pre-commit</a> to run code style checks before each commit:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip<span class="w"> </span>install<span class="w"> </span>pre-commit</span>
-<span class="prompt1">pre-commit<span class="w"> </span>install</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>pre-commit<span class="w"> </span>install</span>
 </pre></div></div><p>Pre-commit checks can be disabled for a particular commit with <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-n</span></code>.</p>
 </li>
 <li><p>To contribute, you will need to create a branch on your forked repository and make a pull request to the original fairlearn repository.
@@ -753,7 +760,8 @@ the command to execute the tests (usually starting with
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-instructions">Installation instructions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-requirements-files">The Requirements Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies-and-the-development-lockfile">Dependencies and the development lockfile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compatibility-environments">Compatibility environments</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-a-pull-request">Contributing a pull request</a></li>
