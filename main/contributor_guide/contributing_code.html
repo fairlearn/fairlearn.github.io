@@ -559,6 +559,57 @@ paradigm would first require thorough discussion with maintainers.</p>
 <h2>Code Style<a class="headerlink" href="#code-style" title="Link to this heading">#</a></h2>
 <p>View the <a class="reference internal" href="code_style.html#code-style"><span class="std std-ref">Code Style</span></a> section for an overview of the style we expect for contributed code.</p>
 </section>
+<section id="coverage-reporting">
+<h2>Coverage reporting<a class="headerlink" href="#coverage-reporting" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">build-test</span></code> workflow collects line coverage from the selected Python
+versions on Linux, Windows, and macOS, including the minimum-version,
+install-only, and other-ML suites. The <code class="docutils literal notranslate"><span class="pre">coverage</span></code> job requires the complete
+set of raw coverage artifacts before combining them and uploading one report
+to Codecov under the <code class="docutils literal notranslate"><span class="pre">unittests</span></code> flag. A missing artifact, failed test suite,
+or upload error prevents a successful report. Each artifact identifies its
+suite, operating system, and Python version; the combined report also includes
+JSON totals. Reruns replace their artifacts, and reports are not skipped based
+on the age of the commit. Nightly runs retain artifacts without uploading to
+the canonical Codecov report.</p>
+<p>The initial Codecov policy is informational, not a required merge check:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">codecov/project/line-floor</span></code> has an absolute 95% line-coverage target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codecov/project/non-regression</span></code> compares coverage against the base commit
+with no allowed decrease. The absolute floor alone would permit regressions
+from higher coverage.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codecov/patch</span></code> has a 90% target for changed executable lines.</p></li>
+</ul>
+<p>All targets have zero tolerance. Informational statuses do not block merges,
+even when a target is missed. Missing coverage is not carried forward from
+earlier commits. The initial main baseline was 95.02% (3,172 of 3,338 lines);
+the new aggregate must be verified against a comparable main report before
+these checks can become enforcing. Codecov may merge uploads from repeated
+runs on the same commit, so use the per-run artifacts to diagnose freshness.
+Fork PR uploads, old-commit reruns, comparison bases (including release
+branches), and final notification timing must also be verified before making
+any external coverage status required. Upload acceptance is not proof that
+Codecov has finished processing the report.</p>
+<p>For local line coverage, install the development test requirements and use
+the non-interactive <code class="docutils literal notranslate"><span class="pre">Agg</span></code> backend (<code class="docutils literal notranslate"><span class="pre">MPLBACKEND=Agg</span></code>), as in CI. Run the
+existing test selection with pytest-cov:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">uv run --with pytest-cov pytest --mpl --mpl-baseline-path=test/unit/plot_snapshots --ignore=test/install -m "not openml" --cov=fairlearn --cov-report=term-missing test/</span>
+</pre></div>
+</div>
+<p>To measure a branch baseline, manually dispatch <code class="docutils literal notranslate"><span class="pre">build-test</span></code> with the
+<code class="docutils literal notranslate"><span class="pre">branch_coverage</span></code> input enabled. The extra Ubuntu/Python 3.13 full-suite job
+adds <code class="docutils literal notranslate"><span class="pre">--cov-branch</span></code> and retains a separate <code class="docutils literal notranslate"><span class="pre">coverage-branch-full-*</span></code>
+artifact containing raw data, XML, and JSON. It does not upload branch results
+to Codecov or enforce a coverage percentage. The usual line report is
+unchanged. The JSON report records covered and missing lines and branches;
+its overall percentage includes both kinds of execution opportunities.</p>
+<p>This single-suite branch measurement is diagnostic, not a full-matrix
+baseline. Before migrating the aggregate to branch coverage, all contributing
+suites must collect branches consistently, and a new main baseline and target
+must be established. The 95% line floor must not be reused for a different
+metric. In particular, the small <code class="docutils literal notranslate"><span class="pre">test/install</span></code> suite contributes to the
+aggregate but has no independent full-library floor. Do not add a global
+<code class="docutils literal notranslate"><span class="pre">--cov-fail-under</span></code> to shared pytest settings.</p>
+</section>
 <section id="api-conventions">
 <h2>API conventions<a class="headerlink" href="#api-conventions" title="Link to this heading">#</a></h2>
 <p>This section relies on the definitions from our <a class="reference internal" href="../user_guide/fairness_in_machine_learning.html#terminology"><span class="std std-ref">Fairness in Machine Learning</span></a> guide,
@@ -644,6 +695,7 @@ optional if the sensitive features are already provided through <code class="cod
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-advice">General advice</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-style">Code Style</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-reporting">Coverage reporting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-conventions">API conventions</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unfairness-mitigation-algorithms">Unfairness mitigation algorithms</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reductions">Reductions</a></li>
